@@ -1,172 +1,206 @@
 import json
+import math
 from ortools.sat.python import cp_model
 
 # ==========================================
-# 1. CHARGEMENT DES FICHIERS JSON
+# 1. CHARGEMENT DES DONNÉES
 # ==========================================
 
 def load_data():
-    try:
-        with open('class.json', 'r', encoding='utf-8') as f:
-            rooms_data = json.load(f)
-        
-        with open('filier.json', 'r', encoding='utf-8') as f:
-            filieres_data = json.load(f)
-            
-        return rooms_data, filieres_data
-    except FileNotFoundError as e:
-        print(f"Erreur : Le fichier n'a pas été trouvé ({e}). Vérifiez qu'ils sont dans le dossier.")
-        exit()
+    with open('class.json', 'r', encoding='utf-8') as f:
+        rooms = json.load(f)
+    with open('filier.json', 'r', encoding='utf-8') as f:
+        filieres = json.load(f)
+    return rooms, filieres
 
-rooms_data, filieres_data_raw = load_data()
+rooms_data, raw_data = load_data()
 
-# ==========================================
-# 2. PRÉPARATION DES DONNÉES
-# ==========================================
-
-# Configuration
-BUFFER = 4  # Places vides obligatoires par salle
-# On trie les salles par capacité décroissante (Stratégie: Grandes salles d'abord)
+BUFFER = 4
 rooms_data.sort(key=lambda x: x['CapaciteTotal'], reverse=True)
 
-# Calcul de la capacité maximale utilisable (la plus grande salle - buffer)
-MAX_ROOM_CAPACITY = max(r['CapaciteTotal'] for r in rooms_data)
-SAFE_MAX_CAP = MAX_ROOM_CAPACITY - BUFFER 
+MAX_CAPACITY = max(r['CapaciteTotal'] for r in rooms_data) - BUFFER
 
-groups = []
+groups_matin = []
+groups_apres_midi = []
 group_id_counter = 0
 
-def create_groups(filiere_name, count, category):
-    """Découpe une grande filière en sous-groupes qui rentrent dans les salles."""
+
+# ==========================================
+# 2. DÉCOUPAGE OBLIGATOIRE DES FILIÈRES
+# ==========================================
+
+def split_into_groups(name, count, category, session_list):
     global group_id_counter
-    remaining = count
-    part = 1
-    
-    while remaining > 0:
-        # On crée un groupe de la taille max possible (SAFE_MAX_CAP) ou le reste
-        size = min(remaining, SAFE_MAX_CAP)
-        
-        groups.append({
+
+    # Taille cible raisonnable (peut être ajustée)
+    TARGET_SIZE = min(30, MAX_CAPACITY)
+
+    # Toujours au moins 2 groupes
+    num_groups = max(2, math.ceil(count / TARGET_SIZE))
+
+    # Répartition équilibrée
+    base_size = count // num_groups
+    remainder = count % num_groups
+
+    for i in range(num_groups):
+        size = base_size + (1 if i < remainder else 0)
+
+        session_list.append({
             'id': group_id_counter,
-            'name': f"{filiere_name}_G{part}", # Nom unique (ex: L_EEA_G1)
-            'type': filiere_name,              # Type original pour la contrainte "Max 2 types"
-            'category': category,              # Ex: 1ere_annee
-            'size': size
+            'name': f"{name}_G{i+1}",
+            'type': name,
+            'size': size,
+            'category': category
         })
-        
-        remaining -= size
-        part += 1
+
         group_id_counter += 1
 
-# Parcours du JSON complexe (Années -> Filières/Programmes)
-print("Traitement des filières...")
-if 'annees' in filieres_data_raw:
-    for niveau, data in filieres_data_raw['annees'].items():
-        # Gestion des cas "filieres" (Licence/Prépa) et "programmes" (Master)
-        sub_dict = data.get('filieres') or data.get('programmes')
-        
-        if sub_dict:
-            for nom_filiere, nombre_etudiants in sub_dict.items():
-                create_groups(nom_filiere, nombre_etudiants, niveau)
-
-print(f"Total Salles disponibles : {len(rooms_data)}")
-print(f"Total Groupes à placer : {len(groups)}")
 
 # ==========================================
-# 3. MODÉLISATION OR-TOOLS
+# 3. SÉPARATION DES SESSIONS
 # ==========================================
 
-model = cp_model.CpModel()
+for niveau, data in raw_data['annees'].items():
+    sub_dict = data.get('filieres') or data.get('programmes')
+    if not sub_dict:
+        continue
 
-# --- Variables ---
-# x[(groupe_id, salle_idx)] : booléen, le groupe est-il dans cette salle ?
-x = {}
-for g in groups:
-    for r_idx, r in enumerate(rooms_data):
-        x[(g['id'], r_idx)] = model.NewBoolVar(f"x_{g['id']}_{r_idx}")
+    for nom, effectif in sub_dict.items():
 
-# type_present[(type_filiere, salle_idx)] : booléen, ce type de filière est-il dans la salle ?
-unique_types = list(set(g['type'] for g in groups))
-type_present = {}
-for t in unique_types:
-    for r_idx, r in enumerate(rooms_data):
-        type_present[(t, r_idx)] = model.NewBoolVar(f"type_{t}_{r_idx}")
+        if "Ingenieur" in nom or "Cycle_Preparatoire" in nom or niveau == "master":
+            split_into_groups(nom, effectif, niveau, groups_matin)
+        else:
+            split_into_groups(nom, effectif, niveau, groups_apres_midi)
 
-# --- Contraintes ---
 
-# C1. Chaque groupe doit être assigné à une seule salle
-for g in groups:
-    model.Add(sum(x[(g['id'], r_idx)] for r_idx in range(len(rooms_data))) == 1)
+# ==========================================
+# 4. MODÈLE OR-TOOLS
+# ==========================================
+def solve_session(session_name, groups, rooms):
 
-# C2. Capacité des salles (avec Buffer de 4 places vides)
-for r_idx, r in enumerate(rooms_data):
-    salle_cap = r['CapaciteTotal']
-    # Somme des étudiants dans la salle <= Capacité - 4
-    model.Add(
-        sum(x[(g['id'], r_idx)] * g['size'] for g in groups) <= (salle_cap - BUFFER)
+    if not groups:
+        print(f"\nAucun groupe pour {session_name}")
+        return
+
+    model = cp_model.CpModel()
+
+    # Variables d'affectation
+    x = {}
+    for g in groups:
+        for r_idx, r in enumerate(rooms):
+            x[(g['id'], r_idx)] = model.NewBoolVar(f"x_{g['id']}_{r_idx}")
+
+    unique_types = list(set(g['type'] for g in groups))
+    type_present = {}
+
+    for t in unique_types:
+        for r_idx in range(len(rooms)):
+            type_present[(t, r_idx)] = model.NewBoolVar(f"tp_{t}_{r_idx}")
+
+    # Contraintes
+    for g in groups:
+        model.Add(sum(x[(g['id'], r_idx)] for r_idx in range(len(rooms))) == 1)
+
+    for r_idx, r in enumerate(rooms):
+        model.Add(
+            sum(x[(g['id'], r_idx)] * g['size'] for g in groups)
+            <= (r['CapaciteTotal'] - BUFFER)
+        )
+
+        for t in unique_types:
+            g_of_type = [g for g in groups if g['type'] == t]
+            vars_in_room = [x[(g['id'], r_idx)] for g in g_of_type]
+
+            if vars_in_room:
+                model.AddMaxEquality(type_present[(t, r_idx)], vars_in_room)
+            else:
+                model.Add(type_present[(t, r_idx)] == 0)
+
+        model.Add(sum(type_present[(t, r_idx)] for t in unique_types) <= 2)
+
+    # Objectif
+    model.Maximize(
+        sum(
+            x[(g['id'], r_idx)] * g['size'] * r['CapaciteTotal']
+            for g in groups
+            for r_idx, r in enumerate(rooms)
+        )
     )
 
-# C3. Liaison : Si un groupe est dans une salle, son "Type" est marqué présent
-for r_idx in range(len(rooms_data)):
-    for t in unique_types:
-        groups_of_this_type = [g for g in groups if g['type'] == t]
-        vars_in_room = [x[(g['id'], r_idx)] for g in groups_of_this_type]
-        
-        if vars_in_room:
-            # Si au moins un groupe de ce type est présent, type_present = 1
-            model.AddMaxEquality(type_present[(t, r_idx)], vars_in_room)
-        else:
-            model.Add(type_present[(t, r_idx)] == 0)
+    solver = cp_model.CpSolver()
+    solver.parameters.max_time_in_seconds = 60
+    status = solver.Solve(model)
 
-# C4. Mélange : Maximum 2 types de filières différents par salle
-for r_idx in range(len(rooms_data)):
-    model.Add(sum(type_present[(t, r_idx)] for t in unique_types) <= 2)
+    print("\n" + "=" * 70)
+    print(f"SESSION : {session_name.upper()}")
+    print("=" * 70)
 
-# --- Objectif ---
-# Maximiser l'occupation intelligente : (Taille Groupe * Capacité Salle)
-# Cela force les gros groupes vers les grosses salles
-objective_terms = []
-for g in groups:
-    for r_idx, r in enumerate(rooms_data):
-        weight = g['size'] * r['CapaciteTotal']
-        objective_terms.append(x[(g['id'], r_idx)] * weight)
+    if status not in [cp_model.OPTIMAL, cp_model.FEASIBLE]:
+        print("Aucune solution trouvée.")
+        return
 
-model.Maximize(sum(objective_terms))
+    total_students = 0
+    total_capacity_used = 0
+
+    room_results = []
+
+    for r_idx, r in enumerate(rooms):
+
+        assigned = [
+            g for g in groups
+            if solver.Value(x[(g['id'], r_idx)]) == 1
+        ]
+
+        if assigned:
+            total = sum(g['size'] for g in assigned)
+            capacity = r['CapaciteTotal'] - BUFFER
+            occupancy = (total / capacity) * 100
+            wasted = capacity - total
+
+            room_results.append({
+                "room": r['Salle'],
+                "capacity": capacity,
+                "total": total,
+                "occupancy": occupancy,
+                "wasted": wasted,
+                "groups": assigned
+            })
+
+            total_students += total
+            total_capacity_used += capacity
+
+    # Trier par taux de remplissage décroissant
+    room_results.sort(key=lambda x: x['occupancy'], reverse=True)
+
+    # Affichage détaillé
+    for room in room_results:
+        print(f"\nSalle : {room['room']}")
+        print(f"  Occupation : {room['total']} / {room['capacity']} "
+              f"({room['occupancy']:.1f}%)")
+        print(f"  Places inutilisées : {room['wasted']}")
+
+        print("  Groupes :")
+        for g in room['groups']:
+            print(f"    - {g['name']} ({g['size']} étudiants)")
+
+    # Statistiques globales
+    global_occupancy = (total_students / total_capacity_used) * 100
+
+    print("\n" + "-" * 70)
+    print("STATISTIQUES GLOBALES")
+    print("-" * 70)
+    print(f"Total étudiants placés : {total_students}")
+    print(f"Capacité totale utilisée : {total_capacity_used}")
+    print(f"Taux global d’occupation : {global_occupancy:.2f}%")
+    print("=" * 70)
+
 
 # ==========================================
-# 4. RÉSOLUTION ET AFFICHAGE
+# 5. EXÉCUTION
 # ==========================================
-print("\nRecherche de la solution optimale...\n")
-solver = cp_model.CpSolver()
-# Optionnel : définir une limite de temps si c'est trop long
-# solver.parameters.max_time_in_seconds = 30.0 
 
-status = solver.Solve(model)
+print(f"Effectif Matin : {sum(g['size'] for g in groups_matin)} étudiants")
+print(f"Effectif Après-midi : {sum(g['size'] for g in groups_apres_midi)} étudiants")
 
-if status == cp_model.OPTIMAL or status == cp_model.FEASIBLE:
-    print(f"Solution trouvée ! (Status: {solver.StatusName(status)})")
-    print("-" * 60)
-    
-    # Organisation de l'affichage
-    schedule = {r['Salle']: {'groups': [], 'total': 0, 'cap': r['CapaciteTotal']} for r in rooms_data}
-    
-    for r_idx, r in enumerate(rooms_data):
-        for g in groups:
-            if solver.Value(x[(g['id'], r_idx)]) == 1:
-                schedule[r['Salle']]['groups'].append(g)
-                schedule[r['Salle']]['total'] += g['size']
-
-    # Affichage propre
-    for salle_nom, data in schedule.items():
-        if data['total'] > 0:
-            libre = data['cap'] - data['total']
-            types_in_room = set(g['type'] for g in data['groups'])
-            
-            print(f"SALLE {salle_nom} [Cap: {data['cap']} | Occupé: {data['total']} | Libre: {libre}]")
-            print(f"  > Filières ({len(types_in_room)} types): {', '.join(types_in_room)}")
-            for g in data['groups']:
-                print(f"    - {g['name']} : {g['size']} étudiants ({g['category']})")
-            print("-" * 30)
-            
-else:
-    print("Aucune solution trouvée. Essayez de réduire le 'BUFFER' ou d'ajouter des salles.")
+solve_session("Matin (Ingénieurs + Prépa + Masters)", groups_matin, rooms_data)
+solve_session("Après-midi (Licences)", groups_apres_midi, rooms_data)
