@@ -1,568 +1,1674 @@
 {
   "ISI": {
     "SE1": [
-      {"matiere": "Systèmes Logiques", "enseignant": "BDIRI GABBOUJ Houda"},
-      {"matiere": "Analyse 1", "enseignant": "MAHMOUDI Nejib"},
-      {"matiere": "Système d'exploitation 1", "enseignant": "MAHMOUD Rihem"},
-      {"matiere": "Techniques de communication 1", "enseignant": "TRIMECH GHDIRA Elhem"},
-      {"matiere": "Algèbre 1", "enseignant": "ZERGANE Amel"},
-      {"matiere": "Anglais 1", "enseignant": "MALKI Wahid"},
-      {"matiere": "Propagation et rayonnement", "enseignant": "BOUFADEN Tarek"},
-      {"matiere": "Algorithmique et structure des données", "enseignant": "BLAYECH Hayfa"},
-      {"matiere": "Atelier Programmation 1", "enseignant": "BLAYECH Hayfa"},
-      {"matiere": "Electricité Electronique", "enseignant": "SAIDI Faouzi"}
+      {
+        "matiere": "Systèmes Logiques",
+        "enseignant": "BDIRI GABBOUJ Houda"
+      },
+      {
+        "matiere": "Analyse 1",
+        "enseignant": "MAHMOUDI Nejib"
+      },
+      {
+        "matiere": "Système d'exploitation 1",
+        "enseignant": "MAHMOUD Rihem"
+      },
+      {
+        "matiere": "Techniques de communication 1",
+        "enseignant": "TRIMECH GHDIRA Elhem"
+      },
+      {
+        "matiere": "Algèbre 1",
+        "enseignant": "ZERGANE Amel"
+      },
+      {
+        "matiere": "Anglais 1",
+        "enseignant": "MALKI Wahid"
+      },
+      {
+        "matiere": "Propagation et rayonnement",
+        "enseignant": "BOUFADEN Tarek"
+      },
+      {
+        "matiere": "Algorithmique et structure des données",
+        "enseignant": "BLAYECH Hayfa"
+      },
+      {
+        "matiere": "Atelier Programmation 1",
+        "enseignant": "BLAYECH Hayfa"
+      },
+      {
+        "matiere": "Electricité Electronique",
+        "enseignant": "SAIDI Faouzi"
+      }
+    ],
+    "SE3": [
+      {
+        "matiere": "Automate",
+        "enseignant": "MATHLOUTHI Houda"
+      },
+      {
+        "matiere": "Programmation Python",
+        "enseignant": "AMMAR Emna"
+      },
+      {
+        "matiere": "Technologies Multimédia",
+        "enseignant": "SAYAHI Ikbel"
+      },
+      {
+        "matiere": "Anglais 3",
+        "enseignant": "MALKI Wahid"
+      },
+      {
+        "matiere": "Graphes et optimisation",
+        "enseignant": "SABRI Houssem"
+      },
+      {
+        "matiere": "Architectures Avancées des Processeurs",
+        "enseignant": "SOUISSI Werda Imen"
+      },
+      {
+        "matiere": "Programmation orientée objet",
+        "enseignant": "FOURATI Farah"
+      },
+      {
+        "matiere": "Méthodologie de Conception de logiciel",
+        "enseignant": "WALI Wafa"
+      },
+      {
+        "matiere": "Probabilité Statistique",
+        "enseignant": "JDAY Rim"
+      },
+      {
+        "matiere": "Gestion d'entreprise",
+        "enseignant": "BEN SLIMANE Ichrak"
+      },
+      {
+        "matiere": "Fondements des Bases de données",
+        "enseignant": "BEN NJIMA Chayma"
+      },
+      {
+        "matiere": "Réseaux Locaux",
+        "enseignant": "BAROUNI Yosra"
+      }
+    ],
+    "SE5": [
+      {
+        "matiere": "Anglais 5",
+        "enseignant": "SASSI Imen"
+      },
+      {
+        "matiere": "Réseaux industriels",
+        "enseignant": "ZOUARI Wiem"
+      },
+      {
+        "matiere": "Architecture IoT",
+        "enseignant": "MALEK Jihene"
+      },
+      {
+        "matiere": "Technologie des Réseaux sans fil pour l'IoT",
+        "enseignant": "DENDEN Mohsen"
+      },
+      {
+        "matiere": "Systèmes temps réel",
+        "enseignant": "GUESMI Hattab"
+      },
+      {
+        "matiere": "Préparation à l'environnement professionnel",
+        "enseignant": "MEMMI Hanene"
+      },
+      {
+        "matiere": "Cloud et Virtualisation",
+        "enseignant": "DENDEN Mohsen"
+      },
+      {
+        "matiere": "Calcul Haute performance",
+        "enseignant": "BEN AHMED Sofiene"
+      },
+      {
+        "matiere": "Sécurité IoT",
+        "enseignant": "CHAIEB Salwa"
+      },
+      {
+        "matiere": "IA et Machine learning",
+        "enseignant": "GUESMI Hattab"
+      },
+      {
+        "matiere": "Co-design",
+        "enseignant": "BEN ABID Nabiha"
+      }
     ]
   },
   "SI": {
     "SE1": [
-      {"matiere": "Systèmes Logiques & Architecture des ordinateurs", "enseignant": "KARMANI Sourour"},
-      {"matiere": "Analyse 1", "enseignant": "CHOUIGUI Ajmi"},
-      {"matiere": "Système d'exploitation 1", "enseignant": "MAHMOUD Rihem"},
-      {"matiere": "Techniques de communication 1", "enseignant": "TRIMECH GHDIRA Elhem"},
-      {"matiere": "Algèbre 1", "enseignant": "LEFFET Samia"},
-      {"matiere": "Anglais 1", "enseignant": "OUNI Jalel"},
-      {"matiere": "Technologies Multimédias", "enseignant": "SLIMENE Ons"},
-      {"matiere": "Algorithmique et structure de données", "enseignant": "BEN MAKHLOUF Aicha"},
-      {"matiere": "Atelier programmation 1", "enseignant": "ABDELKEFI Mahdi"},
-      {"matiere": "Logique formelle", "enseignant": "FOURATI Farah"}
-    ]
-  },
-  "LEEA": {
-    "SE1": [
-      {"matiere": "Electronique Numérique", "enseignant": "SOUANI Chokri"},
-      {"matiere": "Analyse 1", "enseignant": "MAHFOUDHI Alkamel"},
-      {"matiere": "Circuits Electriques", "enseignant": "BEN CHRIFA Ali"},
-      {"matiere": "Fonctions d'électronique et Algorithmique", "enseignant": "ZAABOUB Wala"},
-      {"matiere": "Mécanique", "enseignant": "ELOURAGINI Salem"},
-      {"matiere": "Algèbre 1", "enseignant": "MAZHOUDA Kamel"},
-      {"matiere": "Anglais", "enseignant": "GHOURABI Yosra Maha"},
-      {"matiere": "Electrostatique et Magnétostatique", "enseignant": "KALLEL Nabil"},
-      {"matiere": "Systèmes d'exploitation", "enseignant": "KOUKA Neji"}
-    ]
-  },
-  "LGM": {
-    "SE1": [
-      {"matiere": "Electronique", "enseignant": "TARRACH Fredj"},
-      {"matiere": "Analyse 1", "enseignant": "BEN HAMMADI KACEM Iyadh"},
-      {"matiere": "Conception 1", "enseignant": "ZOUARI Slim"},
-      {"matiere": "Mécanique 1", "enseignant": "SASSI Latifa"},
-      {"matiere": "Algèbre 1", "enseignant": "BEN HAMMADI KACEM Iyadh"},
-      {"matiere": "Anglais 1", "enseignant": "MALKI Wahid"},
-      {"matiere": "Electrotechnique", "enseignant": "OUNI Faten"},
-      {"matiere": "Science des matériaux 1", "enseignant": "BEN HADJ SALAH Hend"},
-      {"matiere": "Procédés 1", "enseignant": "BELHADJ TAHER Ahmed"},
-      {"matiere": "Culture et Compétences Numériques 1", "enseignant": "HEMAYED Mariem"},
-      {"matiere": "Mécanique", "enseignant": "SASSI Latifa"}
-    ]
-  },
-  "LEM": {
-    "SE1": [
-      {"matiere": "Technologie de construction", "enseignant": "TOUNSI Mohamed"},
-      {"matiere": "Analyse 1", "enseignant": "HEDHILI Lamia"},
-      {"matiere": "Électronique appliquée", "enseignant": "TRIKI GARGOURI Dorra"},
-      {"matiere": "Outils de communication graphiques", "enseignant": "ZOUARI Slim"},
-      {"matiere": "Algèbre 1", "enseignant": "HATTAB ABROUGUI Hanen"},
-      {"matiere": "Anglais 1", "enseignant": "BOUDOKHANE Imene"},
-      {"matiere": "Circuits électriques", "enseignant": "JABLI Nizar"},
-      {"matiere": "Algorithmique et programmation", "enseignant": "BEN NACEUR Ferdaws"},
-      {"matiere": "Initiation à la programmation", "enseignant": "AMMAR Emna"}
-    ]
-  },
-  "LGC": {
-    "SE1": [
-      {"matiere": "Topographie et cartographie", "enseignant": "HSAIRI Nizar"},
-      {"matiere": "Analyse 1", "enseignant": "CHOUIGUI Ajmi"},
-      {"matiere": "Mécanique générale", "enseignant": "SASSI Latifa"},
-      {"matiere": "Béton armé", "enseignant": "JAOUADI Ines"},
-      {"matiere": "Hydraulique urbaine et compétences numériques", "enseignant": "MDALLA Mohamed"},
-      {"matiere": "Algèbre 1", "enseignant": "BELGHITH Nader"},
-      {"matiere": "Anglais I", "enseignant": "SAADANI Asma"},
-      {"matiere": "Algorithmique et programmation", "enseignant": "BEN NACEUR Ferdaws"}
-    ]
-  },
-  "LGenerg": {
-    "SE1": [
-      {"matiere": "Outil de calcul en énergétique", "enseignant": "EL MAY Sana"},
-      {"matiere": "Analyse 1", "enseignant": "MABROUK Hanene"},
-      {"matiere": "Techniques de communication I", "enseignant": "HASSINE Hela"},
-      {"matiere": "Algèbre 1", "enseignant": "MOULAHI Samir"},
-      {"matiere": "Anglais I", "enseignant": "GHOURABI Yosra Maha"},
-      {"matiere": "Electrostatique & Magnétostatique", "enseignant": "BOUFADEN Tarek"},
-      {"matiere": "Ressources énergétiques", "enseignant": "BANNOUR Sana"},
-      {"matiere": "Lecture des plans", "enseignant": "HEMAYED Mariem"},
-      {"matiere": "Conduction & Convection", "enseignant": "FARHAT Habib"},
-      {"matiere": "Outil numérique", "enseignant": "ILJI Samia"},
-      {"matiere": "Introduction à la thermodynamique", "enseignant": "BENNOUR Fadhel"},
-      {"matiere": "Culture et Compétences numérique", "enseignant": "GAIED Refka"}
-    ]
-  }
-}
-
-
-
-
-
-
-
-
-{
-  "ISI": {
-    "SE3": [
-      {"matiere": "Automate", "enseignant": "MATHLOUTHI Houda"},
-      {"matiere": "Programmation Python", "enseignant": "AMMAR Emna"},
-      {"matiere": "Technologies Multimédia", "enseignant": "SAYAHI Ikbel"},
-      {"matiere": "Anglais 3", "enseignant": "MALKI Wahid"},
-      {"matiere": "Graphes et optimisation", "enseignant": "SABRI Houssem"},
-      {"matiere": "Architectures Avancées des Processeurs", "enseignant": "SOUISSI Werda Imen"},
-      {"matiere": "Programmation orientée objet", "enseignant": "FOURATI Farah"},
-      {"matiere": "Méthodologie de Conception de logiciel", "enseignant": "WALI Wafa"},
-      {"matiere": "Probabilité Statistique", "enseignant": "JDAY Rim"},
-      {"matiere": "Gestion d'entreprise", "enseignant": "BEN SLIMANE Ichrak"},
-      {"matiere": "Fondements des Bases de données", "enseignant": "BEN NJIMA Chayma"},
-      {"matiere": "Réseaux Locaux", "enseignant": "BAROUNI Yosra"}
+      {
+        "matiere": "Systèmes Logiques & Architecture des ordinateurs",
+        "enseignant": "KARMANI Sourour"
+      },
+      {
+        "matiere": "Analyse 1",
+        "enseignant": "CHOUIGUI Ajmi"
+      },
+      {
+        "matiere": "Système d'exploitation 1",
+        "enseignant": "MAHMOUD Rihem"
+      },
+      {
+        "matiere": "Techniques de communication 1",
+        "enseignant": "TRIMECH GHDIRA Elhem"
+      },
+      {
+        "matiere": "Algèbre 1",
+        "enseignant": "LEFFET Samia"
+      },
+      {
+        "matiere": "Anglais 1",
+        "enseignant": "OUNI Jalel"
+      },
+      {
+        "matiere": "Technologies Multimédias",
+        "enseignant": "SLIMENE Ons"
+      },
+      {
+        "matiere": "Algorithmique et structure de données",
+        "enseignant": "BEN MAKHLOUF Aicha"
+      },
+      {
+        "matiere": "Atelier programmation 1",
+        "enseignant": "ABDELKEFI Mahdi"
+      },
+      {
+        "matiere": "Logique formelle",
+        "enseignant": "FOURATI Farah"
+      }
+    ],
+    "SE5": [
+      {
+        "matiere": "Anglais 5",
+        "enseignant": "BADRI Ilhem"
+      },
+      {
+        "matiere": "ERP et intégration des Systèmes d'information",
+        "enseignant": "ZOUARI Wiem"
+      },
+      {
+        "matiere": "Framework et technologies Big Data",
+        "enseignant": "BOUSRIH Ines"
+      },
+      {
+        "matiere": "Développement Mobile",
+        "enseignant": "REGAIG Ines"
+      },
+      {
+        "matiere": "Architecture SOA et services web",
+        "enseignant": "ABDELKEFI Mahdi"
+      },
+      {
+        "matiere": "Préparation à l'environnement professionnel",
+        "enseignant": "BOUHAJEB Houcine"
+      },
+      {
+        "matiere": "Machine Learning",
+        "enseignant": "BEN AHMED Ikram"
+      },
+      {
+        "matiere": "Développement d'applications réparties",
+        "enseignant": "KHALFALLAH Sofiane"
+      }
     ]
   },
   "LSI": {
     "SE3": [
-      {"matiere": "Ingénierie des Bases de Données", "enseignant": "HADDAD Omar"},
-      {"matiere": "Programmation Java", "enseignant": "WALHAZI Hajer"},
-      {"matiere": "Conception des Systèmes d'Information", "enseignant": "SAIDANE Mhamed"},
-      {"matiere": "Anglais 3", "enseignant": "ZAAFRANE Yosr"},
-      {"matiere": "Graphes et optimisation", "enseignant": "SABRI Houssem"},
-      {"matiere": "Théorie des langages et des Automates", "enseignant": "BEN SALEM Manel"},
-      {"matiere": "Paradigme de programmation orientée objet", "enseignant": "AMMAR Ahlem"},
-      {"matiere": "Cryptographie", "enseignant": "TAAMALLAH Aroua"},
-      {"matiere": "Probabilité et statistique", "enseignant": "JDAY Rim"},
-      {"matiere": "Gestion d'entreprise", "enseignant": "BEN SLIMANE Ichrak"}
+      {
+        "matiere": "Ingénierie des Bases de Données",
+        "enseignant": "HADDAD Omar"
+      },
+      {
+        "matiere": "Programmation Java",
+        "enseignant": "WALHAZI Hajer"
+      },
+      {
+        "matiere": "Conception des Systèmes d'Information",
+        "enseignant": "SAIDANE Mhamed"
+      },
+      {
+        "matiere": "Anglais 3",
+        "enseignant": "ZAAFRANE Yosr"
+      },
+      {
+        "matiere": "Graphes et optimisation",
+        "enseignant": "SABRI Houssem"
+      },
+      {
+        "matiere": "Théorie des langages et des Automates",
+        "enseignant": "BEN SALEM Manel"
+      },
+      {
+        "matiere": "Paradigme de programmation orientée objet",
+        "enseignant": "AMMAR Ahlem"
+      },
+      {
+        "matiere": "Cryptographie",
+        "enseignant": "TAAMALLAH Aroua"
+      },
+      {
+        "matiere": "Probabilité et statistique",
+        "enseignant": "JDAY Rim"
+      },
+      {
+        "matiere": "Gestion d'entreprise",
+        "enseignant": "BEN SLIMANE Ichrak"
+      }
     ]
   },
   "LEEA": {
+    "SE1": [
+      {
+        "matiere": "Electronique Numérique",
+        "enseignant": "SOUANI Chokri"
+      },
+      {
+        "matiere": "Analyse 1",
+        "enseignant": "MAHFOUDHI Alkamel"
+      },
+      {
+        "matiere": "Circuits Electriques",
+        "enseignant": "BEN CHRIFA Ali"
+      },
+      {
+        "matiere": "Fonctions d'électronique et Algorithmique",
+        "enseignant": "ZAABOUB Wala"
+      },
+      {
+        "matiere": "Mécanique",
+        "enseignant": "ELOURAGINI Salem"
+      },
+      {
+        "matiere": "Algèbre 1",
+        "enseignant": "MAZHOUDA Kamel"
+      },
+      {
+        "matiere": "Anglais",
+        "enseignant": "GHOURABI Yosra Maha"
+      },
+      {
+        "matiere": "Electrostatique et Magnétostatique",
+        "enseignant": "KALLEL Nabil"
+      },
+      {
+        "matiere": "Systèmes d'exploitation",
+        "enseignant": "KOUKA Neji"
+      }
+    ],
     "AII-SE3": [
-      {"matiere": "Automatique", "enseignant": "KHOUAJA Anis"},
-      {"matiere": "Fonctions d'Electronique Analogique", "enseignant": "MELLOULI MOALLA Dorra"},
-      {"matiere": "Transmission des données", "enseignant": "TRIKI GARGOURI Dorra"},
-      {"matiere": "Conception des cartes électronique", "enseignant": "BOUKADIDA Hatem"},
-      {"matiere": "Gestion d'Entreprise", "enseignant": "AYDI Maha"},
-      {"matiere": "Traitement du signal Analogique", "enseignant": "ZBIDI JAMEL Wafa"}
+      {
+        "matiere": "Automatique",
+        "enseignant": "KHOUAJA Anis"
+      },
+      {
+        "matiere": "Fonctions d'Electronique Analogique",
+        "enseignant": "MELLOULI MOALLA Dorra"
+      },
+      {
+        "matiere": "Transmission des données",
+        "enseignant": "TRIKI GARGOURI Dorra"
+      },
+      {
+        "matiere": "Conception des cartes électronique",
+        "enseignant": "BOUKADIDA Hatem"
+      },
+      {
+        "matiere": "Gestion d'Entreprise",
+        "enseignant": "AYDI Maha"
+      },
+      {
+        "matiere": "Traitement du signal Analogique",
+        "enseignant": "ZBIDI JAMEL Wafa"
+      }
     ],
     "EI-SE3": [
-      {"matiere": "Électriques et transformateurs 1", "enseignant": "OUNI Faten"},
-      {"matiere": "Fonctions d'Electronique Analogique", "enseignant": "MELLOULI MOALLA Dorra"},
-      {"matiere": "Transmission des Données", "enseignant": "ZOUAOUI Safa"},
-      {"matiere": "Automatique", "enseignant": "BEN SALAH Chokri"},
-      {"matiere": "Instrumentation et Métrologie", "enseignant": "FARJALLAH Mohamed"},
-      {"matiere": "Gestion d'Entreprise", "enseignant": "AYDI Maha"},
-      {"matiere": "Traitement du signal Analogique", "enseignant": "ZBIDI JAMEL Wafa"},
-      {"matiere": "Électronique de puissance 1", "enseignant": "BANAWAZ Marwa"}
+      {
+        "matiere": "Électriques et transformateurs 1",
+        "enseignant": "OUNI Faten"
+      },
+      {
+        "matiere": "Fonctions d'Electronique Analogique",
+        "enseignant": "MELLOULI MOALLA Dorra"
+      },
+      {
+        "matiere": "Transmission des Données",
+        "enseignant": "ZOUAOUI Safa"
+      },
+      {
+        "matiere": "Automatique",
+        "enseignant": "BEN SALAH Chokri"
+      },
+      {
+        "matiere": "Instrumentation et Métrologie",
+        "enseignant": "FARJALLAH Mohamed"
+      },
+      {
+        "matiere": "Gestion d'Entreprise",
+        "enseignant": "AYDI Maha"
+      },
+      {
+        "matiere": "Traitement du signal Analogique",
+        "enseignant": "ZBIDI JAMEL Wafa"
+      },
+      {
+        "matiere": "Électronique de puissance 1",
+        "enseignant": "BANAWAZ Marwa"
+      }
     ],
     "SE-SE3": [
-      {"matiere": "Signal Analogique", "enseignant": "GUERFEL Mohamed"},
-      {"matiere": "Diagnostic et maintenance des systèmes électroniques", "enseignant": "ALKAMEL Foued"},
-      {"matiere": "Fonctions d'Electronique Analogique", "enseignant": "GARRAB Hatem"},
-      {"matiere": "Architecture des Microprocesseurs et Microcontrôleurs", "enseignant": "BEN SALAH Tarek"},
-      {"matiere": "CAO et PCB", "enseignant": "JALLALI Faycal"},
-      {"matiere": "Machines électriques", "enseignant": "JALLALI Faycal"},
-      {"matiere": "Anglais", "enseignant": "BOUDOKHANE Imene"},
-      {"matiere": "Traitement du signal Analogique", "enseignant": "ZBIDI JAMEL Wafa"},
-      {"matiere": "Transmission des Données", "enseignant": "CHEMKHA Hichem"}
-    ]
-  },
-  "LGM": {
-    "CPI-SE3": [
-      {"matiere": "Industriels", "enseignant": "BEN AICHA Anissa"},
-      {"matiere": "Thermique industrielle", "enseignant": "MECHI Rachid"},
-      {"matiere": "Mécanique des Fluides", "enseignant": "RADHOUEN Amina"},
-      {"matiere": "Procédés d’obtention des pièces brutes", "enseignant": "KRIBI Badreddine"},
-      {"matiere": "Méthodes de fabrication par usinage", "enseignant": "KRIBI Badreddine"},
-      {"matiere": "Mécanique 3", "enseignant": "ABDELGHANI Maher"},
-      {"matiere": "Culture d’entreprise", "enseignant": "AYDI Maha"},
-      {"matiere": "Asservissement", "enseignant": "KHOUAJA Anis"}
-    ]
-  },
-  "LEM": {
-    "MA-SE3": [
-      {"matiere": "Industriels", "enseignant": "MATHLOUTHI Houda"},
-      {"matiere": "Procédés d’obtention des pièces brutes", "enseignant": "BELHADJ TAHER Ahmed"},
-      {"matiere": "Fonctions électroniques numériques", "enseignant": "CHAABANE Haykel"},
-      {"matiere": "Dynamique des solides rigides", "enseignant": "MALLEK Hanen"},
-      {"matiere": "Régulation et asservissement", "enseignant": "BEN SALAH Chokri"},
-      {"matiere": "Techniques de production par usinage", "enseignant": "ZRIBI Temim"},
-      {"matiere": "Culture entrepreneuriale", "enseignant": "FATNASSI Ons"},
-      {"matiere": "Électronique analogiques", "enseignant": "HAMDI Belgacem"},
-      {"matiere": "Mécanique des systèmes", "enseignant": "ZOUARI Slim"}
+      {
+        "matiere": "Signal Analogique",
+        "enseignant": "GUERFEL Mohamed"
+      },
+      {
+        "matiere": "Diagnostic et maintenance des systèmes électroniques",
+        "enseignant": "ALKAMEL Foued"
+      },
+      {
+        "matiere": "Fonctions d'Electronique Analogique",
+        "enseignant": "GARRAB Hatem"
+      },
+      {
+        "matiere": "Architecture des Microprocesseurs et Microcontrôleurs",
+        "enseignant": "BEN SALAH Tarek"
+      },
+      {
+        "matiere": "CAO et PCB",
+        "enseignant": "JALLALI Faycal"
+      },
+      {
+        "matiere": "Machines électriques",
+        "enseignant": "JALLALI Faycal"
+      },
+      {
+        "matiere": "Anglais",
+        "enseignant": "BOUDOKHANE Imene"
+      },
+      {
+        "matiere": "Traitement du signal Analogique",
+        "enseignant": "ZBIDI JAMEL Wafa"
+      },
+      {
+        "matiere": "Transmission des Données",
+        "enseignant": "CHEMKHA Hichem"
+      }
     ],
-    "MI-SE3": [
-      {"matiere": "Industriels", "enseignant": "BEN AICHA Anissa"},
-      {"matiere": "Procédés d’obtention des pièces brutes", "enseignant": "BELHADJ TAHER Ahmed"},
-      {"matiere": "Fonctions électroniques numériques", "enseignant": "CHAABANE Haykel"},
-      {"matiere": "Dynamique des solides rigides", "enseignant": "MALLEK Hanen"},
-      {"matiere": "Régulation et asservissement", "enseignant": "BEN SALAH Chokri"},
-      {"matiere": "Techniques de production par usinage", "enseignant": "HICHRI Heithem"},
-      {"matiere": "Culture entrepreneuriale", "enseignant": "AYDI Maha"},
-      {"matiere": "Électronique analogiques", "enseignant": "HAMDI Belgacem"},
-      {"matiere": "Mécanique des systèmes", "enseignant": "ZOUARI Slim"}
-    ]
-  },
-  "LGC": {
-    "BAT-SE3": [
-      {"matiere": "Mathématiques", "enseignant": "BEN HAMMADI KACEM Iyadh"},
-      {"matiere": "Calcul des structures", "enseignant": "BELHADJ Rachida"},
-      {"matiere": "Béton armé", "enseignant": "JAOUADI Ines"},
-      {"matiere": "Hydraulique urbaine et Hydrologie", "enseignant": "TAGORTI Mohamed Ali"},
-      {"matiere": "Mécanique des sols", "enseignant": "HAMROUNI Fakher"},
-      {"matiere": "Culture entrepreneuriale", "enseignant": "FATNASSI Ons"},
-      {"matiere": "Probabilité et statistique", "enseignant": "TAHRI Randa"}
-    ],
-    "PC-SE3": [
-      {"matiere": "Mathématiques", "enseignant": "BEN HAMMADI KACEM Iyadh"},
-      {"matiere": "Calcul des structures", "enseignant": "BELHADJ Rachida"},
-      {"matiere": "Béton armé", "enseignant": "JAOUADI Ines"},
-      {"matiere": "Hydraulique urbaine et Hydrologie", "enseignant": "BEN ABDELGHANI Farouk"},
-      {"matiere": "Mécanique des sols", "enseignant": "HAMROUNI Fakher"},
-      {"matiere": "Culture entrepreneuriale", "enseignant": "BEN SLIMANE Ichrak"},
-      {"matiere": "Probabilité et statistique", "enseignant": "TAHRI Randa"}
-    ]
-  },
-  "LGenerg": {
-    "SE3": [
-      {"matiere": "La Combustion", "enseignant": "BRAHIM Taoufik"},
-      {"matiere": "Rayonnement thermique", "enseignant": "MECHI Rachid"},
-      {"matiere": "Dynamique des fluides", "enseignant": "RADHOUEN Amina"},
-      {"matiere": "Thermique du batiment", "enseignant": "FARHAT Habib"},
-      {"matiere": "Les capteurs", "enseignant": "FARJALLAH Mohamed"},
-      {"matiere": "Normes et qualités", "enseignant": "BANNOUR Sana"},
-      {"matiere": "Installations de chauffage", "enseignant": "EL MAY Sana"},
-      {"matiere": "Installations de climatisation", "enseignant": "EL MAY Sana"},
-      {"matiere": "Systèmes HVAC", "enseignant": "MAZGAR Akram"},
-      {"matiere": "Mesure et Traitement informatique", "enseignant": "FETOUI Mourad"},
-      {"matiere": "Soft skills", "enseignant": "MEMMI Hanene"}
-    ]
-  }
-}
-
-
-
-
-
-
-
-
-{
-  "ISI": {
     "SE5": [
-      {"matiere": "Anglais 5", "enseignant": "SASSI Imen"},
-      {"matiere": "Réseaux industriels", "enseignant": "ZOUARI Wiem"},
-      {"matiere": "Architecture IoT", "enseignant": "MALEK Jihene"},
-      {"matiere": "Technologie des Réseaux sans fil pour l'IoT", "enseignant": "DENDEN Mohsen"},
-      {"matiere": "Systèmes temps réel", "enseignant": "GUESMI Hattab"},
-      {"matiere": "Préparation à l'environnement professionnel", "enseignant": "MEMMI Hanene"},
-      {"matiere": "Cloud et Virtualisation", "enseignant": "DENDEN Mohsen"},
-      {"matiere": "Calcul Haute performance", "enseignant": "BEN AHMED Sofiene"},
-      {"matiere": "Sécurité IoT", "enseignant": "CHAIEB Salwa"},
-      {"matiere": "IA et Machine learning", "enseignant": "GUESMI Hattab"},
-      {"matiere": "Co-design", "enseignant": "BEN ABID Nabiha"}
-    ]
-  },
-  "SI": {
-    "SE5": [
-      {"matiere": "Anglais 5", "enseignant": "BADRI Ilhem"},
-      {"matiere": "ERP et intégration des Systèmes d'information", "enseignant": "ZOUARI Wiem"},
-      {"matiere": "Framework et technologies Big Data", "enseignant": "BOUSRIH Ines"},
-      {"matiere": "Développement Mobile", "enseignant": "REGAIG Ines"},
-      {"matiere": "Architecture SOA et services web", "enseignant": "ABDELKEFI Mahdi"},
-      {"matiere": "Préparation à l'environnement professionnel", "enseignant": "BOUHAJEB Houcine"},
-      {"matiere": "Machine Learning", "enseignant": "BEN AHMED Ikram"},
-      {"matiere": "Développement d'applications réparties", "enseignant": "KHALFALLAH Sofiane"}
-    ]
-  },
-  "LEEA": {
-    "SE5": [
-      {"matiere": "Commande", "enseignant": "GHOZZI Rim"},
-      {"matiere": "Anglais", "enseignant": "BOUDOKHANE Imene"},
-      {"matiere": "Energies Renouvelables", "enseignant": "BEN SALAH Chokri"},
-      {"matiere": "Conception haut niveau des systèmes embarqués", "enseignant": "BEN KHALIFA Khaled"},
-      {"matiere": "Automates programmables et Supervision", "enseignant": "KHEDHER Atef"},
-      {"matiere": "Commande des machines", "enseignant": "TRABELSI Ramzi"},
-      {"matiere": "Effets Thermiques dans les composants", "enseignant": "CHOUCHENE Fraj"},
-      {"matiere": "Instrumentation LabVIEW", "enseignant": "HAJJAJI Mohamed Ali"},
-      {"matiere": "Modélisation et commande dans l’espace d’états", "enseignant": "CHIBANI Radhia"},
-      {"matiere": "Systèmes de vision embarqués", "enseignant": "BEN FREDJ Hana"},
-      {"matiere": "Domotique", "enseignant": "AMMAR Anis"},
-      {"matiere": "Programmation de Raspberry Pi en Python", "enseignant": "AMMAR Anis"},
-      {"matiere": "Hyperfréquence", "enseignant": "CHEMKHA Hichem"},
-      {"matiere": "Electronique programmable (VHDL, FPGA)", "enseignant": "GAFSI Mohamed"},
-      {"matiere": "Production et distribution de l’énergie électrique", "enseignant": "BRINI Saoussen"},
-      {"matiere": "Electronique de puissance 2", "enseignant": "HAMOUDA Mahmoud"},
-      {"matiere": "Systèmes embarqués temps réel", "enseignant": "ABDALLAH Bouthaina"},
-      {"matiere": "Création d'Entreprise", "enseignant": "MILED Mariem"},
-      {"matiere": "Régulation Industrielle", "enseignant": "MATHLOUTHI Houda"},
-      {"matiere": "Convertisseurs de puissance et qualité de l’énergie", "enseignant": "HAMOUDA Mahmoud"}
+      {
+        "matiere": "Commande",
+        "enseignant": "GHOZZI Rim"
+      },
+      {
+        "matiere": "Anglais",
+        "enseignant": "BOUDOKHANE Imene"
+      },
+      {
+        "matiere": "Energies Renouvelables",
+        "enseignant": "BEN SALAH Chokri"
+      },
+      {
+        "matiere": "Conception haut niveau des systèmes embarqués",
+        "enseignant": "BEN KHALIFA Khaled"
+      },
+      {
+        "matiere": "Automates programmables et Supervision",
+        "enseignant": "KHEDHER Atef"
+      },
+      {
+        "matiere": "Commande des machines",
+        "enseignant": "TRABELSI Ramzi"
+      },
+      {
+        "matiere": "Effets Thermiques dans les composants",
+        "enseignant": "CHOUCHENE Fraj"
+      },
+      {
+        "matiere": "Instrumentation LabVIEW",
+        "enseignant": "HAJJAJI Mohamed Ali"
+      },
+      {
+        "matiere": "Modélisation et commande dans l'espace d'états",
+        "enseignant": "CHIBANI Radhia"
+      },
+      {
+        "matiere": "Systèmes de vision embarqués",
+        "enseignant": "BEN FREDJ Hana"
+      },
+      {
+        "matiere": "Domotique",
+        "enseignant": "AMMAR Anis"
+      },
+      {
+        "matiere": "Programmation de Raspberry Pi en Python",
+        "enseignant": "AMMAR Anis"
+      },
+      {
+        "matiere": "Hyperfréquence",
+        "enseignant": "CHEMKHA Hichem"
+      },
+      {
+        "matiere": "Electronique programmable (VHDL, FPGA)",
+        "enseignant": "GAFSI Mohamed"
+      },
+      {
+        "matiere": "Production et distribution de l'énergie électrique",
+        "enseignant": "BRINI Saoussen"
+      },
+      {
+        "matiere": "Electronique de puissance 2",
+        "enseignant": "HAMOUDA Mahmoud"
+      },
+      {
+        "matiere": "Systèmes embarqués temps réel",
+        "enseignant": "ABDALLAH Bouthaina"
+      },
+      {
+        "matiere": "Création d'Entreprise",
+        "enseignant": "MILED Mariem"
+      },
+      {
+        "matiere": "Régulation Industrielle",
+        "enseignant": "MATHLOUTHI Houda"
+      },
+      {
+        "matiere": "Convertisseurs de puissance et qualité de l'énergie",
+        "enseignant": "HAMOUDA Mahmoud"
+      }
     ]
   },
   "EM": {
     "SE5": [
-      {"matiere": "Anglais", "enseignant": "SAADANI Asma"},
-      {"matiere": "Conception haut niveau des systèmes embarqués", "enseignant": "BEN KHALIFA Khaled"},
-      {"matiere": "Effets Thermiques dans les composants", "enseignant": "CHOUCHENE Fraj"},
-      {"matiere": "Systèmes embarqués temps réel", "enseignant": "ABDALLAH Bouthaina"},
-      {"matiere": "Création d'Entreprise", "enseignant": "MILED Mariem"},
-      {"matiere": "Electronique de puissance 2", "enseignant": "HAMOUDA Mahmoud"}
+      {
+        "matiere": "Anglais",
+        "enseignant": "SAADANI Asma"
+      },
+      {
+        "matiere": "Conception haut niveau des systèmes embarqués",
+        "enseignant": "BEN KHALIFA Khaled"
+      },
+      {
+        "matiere": "Effets Thermiques dans les composants",
+        "enseignant": "CHOUCHENE Fraj"
+      },
+      {
+        "matiere": "Systèmes embarqués temps réel",
+        "enseignant": "ABDALLAH Bouthaina"
+      },
+      {
+        "matiere": "Création d'Entreprise",
+        "enseignant": "MILED Mariem"
+      },
+      {
+        "matiere": "Electronique de puissance 2",
+        "enseignant": "HAMOUDA Mahmoud"
+      }
+    ]
+  },
+  "LGM": {
+    "SE1": [
+      {
+        "matiere": "Electronique",
+        "enseignant": "TARRACH Fredj"
+      },
+      {
+        "matiere": "Analyse 1",
+        "enseignant": "BEN HAMMADI KACEM Iyadh"
+      },
+      {
+        "matiere": "Conception 1",
+        "enseignant": "ZOUARI Slim"
+      },
+      {
+        "matiere": "Mécanique 1",
+        "enseignant": "SASSI Latifa"
+      },
+      {
+        "matiere": "Algèbre 1",
+        "enseignant": "BEN HAMMADI KACEM Iyadh"
+      },
+      {
+        "matiere": "Anglais 1",
+        "enseignant": "MALKI Wahid"
+      },
+      {
+        "matiere": "Electrotechnique",
+        "enseignant": "OUNI Faten"
+      },
+      {
+        "matiere": "Science des matériaux 1",
+        "enseignant": "BEN HADJ SALAH Hend"
+      },
+      {
+        "matiere": "Procédés 1",
+        "enseignant": "BELHADJ TAHER Ahmed"
+      },
+      {
+        "matiere": "Culture et Compétences Numériques 1",
+        "enseignant": "HEMAYED Mariem"
+      },
+      {
+        "matiere": "Mécanique",
+        "enseignant": "SASSI Latifa"
+      }
+    ],
+    "CPI-SE3": [
+      {
+        "matiere": "Industriels",
+        "enseignant": "BEN AICHA Anissa"
+      },
+      {
+        "matiere": "Thermique industrielle",
+        "enseignant": "MECHI Rachid"
+      },
+      {
+        "matiere": "Mécanique des Fluides",
+        "enseignant": "RADHOUEN Amina"
+      },
+      {
+        "matiere": "Procédés d'obtention des pièces brutes",
+        "enseignant": "KRIBI Badreddine"
+      },
+      {
+        "matiere": "Méthodes de fabrication par usinage",
+        "enseignant": "KRIBI Badreddine"
+      },
+      {
+        "matiere": "Mécanique 3",
+        "enseignant": "ABDELGHANI Maher"
+      },
+      {
+        "matiere": "Culture d'entreprise",
+        "enseignant": "AYDI Maha"
+      },
+      {
+        "matiere": "Asservissement",
+        "enseignant": "KHOUAJA Anis"
+      }
+    ]
+  },
+  "LEM": {
+    "SE1": [
+      {
+        "matiere": "Technologie de construction",
+        "enseignant": "TOUNSI Mohamed"
+      },
+      {
+        "matiere": "Analyse 1",
+        "enseignant": "HEDHILI Lamia"
+      },
+      {
+        "matiere": "Électronique appliquée",
+        "enseignant": "TRIKI GARGOURI Dorra"
+      },
+      {
+        "matiere": "Outils de communication graphiques",
+        "enseignant": "ZOUARI Slim"
+      },
+      {
+        "matiere": "Algèbre 1",
+        "enseignant": "HATTAB ABROUGUI Hanen"
+      },
+      {
+        "matiere": "Anglais 1",
+        "enseignant": "BOUDOKHANE Imene"
+      },
+      {
+        "matiere": "Circuits électriques",
+        "enseignant": "JABLI Nizar"
+      },
+      {
+        "matiere": "Algorithmique et programmation",
+        "enseignant": "BEN NACEUR Ferdaws"
+      },
+      {
+        "matiere": "Initiation à la programmation",
+        "enseignant": "AMMAR Emna"
+      }
+    ],
+    "MA-SE3": [
+      {
+        "matiere": "Industriels",
+        "enseignant": "MATHLOUTHI Houda"
+      },
+      {
+        "matiere": "Procédés d'obtention des pièces brutes",
+        "enseignant": "BELHADJ TAHER Ahmed"
+      },
+      {
+        "matiere": "Fonctions électroniques numériques",
+        "enseignant": "CHAABANE Haykel"
+      },
+      {
+        "matiere": "Dynamique des solides rigides",
+        "enseignant": "MALLEK Hanen"
+      },
+      {
+        "matiere": "Régulation et asservissement",
+        "enseignant": "BEN SALAH Chokri"
+      },
+      {
+        "matiere": "Techniques de production par usinage",
+        "enseignant": "ZRIBI Temim"
+      },
+      {
+        "matiere": "Culture entrepreneuriale",
+        "enseignant": "FATNASSI Ons"
+      },
+      {
+        "matiere": "Électronique analogiques",
+        "enseignant": "HAMDI Belgacem"
+      },
+      {
+        "matiere": "Mécanique des systèmes",
+        "enseignant": "ZOUARI Slim"
+      }
+    ],
+    "MI-SE3": [
+      {
+        "matiere": "Industriels",
+        "enseignant": "BEN AICHA Anissa"
+      },
+      {
+        "matiere": "Procédés d'obtention des pièces brutes",
+        "enseignant": "BELHADJ TAHER Ahmed"
+      },
+      {
+        "matiere": "Fonctions électroniques numériques",
+        "enseignant": "CHAABANE Haykel"
+      },
+      {
+        "matiere": "Dynamique des solides rigides",
+        "enseignant": "MALLEK Hanen"
+      },
+      {
+        "matiere": "Régulation et asservissement",
+        "enseignant": "BEN SALAH Chokri"
+      },
+      {
+        "matiere": "Techniques de production par usinage",
+        "enseignant": "HICHRI Heithem"
+      },
+      {
+        "matiere": "Culture entrepreneuriale",
+        "enseignant": "AYDI Maha"
+      },
+      {
+        "matiere": "Électronique analogiques",
+        "enseignant": "HAMDI Belgacem"
+      },
+      {
+        "matiere": "Mécanique des systèmes",
+        "enseignant": "ZOUARI Slim"
+      }
+    ],
+    "SE5": [
+      {
+        "matiere": "Véhicules",
+        "enseignant": "HOUIDI Ajmi / BEN SGHAIER Rabii"
+      },
+      {
+        "matiere": "Anglais 5 / Allemand 2",
+        "enseignant": "DHOUKAR Aida"
+      },
+      {
+        "matiere": "Diagnostique automobiles",
+        "enseignant": "FRIJA Mounir"
+      },
+      {
+        "matiere": "Schéma et Maintenances des équipements électromécaniques",
+        "enseignant": "LEM-MI"
+      },
+      {
+        "matiere": "Conditionnement automobile",
+        "enseignant": "RADHOUEN Amina"
+      },
+      {
+        "matiere": "Introduction à la robotique",
+        "enseignant": "KRIBI Badreddine"
+      },
+      {
+        "matiere": "Electroniques embarquées pour automobiles",
+        "enseignant": "CHAABANE"
+      },
+      {
+        "matiere": "Systèmes embarqués",
+        "enseignant": "BCHIR Mounira"
+      },
+      {
+        "matiere": "Création d'entreprise",
+        "enseignant": "FATNASSI Ons"
+      },
+      {
+        "matiere": "CAO/FAO",
+        "enseignant": "ARFAOUI Latifa / BRAHEM Maryem"
+      }
+    ]
+  },
+  "LGC": {
+    "SE1": [
+      {
+        "matiere": "Topographie et cartographie",
+        "enseignant": "HSAIRI Nizar"
+      },
+      {
+        "matiere": "Analyse 1",
+        "enseignant": "CHOUIGUI Ajmi"
+      },
+      {
+        "matiere": "Mécanique générale",
+        "enseignant": "SASSI Latifa"
+      },
+      {
+        "matiere": "Béton armé",
+        "enseignant": "JAOUADI Ines"
+      },
+      {
+        "matiere": "Hydraulique urbaine et compétences numériques",
+        "enseignant": "MDALLA Mohamed"
+      },
+      {
+        "matiere": "Algèbre 1",
+        "enseignant": "BELGHITH Nader"
+      },
+      {
+        "matiere": "Anglais I",
+        "enseignant": "SAADANI Asma"
+      },
+      {
+        "matiere": "Algorithmique et programmation",
+        "enseignant": "BEN NACEUR Ferdaws"
+      }
+    ],
+    "BAT-SE3": [
+      {
+        "matiere": "Mathématiques",
+        "enseignant": "BEN HAMMADI KACEM Iyadh"
+      },
+      {
+        "matiere": "Calcul des structures",
+        "enseignant": "BELHADJ Rachida"
+      },
+      {
+        "matiere": "Béton armé",
+        "enseignant": "JAOUADI Ines"
+      },
+      {
+        "matiere": "Hydraulique urbaine et Hydrologie",
+        "enseignant": "TAGORTI Mohamed Ali"
+      },
+      {
+        "matiere": "Mécanique des sols",
+        "enseignant": "HAMROUNI Fakher"
+      },
+      {
+        "matiere": "Culture entrepreneuriale",
+        "enseignant": "FATNASSI Ons"
+      },
+      {
+        "matiere": "Probabilité et statistique",
+        "enseignant": "TAHRI Randa"
+      }
+    ],
+    "PC-SE3": [
+      {
+        "matiere": "Mathématiques",
+        "enseignant": "BEN HAMMADI KACEM Iyadh"
+      },
+      {
+        "matiere": "Calcul des structures",
+        "enseignant": "BELHADJ Rachida"
+      },
+      {
+        "matiere": "Béton armé",
+        "enseignant": "JAOUADI Ines"
+      },
+      {
+        "matiere": "Hydraulique urbaine et Hydrologie",
+        "enseignant": "BEN ABDELGHANI Farouk"
+      },
+      {
+        "matiere": "Mécanique des sols",
+        "enseignant": "HAMROUNI Fakher"
+      },
+      {
+        "matiere": "Culture entrepreneuriale",
+        "enseignant": "BEN SLIMANE Ichrak"
+      },
+      {
+        "matiere": "Probabilité et statistique",
+        "enseignant": "TAHRI Randa"
+      }
     ]
   },
   "GC": {
     "SE5": [
-      {"matiere": "Construction + visites de chantiers", "enseignant": "NAIJA Ahmed / MECHI Rachid"},
-      {"matiere": "Anglais V", "enseignant": "BADRI Ilhem"},
-      {"matiere": "Pathologie des routes", "enseignant": "TAKTAK Wissem"},
-      {"matiere": "VRD", "enseignant": "BEN ABDELGHANI Farouk / CHEBBI Afef"},
-      {"matiere": "Equipements techniques des bâtiments", "enseignant": "ZOUAGHI Abderrazak"},
-      {"matiere": "Ouvrages spéciaux", "enseignant": "ABROUG Anis"},
-      {"matiere": "Conception et calcul des structures en béton armé", "enseignant": "TAKTAK Wissem"},
-      {"matiere": "Conception et calcul des routes", "enseignant": "HSAIRI Nizar"},
-      {"matiere": "Organisation et planification des chantiers", "enseignant": "KHELIFA Nour ElHouda"},
-      {"matiere": "Ouvrages d’art 2", "enseignant": "KHELIFA Nour ElHouda"},
-      {"matiere": "Hydraulique de bâtiment", "enseignant": "BEN ABDELGHANI Farouk"},
-      {"matiere": "Ouvrages hydrauliques", "enseignant": "BEN ABDELGHANI Farouk"},
-      {"matiere": "Mise en situation et prise de décision 1: Pathologie des bâtiments", "enseignant": "MAKNI Hajer"},
-      {"matiere": "Mise en situation et prise de décision 2: Sécurité incendie", "enseignant": "NAIJA Ahmed"}
+      {
+        "matiere": "Construction + visites de chantiers",
+        "enseignant": "NAIJA Ahmed / MECHI Rachid"
+      },
+      {
+        "matiere": "Anglais V",
+        "enseignant": "BADRI Ilhem"
+      },
+      {
+        "matiere": "Pathologie des routes",
+        "enseignant": "TAKTAK Wissem"
+      },
+      {
+        "matiere": "VRD",
+        "enseignant": "BEN ABDELGHANI Farouk / CHEBBI Afef"
+      },
+      {
+        "matiere": "Equipements techniques des bâtiments",
+        "enseignant": "ZOUAGHI Abderrazak"
+      },
+      {
+        "matiere": "Ouvrages spéciaux",
+        "enseignant": "ABROUG Anis"
+      },
+      {
+        "matiere": "Conception et calcul des structures en béton armé",
+        "enseignant": "TAKTAK Wissem"
+      },
+      {
+        "matiere": "Conception et calcul des routes",
+        "enseignant": "HSAIRI Nizar"
+      },
+      {
+        "matiere": "Organisation et planification des chantiers",
+        "enseignant": "KHELIFA Nour ElHouda"
+      },
+      {
+        "matiere": "Ouvrages d'art 2",
+        "enseignant": "KHELIFA Nour ElHouda"
+      },
+      {
+        "matiere": "Hydraulique de bâtiment",
+        "enseignant": "BEN ABDELGHANI Farouk"
+      },
+      {
+        "matiere": "Ouvrages hydrauliques",
+        "enseignant": "BEN ABDELGHANI Farouk"
+      },
+      {
+        "matiere": "Mise en situation et prise de décision 1: Pathologie des bâtiments",
+        "enseignant": "MAKNI Hajer"
+      },
+      {
+        "matiere": "Mise en situation et prise de décision 2: Sécurité incendie",
+        "enseignant": "NAIJA Ahmed"
+      }
     ]
   },
-  "LEM": {
-    "SE5": [
-      {"matiere": "Véhicules", "enseignant": "HOUIDI Ajmi / BEN SGHAIER Rabii"},
-      {"matiere": "Anglais 5 / Allemand 2", "enseignant": "DHOUKAR Aida"},
-      {"matiere": "Diagnostique automobiles", "enseignant": "FRIJA Mounir"},
-      {"matiere": "Schéma et Maintenances des équipements électromécaniques", "enseignant": "LEM-MI"},
-      {"matiere": "Conditionnement automobile", "enseignant": "RADHOUEN Amina"},
-      {"matiere": "Introduction à la robotique", "enseignant": "KRIBI Badreddine"},
-      {"matiere": "Electroniques embarquées pour automobiles", "enseignant": "CHAABANE"},
-      {"matiere": "Systèmes embarqués", "enseignant": "BCHIR Mounira"},
-      {"matiere": "Création d'entreprise", "enseignant": "FATNASSI Ons"},
-      {"matiere": "CAO/FAO", "enseignant": "ARFAOUI Latifa / BRAHEM Maryem"}
+  "LGenerg": {
+    "SE1": [
+      {
+        "matiere": "Outil de calcul en énergétique",
+        "enseignant": "EL MAY Sana"
+      },
+      {
+        "matiere": "Analyse 1",
+        "enseignant": "MABROUK Hanene"
+      },
+      {
+        "matiere": "Techniques de communication I",
+        "enseignant": "HASSINE Hela"
+      },
+      {
+        "matiere": "Algèbre 1",
+        "enseignant": "MOULAHI Samir"
+      },
+      {
+        "matiere": "Anglais I",
+        "enseignant": "GHOURABI Yosra Maha"
+      },
+      {
+        "matiere": "Electrostatique & Magnétostatique",
+        "enseignant": "BOUFADEN Tarek"
+      },
+      {
+        "matiere": "Ressources énergétiques",
+        "enseignant": "BANNOUR Sana"
+      },
+      {
+        "matiere": "Lecture des plans",
+        "enseignant": "HEMAYED Mariem"
+      },
+      {
+        "matiere": "Conduction & Convection",
+        "enseignant": "FARHAT Habib"
+      },
+      {
+        "matiere": "Outil numérique",
+        "enseignant": "ILJI Samia"
+      },
+      {
+        "matiere": "Introduction à la thermodynamique",
+        "enseignant": "BENNOUR Fadhel"
+      },
+      {
+        "matiere": "Culture et Compétences numérique",
+        "enseignant": "GAIED Refka"
+      }
+    ],
+    "SE3": [
+      {
+        "matiere": "La Combustion",
+        "enseignant": "BRAHIM Taoufik"
+      },
+      {
+        "matiere": "Rayonnement thermique",
+        "enseignant": "MECHI Rachid"
+      },
+      {
+        "matiere": "Dynamique des fluides",
+        "enseignant": "RADHOUEN Amina"
+      },
+      {
+        "matiere": "Thermique du batiment",
+        "enseignant": "FARHAT Habib"
+      },
+      {
+        "matiere": "Les capteurs",
+        "enseignant": "FARJALLAH Mohamed"
+      },
+      {
+        "matiere": "Normes et qualités",
+        "enseignant": "BANNOUR Sana"
+      },
+      {
+        "matiere": "Installations de chauffage",
+        "enseignant": "EL MAY Sana"
+      },
+      {
+        "matiere": "Installations de climatisation",
+        "enseignant": "EL MAY Sana"
+      },
+      {
+        "matiere": "Systèmes HVAC",
+        "enseignant": "MAZGAR Akram"
+      },
+      {
+        "matiere": "Mesure et Traitement informatique",
+        "enseignant": "FETOUI Mourad"
+      },
+      {
+        "matiere": "Soft skills",
+        "enseignant": "MEMMI Hanene"
+      }
     ]
   },
   "Eng": {
     "SE5": [
-      {"matiere": "Anglais 5 / Allemand 2", "enseignant": "DHOUKAR Aida"},
-      {"matiere": "Maîtrise de l'énergie", "enseignant": "MECHRI HoucemEddine"},
-      {"matiere": "Régulation des systèmes énergétiques", "enseignant": "BANNOUR Sana"},
-      {"matiere": "Comptabilité énergétique", "enseignant": "KORTAS Salem"},
-      {"matiere": "Machines Frigorifiques", "enseignant": "BRAHIM Taoufik"},
-      {"matiere": "Froid industriel", "enseignant": "GHABI Chakib"},
-      {"matiere": "Centrale de traitement d'air", "enseignant": "MAZZOUZ Souha"},
-      {"matiere": "Diagnostic des systèmes de climatisation", "enseignant": "BRAHIM Taoufik"}
+      {
+        "matiere": "Anglais 5 / Allemand 2",
+        "enseignant": "DHOUKAR Aida"
+      },
+      {
+        "matiere": "Maîtrise de l'énergie",
+        "enseignant": "MECHRI HoucemEddine"
+      },
+      {
+        "matiere": "Régulation des systèmes énergétiques",
+        "enseignant": "BANNOUR Sana"
+      },
+      {
+        "matiere": "Comptabilité énergétique",
+        "enseignant": "KORTAS Salem"
+      },
+      {
+        "matiere": "Machines Frigorifiques",
+        "enseignant": "BRAHIM Taoufik"
+      },
+      {
+        "matiere": "Froid industriel",
+        "enseignant": "GHABI Chakib"
+      },
+      {
+        "matiere": "Centrale de traitement d'air",
+        "enseignant": "MAZZOUZ Souha"
+      },
+      {
+        "matiere": "Diagnostic des systèmes de climatisation",
+        "enseignant": "BRAHIM Taoufik"
+      }
     ]
-  }
-}
-
-
-
-
-
-{
+  },
   "Prep-A1": {
     "SE1": [
-      {"matiere": "Algèbre 1", "enseignant": "MILI Maher"},
-      {"matiere": "Français 1", "enseignant": "TRIMECH GHDIRA Elhem"},
-      {"matiere": "Electrostatique - Magnétostatique", "enseignant": "HASSEN Mohamed"},
-      {"matiere": "C2i 1", "enseignant": "CHAOUCH Najla"},
-      {"matiere": "Introduction à la Gestion", "enseignant": "FATNASSI Ons"},
-      {"matiere": "Analyse 1", "enseignant": "ELLOUZE Imen"},
-      {"matiere": "Algorithmique et structures de données 1", "enseignant": "BOUASKER Souad"},
-      {"matiere": "Anglais 1", "enseignant": "BADRI Ilhem"},
-      {"matiere": "Electrocinétique", "enseignant": "KALLEL Sami"},
-      {"matiere": "Programmation C 1", "enseignant": "CHAOUACH Helmi"},
-      {"matiere": "Optique", "enseignant": "SAIDI Faouzi"},
-      {"matiere": "Algorithmique et structures de données", "enseignant": "NACEUR Amel"}
+      {
+        "matiere": "Algèbre 1",
+        "enseignant": "MILI Maher"
+      },
+      {
+        "matiere": "Français 1",
+        "enseignant": "TRIMECH GHDIRA Elhem"
+      },
+      {
+        "matiere": "Electrostatique - Magnétostatique",
+        "enseignant": "HASSEN Mohamed"
+      },
+      {
+        "matiere": "C2i 1",
+        "enseignant": "CHAOUCH Najla"
+      },
+      {
+        "matiere": "Introduction à la Gestion",
+        "enseignant": "FATNASSI Ons"
+      },
+      {
+        "matiere": "Analyse 1",
+        "enseignant": "ELLOUZE Imen"
+      },
+      {
+        "matiere": "Algorithmique et structures de données 1",
+        "enseignant": "BOUASKER Souad"
+      },
+      {
+        "matiere": "Anglais 1",
+        "enseignant": "BADRI Ilhem"
+      },
+      {
+        "matiere": "Electrocinétique",
+        "enseignant": "KALLEL Sami"
+      },
+      {
+        "matiere": "Programmation C 1",
+        "enseignant": "CHAOUACH Helmi"
+      },
+      {
+        "matiere": "Optique",
+        "enseignant": "SAIDI Faouzi"
+      },
+      {
+        "matiere": "Algorithmique et structures de données",
+        "enseignant": "NACEUR Amel"
+      }
     ]
   },
   "Prep-A2": {
     "SE3": [
-      {"matiere": "Mathématiques du signal", "enseignant": "JAKHLOUTI Taieb"},
-      {"matiere": "Français 3", "enseignant": "ZAIDI Ezzine"},
-      {"matiere": "Probabilité & statistiques", "enseignant": "ATOUANI Noureddine"},
-      {"matiere": "Techniques de transmission", "enseignant": "BOUALLEGUE Kais"},
-      {"matiere": "Culture d'entreprises", "enseignant": "FATNASSI Ons"},
-      {"matiere": "Architecture des ordinateurs 1", "enseignant": "EL MILI Manel"},
-      {"matiere": "Systèmes d'exploitation 1: Windows", "enseignant": "YOUSSEF Khaoula"},
-      {"matiere": "Anglais 3", "enseignant": "BADRI Ilhem"},
-      {"matiere": "Programmation Orientée Objet 1", "enseignant": "ZARROUK Elyes"},
-      {"matiere": "Bases de données", "enseignant": "SAIDANE Mhamed"},
-      {"matiere": "Middlewares et Intégration d'Applications", "enseignant": "JABLA Roua"},
-      {"matiere": "IHM", "enseignant": "WALI Wafa"}
+      {
+        "matiere": "Mathématiques du signal",
+        "enseignant": "JAKHLOUTI Taieb"
+      },
+      {
+        "matiere": "Français 3",
+        "enseignant": "ZAIDI Ezzine"
+      },
+      {
+        "matiere": "Probabilité & statistiques",
+        "enseignant": "ATOUANI Noureddine"
+      },
+      {
+        "matiere": "Techniques de transmission",
+        "enseignant": "BOUALLEGUE Kais"
+      },
+      {
+        "matiere": "Culture d'entreprises",
+        "enseignant": "FATNASSI Ons"
+      },
+      {
+        "matiere": "Architecture des ordinateurs 1",
+        "enseignant": "EL MILI Manel"
+      },
+      {
+        "matiere": "Systèmes d'exploitation 1: Windows",
+        "enseignant": "YOUSSEF Khaoula"
+      },
+      {
+        "matiere": "Anglais 3",
+        "enseignant": "BADRI Ilhem"
+      },
+      {
+        "matiere": "Programmation Orientée Objet 1",
+        "enseignant": "ZARROUK Elyes"
+      },
+      {
+        "matiere": "Bases de données",
+        "enseignant": "SAIDANE Mhamed"
+      },
+      {
+        "matiere": "Middlewares et Intégration d'Applications",
+        "enseignant": "JABLA Roua"
+      },
+      {
+        "matiere": "IHM",
+        "enseignant": "WALI Wafa"
+      }
     ]
   },
   "Ing-A1": {
     "SE1": [
-      {"matiere": "Probabilité et Statistiques", "enseignant": "ADOUANI Ines"},
-      {"matiere": "Français 1", "enseignant": "HASSINE Hela"},
-      {"matiere": "Mathématiques discrètes", "enseignant": "ZAALANI Nadhem"},
-      {"matiere": "Création d'entreprises et innovation", "enseignant": "HAMMAMI Souad"},
-      {"matiere": "Bases de données", "enseignant": "BARIKA KTATA Farah"},
-      {"matiere": "Fondements des systèmes d'exploitation", "enseignant": "KHALFALLAH Sofiane"},
-      {"matiere": "Architectures des ordinateurs", "enseignant": "HAJJAJI Mohamed Ali"},
-      {"matiere": "Anglais 1", "enseignant": "DHOUKAR Aida"},
-      {"matiere": "Paradigmes de programmation", "enseignant": "BOUDEN Mondher"},
-      {"matiere": "Transmission de données", "enseignant": "BHAR Jamila"},
-      {"matiere": "Algorithmique et structures de données", "enseignant": "NACEUR Amel"},
-      {"matiere": "Veille technologique", "enseignant": "ACHOUR Sami"}
+      {
+        "matiere": "Probabilité et Statistiques",
+        "enseignant": "ADOUANI Ines"
+      },
+      {
+        "matiere": "Français 1",
+        "enseignant": "HASSINE Hela"
+      },
+      {
+        "matiere": "Mathématiques discrètes",
+        "enseignant": "ZAALANI Nadhem"
+      },
+      {
+        "matiere": "Création d'entreprises et innovation",
+        "enseignant": "HAMMAMI Souad"
+      },
+      {
+        "matiere": "Bases de données",
+        "enseignant": "BARIKA KTATA Farah"
+      },
+      {
+        "matiere": "Fondements des systèmes d'exploitation",
+        "enseignant": "KHALFALLAH Sofiane"
+      },
+      {
+        "matiere": "Architectures des ordinateurs",
+        "enseignant": "HAJJAJI Mohamed Ali"
+      },
+      {
+        "matiere": "Anglais 1",
+        "enseignant": "DHOUKAR Aida"
+      },
+      {
+        "matiere": "Paradigmes de programmation",
+        "enseignant": "BOUDEN Mondher"
+      },
+      {
+        "matiere": "Transmission de données",
+        "enseignant": "BHAR Jamila"
+      },
+      {
+        "matiere": "Algorithmique et structures de données",
+        "enseignant": "NACEUR Amel"
+      },
+      {
+        "matiere": "Veille technologique",
+        "enseignant": "ACHOUR Sami"
+      }
     ]
   },
   "Ing-GL-A2": {
     "SE3": [
-      {"matiere": "Analyse Numérique", "enseignant": "ROUATBI Asma"},
-      {"matiere": "Français 3", "enseignant": "HASSINE Hela"},
-      {"matiere": "Développement Web (PHP OO, JSP, …)", "enseignant": "ZARROUK Elyes"},
-      {"matiere": "Comptabilité analytique", "enseignant": "HAMMAMI Souad"},
-      {"matiere": "Développement Avancé (orienté composants, orienté services, orienté aspect…)", "enseignant": "KHEMAJA Maha"},
-      {"matiere": "Administration des réseaux", "enseignant": "BELHAJ MOHAMED Mbarka"},
-      {"matiere": "SGBD et Administration", "enseignant": "ATTIAOUI Walid"},
-      {"matiere": "Anglais 3", "enseignant": "DHOUKAR Aida"},
-      {"matiere": "Théorie des Files d'attente", "enseignant": "ROUIS Moeiz"},
-      {"matiere": "Sécurité des réseaux", "enseignant": "MTIBAA Riadh"},
-      {"matiere": "Middlewares et Intégration d'Applications", "enseignant": "JABLA Roua"},
-      {"matiere": "IHM", "enseignant": "WALI Wafa"}
+      {
+        "matiere": "Analyse Numérique",
+        "enseignant": "ROUATBI Asma"
+      },
+      {
+        "matiere": "Français 3",
+        "enseignant": "HASSINE Hela"
+      },
+      {
+        "matiere": "Développement Web (PHP OO, JSP, …)",
+        "enseignant": "ZARROUK Elyes"
+      },
+      {
+        "matiere": "Comptabilité analytique",
+        "enseignant": "HAMMAMI Souad"
+      },
+      {
+        "matiere": "Développement Avancé (orienté composants, orienté services, orienté aspect…)",
+        "enseignant": "KHEMAJA Maha"
+      },
+      {
+        "matiere": "Administration des réseaux",
+        "enseignant": "BELHAJ MOHAMED Mbarka"
+      },
+      {
+        "matiere": "SGBD et Administration",
+        "enseignant": "ATTIAOUI Walid"
+      },
+      {
+        "matiere": "Anglais 3",
+        "enseignant": "DHOUKAR Aida"
+      },
+      {
+        "matiere": "Théorie des Files d'attente",
+        "enseignant": "ROUIS Moeiz"
+      },
+      {
+        "matiere": "Sécurité des réseaux",
+        "enseignant": "MTIBAA Riadh"
+      },
+      {
+        "matiere": "Middlewares et Intégration d'Applications",
+        "enseignant": "JABLA Roua"
+      },
+      {
+        "matiere": "IHM",
+        "enseignant": "WALI Wafa"
+      }
     ]
   },
   "Ing-GL-AL-A3": {
     "SE5": [
-      {"matiere": "Intelligence Artificielle", "enseignant": "ZOUAGHI Anis"},
-      {"matiere": "Français 5", "enseignant": "ZAIDI Ezzine"},
-      {"matiere": "Systèmes mobiles et développement de code mobile et embarqué", "enseignant": "BELGACEM Selma"},
-      {"matiere": "Vision par ordinateur", "enseignant": "RZOUGUA Lamia"},
-      {"matiere": "Ingénierie dirigée par les modèles", "enseignant": "KORTAS Nawal"},
-      {"matiere": "Big Data", "enseignant": "KANZARI Dalel"},
-      {"matiere": "Environnement de développement (.net)", "enseignant": "YOUSSFI Amani"},
-      {"matiere": "Anglais 5", "enseignant": "OUNI Jalel"},
-      {"matiere": "Réseaux de nouvelles générations", "enseignant": "SAGAAMA Insaf"},
-      {"matiere": "Marketing Industriel", "enseignant": "BOUHAJEB Houcine"},
-      {"matiere": "Virtualisation des services et cloud computing", "enseignant": "BAHRIA Nihed"},
-      {"matiere": "Initiation à la data science", "enseignant": "ACHOUR Sami"}
+      {
+        "matiere": "Intelligence Artificielle",
+        "enseignant": "ZOUAGHI Anis"
+      },
+      {
+        "matiere": "Français 5",
+        "enseignant": "ZAIDI Ezzine"
+      },
+      {
+        "matiere": "Systèmes mobiles et développement de code mobile et embarqué",
+        "enseignant": "BELGACEM Selma"
+      },
+      {
+        "matiere": "Vision par ordinateur",
+        "enseignant": "RZOUGUA Lamia"
+      },
+      {
+        "matiere": "Ingénierie dirigée par les modèles",
+        "enseignant": "KORTAS Nawal"
+      },
+      {
+        "matiere": "Big Data",
+        "enseignant": "KANZARI Dalel"
+      },
+      {
+        "matiere": "Environnement de développement (.net)",
+        "enseignant": "YOUSSFI Amani"
+      },
+      {
+        "matiere": "Anglais 5",
+        "enseignant": "OUNI Jalel"
+      },
+      {
+        "matiere": "Réseaux de nouvelles générations",
+        "enseignant": "SAGAAMA Insaf"
+      },
+      {
+        "matiere": "Marketing Industriel",
+        "enseignant": "BOUHAJEB Houcine"
+      },
+      {
+        "matiere": "Virtualisation des services et cloud computing",
+        "enseignant": "BAHRIA Nihed"
+      },
+      {
+        "matiere": "Initiation à la data science",
+        "enseignant": "ACHOUR Sami"
+      }
     ]
-  }
-}
-
-
-
-{
+  },
   "MR-SPI-M1": {
     "SE1": [
-      { "matiere": "Architectures et systèmes évolués", "enseignant": "BAHRIA Nihed" },
-      { "matiere": "Algorithmique et complexité", "enseignant": "NACEUR Amel" },
-      { "matiere": "Modélisation Probabiliste", "enseignant": "KHALIFA Taher" },
-      { "matiere": "Graphes et Applications", "enseignant": "ELLOUZE Imen" },
-      { "matiere": "Bases de données Avancées", "enseignant": "BARIKA KTATA Farah" },
-      { "matiere": "Images et reconnaissance de formes", "enseignant": "RZOUGUA Lamia" },
-      { "matiere": "Réseau IP", "enseignant": "BHAR Jamila" },
-      { "matiere": "Anglais (Préparation au TOEFL)", "enseignant": "EL GHARBI Ramzi" },
-      { "matiere": "Programmation et IA", "enseignant": "BOUDEN Mondher" }
+      {
+        "matiere": "Architectures et systèmes évolués",
+        "enseignant": "BAHRIA Nihed"
+      },
+      {
+        "matiere": "Algorithmique et complexité",
+        "enseignant": "NACEUR Amel"
+      },
+      {
+        "matiere": "Modélisation Probabiliste",
+        "enseignant": "KHALIFA Taher"
+      },
+      {
+        "matiere": "Graphes et Applications",
+        "enseignant": "ELLOUZE Imen"
+      },
+      {
+        "matiere": "Bases de données Avancées",
+        "enseignant": "BARIKA KTATA Farah"
+      },
+      {
+        "matiere": "Images et reconnaissance de formes",
+        "enseignant": "RZOUGUA Lamia"
+      },
+      {
+        "matiere": "Réseau IP",
+        "enseignant": "BHAR Jamila"
+      },
+      {
+        "matiere": "Anglais (Préparation au TOEFL)",
+        "enseignant": "EL GHARBI Ramzi"
+      },
+      {
+        "matiere": "Programmation et IA",
+        "enseignant": "BOUDEN Mondher"
+      }
     ]
   },
   "MR-MSEE-M1": {
     "SE1": [
-      { "matiere": "Dispositifs électroniques de puissance", "enseignant": "GARRAB Hatem" },
-      { "matiere": "Systèmes électroniques Analogiques", "enseignant": "BDIRI GABBOUJ Houda" },
-      { "matiere": "Automatique des systèmes linéaires", "enseignant": "KHEDHER Noureddine" },
-      { "matiere": "Technologies et dispositifs des composants électroniques à semi-conducteurs", "enseignant": "HASSEN" },
-      { "matiere": "Instrumentation avancée", "enseignant": "BEN ALI Mounir" },
-      { "matiere": "Systèmes électroniques Numériques", "enseignant": "EL FAYEDH Hassen" },
-      { "matiere": "Anglais: Techniques de communication I", "enseignant": "EL GHARBI Ramzi" },
-      { "matiere": "Technologies des circuits intégrés numériques CMOS et FPGA", "enseignant": "EL MILI Manel" },
-      { "matiere": "Modélisation et commande des convertisseurs de puissance", "enseignant": "HAMOUDA Mahmoud" },
-      { "matiere": "Architectures de systèmes numériques avancées et interfaces", "enseignant": "KARMANI Sourour" }
+      {
+        "matiere": "Dispositifs électroniques de puissance",
+        "enseignant": "GARRAB Hatem"
+      },
+      {
+        "matiere": "Systèmes électroniques Analogiques",
+        "enseignant": "BDIRI GABBOUJ Houda"
+      },
+      {
+        "matiere": "Automatique des systèmes linéaires",
+        "enseignant": "KHEDHER Noureddine"
+      },
+      {
+        "matiere": "Technologies et dispositifs des composants électroniques à semi-conducteurs",
+        "enseignant": "HASSEN"
+      },
+      {
+        "matiere": "Instrumentation avancée",
+        "enseignant": "BEN ALI Mounir"
+      },
+      {
+        "matiere": "Systèmes électroniques Numériques",
+        "enseignant": "EL FAYEDH Hassen"
+      },
+      {
+        "matiere": "Anglais: Techniques de communication I",
+        "enseignant": "EL GHARBI Ramzi"
+      },
+      {
+        "matiere": "Technologies des circuits intégrés numériques CMOS et FPGA",
+        "enseignant": "EL MILI Manel"
+      },
+      {
+        "matiere": "Modélisation et commande des convertisseurs de puissance",
+        "enseignant": "HAMOUDA Mahmoud"
+      },
+      {
+        "matiere": "Architectures de systèmes numériques avancées et interfaces",
+        "enseignant": "KARMANI Sourour"
+      }
     ]
   },
   "MR-GM-M1": {
     "SE1": [
-      { "matiere": "Analyse des systèmes mécaniques", "enseignant": "TOUNSI Mohamed" },
-      { "matiere": "Mécanique vibratoire", "enseignant": "FEKI Nabih" },
-      { "matiere": "Statistiques, probabilité et processus stochastiques", "enseignant": "KHALIFA Hatem" },
-      { "matiere": "Analyse Numérique", "enseignant": "JATOUANI Noureddine" },
-      { "matiere": "Fabrication mécanique avancée", "enseignant": "FRIJA Mounir" },
-      { "matiere": "Dynamique des systèmes mécaniques", "enseignant": "HOUIDI Ajmi" },
-      { "matiere": "Anglais Scientifique 1", "enseignant": "EL GHARBI Ramzi" },
-      { "matiere": "Mécanique des milieux continus", "enseignant": "CHATTI Sami" },
-      { "matiere": "Mise en forme par déformation plastique", "enseignant": "ZRIBI Tamin" }
+      {
+        "matiere": "Analyse des systèmes mécaniques",
+        "enseignant": "TOUNSI Mohamed"
+      },
+      {
+        "matiere": "Mécanique vibratoire",
+        "enseignant": "FEKI Nabih"
+      },
+      {
+        "matiere": "Statistiques, probabilité et processus stochastiques",
+        "enseignant": "KHALIFA Hatem"
+      },
+      {
+        "matiere": "Analyse Numérique",
+        "enseignant": "JATOUANI Noureddine"
+      },
+      {
+        "matiere": "Fabrication mécanique avancée",
+        "enseignant": "FRIJA Mounir"
+      },
+      {
+        "matiere": "Dynamique des systèmes mécaniques",
+        "enseignant": "HOUIDI Ajmi"
+      },
+      {
+        "matiere": "Anglais Scientifique 1",
+        "enseignant": "EL GHARBI Ramzi"
+      },
+      {
+        "matiere": "Mécanique des milieux continus",
+        "enseignant": "CHATTI Sami"
+      },
+      {
+        "matiere": "Mise en forme par déformation plastique",
+        "enseignant": "ZRIBI Tamin"
+      }
     ]
   },
   "MP-GM-M1": {
     "SE1": [
-      { "matiere": "Tolérancement et gestion de la métrologie", "enseignant": "TOUNSI" },
-      { "matiere": "Probabilité et statistique", "enseignant": "ABDELGHANI Meher" },
-      { "matiere": "Usinage numérique", "enseignant": "HICHRI Haithem" },
-      { "matiere": "Méthodes Numériques", "enseignant": "JATOUANI Noureddine" },
-      { "matiere": "Analyse des systèmes dynamiques", "enseignant": "TERRES Mohamed Ali" },
-      { "matiere": "Dynamique des systèmes mécaniques", "enseignant": "HOUIDI Ajmi" },
-      { "matiere": "Anglais Scientifique 1", "enseignant": "EL GHARBI Ramzi" },
-      { "matiere": "Mécanique des milieux continus", "enseignant": "CHATTI Sami" }
+      {
+        "matiere": "Tolérancement et gestion de la métrologie",
+        "enseignant": "TOUNSI"
+      },
+      {
+        "matiere": "Probabilité et statistique",
+        "enseignant": "ABDELGHANI Meher"
+      },
+      {
+        "matiere": "Usinage numérique",
+        "enseignant": "HICHRI Haithem"
+      },
+      {
+        "matiere": "Méthodes Numériques",
+        "enseignant": "JATOUANI Noureddine"
+      },
+      {
+        "matiere": "Analyse des systèmes dynamiques",
+        "enseignant": "TERRES Mohamed Ali"
+      },
+      {
+        "matiere": "Dynamique des systèmes mécaniques",
+        "enseignant": "HOUIDI Ajmi"
+      },
+      {
+        "matiere": "Anglais Scientifique 1",
+        "enseignant": "EL GHARBI Ramzi"
+      },
+      {
+        "matiere": "Mécanique des milieux continus",
+        "enseignant": "CHATTI Sami"
+      }
     ]
   },
   "MP-MERE-M1": {
     "SE1": [
-      { "matiere": "Systèmes de climatisation", "enseignant": "CHOUAIEB Olfa" },
-      { "matiere": "Installation électrique", "enseignant": "KHALIL Makram" },
-      { "matiere": "Dimensionnement d'une installation BT", "enseignant": "KHALIL Makram" },
-      { "matiere": "Combustion et pollution atmosphérique", "enseignant": "FARHAT Habib" },
-      { "matiere": "Systèmes de chauffage", "enseignant": "MAZZOUZ Souha" },
-      { "matiere": "Thermique du bâtiment", "enseignant": "BOUTOUB Ahmed" },
-      { "matiere": "Optimisation des systèmes énergétiques", "enseignant": "FARHAT Habib" },
-      { "matiere": "Anglais scientifique 1", "enseignant": "EL GHARBI Ramzi" },
-      { "matiere": "Equipements fluidiques", "enseignant": "BAWEB BHOURI Ines" },
-      { "matiere": "Français", "enseignant": "ZAIDI Ezzine" }
+      {
+        "matiere": "Systèmes de climatisation",
+        "enseignant": "CHOUAIEB Olfa"
+      },
+      {
+        "matiere": "Installation électrique",
+        "enseignant": "KHALIL Makram"
+      },
+      {
+        "matiere": "Dimensionnement d'une installation BT",
+        "enseignant": "KHALIL Makram"
+      },
+      {
+        "matiere": "Combustion et pollution atmosphérique",
+        "enseignant": "FARHAT Habib"
+      },
+      {
+        "matiere": "Systèmes de chauffage",
+        "enseignant": "MAZZOUZ Souha"
+      },
+      {
+        "matiere": "Thermique du bâtiment",
+        "enseignant": "BOUTOUB Ahmed"
+      },
+      {
+        "matiere": "Optimisation des systèmes énergétiques",
+        "enseignant": "FARHAT Habib"
+      },
+      {
+        "matiere": "Anglais scientifique 1",
+        "enseignant": "EL GHARBI Ramzi"
+      },
+      {
+        "matiere": "Equipements fluidiques",
+        "enseignant": "BAWEB BHOURI Ines"
+      },
+      {
+        "matiere": "Français",
+        "enseignant": "ZAIDI Ezzine"
+      }
     ]
   },
   "MR-SPI-M2": {
     "SE3": [
-      { "matiere": "Réseaux de nouvelles générations", "enseignant": "SAHRIA Nihed" },
-      { "matiere": "Systèmes Auto-adaptatifs", "enseignant": "ACHOUR Sami" },
-      { "matiere": "Réseaux de neurones et Deep learning", "enseignant": "BOUALLEGUE Kais" },
-      { "matiere": "Cognition et traitement de l'information", "enseignant": "MTIBAA Riyadh" },
-      { "matiere": "La sécurité des systèmes Pervasifs", "enseignant": "BAROUNI Yosra" },
-      { "matiere": "IoT: Principes, Standards, Applications...", "enseignant": "BOUALLEGUE Kais" },
-      { "matiere": "Calcul à haute performance", "enseignant": "ACHOUR Sami" },
-      { "matiere": "BIG DATA", "enseignant": "KANZARI Dalel" },
-      { "matiere": "Architecture des systèmes pervasifs", "enseignant": "KHEMAJA Maha" }
+      {
+        "matiere": "Réseaux de nouvelles générations",
+        "enseignant": "SAHRIA Nihed"
+      },
+      {
+        "matiere": "Systèmes Auto-adaptatifs",
+        "enseignant": "ACHOUR Sami"
+      },
+      {
+        "matiere": "Réseaux de neurones et Deep learning",
+        "enseignant": "BOUALLEGUE Kais"
+      },
+      {
+        "matiere": "Cognition et traitement de l'information",
+        "enseignant": "MTIBAA Riyadh"
+      },
+      {
+        "matiere": "La sécurité des systèmes Pervasifs",
+        "enseignant": "BAROUNI Yosra"
+      },
+      {
+        "matiere": "IoT: Principes, Standards, Applications...",
+        "enseignant": "BOUALLEGUE Kais"
+      },
+      {
+        "matiere": "Calcul à haute performance",
+        "enseignant": "ACHOUR Sami"
+      },
+      {
+        "matiere": "BIG DATA",
+        "enseignant": "KANZARI Dalel"
+      },
+      {
+        "matiere": "Architecture des systèmes pervasifs",
+        "enseignant": "KHEMAJA Maha"
+      }
     ]
   },
   "MR-MSEE-SEE-M2": {
     "SE3": [
-      { "matiere": "Architecture DSP et implémentation", "enseignant": "SOUISSI Warda Imen" },
-      { "matiere": "Anglais pour TOEIC", "enseignant": "EL GHARBI Ramzi" },
-      { "matiere": "Codesign et Prototypage Virtuel", "enseignant": "HAJJAJI Mohamed Ali" },
-      { "matiere": "Techniques pour l'intelligence artificielle", "enseignant": "CHIBANI Radhia" },
-      { "matiere": "Robotique", "enseignant": "BOUALLEGUE Kais" },
-      { "matiere": "Technologie SoC", "enseignant": "BEN KHALIFA Khaled" },
-      { "matiere": "Outils pour la vision artificielle", "enseignant": "RZOUGUA Lamia" },
-      { "matiere": "Technologie et modélisations des véhicules électriques", "enseignant": "MESSAOUDI Seifeddine" },
-      { "matiere": "Systèmes d'exploitation embarqués", "enseignant": "OUESMI Hattab" },
-      { "matiere": "Ordinateurs de fortes performances", "enseignant": "SOUISSI Warda Imen" }
+      {
+        "matiere": "Architecture DSP et implémentation",
+        "enseignant": "SOUISSI Warda Imen"
+      },
+      {
+        "matiere": "Anglais pour TOEIC",
+        "enseignant": "EL GHARBI Ramzi"
+      },
+      {
+        "matiere": "Codesign et Prototypage Virtuel",
+        "enseignant": "HAJJAJI Mohamed Ali"
+      },
+      {
+        "matiere": "Techniques pour l'intelligence artificielle",
+        "enseignant": "CHIBANI Radhia"
+      },
+      {
+        "matiere": "Robotique",
+        "enseignant": "BOUALLEGUE Kais"
+      },
+      {
+        "matiere": "Technologie SoC",
+        "enseignant": "BEN KHALIFA Khaled"
+      },
+      {
+        "matiere": "Outils pour la vision artificielle",
+        "enseignant": "RZOUGUA Lamia"
+      },
+      {
+        "matiere": "Technologie et modélisations des véhicules électriques",
+        "enseignant": "MESSAOUDI Seifeddine"
+      },
+      {
+        "matiere": "Systèmes d'exploitation embarqués",
+        "enseignant": "OUESMI Hattab"
+      },
+      {
+        "matiere": "Ordinateurs de fortes performances",
+        "enseignant": "SOUISSI Warda Imen"
+      }
     ]
   },
   "MR-MSEE-MDEP-M2": {
     "SE3": [
-      { "matiere": "Transfert d'énergie sans fil (WPT)", "enseignant": "BEN FADHEL Yosra" },
-      { "matiere": "Anglais pour TOEIC", "enseignant": "EL GHARBI Ramzi" },
-      { "matiere": "Qualité de l'énergie et convertisseurs non polluants", "enseignant": "HAMOUDA" },
-      { "matiere": "Modélisation et commande des systèmes non linéaire", "enseignant": "KHEDHER" },
-      { "matiere": "Techniques des commandes intelligentes", "enseignant": "CHIBANI Radhia" },
-      { "matiere": "Commande des actionneurs pour les véhicules électriques", "enseignant": "BEN ALI" },
-      { "matiere": "Diagnostic des défauts des actionneurs électriques", "enseignant": "BEN KHALIFA Khaled" },
-      { "matiere": "Dispatching des réseaux d'énergie électrique", "enseignant": "RZOUGUA Lamia" },
-      { "matiere": "Convertisseurs photovoltaïques", "enseignant": "BEN SALAH Chokri" },
-      { "matiere": "Conversion d'énergie éolienne", "enseignant": "TRABELSI Ramzi" }
+      {
+        "matiere": "Transfert d'énergie sans fil (WPT)",
+        "enseignant": "BEN FADHEL Yosra"
+      },
+      {
+        "matiere": "Anglais pour TOEIC",
+        "enseignant": "EL GHARBI Ramzi"
+      },
+      {
+        "matiere": "Qualité de l'énergie et convertisseurs non polluants",
+        "enseignant": "HAMOUDA"
+      },
+      {
+        "matiere": "Modélisation et commande des systèmes non linéaire",
+        "enseignant": "KHEDHER"
+      },
+      {
+        "matiere": "Techniques des commandes intelligentes",
+        "enseignant": "CHIBANI Radhia"
+      },
+      {
+        "matiere": "Commande des actionneurs pour les véhicules électriques",
+        "enseignant": "BEN ALI"
+      },
+      {
+        "matiere": "Diagnostic des défauts des actionneurs électriques",
+        "enseignant": "BEN KHALIFA Khaled"
+      },
+      {
+        "matiere": "Dispatching des réseaux d'énergie électrique",
+        "enseignant": "RZOUGUA Lamia"
+      },
+      {
+        "matiere": "Convertisseurs photovoltaïques",
+        "enseignant": "BEN SALAH Chokri"
+      },
+      {
+        "matiere": "Conversion d'énergie éolienne",
+        "enseignant": "TRABELSI Ramzi"
+      }
     ]
   },
   "MR-MSEE-MSE-M2": {
     "SE3": [
-      { "matiere": "Caractérisation des micros et nano systèmes", "enseignant": "KALLEL Nabil" },
-      { "matiere": "Anglais pour TOEIC", "enseignant": "EL GHARBI Ramzi" },
-      { "matiere": "Technologie des Nano micro-composants et microsystèmes", "enseignant": "HASSEN" },
-      { "matiere": "Architecture et conception des nano microcomposants", "enseignant": "CHAABANE" },
-      { "matiere": "Dispositifs électroniques organiques", "enseignant": "MOHAMED" },
-      { "matiere": "Micro-capteurs physiques chimiques et biologiques", "enseignant": "BELHADJ MESSOUD Najib" },
-      { "matiere": "Matériaux avancés pour les microsystèmes", "enseignant": "GUEDRI Lamia" },
-      { "matiere": "Microsystèmes optroniques et optoélectroniques", "enseignant": "SAIDI" },
-      { "matiere": "Micro sources de production de l'énergie", "enseignant": "KHILIFI Mouadh" }
+      {
+        "matiere": "Caractérisation des micros et nano systèmes",
+        "enseignant": "KALLEL Nabil"
+      },
+      {
+        "matiere": "Anglais pour TOEIC",
+        "enseignant": "EL GHARBI Ramzi"
+      },
+      {
+        "matiere": "Technologie des Nano micro-composants et microsystèmes",
+        "enseignant": "HASSEN"
+      },
+      {
+        "matiere": "Architecture et conception des nano microcomposants",
+        "enseignant": "CHAABANE"
+      },
+      {
+        "matiere": "Dispositifs électroniques organiques",
+        "enseignant": "MOHAMED"
+      },
+      {
+        "matiere": "Micro-capteurs physiques chimiques et biologiques",
+        "enseignant": "BELHADJ MESSOUD Najib"
+      },
+      {
+        "matiere": "Matériaux avancés pour les microsystèmes",
+        "enseignant": "GUEDRI Lamia"
+      },
+      {
+        "matiere": "Microsystèmes optroniques et optoélectroniques",
+        "enseignant": "SAIDI"
+      },
+      {
+        "matiere": "Micro sources de production de l'énergie",
+        "enseignant": "KHILIFI Mouadh"
+      }
     ]
   }
 }

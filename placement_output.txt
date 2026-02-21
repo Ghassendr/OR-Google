@@ -1,0 +1,100 @@
+﻿======================================================================
+       PLACEMENT FIXE DES EXAMENS - SYSTEME DE BLOCS
+======================================================================
+  Salles disponibles  : 56 salles | Capacite totale : 1901 places
+
+  BLOC MATIN      (08h30 + 10h15) :   796 etudiants |  34 groupes
+  BLOC APRES-MIDI (12h00 + 13h45) :  1850 etudiants |  73 groupes
+  TOTAL                           :  2646 etudiants
+======================================================================
+
+  Resolution BLOC MATIN (34 groupes, 796 etu)...
+  [OK - OPTIMALE] 76.2s
+  Resolution BLOC APRES-MIDI (73 groupes, 1850 etu)...
+  [ECHEC] BLOC APRES-MIDI : INFEASIBLE
+
+
+===========================================================================
+  BLOC MATIN   (08h30-09h30  et  10h15-11h15)
+  Planning valable pour TOUTE LA SEMAINE
+===========================================================================
+
+  Salle    Cap  Effectif   Taux  Filieres / Groupes
+  ------  ----  --------  -----  --------------------------------------------------
+  K07       44        28    64%  [############........]
+                                Ingenieur                28 etu  (Ingenieur G4)
+  K08       32        25    78%  [###############.....]
+                                MR_SEE                   25 etu  (MR_SEE G1)
+  K10       50        50   100%  [####################]
+                                Cycle_Preparatoire       50 etu  (Cycle_Preparatoire G4, Cycle_Preparatoire G5)
+  K11       50        49    98%  [###################.]
+                                MR_MSEE                  49 etu  (MR_MSEE G2, MR_MSEE G4)
+  K12       50        48    96%  [###################.]
+                                GM                       48 etu  (GM G1, GM G2)
+  K13       50        50   100%  [####################]
+                                MR_MSEE                  50 etu  (MR_MSEE G1, MR_MSEE G3)
+
+  M01       26        25    96%  [###################.]
+                                MR_SPI_2                 25 etu  (MR_SPI_2 G1)
+  M03       38        38   100%  [####################]
+                                MP_EEB                   16 etu  (MP_EEB G1)
+                                MP_GPPM                  22 etu  (MP_GPPM G1)
+  M04       38        27    71%  [##############......]
+                                MR_GM                    27 etu  (MR_GM G1)
+  M05       38        29    76%  [###############.....]
+                                Cycle_Preparatoire       29 etu  (Cycle_Preparatoire G3)
+  M06       38        38   100%  [####################]
+                                MP_PAI                   26 etu  (MP_PAI G1)
+                                MR_MDEP                  12 etu  (MR_MDEP G1)
+  M07       38        38   100%  [####################]
+                                MP_MERE                  26 etu  (MP_MERE G1)
+                                MR_SM                    12 etu  (MR_SM G1)
+  M08       44        42    95%  [###################.]
+                                MP_EEI                   17 etu  (MP_EEI G1)
+                                MP_MERE                  25 etu  (MP_MERE G2)
+  M09       44        41    93%  [##################..]
+                                Cycle_Preparatoire       26 etu  (Cycle_Preparatoire G1)
+                                MP_EEB                   15 etu  (MP_EEB G2)
+  M10       26        25    96%  [###################.]
+                                Cycle_Preparatoire       25 etu  (Cycle_Preparatoire G3)
+  M11       44        44   100%  [####################]
+                                Ingenieur                29 etu  (Ingenieur G2)
+                                MR_MSE                   15 etu  (MR_MSE G1)
+  M12       26        26   100%  [####################]
+                                Cycle_Preparatoire       26 etu  (Cycle_Preparatoire G2)
+  M13       44        43    98%  [###################.]
+                                Cycle_Preparatoire       29 etu  (Cycle_Preparatoire G2)
+                                MR_MM                    14 etu  (MR_MM G1)
+  M14       38        29    76%  [###############.....]
+                                Ingenieur                29 etu  (Ingenieur G1)
+  M15       44        30    68%  [#############.......]
+                                Cycle_Preparatoire       30 etu  (Cycle_Preparatoire G1)
+  M16       44        42    95%  [###################.]
+                                MR_SPI                   42 etu  (MR_SPI G1, MR_SPI G2)
+  M17       31        29    94%  [##################..]
+                                Ingenieur                29 etu  (Ingenieur G3)
+
+  =========================================================================
+  Salles utilisees              : 22
+  Etudiants places              : 796
+  Capacite mobilisee            : 877 places
+  Taux global d occupation      : 90.8%
+  Moyenne par salle             : 36.2 etu/salle
+
+  Distribution des taux de remplissage :
+   60%- 69% : ||                   (2 salles)
+   70%- 79% : ||||                 (4 salles)
+   90%- 99% : |||||||||            (9 salles)
+  100%-109% : |||||||              (7 salles)
+
+  Aucun resultat pour BLOC APRES-MIDI.
+===========================================================================
+  RECAPITULATIF GLOBAL
+===========================================================================
+  Bloc                  Salles  Etudiants   Capacite    Taux
+  -------------------- ------- ---------- ---------- -------
+  Matin (08h30+10h15)       22        796        877   90.8%
+
+  -------------------- ------- ---------- ---------- -------
+  TOTAL                     22        796        877   90.8%
+===========================================================================
