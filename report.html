@@ -1075,7 +1075,7 @@
         </div>
 
         <!-- UNIVERSITY GROUPS TABLE -->
-        <div id="univ-table-container"></div>
+        <div id="univ-table-container" style="display:none;margin-bottom:24px"></div>
 
         <!-- CONTROLS -->
         <div class="ctrl">
@@ -1159,39 +1159,6 @@
         <div id="si" class="si"></div>
         <div id="mc"></div>
 
-        <!-- IMPORT SECTION -->
-        <div class="isec" id="isec" style="display:none">
-            <div class="isec-title"><span>Données Importées</span><span id="ibadge" class="jbadge">0</span></div>
-            <div class="isec-sub">Vérifiez les données extraites avant utilisation.</div>
-            <div class="jpanel">
-                <div class="jhdr">
-                    <div class="jhdr-l">
-                        <span class="jhdr-title" id="jsrc">Source : —</span>
-                        <span id="jcnt" style="font-size:12px;color:var(--text3)"></span>
-                    </div>
-                    <div style="display:flex;gap:8px;flex-wrap:wrap">
-                        <button class="bsm" onclick="copyJSON()">Copier JSON</button>
-                        <button class="bsm g" onclick="saveImportedData()">Enregistrer</button>
-                    </div>
-                </div>
-                <div class="pvw" id="pvw" style="display:none">
-                    <img id="pvw-img" src="" alt="preview" />
-                    <div class="pvw-meta"><strong id="pvw-name">—</strong><span id="pvw-size">—</span></div>
-                </div>
-                <div class="tw">
-                    <table>
-                        <thead id="ith"></thead>
-                        <tbody id="itb"></tbody>
-                    </table>
-                </div>
-                <div class="jraw">
-                    <details>
-                        <summary>▸ Voir JSON brut</summary>
-                        <pre id="jraw"></pre>
-                    </details>
-                </div>
-            </div>
-        </div>
 
         <footer>
             <span>ENIS — Session Examens 2026 · Greedy Optimisé</span>
@@ -1222,7 +1189,7 @@
                     const res = await r1.json();
                     if (res.filiers) {
                         UNIV_DATA = res.filiers;
-                        renderUnivTable();
+                        // renderUnivTable() is no longer called here as per user request
                     }
                 }
 
@@ -1263,14 +1230,13 @@
             return Object.values(m).sort((a, b) => a.filiere.localeCompare(b.filiere));
         }
 
-        function renderUnivTable() {
+        function renderUnivTable(editable = false) {
             const container = document.getElementById('univ-table-container');
             if (!container || !UNIV_DATA) return;
 
             const d = UNIV_DATA;
             const years = ['1ere_annee', '2eme_annee', '3eme_annee'];
 
-            // Safety check for structure
             if (!d.annees) {
                 container.innerHTML = '<div class="empty">Structure de filier.json invalide</div>';
                 return;
@@ -1281,10 +1247,17 @@
             let html = `
             <div class="uni-table-wrap">
                 <div class="uni-table-hdr">
-                    <span class="title">Année Universitaire ${d.annee_universitaire}</span>
+                    <span class="title">
+                        ${editable ? `<input type="text" class="bsm" value="${d.annee_universitaire}" onchange="UNIV_DATA.annee_universitaire=this.value;renderUnivTable(true)" style="width:120px">` : `Année Universitaire ${d.annee_universitaire}`}
+                    </span>
                     <div class="meta">
-                        <span>Nombre des étudiants : <strong>${d.nombre_total_etudiants}</strong></span>
-                        <span>${new Date().toLocaleDateString('fr-FR')}</span>
+                        <span>Nombre des étudiants : <strong>${editable ? `<input type="number" class="bsm" value="${d.nombre_total_etudiants}" onchange="UNIV_DATA.nombre_total_etudiants=parseInt(this.value);renderUnivTable(true)" style="width:80px">` : d.nombre_total_etudiants}</strong></span>
+                        <div style="display:flex;gap:8px">
+                            ${editable ? `
+                                <button class="btn bsm btn-gd" onclick="saveUnivData()">Sauvegarder</button>
+                                <button class="btn bsm" onclick="document.getElementById('univ-table-container').style.display='none'">Fermer</button>
+                            ` : `<button class="btn bsm" onclick="renderUnivTable(true)">Modifier</button>`}
+                        </div>
                     </div>
                 </div>
                 <div class="uni-scroll">
@@ -1313,8 +1286,8 @@
 
                 // Groups Row
                 html += `<tr><td class="row-label">Groupes</td>`;
-                filieres.forEach(([, count]) => {
-                    html += `<td>${count}</td>`;
+                filieres.forEach(([name, count]) => {
+                    html += `<td>${editable ? `<input type="number" class="bsm" value="${count}" onchange="UNIV_DATA.annees['${yr}'].filieres['${name}']=parseInt(this.value);updateUnivTotals();renderUnivTable(true)" style="width:40px;padding:2px">` : count}</td>`;
                 });
 
                 // Add master programs per year section
@@ -1322,7 +1295,7 @@
                 const end = start + 5;
                 const progs = masterProgs.slice(start, end);
 
-                let masterInfo = progs.map(([name, count]) => `<div style="margin-bottom:2px">${name}: <strong>${count}</strong></div>`).join('');
+                let masterInfo = progs.map(([name, count]) => `<div style="margin-bottom:2px">${name}: <strong>${editable ? `<input type="number" class="bsm" value="${count}" onchange="UNIV_DATA.annees.master.programmes['${name}']=parseInt(this.value);updateUnivTotals();renderUnivTable(true)" style="width:40px;padding:2px">` : count}</strong></div>`).join('');
                 if (yr === '3eme_annee') {
                     masterInfo += `<div style="margin-top:6px;padding-top:4px;border-top:1px solid rgba(0,0,0,0.05);font-weight:700;color:var(--red)">Total Master: ${d.annees.master.total_master}</div>`;
                 }
@@ -1336,6 +1309,29 @@
 
             html += `</tbody></table></div></div>`;
             container.innerHTML = html;
+        }
+
+        function updateUnivTotals() {
+            if (!UNIV_DATA) return;
+            const d = UNIV_DATA;
+            ['1ere_annee', '2eme_annee', '3eme_annee'].forEach(yr => {
+                d.annees[yr].total_groupes = Object.values(d.annees[yr].filieres).reduce((a, b) => a + b, 0);
+            });
+            d.annees.master.total_master = Object.values(d.annees.master.programmes).reduce((a, b) => a + b, 0);
+            // Optionally recalculate total student count if it matches the group sum
+            // d.nombre_total_etudiants = ...
+        }
+
+        async function saveUnivData() {
+            setStatus('Enregistrement…', 'loading');
+            try {
+                const r = await fetch('/save-data', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ filiers: UNIV_DATA }) });
+                if (r.ok) {
+                    alert('Données universitaires enregistrées !');
+                    renderUnivTable(false);
+                } else throw new Error();
+            } catch (e) { alert('Erreur lors de l\'enregistrement.'); }
+            finally { setStatus('Prêt', ''); }
         }
 
         function filiersToNested(list, meta = {}) {
@@ -1390,24 +1386,6 @@
             return d;
         }
 
-        function updateImport(idx, key, val) {
-            if (window._flatImported && window._flatImported[idx]) {
-                window._flatImported[idx][key] = key === 'Effectif' ? parseInt(val) : val;
-                imported = filiersToNested(window._flatImported, window._currentMeta || {});
-                document.getElementById('jraw').textContent = JSON.stringify(imported, null, 2);
-            }
-        }
-        function delRow(idx) {
-            if (confirm('Supprimer cette ligne ?')) {
-                window._flatImported.splice(idx, 1);
-                showVerificationTable(window._flatImported, 'Modification manuelle', false);
-            }
-        }
-        function addRow() {
-            if (!window._flatImported) window._flatImported = [];
-            window._flatImported.push({ Niveau: 'L1', Filiere: 'Nouvelle Filière', Effectif: 0, Raw: 'Manuel' });
-            showVerificationTable(window._flatImported, 'Modification manuelle', false);
-        }
 
 
 
@@ -1536,12 +1514,11 @@
                     }
 
                     window._currentMeta = meta;
-                    window._flatImported = flatData;
-                    imported = filiersToNested(flatData, meta);
+                    UNIV_DATA = filiersToNested(flatData, meta);
 
-                    document.getElementById('pvw').style.display = 'none';
+                    document.getElementById('univ-table-container').style.display = 'block';
                     setStatus(`✓ ${flatData.length} lignes extraites — "${file.name}"`, 'ok');
-                    showVerificationTable(flatData, file.name);
+                    renderUnivTable(true); // Open in edit mode
 
                 } catch (ex) {
                     console.error(ex);
@@ -1550,81 +1527,10 @@
             };
             r.readAsArrayBuffer(file);
         }
-        function showVerificationTable(data, source, scrollTo = true) {
-            window._flatImported = data.map(d => ({ Niveau: d.Niveau, Filiere: d.Filiere, Effectif: d.Effectif, Raw: d.Raw }));
-            imported = filiersToNested(window._flatImported, window._currentMeta || {});
 
-            const sec = document.getElementById('isec');
-            sec.style.display = 'block';
-            document.getElementById('jsrc').textContent = 'Source : ' + source;
-            document.getElementById('ibadge').textContent = data.length;
-            document.getElementById('jcnt').textContent = `${data.length} filières détectées`;
+        // Removed showVerificationTable as requested
 
-            const cols = ["Niveau", "Filiere", "Effectif", "Texte Brut", "Actions"];
-            document.getElementById('ith').innerHTML = `<tr>${cols.map(c => `<th>${c}</th>`).join('')}</tr>`;
-
-            document.getElementById('itb').innerHTML = window._flatImported.map((row, i) => {
-                const opts = ['L1', 'L2', 'L3', 'M'].map(v => `<option value="${v}" ${row.Niveau.toString().includes(v) ? 'selected' : ''}>${v}</option>`).join('');
-                return `<tr>
-                    <td><select class="bsm" style="padding:4px" onchange="updateImport(${i},'Niveau',this.value)">${opts}</select></td>
-                    <td><input type="text" class="bsm" style="padding:4px;width:120px" value="${row.Filiere}" onchange="updateImport(${i},'Filiere',this.value)"></td>
-                    <td><input type="number" class="bsm" style="padding:4px;width:70px" value="${row.Effectif}" onchange="updateImport(${i},'Effectif',this.value)"></td>
-                    <td class="tdj" style="max-width:200px;overflow:hidden;text-overflow:ellipsis">${row.Raw || '—'}</td>
-                    <td><button class="bsm" style="color:var(--red);border-color:var(--red-lt)" onclick="delRow(${i})">✕</button></td>
-                </tr>`;
-            }).join('') + `<tr><td colspan="5"><button class="btn bsm" style="width:100%;margin-top:8px" onclick="addRow()">+ Ajouter une ligne manually</button></td></tr>`;
-
-            document.getElementById('jraw').textContent = JSON.stringify(imported, null, 2);
-            if (scrollTo) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        // ── SHOW TABLE ────────────────────────────────────
-        function showTable(data, source, cols) {
-            window._flatImported = data;
-            imported = filiersToNested(data);
-
-            const sec = document.getElementById('isec');
-            sec.style.display = 'block';
-            document.getElementById('jsrc').textContent = 'Source : ' + source;
-            document.getElementById('ibadge').textContent = data.length;
-            document.getElementById('jcnt').textContent = `${data.length} ligne${data.length > 1 ? 's' : ''}`;
-
-            document.getElementById('ith').innerHTML =
-                `<tr>${cols.map(c => `<th>${c}</th>`).join('')}<th>JSON Ligne</th></tr>`;
-
-            document.getElementById('itb').innerHTML = data.map((row, i) => {
-                const cells = cols.map(c => {
-                    const v = row[c] ?? '—';
-                    if (c === 'Niveau' && NBGS[v])
-                        return `<td><span class="tdb" style="background:${NBGS[v]};color:${NBGC[v]}">${v}</span></td>`;
-                    return `<td>${v}</td>`;
-                }).join('');
-                return `<tr class="fi" style="animation-delay:${i * 10}ms">${cells}<td class="tdj">${JSON.stringify(row)}</td></tr>`;
-            }).join('');
-
-            document.getElementById('jraw').textContent = JSON.stringify(imported, null, 2);
-            sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        function copyJSON() {
-            if (!imported) return;
-            navigator.clipboard.writeText(JSON.stringify(imported, null, 2)).then(() => {
-                const b = event.currentTarget;
-                const og = b.textContent;
-                b.textContent = '✓ Copié !'; b.style.background = 'var(--green)'; b.style.color = '#fff';
-                setTimeout(() => { b.textContent = og; b.style.background = ''; b.style.color = ''; }, 1800);
-            });
-        }
-
-        async function saveImportedData() {
-            if (!imported) return;
-            setStatus('Enregistrement…', 'loading');
-            try {
-                const r = await fetch('/save-data', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ filiers: imported }) });
-                if (r.ok) alert('Données enregistrées !'); else throw new Error();
-            } catch (e) { alert('Serveur non disponible — utilisez "Copier JSON".'); }
-            finally { setStatus('Prêt', ''); }
-        }
+        // Removed legacy functions: showTable, saveImportedData, copyJSON
 
         async function runGreedy() {
             setStatus('Lancement Greedy…', 'loading'); setLoading(true);
