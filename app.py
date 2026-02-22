@@ -7,7 +7,7 @@ import json
 import pytesseract
 from PIL import Image
 
-app = Flask(__name__, static_folder='.')
+app = Flask(__name__, static_folder='.', static_url_path='')
 CORS(app)
 
 # Configuration for Tesseract (User might need to adjust this path)

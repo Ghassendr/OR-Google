@@ -1148,10 +1148,10 @@
                     <div class="lfd" style="background:#3DAD7A"></div>&lt;80%
                 </div>
                 <div class="lf">
-                    <div class="lfd" style="background:#F5A623"></div>80–89%
+                    <div class="lfd" style="background:#F5A623"></div>80–94%
                 </div>
                 <div class="lf">
-                    <div class="lfd" style="background:#D94040"></div>≥90%
+                    <div class="lfd" style="background:#D94040"></div>≥95%
                 </div>
             </div>
         </div>
@@ -1211,44 +1211,72 @@
         //     "master": { "total_master": 466, "programmes": { "MR_SPI": 42, "GM": 48, "MR_GM": 27, "MP_MERE": 51, "MR_MSEE": 99, "MP_GPPM": 22, "MP_PAI": 26, "MR_SPI_2": 25, "MP_EEB": 31, "MP_EEI": 17, "MR_SEE": 25, "MR_MSE": 15, "MR_MDEP": 12, "MR_SM": 12, "MR_MM": 14 } }
         //   }
         // }
-        const UNIV_DATA = {
-            "annee_universitaire": "2025/2026",
-            "nombre_total_etudiants": 2605,
-            "annees": {
-                "1ere_annee": {
-                    "total_groupes": 89,
-                    "filieres": {
-                        "L_ISI": 89, "L_GM": 88, "L_GC": 78, "L_EEA": 158, "L_Energ": 73, "L_EM": 80, "L_SI": 84, "Cycle_Preparatoire": 127, "Ingenieur": 115
+        let DATA = { matin: [], apmidi: [] };
+        let UNIV_DATA = null;
+
+        async function loadAllData() {
+            try {
+                // Load University Data (from filier.json via /get-data)
+                const r1 = await fetch('/get-data?t=' + Date.now());
+                if (r1.ok) {
+                    const res = await r1.json();
+                    if (res.filiers) {
+                        UNIV_DATA = res.filiers;
+                        renderUnivTable();
                     }
-                },
-                "2eme_annee": {
-                    "total_groupes": 112,
-                    "filieres": {
-                        "ISI": 112, "CPI": 81, "Batiment": 31, "SE": 159, "Energ": 33, "MA": 55, "SI": 72, "Cycle_Preparatoire": 88, "2GL": 105
-                    }
-                },
-                "3eme_annee": {
-                    "total_groupes": 93,
-                    "filieres": {
-                        "ISI": 93, "CPI": 50, "Batiment": 37, "SE": 131, "Energ": 22, "MA": 46, "SI": 63, "3GL": 110
-                    }
-                },
-                "master": {
-                    "programmes": {
-                        "MR_SPI": 42, "GM": 48, "MR_GM": 27, "MP_MERE": 51, "MR_MSEE": 99, "MP_GPPM": 22, "MP_PAI": 26, "MR_SPI_2": 25, "MP_EEB": 31, "MP_EEI": 17, "MR_SEE": 25, "MR_MSE": 15, "MR_MDEP": 12, "MR_SM": 12, "MR_MM": 14
-                    },
-                    "total_master": 425
                 }
+
+                // Load Placement Data (from placement.json)
+                const r2 = await fetch('placement.json?t=' + Date.now());
+                if (r2.ok) {
+                    const json = await r2.json();
+                    DATA.matin = json.matin || [];
+                    DATA.apmidi = json.apmidi || [];
+                    if (json.timestamp) {
+                        setStatus(`Dernière mise à jour : ${json.timestamp}`, 'ok');
+                    }
+                } else {
+                    console.log("placement.json non trouvé - en attente du premier lancement.");
+                }
+            } catch (e) {
+                console.warn("Erreur chargement des données", e);
+            } finally {
+                render();
             }
-        };
+        }
+
+        let bloc = 'matin', view = 'salle', imported = null;
+
+        const NBGS = { L1: '#FFF0CC', L2: '#D6F5E5', L3: '#D6E8FF', M: '#EDE0FF' };
+        const NBGC = { L1: '#A0640A', L2: '#1A6040', L3: '#1A3F80', M: '#5A1F99' };
+        function fc(p) { return p >= 95 ? 'fl-hi' : p >= 80 ? 'fl-mi' : 'fl-lo'; }
+        function fcol(p) { return p >= 95 ? '#D94040' : p >= 80 ? '#C67C0D' : '#2D6A4F'; }
+
+        function buildFil(salles) {
+            const m = {};
+            if (!salles) return [];
+            salles.forEach(s => s.groupes.forEach(g => {
+                const k = g.n + '|' + g.f;
+                if (!m[k]) m[k] = { niveau: g.n, filiere: g.f, total: 0, salles: [] };
+                m[k].total += g.e; m[k].salles.push({ salle: s.id, etu: g.e });
+            }));
+            return Object.values(m).sort((a, b) => a.filiere.localeCompare(b.filiere));
+        }
 
         function renderUnivTable() {
             const container = document.getElementById('univ-table-container');
-            if (!container) return;
+            if (!container || !UNIV_DATA) return;
 
             const d = UNIV_DATA;
             const years = ['1ere_annee', '2eme_annee', '3eme_annee'];
-            const masterProgs = Object.entries(d.annees.master.programmes);
+
+            // Safety check for structure
+            if (!d.annees) {
+                container.innerHTML = '<div class="empty">Structure de filier.json invalide</div>';
+                return;
+            }
+
+            const masterProgs = d.annees.master ? Object.entries(d.annees.master.programmes || {}) : [];
 
             let html = `
             <div class="uni-table-wrap">
@@ -1310,11 +1338,11 @@
             container.innerHTML = html;
         }
 
-        function filiersToNested(list) {
+        function filiersToNested(list, meta = {}) {
             console.log("Transformation du Excel en JSON imbriqué...", list);
             const d = {
-                "annee_universitaire": "2025/2026",
-                "nombre_total_etudiants": 0,
+                "annee_universitaire": meta.year || "2025/2026",
+                "nombre_total_etudiants": meta.total || 0,
                 "annees": {
                     "1ere_annee": { "total_groupes": 0, "filieres": {} },
                     "2eme_annee": { "total_groupes": 0, "filieres": {} },
@@ -1323,21 +1351,17 @@
                 }
             };
 
-            // Fonction pour trouver une valeur même si le nom de la colonne varie
             const getV = (row, pattern) => {
                 const k = Object.keys(row).find(key => key.toLowerCase().includes(pattern.toLowerCase()));
                 return k ? row[k] : null;
             };
 
             list.forEach((row, i) => {
-                let niv = (getV(row, 'niv') || '').toString().toUpperCase();
-                let fil = getV(row, 'fil') || 'Inconnue';
-                let effStr = getV(row, 'eff');
-                let eff = parseInt(effStr || 0);
+                let niv = (getV(row, 'niv') || (row.Niveau || '')).toString().toUpperCase();
+                let fil = getV(row, 'fil') || (row.Filiere || 'Inconnue');
+                let eff = parseInt(getV(row, 'eff') || (row.Effectif || 0));
 
-                if (!niv) return; // Sauter les lignes vides
-
-                console.log(`Ligne ${i}:`, { niv, fil, eff });
+                if (!niv || niv === 'NIVEAU') return;
 
                 if (niv.includes('1ERE') || niv.includes('L1') || niv.includes('1ÈRE')) {
                     d.annees["1ere_annee"].filieres[fil] = (d.annees["1ere_annee"].filieres[fil] || 0) + eff;
@@ -1352,8 +1376,15 @@
                     d.annees.master.programmes[fil] = (d.annees.master.programmes[fil] || 0) + eff;
                     d.annees.master.total_master += eff;
                 }
-                d.nombre_total_etudiants += eff;
             });
+
+            // If not provided in meta, calculate total students
+            if (!meta.total) {
+                d.nombre_total_etudiants = d.annees["1ere_annee"].total_groupes +
+                    d.annees["2eme_annee"].total_groupes +
+                    d.annees["3eme_annee"].total_groupes +
+                    d.annees.master.total_master;
+            }
 
             console.log("Résultat structuré:", d);
             return d;
@@ -1362,7 +1393,7 @@
         function updateImport(idx, key, val) {
             if (window._flatImported && window._flatImported[idx]) {
                 window._flatImported[idx][key] = key === 'Effectif' ? parseInt(val) : val;
-                imported = filiersToNested(window._flatImported);
+                imported = filiersToNested(window._flatImported, window._currentMeta || {});
                 document.getElementById('jraw').textContent = JSON.stringify(imported, null, 2);
             }
         }
@@ -1378,17 +1409,7 @@
             showVerificationTable(window._flatImported, 'Modification manuelle', false);
         }
 
-        const DATA = {
-            matin: [{ "id": "I01", "cap": 48, "fill": 91, "groupes": [{ "n": "L1", "f": "L_GC", "e": 24 }, { "n": "M", "f": "MP_MERE", "e": 20 }] }, { "id": "I02", "cap": 36, "fill": 88, "groupes": [{ "n": "L1", "f": "L_SI", "e": 18 }, { "n": "M", "f": "MR_MM", "e": 14 }] }, { "id": "I03", "cap": 36, "fill": 88, "groupes": [{ "n": "L1", "f": "L_EEA", "e": 14 }, { "n": "M", "f": "MP_MERE", "e": 18 }] }, { "id": "I05", "cap": 45, "fill": 91, "groupes": [{ "n": "L1", "f": "L_GC", "e": 19 }, { "n": "L2", "f": "Cycle_Preparatoire", "e": 22 }] }, { "id": "I07", "cap": 20, "fill": 80, "groupes": [{ "n": "L1", "f": "L_Energ", "e": 8 }, { "n": "M", "f": "MP_GPPM", "e": 8 }] }, { "id": "I10", "cap": 36, "fill": 69, "groupes": [{ "n": "M", "f": "MP_GPPM", "e": 14 }, { "n": "M", "f": "MR_SEE", "e": 11 }] }, { "id": "I13", "cap": 36, "fill": 88, "groupes": [{ "n": "L1", "f": "Ingenieur", "e": 17 }, { "n": "M", "f": "MR_MSE", "e": 15 }] }, { "id": "I15", "cap": 36, "fill": 88, "groupes": [{ "n": "L1", "f": "L_GC", "e": 15 }, { "n": "L1", "f": "Ingenieur", "e": 17 }] }, { "id": "I18", "cap": 36, "fill": 83, "groupes": [{ "n": "L1", "f": "L_GM", "e": 13 }, { "n": "M", "f": "MP_EEI", "e": 17 }] }, { "id": "J01", "cap": 24, "fill": 83, "groupes": [{ "n": "L1", "f": "L_ISI", "e": 8 }, { "n": "L1", "f": "L_EEA", "e": 12 }] }, { "id": "J02", "cap": 24, "fill": 83, "groupes": [{ "n": "L1", "f": "L_EEA", "e": 12 }, { "n": "M", "f": "MP_EEB", "e": 8 }] }, { "id": "J03", "cap": 24, "fill": 66, "groupes": [{ "n": "M", "f": "MR_GM", "e": 10 }, { "n": "M", "f": "MP_PAI", "e": 6 }] }, { "id": "J06", "cap": 35, "fill": 88, "groupes": [{ "n": "L1", "f": "Cycle_Preparatoire", "e": 17 }, { "n": "M", "f": "MR_SPI_2", "e": 14 }] }, { "id": "J07", "cap": 30, "fill": 86, "groupes": [{ "n": "L1", "f": "Ingenieur", "e": 13 }, { "n": "M", "f": "MP_MERE", "e": 13 }] }, { "id": "J08", "cap": 30, "fill": 86, "groupes": [{ "n": "L1", "f": "L_GM", "e": 13 }, { "n": "L1", "f": "L_SI", "e": 13 }] }, { "id": "J09", "cap": 30, "fill": 86, "groupes": [{ "n": "M", "f": "MR_SEE", "e": 14 }, { "n": "M", "f": "MR_MDEP", "e": 12 }] }, { "id": "K01", "cap": 48, "fill": 87, "groupes": [{ "n": "L2", "f": "Cycle_Preparatoire", "e": 23 }, { "n": "M", "f": "MR_SPI", "e": 19 }] }, { "id": "K02", "cap": 48, "fill": 91, "groupes": [{ "n": "L1", "f": "L_GM", "e": 20 }, { "n": "L1", "f": "Cycle_Preparatoire", "e": 24 }] }, { "id": "K03", "cap": 48, "fill": 91, "groupes": [{ "n": "L1", "f": "L_EM", "e": 24 }, { "n": "M", "f": "MP_PAI", "e": 20 }] }, { "id": "K04", "cap": 48, "fill": 91, "groupes": [{ "n": "L1", "f": "L_ISI", "e": 20 }, { "n": "L1", "f": "L_EEA", "e": 24 }] }, { "id": "K05", "cap": 48, "fill": 91, "groupes": [{ "n": "L1", "f": "L_ISI", "e": 23 }, { "n": "L1", "f": "Ingenieur", "e": 21 }] }, { "id": "K06", "cap": 48, "fill": 91, "groupes": [{ "n": "L1", "f": "L_EM", "e": 21 }, { "n": "L2", "f": "Cycle_Preparatoire", "e": 23 }] }, { "id": "K07", "cap": 48, "fill": 91, "groupes": [{ "n": "L1", "f": "L_EEA", "e": 24 }, { "n": "L1", "f": "Ingenieur", "e": 20 }] }, { "id": "K08", "cap": 36, "fill": 77, "groupes": [{ "n": "L1", "f": "L_EM", "e": 16 }, { "n": "M", "f": "MR_SM", "e": 12 }] }, { "id": "K10", "cap": 54, "fill": 88, "groupes": [{ "n": "L1", "f": "L_Energ", "e": 24 }, { "n": "L1", "f": "L_SI", "e": 24 }] }, { "id": "K11", "cap": 54, "fill": 92, "groupes": [{ "n": "L1", "f": "L_EEA", "e": 27 }, { "n": "M", "f": "MR_MSEE", "e": 23 }] }, { "id": "K12", "cap": 54, "fill": 92, "groupes": [{ "n": "L1", "f": "L_EEA", "e": 27 }, { "n": "M", "f": "MR_SPI", "e": 23 }] }, { "id": "K13", "cap": 54, "fill": 92, "groupes": [{ "n": "L1", "f": "L_GM", "e": 23 }, { "n": "L1", "f": "Ingenieur", "e": 27 }] }, { "id": "M02", "cap": 25, "fill": 80, "groupes": [{ "n": "L1", "f": "L_SI", "e": 9 }, { "n": "M", "f": "MR_SPI_2", "e": 11 }] }, { "id": "M03", "cap": 42, "fill": 90, "groupes": [{ "n": "L1", "f": "L_EEA", "e": 18 }, { "n": "L2", "f": "Cycle_Preparatoire", "e": 20 }] }, { "id": "M04", "cap": 42, "fill": 90, "groupes": [{ "n": "L1", "f": "L_Energ", "e": 21 }, { "n": "M", "f": "MR_MSEE", "e": 17 }] }, { "id": "M05", "cap": 42, "fill": 90, "groupes": [{ "n": "L1", "f": "L_ISI", "e": 19 }, { "n": "L1", "f": "Cycle_Preparatoire", "e": 19 }] }, { "id": "M06", "cap": 42, "fill": 90, "groupes": [{ "n": "L1", "f": "L_ISI", "e": 19 }, { "n": "M", "f": "MR_MSEE", "e": 19 }] }, { "id": "M07", "cap": 42, "fill": 90, "groupes": [{ "n": "L1", "f": "L_EM", "e": 19 }, { "n": "L1", "f": "Cycle_Preparatoire", "e": 19 }] }, { "id": "M08", "cap": 48, "fill": 87, "groupes": [{ "n": "L1", "f": "L_GM", "e": 19 }, { "n": "M", "f": "MP_EEB", "e": 23 }] }, { "id": "M09", "cap": 48, "fill": 91, "groupes": [{ "n": "L1", "f": "L_GC", "e": 20 }, { "n": "M", "f": "GM", "e": 24 }] }, { "id": "M11", "cap": 48, "fill": 91, "groupes": [{ "n": "L1", "f": "L_Energ", "e": 20 }, { "n": "M", "f": "GM", "e": 24 }] }, { "id": "M13", "cap": 48, "fill": 91, "groupes": [{ "n": "L1", "f": "L_SI", "e": 20 }, { "n": "L1", "f": "Cycle_Preparatoire", "e": 24 }] }, { "id": "M14", "cap": 42, "fill": 88, "groupes": [{ "n": "M", "f": "MR_GM", "e": 17 }, { "n": "M", "f": "MR_MSEE", "e": 20 }] }, { "id": "M16", "cap": 48, "fill": 91, "groupes": [{ "n": "L1", "f": "Cycle_Preparatoire", "e": 24 }, { "n": "M", "f": "MR_MSEE", "e": 20 }] }],
-            apmidi: [{ "id": "I01", "cap": 48, "fill": 91, "groupes": [{ "n": "L2", "f": "2GL", "e": 22 }, { "n": "L3", "f": "SE", "e": 22 }] }, { "id": "I02", "cap": 36, "fill": 88, "groupes": [{ "n": "L2", "f": "SE", "e": 16 }, { "n": "L3", "f": "CPI", "e": 16 }] }, { "id": "I03", "cap": 36, "fill": 77, "groupes": [{ "n": "L2", "f": "Batiment", "e": 16 }, { "n": "L2", "f": "MA", "e": 12 }] }, { "id": "I05", "cap": 45, "fill": 84, "groupes": [{ "n": "L2", "f": "SE", "e": 17 }, { "n": "L3", "f": "SI", "e": 21 }] }, { "id": "I08", "cap": 25, "fill": 84, "groupes": [{ "n": "L2", "f": "2GL", "e": 11 }, { "n": "L3", "f": "Energ", "e": 10 }] }, { "id": "J06", "cap": 35, "fill": 88, "groupes": [{ "n": "L3", "f": "ISI", "e": 14 }, { "n": "L3", "f": "SE", "e": 17 }] }, { "id": "K01", "cap": 48, "fill": 91, "groupes": [{ "n": "L2", "f": "SE", "e": 24 }, { "n": "L3", "f": "ISI", "e": 20 }] }, { "id": "K02", "cap": 48, "fill": 91, "groupes": [{ "n": "L2", "f": "Energ", "e": 20 }, { "n": "L3", "f": "SE", "e": 24 }] }, { "id": "K03", "cap": 48, "fill": 87, "groupes": [{ "n": "L3", "f": "ISI", "e": 23 }, { "n": "L3", "f": "CPI", "e": 19 }] }, { "id": "K05", "cap": 48, "fill": 91, "groupes": [{ "n": "L2", "f": "CPI", "e": 21 }, { "n": "L3", "f": "3GL", "e": 23 }] }, { "id": "K06", "cap": 48, "fill": 91, "groupes": [{ "n": "L2", "f": "CPI", "e": 24 }, { "n": "L3", "f": "3GL", "e": 20 }] }, { "id": "K07", "cap": 48, "fill": 91, "groupes": [{ "n": "L2", "f": "SE", "e": 20 }, { "n": "L3", "f": "SE", "e": 24 }] }, { "id": "K09", "cap": 42, "fill": 80, "groupes": [{ "n": "L2", "f": "CPI", "e": 19 }, { "n": "L3", "f": "CPI", "e": 15 }] }, { "id": "K10", "cap": 54, "fill": 79, "groupes": [{ "n": "L2", "f": "SE", "e": 20 }, { "n": "L2", "f": "SI", "e": 23 }] }, { "id": "K11", "cap": 54, "fill": 92, "groupes": [{ "n": "L3", "f": "MA", "e": 23 }, { "n": "L3", "f": "3GL", "e": 27 }] }, { "id": "K12", "cap": 54, "fill": 92, "groupes": [{ "n": "L2", "f": "2GL", "e": 27 }, { "n": "L3", "f": "MA", "e": 23 }] }, { "id": "K13", "cap": 54, "fill": 92, "groupes": [{ "n": "L2", "f": "ISI", "e": 27 }, { "n": "L2", "f": "MA", "e": 23 }] }, { "id": "M01", "cap": 30, "fill": 86, "groupes": [{ "n": "L2", "f": "ISI", "e": 14 }, { "n": "L3", "f": "Energ", "e": 12 }] }, { "id": "M03", "cap": 42, "fill": 85, "groupes": [{ "n": "L3", "f": "Batiment", "e": 16 }, { "n": "L3", "f": "3GL", "e": 20 }] }, { "id": "M04", "cap": 42, "fill": 90, "groupes": [{ "n": "L3", "f": "ISI", "e": 17 }, { "n": "L3", "f": "SI", "e": 21 }] }, { "id": "M05", "cap": 42, "fill": 90, "groupes": [{ "n": "L2", "f": "CPI", "e": 17 }, { "n": "L2", "f": "SE", "e": 21 }] }, { "id": "M06", "cap": 42, "fill": 90, "groupes": [{ "n": "L2", "f": "SI", "e": 17 }, { "n": "L3", "f": "SI", "e": 21 }] }, { "id": "M07", "cap": 42, "fill": 90, "groupes": [{ "n": "L2", "f": "SE", "e": 21 }, { "n": "L2", "f": "SI", "e": 17 }] }, { "id": "M08", "cap": 48, "fill": 91, "groupes": [{ "n": "L2", "f": "2GL", "e": 24 }, { "n": "L3", "f": "3GL", "e": 20 }] }, { "id": "M09", "cap": 48, "fill": 91, "groupes": [{ "n": "L2", "f": "MA", "e": 20 }, { "n": "L3", "f": "SE", "e": 24 }] }, { "id": "M10", "cap": 30, "fill": 86, "groupes": [{ "n": "L2", "f": "SI", "e": 15 }, { "n": "L3", "f": "Batiment", "e": 11 }] }, { "id": "M11", "cap": 48, "fill": 91, "groupes": [{ "n": "L2", "f": "ISI", "e": 24 }, { "n": "L3", "f": "SE", "e": 20 }] }, { "id": "M12", "cap": 30, "fill": 76, "groupes": [{ "n": "L2", "f": "Energ", "e": 13 }, { "n": "L3", "f": "Batiment", "e": 10 }] }, { "id": "M13", "cap": 48, "fill": 91, "groupes": [{ "n": "L2", "f": "ISI", "e": 24 }, { "n": "L2", "f": "SE", "e": 20 }] }, { "id": "M14", "cap": 42, "fill": 80, "groupes": [{ "n": "L2", "f": "Batiment", "e": 15 }, { "n": "L3", "f": "ISI", "e": 19 }] }, { "id": "M16", "cap": 48, "fill": 91, "groupes": [{ "n": "L2", "f": "ISI", "e": 23 }, { "n": "L2", "f": "2GL", "e": 21 }] }]
-        };
 
-        let bloc = 'matin', view = 'salle', imported = null;
-
-        const NBGS = { L1: '#FFF0CC', L2: '#D6F5E5', L3: '#D6E8FF', M: '#EDE0FF' };
-        const NBGC = { L1: '#A0640A', L2: '#1A6040', L3: '#1A3F80', M: '#5A1F99' };
-        function fc(p) { return p >= 90 ? 'fl-hi' : p >= 80 ? 'fl-mi' : 'fl-lo'; }
-        function fcol(p) { return p >= 90 ? '#D94040' : p >= 80 ? '#C67C0D' : '#2D6A4F'; }
 
         function buildFil(salles) {
             const m = {};
@@ -1470,33 +1491,80 @@
             const r = new FileReader();
             r.onload = function (e) {
                 try {
-                    const wb = XLSX.read(e.target.result, { type: 'binary' });
+                    const data = new Uint8Array(e.target.result);
+                    const wb = XLSX.read(data, { type: 'array' });
                     const ws = wb.Sheets[wb.SheetNames[0]];
-                    const json = XLSX.utils.sheet_to_json(ws, { defval: '' });
-                    if (!json.length) { setStatus('Fichier vide.', 'err'); setLoading(false); return; }
+                    const rows = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' });
+
+                    if (!rows.length) { setStatus('Fichier vide.', 'err'); setLoading(false); return; }
+
+                    let meta = { year: "2025/2026", total: 0 };
+                    let headerRowIdx = -1;
+                    const flatData = [];
+
+                    // 1. Scanning rows for metadata and headers
+                    for (let i = 0; i < rows.length; i++) {
+                        const row = rows[i];
+                        const lineStr = row.join(' ').toLowerCase();
+
+                        if (lineStr.includes('année uni')) {
+                            const val = row.find(c => c && c.toString().includes('/'));
+                            if (val) meta.year = val;
+                        }
+                        if (lineStr.includes('nombre total')) {
+                            const val = row.find(c => typeof c === 'number' || (!isNaN(c) && c !== ''));
+                            if (val) meta.total = parseInt(val);
+                        }
+                        if (headerRowIdx === -1 && (lineStr.includes('niveau') || lineStr.includes('filière'))) {
+                            headerRowIdx = i;
+                            continue;
+                        }
+
+                        if (headerRowIdx !== -1 && row.some(c => c !== '')) {
+                            // Map row to Niveau, Filiere, Effectif based on detected positions
+                            const nivIdx = row.findIndex((c, idx) => rows[headerRowIdx][idx]?.toString().toLowerCase().includes('niv'));
+                            const filIdx = row.findIndex((c, idx) => rows[headerRowIdx][idx]?.toString().toLowerCase().includes('fil'));
+                            const effIdx = row.findIndex((c, idx) => rows[headerRowIdx][idx]?.toString().toLowerCase().includes('eff'));
+
+                            flatData.push({
+                                Niveau: row[nivIdx] || '',
+                                Filiere: row[filIdx] || 'Inconnue',
+                                Effectif: parseInt(row[effIdx] || 0),
+                                Raw: row.join(' | ')
+                            });
+                        }
+                    }
+
+                    window._currentMeta = meta;
+                    window._flatImported = flatData;
+                    imported = filiersToNested(flatData, meta);
+
                     document.getElementById('pvw').style.display = 'none';
-                    setStatus(`✓ ${json.length} lignes importées — "${file.name}"`, 'ok');
-                    showTable(json, file.name, Object.keys(json[0]));
-                } catch (ex) { setStatus('Erreur : ' + ex.message, 'err'); }
-                finally { setLoading(false); }
+                    setStatus(`✓ ${flatData.length} lignes extraites — "${file.name}"`, 'ok');
+                    showVerificationTable(flatData, file.name);
+
+                } catch (ex) {
+                    console.error(ex);
+                    setStatus('Erreur : ' + ex.message, 'err');
+                } finally { setLoading(false); }
             };
-            r.readAsBinaryString(file);
+            r.readAsArrayBuffer(file);
         }
         function showVerificationTable(data, source, scrollTo = true) {
             window._flatImported = data.map(d => ({ Niveau: d.Niveau, Filiere: d.Filiere, Effectif: d.Effectif, Raw: d.Raw }));
-            imported = filiersToNested(window._flatImported);
+            imported = filiersToNested(window._flatImported, window._currentMeta || {});
 
             const sec = document.getElementById('isec');
             sec.style.display = 'block';
-            document.getElementById('jsrc').textContent = 'Vérification OCR : ' + source;
+            document.getElementById('jsrc').textContent = 'Source : ' + source;
             document.getElementById('ibadge').textContent = data.length;
-            document.getElementById('jcnt').textContent = `${data.length} extractions`;
+            document.getElementById('jcnt').textContent = `${data.length} filières détectées`;
 
             const cols = ["Niveau", "Filiere", "Effectif", "Texte Brut", "Actions"];
             document.getElementById('ith').innerHTML = `<tr>${cols.map(c => `<th>${c}</th>`).join('')}</tr>`;
 
             document.getElementById('itb').innerHTML = window._flatImported.map((row, i) => {
-                const opts = ['L1', 'L2', 'L3', 'M'].map(v => `<option value="${v}" ${v === row.Niveau ? 'selected' : ''}>${v}</option>`).join('');
+                const opts = ['L1', 'L2', 'L3', 'M'].map(v => `<option value="${v}" ${row.Niveau.toString().includes(v) ? 'selected' : ''}>${v}</option>`).join('');
                 return `<tr>
                     <td><select class="bsm" style="padding:4px" onchange="updateImport(${i},'Niveau',this.value)">${opts}</select></td>
                     <td><input type="text" class="bsm" style="padding:4px;width:120px" value="${row.Filiere}" onchange="updateImport(${i},'Filiere',this.value)"></td>
@@ -1504,7 +1572,7 @@
                     <td class="tdj" style="max-width:200px;overflow:hidden;text-overflow:ellipsis">${row.Raw || '—'}</td>
                     <td><button class="bsm" style="color:var(--red);border-color:var(--red-lt)" onclick="delRow(${i})">✕</button></td>
                 </tr>`;
-            }).join('') + `<tr><td colspan="5"><button class="btn bsm" style="width:100%;margin-top:8px" onclick="addRow()">+ Ajouter une ligne</button></td></tr>`;
+            }).join('') + `<tr><td colspan="5"><button class="btn bsm" style="width:100%;margin-top:8px" onclick="addRow()">+ Ajouter une ligne manually</button></td></tr>`;
 
             document.getElementById('jraw').textContent = JSON.stringify(imported, null, 2);
             if (scrollTo) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1563,14 +1631,16 @@
             try {
                 const r = await fetch('/run-algorithm', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ algorithm: 'greedy' }) });
                 const res = await r.json();
-                if (res.status === 'success') location.reload();
+                if (res.status === 'success') {
+                    await loadAllData();
+                    setStatus('✓ Placement engendré et chargé !', 'ok');
+                }
                 else alert('Erreur : ' + (res.message || 'Inconnue'));
             } catch (e) { alert('Lancez app.py pour exécuter l\'algorithme Greedy.'); }
-            finally { setLoading(false); setStatus('Prêt', ''); }
+            finally { setLoading(false); }
         }
 
-        renderUnivTable();
-        render();
+        loadAllData();
     </script>
 </body>
 
