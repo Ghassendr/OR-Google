@@ -1,0 +1,1797 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Dashboard Examens 2026</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <style>
+        :root {
+            --bg: #F5F3EE;
+            --surface: #FFF;
+            --surface2: #F9F7F3;
+            --border: #E2DDD5;
+            --border2: #CFC9BE;
+            --navy: #1B3A6B;
+            --navy2: #254D8F;
+            --amber: #C67C0D;
+            --amber-lt: #FDF3E0;
+            --green: #2D6A4F;
+            --green-lt: #E8F5EE;
+            --red: #B02A37;
+            --red-lt: #FDECEA;
+            --text: #1A1714;
+            --text2: #4A453E;
+            --text3: #8C8078;
+            --sh: 0 1px 4px rgba(0, 0, 0, .07), 0 4px 16px rgba(0, 0, 0, .05);
+            --sh2: 0 2px 8px rgba(0, 0, 0, .10), 0 8px 32px rgba(0, 0, 0, .07);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            line-height: 1.5
+        }
+
+        .w {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 28px 24px
+        }
+
+        /* HEADER */
+        .hdr {
+            background: var(--navy);
+            border-radius: 16px;
+            padding: 28px 36px;
+            margin-bottom: 22px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--sh2);
+            position: relative;
+            overflow: hidden
+        }
+
+        .hdr::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23fff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat
+        }
+
+        .hdr-title {
+            position: relative
+        }
+
+        .eyebrow {
+            font-size: 10px;
+            letter-spacing: 3px;
+            color: #92AACF;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 6px
+        }
+
+        .hdr h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 28px;
+            color: #fff;
+            line-height: 1.1;
+            margin-bottom: 4px
+        }
+
+        .hdr-sub {
+            font-size: 12px;
+            color: #6B8BBF
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            position: relative
+        }
+
+        .sbox {
+            background: rgba(255, 255, 255, .09);
+            border: 1px solid rgba(255, 255, 255, .12);
+            border-radius: 10px;
+            padding: 12px 18px;
+            min-width: 110px
+        }
+
+        .slbl {
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #92AACF;
+            font-weight: 600;
+            margin-bottom: 4px
+        }
+
+        .sval {
+            font-family: 'DM Serif Display', serif;
+            font-size: 24px;
+            color: #fff
+        }
+
+        .sval.a {
+            color: #F5B942
+        }
+
+        .sval.g {
+            color: #5DDBA4
+        }
+
+        .sval.b {
+            color: #7EB3FF
+        }
+
+        /* CONTROLS */
+        .ctrl {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 20px;
+            margin-bottom: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            box-shadow: var(--sh)
+        }
+
+        .tg {
+            display: flex;
+            gap: 4px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 4px
+        }
+
+        .tab {
+            padding: 7px 18px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all .2s;
+            color: var(--text3);
+            background: transparent
+        }
+
+        .tab.on {
+            background: var(--navy);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(27, 58, 107, .3)
+        }
+
+        .tab:hover:not(.on) {
+            background: var(--border);
+            color: var(--text2)
+        }
+
+        .dvdr {
+            width: 1px;
+            height: 28px;
+            background: var(--border)
+        }
+
+        .sw {
+            position: relative;
+            margin-left: auto
+        }
+
+        .sw svg {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text3)
+        }
+
+        .srch {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px 12px 8px 34px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            color: var(--text);
+            background: var(--surface2);
+            outline: none;
+            width: 220px;
+            transition: border .2s
+        }
+
+        .srch:focus {
+            border-color: var(--navy2);
+            background: #fff
+        }
+
+        .srch::placeholder {
+            color: var(--text3)
+        }
+
+        /* IMPORT BAR */
+        .ibar {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            box-shadow: var(--sh)
+        }
+
+        .ibar-title {
+            font-weight: 600;
+            color: var(--text2);
+            font-size: 13px
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 18px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all .18s;
+            white-space: nowrap
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-1px)
+        }
+
+        .btn:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+            transform: none !important
+        }
+
+        .btn-ph {
+            background: var(--amber-lt);
+            color: var(--amber);
+            border: 1.5px solid rgba(240, 201, 112, .2)
+        }
+
+        .btn-xl {
+            background: var(--green-lt);
+            color: var(--green);
+            border: 1.5px solid rgba(45, 106, 79, .12)
+        }
+
+        .btn-gd {
+            background: var(--navy);
+            color: #fff
+        }
+
+        input[type=file] {
+            display: none
+        }
+
+        .status-box {
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .status {
+            font-size: 12px;
+            color: var(--text3);
+            font-style: italic;
+            padding: 5px 10px;
+            border-radius: 6px
+        }
+
+        .status.loading {
+            background: var(--amber-lt);
+            color: var(--amber);
+            font-style: normal;
+            font-weight: 600
+        }
+
+        .status.ok {
+            background: var(--green-lt);
+            color: var(--green);
+            font-style: normal;
+            font-weight: 600
+        }
+
+        .status.err {
+            background: var(--red-lt);
+            color: var(--red);
+            font-style: normal;
+            font-weight: 600
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .spin {
+            width: 13px;
+            height: 13px;
+            border: 2px solid rgba(198, 124, 13, .2);
+            border-top-color: var(--amber);
+            border-radius: 50%;
+            animation: spin .7s linear infinite;
+            display: none
+        }
+
+        /* LEGEND */
+        .leg {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 18px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+            box-shadow: var(--sh)
+        }
+
+        .li {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--text2)
+        }
+
+        .ld {
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+            flex-shrink: 0
+        }
+
+        .ls {
+            margin-left: auto;
+            display: flex;
+            gap: 14px
+        }
+
+        .lf {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            color: var(--text3)
+        }
+
+        .lfd {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%
+        }
+
+        /* CARDS */
+        .si {
+            font-size: 11px;
+            color: var(--text3);
+            margin-bottom: 12px
+        }
+
+        .cg {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 14px
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: var(--sh);
+            transition: all .2s;
+            cursor: default
+        }
+
+        .card:hover {
+            box-shadow: var(--sh2);
+            transform: translateY(-2px);
+            border-color: var(--border2)
+        }
+
+        .ch {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px
+        }
+
+        .cid {
+            font-family: 'DM Serif Display', serif;
+            font-size: 17px;
+            color: var(--navy)
+        }
+
+        .ccap {
+            font-size: 11px;
+            color: var(--text3)
+        }
+
+        .ccap span {
+            color: var(--text2);
+            font-weight: 600
+        }
+
+        .fbb {
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 8px
+        }
+
+        .fbf {
+            height: 100%;
+            border-radius: 3px;
+            transition: width .5s ease
+        }
+
+        .fr {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px
+        }
+
+        .fl {
+            font-size: 11px;
+            color: var(--text3)
+        }
+
+        .fp {
+            font-size: 13px;
+            font-weight: 700
+        }
+
+        .gs {
+            display: flex;
+            flex-direction: column;
+            gap: 6px
+        }
+
+        .gr {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--surface2);
+            border-radius: 7px;
+            padding: 6px 10px;
+            border-left: 3px solid transparent
+        }
+
+        .gn {
+            font-size: 12px;
+            color: var(--text2)
+        }
+
+        .nb {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 1px 5px;
+            border-radius: 3px;
+            margin-right: 5px
+        }
+
+        .ge {
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap
+        }
+
+        .ge span {
+            font-weight: 400;
+            color: var(--text3)
+        }
+
+        .niv-L1 {
+            background: #FFF0CC;
+            color: #A0640A
+        }
+
+        .grp-L1 {
+            border-left-color: #F5B942
+        }
+
+        .niv-L2 {
+            background: #D6F5E5;
+            color: #1A6040
+        }
+
+        .grp-L2 {
+            border-left-color: #3DAD7A
+        }
+
+        .niv-L3 {
+            background: #D6E8FF;
+            color: #1A3F80
+        }
+
+        .grp-L3 {
+            border-left-color: #4F86D6
+        }
+
+        .niv-M {
+            background: #EDE0FF;
+            color: #5A1F99
+        }
+
+        .grp-M {
+            border-left-color: #9B5DE5
+        }
+
+        .fl-lo {
+            background: #3DAD7A
+        }
+
+        .fl-mi {
+            background: #F5A623
+        }
+
+        .fl-hi {
+            background: #D94040
+        }
+
+        /* FILIÈRE */
+        .fg {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 14px
+        }
+
+        .fc {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: var(--sh);
+            transition: all .2s
+        }
+
+        .fc:hover {
+            box-shadow: var(--sh2);
+            transform: translateY(-2px)
+        }
+
+        .fh {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px
+        }
+
+        .fn {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text);
+            display: inline;
+            margin-left: 6px
+        }
+
+        .ft {
+            font-family: 'DM Serif Display', serif;
+            font-size: 22px;
+            color: var(--navy)
+        }
+
+        .fchips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            border-top: 1px solid var(--border);
+            padding-top: 10px
+        }
+
+        .chip {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            padding: 3px 9px;
+            font-size: 11px;
+            color: var(--text2)
+        }
+
+        .chip strong {
+            color: var(--text);
+            font-weight: 700
+        }
+
+        /* IMPORT SECTION */
+        .isec {
+            margin-top: 28px
+        }
+
+        .isec-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 20px;
+            color: var(--navy);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .isec-sub {
+            font-size: 12px;
+            color: var(--text3);
+            margin-bottom: 14px
+        }
+
+        .jpanel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--sh)
+        }
+
+        .jhdr {
+            background: var(--surface2);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .jhdr-l {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .jhdr-title {
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text2)
+        }
+
+        .jbadge {
+            background: var(--navy);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 20px
+        }
+
+        .bsm {
+            padding: 6px 14px;
+            border-radius: 7px;
+            border: 1px solid var(--border);
+            background: #fff;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text2);
+            transition: all .15s
+        }
+
+        .bsm:hover {
+            background: var(--navy);
+            color: #fff;
+            border-color: var(--navy)
+        }
+
+        .bsm.g {
+            background: var(--green-lt);
+            color: var(--green);
+            border-color: rgba(45, 106, 79, .2)
+        }
+
+        .bsm.g:hover {
+            background: var(--green);
+            color: #fff
+        }
+
+        /* image preview */
+        .pvw {
+            padding: 12px 18px;
+            border-bottom: 1px solid var(--border);
+            background: var(--surface2);
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            flex-wrap: wrap
+        }
+
+        .pvw img {
+            max-width: 180px;
+            max-height: 120px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            object-fit: cover
+        }
+
+        .pvw-meta {
+            font-size: 12px;
+            color: var(--text3)
+        }
+
+        .pvw-meta strong {
+            display: block;
+            color: var(--text2);
+            margin-bottom: 3px
+        }
+
+        /* TABLE */
+        .tw {
+            overflow-x: auto;
+            max-height: 440px;
+            overflow-y: auto
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px
+        }
+
+        thead {
+            position: sticky;
+            top: 0;
+            z-index: 2
+        }
+
+        thead tr {
+            background: var(--surface2)
+        }
+
+        th {
+            padding: 10px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 11px;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+            color: var(--text3);
+            border-bottom: 2px solid var(--border);
+            white-space: nowrap
+        }
+
+        td {
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text2);
+            vertical-align: middle
+        }
+
+        tr:last-child td {
+            border-bottom: none
+        }
+
+        tr:hover td {
+            background: var(--surface2)
+        }
+
+        .tdj {
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            color: var(--text3);
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap
+        }
+
+        .tdb {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 3px
+        }
+
+        /* JSON RAW */
+        .jraw {
+            padding: 14px 18px;
+            border-top: 1px solid var(--border);
+            background: var(--surface2)
+        }
+
+        details summary {
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text3);
+            user-select: none;
+            padding: 4px 0;
+            outline: none
+        }
+
+        details summary:hover {
+            color: var(--text2)
+        }
+
+        pre {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px;
+            font-size: 11px;
+            overflow-x: auto;
+            margin-top: 8px;
+            color: var(--text2);
+            line-height: 1.6;
+            max-height: 260px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace
+        }
+
+        /* EMPTY */
+        .empty {
+            text-align: center;
+            padding: 52px 24px;
+            color: var(--text3)
+        }
+
+        .eico {
+            font-size: 42px;
+            margin-bottom: 12px;
+            opacity: .35
+        }
+
+        .etit {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text2);
+            margin-bottom: 6px
+        }
+
+        footer {
+            margin-top: 36px;
+            padding: 14px 0;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-size: 11px;
+            color: var(--text3)
+        }
+
+        @keyframes fi {
+            from {
+                opacity: 0;
+                transform: translateY(6px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .fi {
+            animation: fi .28s ease forwards
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--surface2)
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border2);
+            border-radius: 3px
+        }
+
+        /* UNIVERSITY TABLE */
+        .uni-table-wrap {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 22px;
+            box-shadow: var(--sh2);
+        }
+
+        .uni-table-hdr {
+            background: var(--navy);
+            color: #fff;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .uni-table-hdr .title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 17px;
+            letter-spacing: .3px;
+        }
+
+        .uni-table-hdr .meta {
+            font-size: 12px;
+            color: #92AACF;
+            display: flex;
+            gap: 18px;
+        }
+
+        .uni-table-hdr .meta strong {
+            color: #F5B942;
+            font-size: 15px;
+        }
+
+        .uni-scroll {
+            overflow-x: auto;
+        }
+
+        .utbl {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12.5px;
+        }
+
+        .utbl th {
+            background: var(--surface2);
+            padding: 9px 14px;
+            font-size: 11px;
+            letter-spacing: .6px;
+            text-transform: uppercase;
+            color: var(--text3);
+            font-weight: 700;
+            border-bottom: 2px solid var(--border);
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        .utbl th.left {
+            text-align: left;
+        }
+
+        .utbl td {
+            padding: 7px 14px;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+            color: var(--text2);
+            vertical-align: middle;
+        }
+
+        .utbl td.row-label {
+            text-align: left;
+            font-weight: 600;
+            color: var(--text);
+            white-space: nowrap;
+            background: var(--surface2);
+            border-right: 2px solid var(--border);
+        }
+
+        .utbl tr.section-hdr td {
+            background: var(--navy);
+            color: #fff;
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            text-align: center;
+        }
+
+        .utbl tr.section-hdr td.left {
+            text-align: left;
+        }
+
+        .utbl tr.total-row td {
+            background: #FDECEA;
+            color: var(--red);
+            font-weight: 700;
+            font-size: 13px;
+            border-top: 2px solid rgba(176, 42, 55, .15);
+        }
+
+        .utbl tr.total-row td.row-label {
+            background: #FDECEA;
+            color: var(--red);
+        }
+
+        .utbl td.empty-cell {
+            color: var(--border2);
+        }
+
+        .utbl tr:last-child td {
+            border-bottom: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="w">
+
+        <!-- HEADER -->
+        <div class="hdr">
+            <div class="hdr-title">
+                <div class="eyebrow">Système GREEDY Optimisé</div>
+                <h1>Dashboard Examens 2026</h1>
+                <p class="hdr-sub">Session d'Examen · Rapport de Placement · Généré le 22/02/2026 02:43</p>
+            </div>
+            <div class="stats-row">
+                <div class="sbox">
+                    <div class="slbl">Étudiants</div>
+                    <div class="sval a">2 605</div>
+                </div>
+                <div class="sbox">
+                    <div class="slbl">Salles Total</div>
+                    <div class="sval b">45</div>
+                </div>
+                <div class="sbox">
+                    <div class="slbl">Ce Bloc</div>
+                    <div class="sval" id="s-bloc">—</div>
+                </div>
+                <div class="sbox">
+                    <div class="slbl">Taux Moy.</div>
+                    <div class="sval g" id="s-avg">—</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- UNIVERSITY GROUPS TABLE -->
+        <div class="uni-table-wrap">
+            <div class="uni-table-hdr">
+                <span class="title">Année Universitaire 2025/2026</span>
+                <div class="meta">
+                    <span>Nombre des étudiants : <strong>2605</strong></span>
+                    <span>11/02/2026</span>
+                </div>
+            </div>
+            <div class="uni-scroll">
+                <table class="utbl">
+                    <thead>
+                        <tr>
+                            <th class="left" rowspan="2">Filière</th>
+                            <th>L ISI</th>
+                            <th>L GM</th>
+                            <th>L GC</th>
+                            <th>L EEA</th>
+                            <th>L Energ</th>
+                            <th>L EM</th>
+                            <th>L SI</th>
+                            <th>Cycle Préparatoire</th>
+                            <th>Ingénieur</th>
+                            <th>MASTER</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 1ère Année -->
+                        <tr class="section-hdr">
+                            <td colspan="11" class="left">1ère année</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">Nombre de groupe</td>
+                            <td>29</td>
+                            <td>30</td>
+                            <td>18</td>
+                            <td>22</td>
+                            <td>23</td>
+                            <td>27</td>
+                            <td>29</td>
+                            <td>21</td>
+                            <td>26</td>
+                            <td>MR SPI</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label"></td>
+                            <td>32</td>
+                            <td>31</td>
+                            <td>21</td>
+                            <td>26</td>
+                            <td>22</td>
+                            <td>26</td>
+                            <td>28</td>
+                            <td>30</td>
+                            <td>31</td>
+                            <td>MP GM</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label"></td>
+                            <td>28</td>
+                            <td>27</td>
+                            <td>20</td>
+                            <td>26</td>
+                            <td>28</td>
+                            <td>27</td>
+                            <td>27</td>
+                            <td>23</td>
+                            <td>27</td>
+                            <td>MR GM — 27</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label"></td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td>19</td>
+                            <td>32</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td>28</td>
+                            <td>31</td>
+                            <td>MP MERE — 51</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label"></td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td>25</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td>25</td>
+                            <td class="empty-cell">—</td>
+                            <td>MR MSEE</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label"></td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td>27</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td>A1-EEB:29 / A1-EEI:22</td>
+                            <td class="empty-cell">—</td>
+                            <td>A1-01:50 / A1-02:45 — 99</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td class="row-label">TOTAL</td>
+                            <td>89</td>
+                            <td>88</td>
+                            <td>78</td>
+                            <td>158</td>
+                            <td>73</td>
+                            <td>80</td>
+                            <td>84</td>
+                            <td>127</td>
+                            <td>115</td>
+                            <td class="empty-cell">—</td>
+                        </tr>
+
+                        <!-- 2ème Année -->
+                        <tr class="section-hdr">
+                            <td colspan="11" class="left">2ème année</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">Filière</td>
+                            <th style="background:transparent;color:var(--text2);font-size:12px;font-weight:600">ISI
+                            </th>
+                            <th style="background:transparent;color:var(--text2);font-size:12px;font-weight:600">CPI
+                            </th>
+                            <th style="background:transparent;color:var(--text2);font-size:12px;font-weight:600">
+                                Bâtiment</th>
+                            <th style="background:transparent;color:var(--text2);font-size:12px;font-weight:600">SE</th>
+                            <th style="background:transparent;color:var(--text2);font-size:12px;font-weight:600">Energ
+                            </th>
+                            <th style="background:transparent;color:var(--text2);font-size:12px;font-weight:600">MA</th>
+                            <th style="background:transparent;color:var(--text2);font-size:12px;font-weight:600">SI</th>
+                            <th style="background:transparent;color:var(--text2);font-size:12px;font-weight:600">Cycle
+                                Prép.</th>
+                            <th style="background:transparent;color:var(--text2);font-size:12px;font-weight:600">2GL
+                            </th>
+                            <td>MASTER</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">Nombre de groupe</td>
+                            <td>37</td>
+                            <td>39</td>
+                            <td>13</td>
+                            <td>33</td>
+                            <td>33</td>
+                            <td>22</td>
+                            <td>37</td>
+                            <td>30</td>
+                            <td>25</td>
+                            <td>MP GPPM — 22</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label"></td>
+                            <td>39</td>
+                            <td>42</td>
+                            <td class="empty-cell">—</td>
+                            <td>30</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td>35</td>
+                            <td>29</td>
+                            <td>29</td>
+                            <td>MP PAI — 26</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label"></td>
+                            <td>36</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td>33</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td>29</td>
+                            <td>26</td>
+                            <td>MR SPI — 31</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label"></td>
+                            <td class="empty-cell">—</td>
+                            <td>Prod</td>
+                            <td>P&amp;C</td>
+                            <td>E.I</td>
+                            <td class="empty-cell">—</td>
+                            <td>M.I</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td>25</td>
+                            <td>MP EEB — 10</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label"></td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td>18</td>
+                            <td>24</td>
+                            <td class="empty-cell">—</td>
+                            <td>33</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td>MP EEI — 17</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label"></td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td>A.L.I</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td>MR SEE — 25</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label"></td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td>39</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td class="row-label">TOTAL</td>
+                            <td>112</td>
+                            <td>81</td>
+                            <td>31</td>
+                            <td>159</td>
+                            <td>33</td>
+                            <td>55</td>
+                            <td>72</td>
+                            <td>88</td>
+                            <td>105</td>
+                            <td class="empty-cell">—</td>
+                        </tr>
+
+                        <!-- 3ème Année -->
+                        <tr class="section-hdr">
+                            <td colspan="11" class="left">3ème année</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">Filière</td>
+                            <th style="background:transparent;color:var(--text2);font-size:12px;font-weight:600">ISI
+                            </th>
+                            <th style="background:transparent;color:var(--text2);font-size:12px;font-weight:600">CPI
+                            </th>
+                            <th style="background:transparent;color:var(--text2);font-size:12px;font-weight:600">
+                                Bâtiment</th>
+                            <th style="background:transparent;color:var(--text2);font-size:12px;font-weight:600">SE</th>
+                            <th style="background:transparent;color:var(--text2);font-size:12px;font-weight:600">Energ
+                            </th>
+                            <th style="background:transparent;color:var(--text2);font-size:12px;font-weight:600">MA</th>
+                            <th style="background:transparent;color:var(--text2);font-size:12px;font-weight:600">SI</th>
+                            <td colspan="2">3GL</td>
+                            <td>MASTER</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">Nombre de groupe</td>
+                            <td>33</td>
+                            <td>25</td>
+                            <td>28</td>
+                            <td>32</td>
+                            <td>22</td>
+                            <td>21</td>
+                            <td>31</td>
+                            <td colspan="2">26</td>
+                            <td>MR MSE — 15</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label"></td>
+                            <td>31</td>
+                            <td>25</td>
+                            <td class="empty-cell">—</td>
+                            <td>30</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td>32</td>
+                            <td colspan="2">28</td>
+                            <td>MR MDEP — 12</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label"></td>
+                            <td>29</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td>30</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td colspan="2">28</td>
+                            <td>MR SM — 12</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label"></td>
+                            <td class="empty-cell">—</td>
+                            <td>Prod</td>
+                            <td>P&amp;C</td>
+                            <td>E.I</td>
+                            <td class="empty-cell">—</td>
+                            <td>M.I</td>
+                            <td class="empty-cell">—</td>
+                            <td colspan="2" class="empty-cell">—</td>
+                            <td>MR MM — 14</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label"></td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td>09</td>
+                            <td>17</td>
+                            <td class="empty-cell">—</td>
+                            <td>25</td>
+                            <td class="empty-cell">—</td>
+                            <td colspan="2" class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label"></td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td>A.L.I</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td colspan="2" class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label"></td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td>22</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                            <td colspan="2" class="empty-cell">—</td>
+                            <td class="empty-cell">—</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td class="row-label">TOTAL</td>
+                            <td>93</td>
+                            <td>50</td>
+                            <td>37</td>
+                            <td>131</td>
+                            <td>22</td>
+                            <td>46</td>
+                            <td>63</td>
+                            <td colspan="2">110</td>
+                            <td>425</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- CONTROLS -->
+        <div class="ctrl">
+            <div class="tg">
+                <button class="tab on" data-bloc="matin" onclick="setBloc('matin')">Bloc Matin</button>
+                <button class="tab" data-bloc="apmidi" onclick="setBloc('apmidi')">Bloc Après-midi</button>
+            </div>
+            <div class="dvdr"></div>
+            <div class="tg">
+                <button class="tab on" data-view="salle" onclick="setView('salle')">Par Salle</button>
+                <button class="tab" data-view="filiere" onclick="setView('filiere')">Par Filière</button>
+            </div>
+            <div class="sw">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.35-4.35" />
+                </svg>
+                <input class="srch" id="srch" placeholder="Salle, filière…" oninput="render()" />
+            </div>
+        </div>
+
+        <!-- IMPORT BAR -->
+        <div class="ibar">
+            <span class="ibar-title">Importer :</span>
+
+            <button class="btn btn-ph" id="btn-ph" onclick="document.getElementById('fp').click()">
+                <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                    <circle cx="12" cy="13" r="4" />
+                </svg>
+                Scanner Photo Filière
+            </button>
+            <input type="file" id="fp" accept="image/*" onchange="handlePhoto(event)" />
+
+            <button class="btn btn-xl" id="btn-xl" onclick="document.getElementById('fx').click()">
+                <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14,2 14,8 20,8" />
+                    <line x1="8" y1="13" x2="16" y2="13" />
+                    <line x1="8" y1="17" x2="16" y2="17" />
+                </svg>
+                Importer Excel / CSV
+            </button>
+            <input type="file" id="fx" accept=".xlsx,.xls,.csv" onchange="handleExcel(event)" />
+
+            <button class="btn btn-gd" onclick="runGreedy()">Lancer Greedy</button>
+
+            <div class="status-box">
+                <div id="spin" class="spin"></div>
+                <div id="st" class="status">Prêt pour l'importation.</div>
+            </div>
+        </div>
+
+        <!-- LEGEND -->
+        <div class="leg">
+            <div class="li">
+                <div class="ld" style="background:#F5B942"></div>L1 — Licence 1
+            </div>
+            <div class="li">
+                <div class="ld" style="background:#3DAD7A"></div>L2 — Licence 2
+            </div>
+            <div class="li">
+                <div class="ld" style="background:#4F86D6"></div>L3 — Licence 3
+            </div>
+            <div class="li">
+                <div class="ld" style="background:#9B5DE5"></div>M — Master
+            </div>
+            <div class="ls">
+                <div class="lf">
+                    <div class="lfd" style="background:#3DAD7A"></div>&lt;80%
+                </div>
+                <div class="lf">
+                    <div class="lfd" style="background:#F5A623"></div>80–89%
+                </div>
+                <div class="lf">
+                    <div class="lfd" style="background:#D94040"></div>≥90%
+                </div>
+            </div>
+        </div>
+
+        <div id="si" class="si"></div>
+        <div id="mc"></div>
+
+        <!-- IMPORT SECTION -->
+        <div class="isec" id="isec" style="display:none">
+            <div class="isec-title"><span>Données Importées</span><span id="ibadge" class="jbadge">0</span></div>
+            <div class="isec-sub">Vérifiez les données extraites avant utilisation.</div>
+            <div class="jpanel">
+                <div class="jhdr">
+                    <div class="jhdr-l">
+                        <span class="jhdr-title" id="jsrc">Source : —</span>
+                        <span id="jcnt" style="font-size:12px;color:var(--text3)"></span>
+                    </div>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap">
+                        <button class="bsm" onclick="copyJSON()">Copier JSON</button>
+                        <button class="bsm g" onclick="saveImportedData()">Enregistrer</button>
+                    </div>
+                </div>
+                <div class="pvw" id="pvw" style="display:none">
+                    <img id="pvw-img" src="" alt="preview" />
+                    <div class="pvw-meta"><strong id="pvw-name">—</strong><span id="pvw-size">—</span></div>
+                </div>
+                <div class="tw">
+                    <table>
+                        <thead id="ith"></thead>
+                        <tbody id="itb"></tbody>
+                    </table>
+                </div>
+                <div class="jraw">
+                    <details>
+                        <summary>▸ Voir JSON brut</summary>
+                        <pre id="jraw"></pre>
+                    </details>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <span>ENIS — Session Examens 2026 · Greedy Optimisé</span>
+            <span>22/02/2026 02:43 · Généré automatiquement</span>
+        </footer>
+    </div>
+
+    <script>
+        // JSON Structure:
+        // {
+        //   "annee_universitaire": "2025/2026",
+        //   "nombre_total_etudiants": 2605,
+        //   "annees": {
+        //     "1ere_annee": { "total_groupes": 89, "filieres": { "L_ISI": 89, "L_GM": 88, "L_GC": 78, "L_EEA": 158, "L_Energ": 73, "L_EM": 80, "L_SI": 84, "Cycle_Preparatoire": 127, "Ingenieur": 115 } },
+        //     "2eme_annee": { "total_groupes": 112, "filieres": { "ISI": 112, "CPI": 81, "Batiment": 31, "SE": 159, "Energ": 33, "MA": 55, "SI": 72, "Cycle_Preparatoire": 88, "2GL": 105 } },
+        //     "3eme_annee": { "total_groupes": 93, "filieres": { "ISI": 93, "CPI": 50, "Batiment": 37, "SE": 131, "Energ": 22, "MA": 46, "SI": 63, "3GL": 110 } },
+        //     "master": { "total_master": 466, "programmes": { "MR_SPI": 42, "GM": 48, "MR_GM": 27, "MP_MERE": 51, "MR_MSEE": 99, "MP_GPPM": 22, "MP_PAI": 26, "MR_SPI_2": 25, "MP_EEB": 31, "MP_EEI": 17, "MR_SEE": 25, "MR_MSE": 15, "MR_MDEP": 12, "MR_SM": 12, "MR_MM": 14 } }
+        //   }
+        // }
+        const UNIV_DATA = {
+            "annee_universitaire": "2025/2026",
+            "nombre_total_etudiants": 2605,
+            "annees": {
+                "1ere_annee": {
+                    "total_groupes": 89,
+                    "filieres": { "L_ISI": 89, "L_GM": 88, "L_GC": 78, "L_EEA": 158, "L_Energ": 73, "L_EM": 80, "L_SI": 84, "Cycle_Preparatoire": 127, "Ingenieur": 115 }
+                },
+                "2eme_annee": {
+                    "total_groupes": 112,
+                    "filieres": { "ISI": 112, "CPI": 81, "Batiment": 31, "SE": 159, "Energ": 33, "MA": 55, "SI": 72, "Cycle_Preparatoire": 88, "2GL": 105 }
+                },
+                "3eme_annee": {
+                    "total_groupes": 93,
+                    "filieres": { "ISI": 93, "CPI": 50, "Batiment": 37, "SE": 131, "Energ": 22, "MA": 46, "SI": 63, "3GL": 110 }
+                },
+                "master": {
+                    "total_master": 466,
+                    "programmes": { "MR_SPI": 42, "GM": 48, "MR_GM": 27, "MP_MERE": 51, "MR_MSEE": 99, "MP_GPPM": 22, "MP_PAI": 26, "MR_SPI_2": 25, "MP_EEB": 31, "MP_EEI": 17, "MR_SEE": 25, "MR_MSE": 15, "MR_MDEP": 12, "MR_SM": 12, "MR_MM": 14 }
+                }
+            }
+        };
+
+        const DATA = {
+            matin: [{ "id": "I01", "cap": 48, "fill": 91, "groupes": [{ "n": "L1", "f": "L_GC", "e": 24 }, { "n": "M", "f": "MP_MERE", "e": 20 }] }, { "id": "I02", "cap": 36, "fill": 88, "groupes": [{ "n": "L1", "f": "L_SI", "e": 18 }, { "n": "M", "f": "MR_MM", "e": 14 }] }, { "id": "I03", "cap": 36, "fill": 88, "groupes": [{ "n": "L1", "f": "L_EEA", "e": 14 }, { "n": "M", "f": "MP_MERE", "e": 18 }] }, { "id": "I05", "cap": 45, "fill": 91, "groupes": [{ "n": "L1", "f": "L_GC", "e": 19 }, { "n": "L2", "f": "Cycle_Preparatoire", "e": 22 }] }, { "id": "I07", "cap": 20, "fill": 80, "groupes": [{ "n": "L1", "f": "L_Energ", "e": 8 }, { "n": "M", "f": "MP_GPPM", "e": 8 }] }, { "id": "I10", "cap": 36, "fill": 69, "groupes": [{ "n": "M", "f": "MP_GPPM", "e": 14 }, { "n": "M", "f": "MR_SEE", "e": 11 }] }, { "id": "I13", "cap": 36, "fill": 88, "groupes": [{ "n": "L1", "f": "Ingenieur", "e": 17 }, { "n": "M", "f": "MR_MSE", "e": 15 }] }, { "id": "I15", "cap": 36, "fill": 88, "groupes": [{ "n": "L1", "f": "L_GC", "e": 15 }, { "n": "L1", "f": "Ingenieur", "e": 17 }] }, { "id": "I18", "cap": 36, "fill": 83, "groupes": [{ "n": "L1", "f": "L_GM", "e": 13 }, { "n": "M", "f": "MP_EEI", "e": 17 }] }, { "id": "J01", "cap": 24, "fill": 83, "groupes": [{ "n": "L1", "f": "L_ISI", "e": 8 }, { "n": "L1", "f": "L_EEA", "e": 12 }] }, { "id": "J02", "cap": 24, "fill": 83, "groupes": [{ "n": "L1", "f": "L_EEA", "e": 12 }, { "n": "M", "f": "MP_EEB", "e": 8 }] }, { "id": "J03", "cap": 24, "fill": 66, "groupes": [{ "n": "M", "f": "MR_GM", "e": 10 }, { "n": "M", "f": "MP_PAI", "e": 6 }] }, { "id": "J06", "cap": 35, "fill": 88, "groupes": [{ "n": "L1", "f": "Cycle_Preparatoire", "e": 17 }, { "n": "M", "f": "MR_SPI_2", "e": 14 }] }, { "id": "J07", "cap": 30, "fill": 86, "groupes": [{ "n": "L1", "f": "Ingenieur", "e": 13 }, { "n": "M", "f": "MP_MERE", "e": 13 }] }, { "id": "J08", "cap": 30, "fill": 86, "groupes": [{ "n": "L1", "f": "L_GM", "e": 13 }, { "n": "L1", "f": "L_SI", "e": 13 }] }, { "id": "J09", "cap": 30, "fill": 86, "groupes": [{ "n": "M", "f": "MR_SEE", "e": 14 }, { "n": "M", "f": "MR_MDEP", "e": 12 }] }, { "id": "K01", "cap": 48, "fill": 87, "groupes": [{ "n": "L2", "f": "Cycle_Preparatoire", "e": 23 }, { "n": "M", "f": "MR_SPI", "e": 19 }] }, { "id": "K02", "cap": 48, "fill": 91, "groupes": [{ "n": "L1", "f": "L_GM", "e": 20 }, { "n": "L1", "f": "Cycle_Preparatoire", "e": 24 }] }, { "id": "K03", "cap": 48, "fill": 91, "groupes": [{ "n": "L1", "f": "L_EM", "e": 24 }, { "n": "M", "f": "MP_PAI", "e": 20 }] }, { "id": "K04", "cap": 48, "fill": 91, "groupes": [{ "n": "L1", "f": "L_ISI", "e": 20 }, { "n": "L1", "f": "L_EEA", "e": 24 }] }, { "id": "K05", "cap": 48, "fill": 91, "groupes": [{ "n": "L1", "f": "L_ISI", "e": 23 }, { "n": "L1", "f": "Ingenieur", "e": 21 }] }, { "id": "K06", "cap": 48, "fill": 91, "groupes": [{ "n": "L1", "f": "L_EM", "e": 21 }, { "n": "L2", "f": "Cycle_Preparatoire", "e": 23 }] }, { "id": "K07", "cap": 48, "fill": 91, "groupes": [{ "n": "L1", "f": "L_EEA", "e": 24 }, { "n": "L1", "f": "Ingenieur", "e": 20 }] }, { "id": "K08", "cap": 36, "fill": 77, "groupes": [{ "n": "L1", "f": "L_EM", "e": 16 }, { "n": "M", "f": "MR_SM", "e": 12 }] }, { "id": "K10", "cap": 54, "fill": 88, "groupes": [{ "n": "L1", "f": "L_Energ", "e": 24 }, { "n": "L1", "f": "L_SI", "e": 24 }] }, { "id": "K11", "cap": 54, "fill": 92, "groupes": [{ "n": "L1", "f": "L_EEA", "e": 27 }, { "n": "M", "f": "MR_MSEE", "e": 23 }] }, { "id": "K12", "cap": 54, "fill": 92, "groupes": [{ "n": "L1", "f": "L_EEA", "e": 27 }, { "n": "M", "f": "MR_SPI", "e": 23 }] }, { "id": "K13", "cap": 54, "fill": 92, "groupes": [{ "n": "L1", "f": "L_GM", "e": 23 }, { "n": "L1", "f": "Ingenieur", "e": 27 }] }, { "id": "M02", "cap": 25, "fill": 80, "groupes": [{ "n": "L1", "f": "L_SI", "e": 9 }, { "n": "M", "f": "MR_SPI_2", "e": 11 }] }, { "id": "M03", "cap": 42, "fill": 90, "groupes": [{ "n": "L1", "f": "L_EEA", "e": 18 }, { "n": "L2", "f": "Cycle_Preparatoire", "e": 20 }] }, { "id": "M04", "cap": 42, "fill": 90, "groupes": [{ "n": "L1", "f": "L_Energ", "e": 21 }, { "n": "M", "f": "MR_MSEE", "e": 17 }] }, { "id": "M05", "cap": 42, "fill": 90, "groupes": [{ "n": "L1", "f": "L_ISI", "e": 19 }, { "n": "L1", "f": "Cycle_Preparatoire", "e": 19 }] }, { "id": "M06", "cap": 42, "fill": 90, "groupes": [{ "n": "L1", "f": "L_ISI", "e": 19 }, { "n": "M", "f": "MR_MSEE", "e": 19 }] }, { "id": "M07", "cap": 42, "fill": 90, "groupes": [{ "n": "L1", "f": "L_EM", "e": 19 }, { "n": "L1", "f": "Cycle_Preparatoire", "e": 19 }] }, { "id": "M08", "cap": 48, "fill": 87, "groupes": [{ "n": "L1", "f": "L_GM", "e": 19 }, { "n": "M", "f": "MP_EEB", "e": 23 }] }, { "id": "M09", "cap": 48, "fill": 91, "groupes": [{ "n": "L1", "f": "L_GC", "e": 20 }, { "n": "M", "f": "GM", "e": 24 }] }, { "id": "M11", "cap": 48, "fill": 91, "groupes": [{ "n": "L1", "f": "L_Energ", "e": 20 }, { "n": "M", "f": "GM", "e": 24 }] }, { "id": "M13", "cap": 48, "fill": 91, "groupes": [{ "n": "L1", "f": "L_SI", "e": 20 }, { "n": "L1", "f": "Cycle_Preparatoire", "e": 24 }] }, { "id": "M14", "cap": 42, "fill": 88, "groupes": [{ "n": "M", "f": "MR_GM", "e": 17 }, { "n": "M", "f": "MR_MSEE", "e": 20 }] }, { "id": "M16", "cap": 48, "fill": 91, "groupes": [{ "n": "L1", "f": "Cycle_Preparatoire", "e": 24 }, { "n": "M", "f": "MR_MSEE", "e": 20 }] }],
+            apmidi: [{ "id": "I01", "cap": 48, "fill": 91, "groupes": [{ "n": "L2", "f": "2GL", "e": 22 }, { "n": "L3", "f": "SE", "e": 22 }] }, { "id": "I02", "cap": 36, "fill": 88, "groupes": [{ "n": "L2", "f": "SE", "e": 16 }, { "n": "L3", "f": "CPI", "e": 16 }] }, { "id": "I03", "cap": 36, "fill": 77, "groupes": [{ "n": "L2", "f": "Batiment", "e": 16 }, { "n": "L2", "f": "MA", "e": 12 }] }, { "id": "I05", "cap": 45, "fill": 84, "groupes": [{ "n": "L2", "f": "SE", "e": 17 }, { "n": "L3", "f": "SI", "e": 21 }] }, { "id": "I08", "cap": 25, "fill": 84, "groupes": [{ "n": "L2", "f": "2GL", "e": 11 }, { "n": "L3", "f": "Energ", "e": 10 }] }, { "id": "J06", "cap": 35, "fill": 88, "groupes": [{ "n": "L3", "f": "ISI", "e": 14 }, { "n": "L3", "f": "SE", "e": 17 }] }, { "id": "K01", "cap": 48, "fill": 91, "groupes": [{ "n": "L2", "f": "SE", "e": 24 }, { "n": "L3", "f": "ISI", "e": 20 }] }, { "id": "K02", "cap": 48, "fill": 91, "groupes": [{ "n": "L2", "f": "Energ", "e": 20 }, { "n": "L3", "f": "SE", "e": 24 }] }, { "id": "K03", "cap": 48, "fill": 87, "groupes": [{ "n": "L3", "f": "ISI", "e": 23 }, { "n": "L3", "f": "CPI", "e": 19 }] }, { "id": "K05", "cap": 48, "fill": 91, "groupes": [{ "n": "L2", "f": "CPI", "e": 21 }, { "n": "L3", "f": "3GL", "e": 23 }] }, { "id": "K06", "cap": 48, "fill": 91, "groupes": [{ "n": "L2", "f": "CPI", "e": 24 }, { "n": "L3", "f": "3GL", "e": 20 }] }, { "id": "K07", "cap": 48, "fill": 91, "groupes": [{ "n": "L2", "f": "SE", "e": 20 }, { "n": "L3", "f": "SE", "e": 24 }] }, { "id": "K09", "cap": 42, "fill": 80, "groupes": [{ "n": "L2", "f": "CPI", "e": 19 }, { "n": "L3", "f": "CPI", "e": 15 }] }, { "id": "K10", "cap": 54, "fill": 79, "groupes": [{ "n": "L2", "f": "SE", "e": 20 }, { "n": "L2", "f": "SI", "e": 23 }] }, { "id": "K11", "cap": 54, "fill": 92, "groupes": [{ "n": "L3", "f": "MA", "e": 23 }, { "n": "L3", "f": "3GL", "e": 27 }] }, { "id": "K12", "cap": 54, "fill": 92, "groupes": [{ "n": "L2", "f": "2GL", "e": 27 }, { "n": "L3", "f": "MA", "e": 23 }] }, { "id": "K13", "cap": 54, "fill": 92, "groupes": [{ "n": "L2", "f": "ISI", "e": 27 }, { "n": "L2", "f": "MA", "e": 23 }] }, { "id": "M01", "cap": 30, "fill": 86, "groupes": [{ "n": "L2", "f": "ISI", "e": 14 }, { "n": "L3", "f": "Energ", "e": 12 }] }, { "id": "M03", "cap": 42, "fill": 85, "groupes": [{ "n": "L3", "f": "Batiment", "e": 16 }, { "n": "L3", "f": "3GL", "e": 20 }] }, { "id": "M04", "cap": 42, "fill": 90, "groupes": [{ "n": "L3", "f": "ISI", "e": 17 }, { "n": "L3", "f": "SI", "e": 21 }] }, { "id": "M05", "cap": 42, "fill": 90, "groupes": [{ "n": "L2", "f": "CPI", "e": 17 }, { "n": "L2", "f": "SE", "e": 21 }] }, { "id": "M06", "cap": 42, "fill": 90, "groupes": [{ "n": "L2", "f": "SI", "e": 17 }, { "n": "L3", "f": "SI", "e": 21 }] }, { "id": "M07", "cap": 42, "fill": 90, "groupes": [{ "n": "L2", "f": "SE", "e": 21 }, { "n": "L2", "f": "SI", "e": 17 }] }, { "id": "M08", "cap": 48, "fill": 91, "groupes": [{ "n": "L2", "f": "2GL", "e": 24 }, { "n": "L3", "f": "3GL", "e": 20 }] }, { "id": "M09", "cap": 48, "fill": 91, "groupes": [{ "n": "L2", "f": "MA", "e": 20 }, { "n": "L3", "f": "SE", "e": 24 }] }, { "id": "M10", "cap": 30, "fill": 86, "groupes": [{ "n": "L2", "f": "SI", "e": 15 }, { "n": "L3", "f": "Batiment", "e": 11 }] }, { "id": "M11", "cap": 48, "fill": 91, "groupes": [{ "n": "L2", "f": "ISI", "e": 24 }, { "n": "L3", "f": "SE", "e": 20 }] }, { "id": "M12", "cap": 30, "fill": 76, "groupes": [{ "n": "L2", "f": "Energ", "e": 13 }, { "n": "L3", "f": "Batiment", "e": 10 }] }, { "id": "M13", "cap": 48, "fill": 91, "groupes": [{ "n": "L2", "f": "ISI", "e": 24 }, { "n": "L2", "f": "SE", "e": 20 }] }, { "id": "M14", "cap": 42, "fill": 80, "groupes": [{ "n": "L2", "f": "Batiment", "e": 15 }, { "n": "L3", "f": "ISI", "e": 19 }] }, { "id": "M16", "cap": 48, "fill": 91, "groupes": [{ "n": "L2", "f": "ISI", "e": 23 }, { "n": "L2", "f": "2GL", "e": 21 }] }]
+        };
+
+        let bloc = 'matin', view = 'salle', imported = null;
+
+        const NBGS = { L1: '#FFF0CC', L2: '#D6F5E5', L3: '#D6E8FF', M: '#EDE0FF' };
+        const NBGC = { L1: '#A0640A', L2: '#1A6040', L3: '#1A3F80', M: '#5A1F99' };
+        function fc(p) { return p >= 90 ? 'fl-hi' : p >= 80 ? 'fl-mi' : 'fl-lo'; }
+        function fcol(p) { return p >= 90 ? '#D94040' : p >= 80 ? '#C67C0D' : '#2D6A4F'; }
+
+        function buildFil(salles) {
+            const m = {};
+            salles.forEach(s => s.groupes.forEach(g => {
+                const k = g.n + '|' + g.f;
+                if (!m[k]) m[k] = { niveau: g.n, filiere: g.f, total: 0, salles: [] };
+                m[k].total += g.e; m[k].salles.push({ salle: s.id, etu: g.e });
+            }));
+            return Object.values(m).sort((a, b) => a.filiere.localeCompare(b.filiere));
+        }
+
+        function render() {
+            const s = DATA[bloc];
+            if (!s || !s.length) {
+                document.getElementById('mc').innerHTML = '<div class="empty"><div class="eico"></div><div class="etit">Aucune donnée</div><div>Importez des données puis lancez l\'algorithme.</div></div>';
+                return;
+            }
+            const q = document.getElementById('srch').value.toLowerCase();
+            const te = s.reduce((a, sa) => a + sa.groupes.reduce((b, g) => b + g.e, 0), 0);
+            const avg = Math.round(s.reduce((a, sa) => a + sa.fill, 0) / s.length) || 0;
+            document.getElementById('s-bloc').textContent = te;
+            document.getElementById('s-avg').textContent = avg + '%';
+
+            const flt = s.filter(x => !q || x.id.toLowerCase().includes(q) || x.groupes.some(g => g.f.toLowerCase().includes(q)));
+            document.getElementById('si').textContent = `${flt.length} salle${flt.length > 1 ? 's' : ''} · Bloc ${bloc === 'matin' ? 'Matin' : 'Après-midi'}`;
+
+            if (view === 'salle') {
+                document.getElementById('mc').innerHTML = `<div class="cg">${flt.map(cardHTML).join('')}</div>`;
+            } else {
+                const fils = buildFil(s).filter(f => !q || f.filiere.toLowerCase().includes(q) || f.niveau.toLowerCase().includes(q));
+                document.getElementById('si').textContent = `${fils.length} filière${fils.length > 1 ? 's' : ''} · Bloc ${bloc === 'matin' ? 'Matin' : 'Après-midi'}`;
+                document.getElementById('mc').innerHTML = `<div class="fg">${fils.map(filHTML).join('')}</div>`;
+            }
+            document.getElementById('mc').querySelectorAll('.card,.fc').forEach((el, i) => {
+                el.style.opacity = '0';
+                setTimeout(() => { el.classList.add('fi'); el.style.opacity = ''; }, i * 15);
+            });
+        }
+
+        function cardHTML(s) {
+            return `<div class="card">
+    <div class="ch"><span class="cid">${s.id}</span><span class="ccap">Cap <span>${s.cap}</span></span></div>
+    <div class="fbb"><div class="fbf ${fc(s.fill)}" style="width:${s.fill}%"></div></div>
+    <div class="fr"><span class="fl">Remplissage</span><span class="fp" style="color:${fcol(s.fill)}">${s.fill}%</span></div>
+    <div class="gs">${s.groupes.map(g => `
+      <div class="gr grp-${g.n}">
+        <span class="gn"><span class="nb niv-${g.n}">${g.n}</span>${g.f}</span>
+        <span class="ge">${g.e} <span>étu</span></span>
+      </div>`).join('')}</div>
+  </div>`;
+        }
+
+        function filHTML(f) {
+            return `<div class="fc">
+    <div class="fh"><div><span class="nb niv-${f.niveau}">${f.niveau}</span><span class="fn">${f.filiere}</span></div><span class="ft">${f.total}</span></div>
+    <div class="fchips">${f.salles.map(s => `<span class="chip">${s.salle} <strong>${s.etu}</strong></span>`).join('')}</div>
+  </div>`;
+        }
+
+        function setBloc(b) { bloc = b; document.querySelectorAll('[data-bloc]').forEach(t => t.classList.toggle('on', t.dataset.bloc === b)); render(); }
+        function setView(v) { view = v; document.querySelectorAll('[data-view]').forEach(t => t.classList.toggle('on', t.dataset.view === v)); render(); }
+
+        // ── STATUS / LOADING ──────────────────────────────
+        function setStatus(msg, type = '') {
+            const el = document.getElementById('st');
+            el.textContent = msg; el.className = 'status' + (type ? ' ' + type : '');
+        }
+        function setLoading(on) {
+            document.getElementById('spin').style.display = on ? 'block' : 'none';
+            document.getElementById('btn-ph').disabled = on;
+            document.getElementById('btn-xl').disabled = on;
+        }
+
+        // ── EXCEL ─────────────────────────────────────────
+        function handleExcel(event) {
+            const file = event.target.files[0]; if (!file) return;
+            event.target.value = '';
+            setStatus('Lecture du fichier…', 'loading'); setLoading(true);
+            const r = new FileReader();
+            r.onload = function (e) {
+                try {
+                    const wb = XLSX.read(e.target.result, { type: 'binary' });
+                    const ws = wb.Sheets[wb.SheetNames[0]];
+                    const json = XLSX.utils.sheet_to_json(ws, { defval: '' });
+                    if (!json.length) { setStatus('Fichier vide.', 'err'); setLoading(false); return; }
+                    document.getElementById('pvw').style.display = 'none';
+                    setStatus(`✓ ${json.length} lignes importées — "${file.name}"`, 'ok');
+                    showTable(json, file.name, Object.keys(json[0]));
+                } catch (ex) { setStatus('Erreur : ' + ex.message, 'err'); }
+                finally { setLoading(false); }
+            };
+            r.readAsBinaryString(file);
+        }
+        function showVerificationTable(data, source, scrollTo = true) {
+            imported = data.map(d => ({ Niveau: d.Niveau, Filiere: d.Filiere, Effectif: d.Effectif }));
+            const sec = document.getElementById('isec');
+            sec.style.display = 'block';
+            document.getElementById('jsrc').textContent = 'Vérification OCR : ' + source;
+            document.getElementById('ibadge').textContent = data.length;
+            document.getElementById('jcnt').textContent = `${data.length} extractions`;
+
+            const cols = ["Niveau", "Filiere", "Effectif", "Texte Brut", "Actions"];
+            document.getElementById('ith').innerHTML = `<tr>${cols.map(c => `<th>${c}</th>`).join('')}</tr>`;
+
+            document.getElementById('itb').innerHTML = data.map((row, i) => {
+                const opts = ['L1', 'L2', 'L3', 'M'].map(v => `<option value="${v}" ${v === row.Niveau ? 'selected' : ''}>${v}</option>`).join('');
+                return `<tr>
+                    <td><select class="bsm" style="padding:4px" onchange="updateImport(${i},'Niveau',this.value)">${opts}</select></td>
+                    <td><input type="text" class="bsm" style="padding:4px;width:120px" value="${row.Filiere}" onchange="updateImport(${i},'Filiere',this.value)"></td>
+                    <td><input type="number" class="bsm" style="padding:4px;width:70px" value="${row.Effectif}" onchange="updateImport(${i},'Effectif',this.value)"></td>
+                    <td class="tdj" style="max-width:200px;overflow:hidden;text-overflow:ellipsis">${row.Raw || '—'}</td>
+                    <td><button class="bsm" style="color:var(--red);border-color:var(--red-lt)" onclick="delRow(${i})">✕</button></td>
+                </tr>`;
+            }).join('') + `<tr><td colspan="5"><button class="btn bsm" style="width:100%;margin-top:8px" onclick="addRow()">+ Ajouter une ligne</button></td></tr>`;
+
+            document.getElementById('jraw').textContent = JSON.stringify(imported, null, 2);
+            if (scrollTo) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ── SHOW TABLE ────────────────────────────────────
+        function showTable(data, source, cols) {
+            imported = data;
+            const sec = document.getElementById('isec');
+            sec.style.display = 'block';
+            document.getElementById('jsrc').textContent = 'Source : ' + source;
+            document.getElementById('ibadge').textContent = data.length;
+            document.getElementById('jcnt').textContent = `${data.length} ligne${data.length > 1 ? 's' : ''}`;
+
+            document.getElementById('ith').innerHTML =
+                `<tr>${cols.map(c => `<th>${c}</th>`).join('')}<th>JSON Ligne</th></tr>`;
+
+            document.getElementById('itb').innerHTML = data.map((row, i) => {
+                const cells = cols.map(c => {
+                    const v = row[c] ?? '—';
+                    if (c === 'Niveau' && NBGS[v])
+                        return `<td><span class="tdb" style="background:${NBGS[v]};color:${NBGC[v]}">${v}</span></td>`;
+                    return `<td>${v}</td>`;
+                }).join('');
+                return `<tr class="fi" style="animation-delay:${i * 10}ms">${cells}<td class="tdj">${JSON.stringify(row)}</td></tr>`;
+            }).join('');
+
+            document.getElementById('jraw').textContent = JSON.stringify(data, null, 2);
+            sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function copyJSON() {
+            if (!imported) return;
+            navigator.clipboard.writeText(JSON.stringify(imported, null, 2)).then(() => {
+                const b = event.currentTarget;
+                const og = b.textContent;
+                b.textContent = '✓ Copié !'; b.style.background = 'var(--green)'; b.style.color = '#fff';
+                setTimeout(() => { b.textContent = og; b.style.background = ''; b.style.color = ''; }, 1800);
+            });
+        }
+
+        async function saveImportedData() {
+            if (!imported) return;
+            setStatus('Enregistrement…', 'loading');
+            try {
+                const r = await fetch('/save-data', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ filiers: imported }) });
+                if (r.ok) alert('Données enregistrées !'); else throw new Error();
+            } catch (e) { alert('Serveur non disponible — utilisez "Copier JSON".'); }
+            finally { setStatus('Prêt', ''); }
+        }
+
+        async function runGreedy() {
+            setStatus('Lancement Greedy…', 'loading'); setLoading(true);
+            try {
+                const r = await fetch('/run-algorithm', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ algorithm: 'greedy' }) });
+                const res = await r.json();
+                if (res.status === 'success') location.reload();
+                else alert('Erreur : ' + (res.message || 'Inconnue'));
+            } catch (e) { alert('Lancez app.py pour exécuter l\'algorithme Greedy.'); }
+            finally { setLoading(false); setStatus('Prêt', ''); }
+        }
+
+        render();
+    </script>
+</body>
+
+</html>

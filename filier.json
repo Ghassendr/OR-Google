@@ -1,67 +1,218 @@
-{
-  "annee_universitaire": "2025/2026",
-  "nombre_total_etudiants": 2605,
-  "annees": {
-    "1ere_annee": {
-      "total_groupes": 89,
-      "filieres": {
-        "L_ISI": 89,
-        "L_GM": 88,
-        "L_GC": 78,
-        "L_EEA": 158,
-        "L_Energ": 73,
-        "L_EM": 80,
-        "L_SI": 84,
-        "Cycle_Preparatoire": 127,
-        "Ingenieur": 115
-      }
-    },
-    "2eme_annee": {
-      "total_groupes": 112,
-      "filieres": {
-        "ISI": 112,
-        "CPI": 81,
-        "Batiment": 31,
-        "SE": 159,
-        "Energ": 33,
-        "MA": 55,
-        "SI": 72,
-        "Cycle_Preparatoire": 88,
-        "2GL": 105
-      }
-    },
-    "3eme_annee": {
-      "total_groupes": 93,
-      "filieres": {
-        "ISI": 93,
-        "CPI": 50,
-        "Batiment": 37,
-        "SE": 131,
-        "Energ": 22,
-        "MA": 46,
-        "SI": 63,
-        "3GL": 110
-      }
-    },
-    "master": {
-      "programmes": {
-        "MR_SPI": 42,
-        "GM": 48,
-        "MR_GM": 27,
-        "MP_MERE": 51,
-        "MR_MSEE": 99,
-        "MP_GPPM": 22,
-        "MP_PAI": 26,
         "MR_SPI_2": 25,
-        "MP_EEB": 31,
-        "MP_EEI": 17,
-        "MR_SEE": 25,
-        "MR_MSE": 15,
-        "MR_MDEP": 12,
-        "MR_SM": 12,
-        "MR_MM": 14
-      },
-      "total_master": 425
+[
+    {
+        "Année Universitaire": "Nombre Total Étudiants",
+        "2025/2026": 2605,
+        "__EMPTY": ""
+    },
+    {
+        "Année Universitaire": "Niveau",
+        "2025/2026": "Filière / Programme",
+        "__EMPTY": "Effectif"
+    },
+    {
+        "Année Universitaire": "1ere_annee",
+        "2025/2026": "L_ISI",
+        "__EMPTY": 89
+    },
+    {
+        "Année Universitaire": "1ere_annee",
+        "2025/2026": "L_GM",
+        "__EMPTY": 88
+    },
+    {
+        "Année Universitaire": "1ere_annee",
+        "2025/2026": "L_GC",
+        "__EMPTY": 78
+    },
+    {
+        "Année Universitaire": "1ere_annee",
+        "2025/2026": "L_EEA",
+        "__EMPTY": 158
+    },
+    {
+        "Année Universitaire": "1ere_annee",
+        "2025/2026": "L_Energ",
+        "__EMPTY": 73
+    },
+    {
+        "Année Universitaire": "1ere_annee",
+        "2025/2026": "L_EM",
+        "__EMPTY": 80
+    },
+    {
+        "Année Universitaire": "1ere_annee",
+        "2025/2026": "L_SI",
+        "__EMPTY": 84
+    },
+    {
+        "Année Universitaire": "1ere_annee",
+        "2025/2026": "Cycle_Preparatoire",
+        "__EMPTY": 127
+    },
+    {
+        "Année Universitaire": "1ere_annee",
+        "2025/2026": "Ingenieur",
+        "__EMPTY": 115
+    },
+    {
+        "Année Universitaire": "2eme_annee",
+        "2025/2026": "ISI",
+        "__EMPTY": 112
+    },
+    {
+        "Année Universitaire": "2eme_annee",
+        "2025/2026": "CPI",
+        "__EMPTY": 81
+    },
+    {
+        "Année Universitaire": "2eme_annee",
+        "2025/2026": "Batiment",
+        "__EMPTY": 31
+    },
+    {
+        "Année Universitaire": "2eme_annee",
+        "2025/2026": "SE",
+        "__EMPTY": 159
+    },
+    {
+        "Année Universitaire": "2eme_annee",
+        "2025/2026": "Energ",
+        "__EMPTY": 33
+    },
+    {
+        "Année Universitaire": "2eme_annee",
+        "2025/2026": "MA",
+        "__EMPTY": 55
+    },
+    {
+        "Année Universitaire": "2eme_annee",
+        "2025/2026": "SI",
+        "__EMPTY": 72
+    },
+    {
+        "Année Universitaire": "2eme_annee",
+        "2025/2026": "Cycle_Preparatoire",
+        "__EMPTY": 88
+    },
+    {
+        "Année Universitaire": "2eme_annee",
+        "2025/2026": "2GL",
+        "__EMPTY": 105
+    },
+    {
+        "Année Universitaire": "3eme_annee",
+        "2025/2026": "ISI",
+        "__EMPTY": 93
+    },
+    {
+        "Année Universitaire": "3eme_annee",
+        "2025/2026": "CPI",
+        "__EMPTY": 50
+    },
+    {
+        "Année Universitaire": "3eme_annee",
+        "2025/2026": "Batiment",
+        "__EMPTY": 37
+    },
+    {
+        "Année Universitaire": "3eme_annee",
+        "2025/2026": "SE",
+        "__EMPTY": 131
+    },
+    {
+        "Année Universitaire": "3eme_annee",
+        "2025/2026": "Energ",
+        "__EMPTY": 22
+    },
+    {
+        "Année Universitaire": "3eme_annee",
+        "2025/2026": "MA",
+        "__EMPTY": 46
+    },
+    {
+        "Année Universitaire": "3eme_annee",
+        "2025/2026": "SI",
+        "__EMPTY": 63
+    },
+    {
+        "Année Universitaire": "3eme_annee",
+        "2025/2026": "3GL",
+        "__EMPTY": 110
+    },
+    {
+        "Année Universitaire": "master",
+        "2025/2026": "MR_SPI",
+        "__EMPTY": 42
+    },
+    {
+        "Année Universitaire": "master",
+        "2025/2026": "GM",
+        "__EMPTY": 48
+    },
+    {
+        "Année Universitaire": "master",
+        "2025/2026": "MR_GM",
+        "__EMPTY": 27
+    },
+    {
+        "Année Universitaire": "master",
+        "2025/2026": "MP_MERE",
+        "__EMPTY": 51
+    },
+    {
+        "Année Universitaire": "master",
+        "2025/2026": "MR_MSEE",
+        "__EMPTY": 99
+    },
+    {
+        "Année Universitaire": "master",
+        "2025/2026": "MP_GPPM",
+        "__EMPTY": 22
+    },
+    {
+        "Année Universitaire": "master",
+        "2025/2026": "MP_PAI",
+        "__EMPTY": 26
+    },
+    {
+        "Année Universitaire": "master",
+        "2025/2026": "MR_SPI_2",
+        "__EMPTY": 25
+    },
+    {
+        "Année Universitaire": "master",
+        "2025/2026": "MP_EEB",
+        "__EMPTY": 31
+    },
+    {
+        "Année Universitaire": "master",
+        "2025/2026": "MP_EEI",
+        "__EMPTY": 17
+    },
+    {
+        "Année Universitaire": "master",
+        "2025/2026": "MR_SEE",
+        "__EMPTY": 25
+    },
+    {
+        "Année Universitaire": "master",
+        "2025/2026": "MR_MSE",
+        "__EMPTY": 15
+    },
+    {
+        "Année Universitaire": "master",
+        "2025/2026": "MR_MDEP",
+        "__EMPTY": 12
+    },
+    {
+        "Année Universitaire": "master",
+        "2025/2026": "MR_SM",
+        "__EMPTY": 12
+    },
+    {
+        "Année Universitaire": "master",
+        "2025/2026": "MR_MM",
+        "__EMPTY": 14
     }
-  }
-}
+]

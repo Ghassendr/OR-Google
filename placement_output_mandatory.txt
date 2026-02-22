@@ -1,0 +1,301 @@
+﻿======================================================================
+       PLACEMENT FIXE DES EXAMENS - SYSTEME DE BLOCS
+======================================================================
+  Salles disponibles  : 56 salles | Capacite totale : 1901 places
+
+  BLOC MATIN      (08h30 + 10h15) :  1446 etudiants |  84 groupes
+  BLOC APRES-MIDI (12h00 + 13h45) :  1200 etudiants |  68 groupes
+  TOTAL                           :  2646 etudiants
+======================================================================
+
+  Resolution BLOC MATIN (84 groupes, 1446 etu) | Seed: 711449...
+  [OK - REALISABLE] 45.4s
+  Resolution BLOC APRES-MIDI (68 groupes, 1200 etu) | Seed: 711537...
+  [OK - REALISABLE] 45.2s
+
+
+===========================================================================
+  BLOC MATIN   (08h30-09h30  et  10h15-11h15)
+  Planning valable pour TOUTE LA SEMAINE
+===========================================================================
+
+  Salle    Cap  Effectif   Taux  Filieres / Groupes
+  ------  ----  --------  -----  --------------------------------------------------
+  I01       44        36    82%  [################....]
+                                Cycle_Preparatoire       18 etu  (Cycle_Preparatoire G6)
+                                L_ISI                    18 etu  (L_ISI G1)
+  I02       32        28    88%  [#################...]
+                                GM                       16 etu  (GM G1)
+                                MR_SPI_2                 12 etu  (MR_SPI_2 G2)
+  I03       32        32   100%  [####################]
+                                L_Energ                  18 etu  (L_Energ G4)
+                                MR_SPI                   14 etu  (MR_SPI G1)
+  I05       41        39    95%  [###################.]
+                                L_EEA                    19 etu  (L_EEA G7)
+                                MR_MSEE                  20 etu  (MR_MSEE G1)
+  I10       32        30    94%  [##################..]
+                                L_GM                     17 etu  (L_GM G5)
+                                MR_SEE                   13 etu  (MR_SEE G1)
+  I11       32        32   100%  [####################]
+                                L_GM                     18 etu  (L_GM G1)
+                                MR_SPI                   14 etu  (MR_SPI G3)
+  I12       32        28    88%  [#################...]
+                                GM                       16 etu  (GM G3)
+                                MR_MDEP                  12 etu  (MR_MDEP G1)
+  I13       32        32   100%  [####################]
+                                MP_EEB                   15 etu  (MP_EEB G2)
+                                MP_MERE                  17 etu  (MP_MERE G2)
+  I15       32        30    94%  [##################..]
+                                MP_MERE                  17 etu  (MP_MERE G1)
+                                MR_SPI_2                 13 etu  (MR_SPI_2 G1)
+  I17       32        32   100%  [####################]
+                                L_SI                     17 etu  (L_SI G4)
+                                MR_MSE                   15 etu  (MR_MSE G1)
+  I18       32        31    97%  [###################.]
+                                L_SI                     17 etu  (L_SI G1)
+                                MR_SPI                   14 etu  (MR_SPI G2)
+  I19       32        32   100%  [####################]
+                                GM                       16 etu  (GM G2)
+                                MP_EEB                   16 etu  (MP_EEB G1)
+
+  J06       31        31   100%  [####################]
+                                L_ISI                    17 etu  (L_ISI G5)
+                                MR_MM                    14 etu  (MR_MM G1)
+
+  K01       44        37    84%  [################....]
+                                L_EEA                    20 etu  (L_EEA G3)
+                                L_GM                     17 etu  (L_GM G4)
+  K02       44        36    82%  [################....]
+                                Ingenieur                19 etu  (Ingenieur G4)
+                                MP_MERE                  17 etu  (MP_MERE G3)
+  K03       44        36    82%  [################....]
+                                Cycle_Preparatoire       17 etu  (Cycle_Preparatoire G5)
+                                L_Energ                  19 etu  (L_Energ G1)
+  K04       44        38    86%  [#################...]
+                                L_EM                     20 etu  (L_EM G4)
+                                L_GM                     18 etu  (L_GM G3)
+  K05       44        39    89%  [#################...]
+                                Ingenieur                19 etu  (Ingenieur G5)
+                                MR_MSEE                  20 etu  (MR_MSEE G4)
+  K06       44        39    89%  [#################...]
+                                Ingenieur                19 etu  (Ingenieur G6)
+                                MR_MSEE                  20 etu  (MR_MSEE G3)
+  K07       44        35    80%  [###############.....]
+                                Cycle_Preparatoire       18 etu  (Cycle_Preparatoire G5)
+                                L_SI                     17 etu  (L_SI G2)
+  K08       32        30    94%  [##################..]
+                                L_SI                     16 etu  (L_SI G5)
+                                MR_GM                    14 etu  (MR_GM G1)
+  K09       38        36    95%  [##################..]
+                                Cycle_Preparatoire       18 etu  (Cycle_Preparatoire G3)
+                                L_ISI                    18 etu  (L_ISI G4)
+  K10       50        39    78%  [###############.....]
+                                Ingenieur                19 etu  (Ingenieur G3)
+                                MR_MSEE                  20 etu  (MR_MSEE G2)
+  K11       50        38    76%  [###############.....]
+                                L_EM                     20 etu  (L_EM G3)
+                                L_Energ                  18 etu  (L_Energ G3)
+  K12       50        37    74%  [##############......]
+                                Ingenieur                20 etu  (Ingenieur G1)
+                                MP_EEI                   17 etu  (MP_EEI G1)
+  K13       50        38    76%  [###############.....]
+                                Ingenieur                19 etu  (Ingenieur G2)
+                                MR_MSEE                  19 etu  (MR_MSEE G5)
+
+  M01       26        24    92%  [##################..]
+                                MP_GPPM                  11 etu  (MP_GPPM G2)
+                                MP_PAI                   13 etu  (MP_PAI G1)
+  M03       38        37    97%  [###################.]
+                                Cycle_Preparatoire       17 etu  (Cycle_Preparatoire G4)
+                                L_EEA                    20 etu  (L_EEA G5)
+  M04       38        38   100%  [####################]
+                                L_EEA                    20 etu  (L_EEA G4)
+                                L_ISI                    18 etu  (L_ISI G3)
+  M05       38        38   100%  [####################]
+                                Cycle_Preparatoire       18 etu  (Cycle_Preparatoire G2)
+                                L_EM                     20 etu  (L_EM G1)
+  M06       38        38   100%  [####################]
+                                L_EM                     20 etu  (L_EM G2)
+                                L_Energ                  18 etu  (L_Energ G2)
+  M07       38        38   100%  [####################]
+                                Cycle_Preparatoire       18 etu  (Cycle_Preparatoire G2)
+                                L_EEA                    20 etu  (L_EEA G6)
+  M08       44        36    82%  [################....]
+                                Cycle_Preparatoire       18 etu  (Cycle_Preparatoire G7)
+                                L_ISI                    18 etu  (L_ISI G2)
+  M09       44        37    84%  [################....]
+                                Cycle_Preparatoire       18 etu  (Cycle_Preparatoire G1)
+                                L_GC                     19 etu  (L_GC G4)
+  M10       26        25    96%  [###################.]
+                                MP_PAI                   13 etu  (MP_PAI G2)
+                                MR_SM                    12 etu  (MR_SM G1)
+  M11       44        40    91%  [##################..]
+                                L_EEA                    20 etu  (L_EEA G1)
+                                L_GC                     20 etu  (L_GC G2)
+  M12       26        23    88%  [#################...]
+                                MP_GPPM                  11 etu  (MP_GPPM G1)
+                                MR_SEE                   12 etu  (MR_SEE G2)
+  M13       44        39    89%  [#################...]
+                                L_EEA                    19 etu  (L_EEA G8)
+                                L_GC                     20 etu  (L_GC G1)
+  M14       38        36    95%  [##################..]
+                                Cycle_Preparatoire       18 etu  (Cycle_Preparatoire G4)
+                                L_GM                     18 etu  (L_GM G2)
+  M15       44        38    86%  [#################...]
+                                Cycle_Preparatoire       19 etu  (Cycle_Preparatoire G1)
+                                L_GC                     19 etu  (L_GC G3)
+  M16       44        38    86%  [#################...]
+                                Cycle_Preparatoire       18 etu  (Cycle_Preparatoire G3)
+                                L_EEA                    20 etu  (L_EEA G2)
+  M17       31        30    97%  [###################.]
+                                L_SI                     17 etu  (L_SI G3)
+                                MR_GM                    13 etu  (MR_GM G2)
+
+  =========================================================================
+  Salles utilisees              : 42
+  Etudiants places              : 1446
+  Capacite mobilisee            : 1615 places
+  Taux global d occupation      : 89.5%
+  Moyenne par salle             : 34.4 etu/salle
+
+  Distribution des taux de remplissage :
+   70%- 79% : |||||                (5 salles)
+   80%- 89% : |||||||||||||||      (15 salles)
+   90%- 99% : ||||||||||||         (12 salles)
+  100%-109% : ||||||||||           (10 salles)
+
+===========================================================================
+  BLOC APRES-MIDI   (12h00-13h00  et  13h45-14h45)
+  Planning valable pour TOUTE LA SEMAINE
+===========================================================================
+
+  Salle    Cap  Effectif   Taux  Filieres / Groupes
+  ------  ----  --------  -----  --------------------------------------------------
+  I01       44        37    84%  [################....]
+                                2GL                      18 etu  (2GL G1)
+                                ISI                      19 etu  (ISI G2)
+  I02       32        32   100%  [####################]
+                                CPI                      16 etu  (CPI G2)
+                                SI                       16 etu  (SI G1)
+  I05       41        36    88%  [#################...]
+                                Energ                    17 etu  (Energ G1)
+                                ISI                      19 etu  (ISI G3)
+  I11       32        32   100%  [####################]
+                                Batiment                 16 etu  (Batiment G1)
+                                CPI                      16 etu  (CPI G4)
+  I12       32        32   100%  [####################]
+                                CPI                      17 etu  (CPI G1)
+                                MA                       15 etu  (MA G2)
+  I15       32        32   100%  [####################]
+                                MA                       16 etu  (MA G1)
+                                SI                       16 etu  (SI G2)
+
+  K01       44        36    82%  [################....]
+                                2GL                      17 etu  (2GL G6)
+                                3GL                      19 etu  (3GL G2)
+  K02       44        36    82%  [################....]
+                                CPI                      16 etu  (CPI G3)
+                                SE                       20 etu  (SE G3)
+  K03       44        38    86%  [#################...]
+                                2GL                      18 etu  (2GL G3)
+                                SE                       20 etu  (SE G7)
+  K04       44        37    84%  [################....]
+                                3GL                      18 etu  (3GL G5)
+                                SE                       19 etu  (SE G2)
+  K05       44        37    84%  [################....]
+                                SE                       19 etu  (SE G4)
+                                SI                       18 etu  (SI G1)
+  K06       44        35    80%  [###############.....]
+                                CPI                      17 etu  (CPI G2)
+                                MA                       18 etu  (MA G3)
+  K07       44        38    86%  [#################...]
+                                3GL                      18 etu  (3GL G6)
+                                SE                       20 etu  (SE G6)
+  K08       32        32   100%  [####################]
+                                Energ                    16 etu  (Energ G2)
+                                SI                       16 etu  (SI G3)
+  K09       38        37    97%  [###################.]
+                                SE                       19 etu  (SE G5)
+                                SI                       18 etu  (SI G3)
+  K10       50        39    78%  [###############.....]
+                                MA                       19 etu  (MA G1)
+                                SE                       20 etu  (SE G4)
+  K11       50        35    70%  [##############......]
+                                CPI                      17 etu  (CPI G1)
+                                SE                       18 etu  (SE G7)
+  K12       50        38    76%  [###############.....]
+                                2GL                      18 etu  (2GL G2)
+                                SE                       20 etu  (SE G2)
+  K13       50        37    74%  [##############......]
+                                3GL                      18 etu  (3GL G4)
+                                Batiment                 19 etu  (Batiment G1)
+
+  M01       26        26   100%  [####################]
+                                Batiment                 15 etu  (Batiment G2)
+                                Energ                    11 etu  (Energ G2)
+  M03       38        36    95%  [##################..]
+                                2GL                      17 etu  (2GL G4)
+                                ISI                      19 etu  (ISI G1)
+  M04       38        34    89%  [#################...]
+                                3GL                      18 etu  (3GL G3)
+                                CPI                      16 etu  (CPI G5)
+  M05       38        36    95%  [##################..]
+                                MA                       18 etu  (MA G2)
+                                SE                       18 etu  (SE G6)
+  M06       38        38   100%  [####################]
+                                ISI                      18 etu  (ISI G4)
+                                SE                       20 etu  (SE G1)
+  M07       38        38   100%  [####################]
+                                3GL                      19 etu  (3GL G1)
+                                ISI                      19 etu  (ISI G2)
+  M08       44        37    84%  [################....]
+                                Batiment                 18 etu  (Batiment G2)
+                                SE                       19 etu  (SE G1)
+  M09       44        36    82%  [################....]
+                                ISI                      18 etu  (ISI G5)
+                                SI                       18 etu  (SI G4)
+  M10       26        26   100%  [####################]
+                                Energ                    11 etu  (Energ G1)
+                                MA                       15 etu  (MA G3)
+  M11       44        38    86%  [#################...]
+                                ISI                      19 etu  (ISI G3)
+                                SE                       19 etu  (SE G8)
+  M13       44        38    86%  [#################...]
+                                ISI                      19 etu  (ISI G4)
+                                SE                       19 etu  (SE G3)
+  M14       38        35    92%  [##################..]
+                                2GL                      17 etu  (2GL G5)
+                                ISI                      18 etu  (ISI G5)
+  M15       44        37    84%  [################....]
+                                ISI                      19 etu  (ISI G1)
+                                SI                       18 etu  (SI G2)
+  M16       44        38    86%  [#################...]
+                                ISI                      18 etu  (ISI G6)
+                                SE                       20 etu  (SE G5)
+  M17       31        31   100%  [####################]
+                                CPI                      16 etu  (CPI G3)
+                                SI                       15 etu  (SI G4)
+
+  =========================================================================
+  Salles utilisees              : 34
+  Etudiants places              : 1200
+  Capacite mobilisee            : 1366 places
+  Taux global d occupation      : 87.8%
+  Moyenne par salle             : 35.3 etu/salle
+
+  Distribution des taux de remplissage :
+   70%- 79% : |||||                (5 salles)
+   80%- 89% : |||||||||||||||      (15 salles)
+   90%- 99% : ||||                 (4 salles)
+  100%-109% : ||||||||||           (10 salles)
+
+===========================================================================
+  RECAPITULATIF GLOBAL
+===========================================================================
+  Bloc                  Salles  Etudiants   Capacite    Taux
+  -------------------- ------- ---------- ---------- -------
+  Matin (08h30+10h15)       42       1446       1615   89.5%
+  Apres-midi (12h+13h45)      34       1200       1366   87.8%
+  -------------------- ------- ---------- ---------- -------
+  TOTAL                     76       2646       2981   88.8%
+===========================================================================
