@@ -1,0 +1,7 @@
+Flask
+Flask-Cors
+pandas
+openpyxl
+pytesseract
+Pillow
+ortools

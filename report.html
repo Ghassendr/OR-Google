@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 
 <head>
@@ -56,7 +56,6 @@
             padding: 28px 24px
         }
 
-        /* HEADER */
         .hdr {
             background: var(--navy);
             border-radius: 16px;
@@ -147,7 +146,6 @@
             color: #7EB3FF
         }
 
-        /* CONTROLS */
         .ctrl {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -235,7 +233,6 @@
             color: var(--text3)
         }
 
-        /* IMPORT BAR */
         .ibar {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -352,7 +349,6 @@
             display: none
         }
 
-        /* LEGEND */
         .leg {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -401,7 +397,6 @@
             border-radius: 50%
         }
 
-        /* CARDS */
         .si {
             font-size: 11px;
             color: var(--text3);
@@ -410,23 +405,25 @@
 
         .cg {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 14px
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px
         }
 
         .card {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px;
+            border-radius: 14px;
+            padding: 18px;
             box-shadow: var(--sh);
-            transition: all .2s;
-            cursor: default
+            transition: all .25s cubic-bezier(0.2, 0.8, 0.2, 1);
+            cursor: default;
+            position: relative;
+            overflow: hidden
         }
 
         .card:hover {
             box-shadow: var(--sh2);
-            transform: translateY(-2px);
+            transform: translateY(-4px);
             border-color: var(--border2)
         }
 
@@ -454,17 +451,42 @@
         }
 
         .fbb {
-            height: 6px;
+            height: 8px;
             background: var(--border);
-            border-radius: 3px;
+            border-radius: 4px;
             overflow: hidden;
-            margin-bottom: 8px
+            margin-bottom: 10px;
+            position: relative
         }
 
         .fbf {
             height: 100%;
-            border-radius: 3px;
-            transition: width .5s ease
+            border-radius: 4px;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden
+        }
+
+        .fbf::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+            background-size: 20px 20px;
+            animation: moveStripes 2s linear infinite;
+        }
+
+        @keyframes moveStripes {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 20px 0;
+            }
         }
 
         .fr {
@@ -495,22 +517,29 @@
             justify-content: space-between;
             align-items: center;
             background: var(--surface2);
-            border-radius: 7px;
-            padding: 6px 10px;
-            border-left: 3px solid transparent
+            border-radius: 8px;
+            padding: 8px 12px;
+            border-left: 4px solid transparent;
+            transition: background 0.2s;
+        }
+
+        .gr:hover {
+            background: #f1ebd8;
         }
 
         .gn {
-            font-size: 12px;
-            color: var(--text2)
+            font-size: 13px;
+            color: var(--text2);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .nb {
             font-size: 10px;
             font-weight: 700;
-            padding: 1px 5px;
-            border-radius: 3px;
-            margin-right: 5px
+            padding: 2px 6px;
+            border-radius: 4px;
         }
 
         .ge {
@@ -561,18 +590,17 @@
         }
 
         .fl-lo {
-            background: #3DAD7A
+            background: linear-gradient(90deg, #3DAD7A, #5DDBA4)
         }
 
         .fl-mi {
-            background: #F5A623
+            background: linear-gradient(90deg, #F5A623, #F5D131)
         }
 
         .fl-hi {
-            background: #D94040
+            background: linear-gradient(90deg, #d94040, #ff6b6b)
         }
 
-        /* FILIÈRE */
         .fg {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -636,7 +664,6 @@
             font-weight: 700
         }
 
-        /* IMPORT SECTION */
         .isec {
             margin-top: 28px
         }
@@ -727,7 +754,6 @@
             color: #fff
         }
 
-        /* image preview */
         .pvw {
             padding: 12px 18px;
             border-bottom: 1px solid var(--border);
@@ -757,7 +783,6 @@
             margin-bottom: 3px
         }
 
-        /* TABLE */
         .tw {
             overflow-x: auto;
             max-height: 440px;
@@ -825,7 +850,6 @@
             border-radius: 3px
         }
 
-        /* JSON RAW */
         .jraw {
             padding: 14px 18px;
             border-top: 1px solid var(--border);
@@ -861,24 +885,35 @@
             font-family: 'Courier New', monospace
         }
 
-        /* EMPTY */
         .empty {
             text-align: center;
-            padding: 52px 24px;
-            color: var(--text3)
+            padding: 80px 24px;
+            color: var(--text3);
+            background: var(--surface2);
+            border: 2px dashed var(--border);
+            border-radius: 16px;
+            margin: 20px 0;
         }
 
         .eico {
-            font-size: 42px;
-            margin-bottom: 12px;
-            opacity: .35
+            margin-bottom: 16px;
+            opacity: 0.6;
+            color: var(--navy);
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 64px;
+            height: 64px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: var(--sh);
         }
 
         .etit {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text2);
-            margin-bottom: 6px
+            font-size: 18px;
+            font-family: 'DM Serif Display', serif;
+            color: var(--navy);
+            margin-bottom: 8px
         }
 
         footer {
@@ -923,7 +958,6 @@
             border-radius: 3px
         }
 
-        /* UNIVERSITY TABLE */
         .uni-table-wrap {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -1041,18 +1075,217 @@
         .utbl tr:last-child td {
             border-bottom: none;
         }
+
+        /* --- MODAL STYLES --- */
+        /* --- MODAL STYLES --- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 32px;
+            width: 90%;
+            max-width: 520px;
+            box-shadow: var(--sh2), 0 20px 40px rgba(0, 0, 0, 0.1);
+            animation: fi .3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            border: 1px solid var(--border);
+        }
+
+        .modal-hdr {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-hdr h2 {
+            font-family: 'DM Serif Display', serif;
+            color: var(--navy);
+            font-size: 24px;
+            line-height: 1.2;
+        }
+
+        .modal-close {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            color: var(--text3);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .2s;
+        }
+
+        .modal-close:hover {
+            color: var(--red);
+            background: var(--red-lt);
+            border-color: rgba(176, 42, 55, 0.2)
+        }
+
+        .modal-sec {
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--text3);
+            letter-spacing: 1.2px;
+            margin-bottom: 14px;
+            margin-top: 18px;
+        }
+
+        .modal-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .fg-row {
+            margin-bottom: 12px;
+        }
+
+        .fg-row label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text2);
+            margin-bottom: 6px;
+        }
+
+        .fg-row input[type="number"] {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--surface2);
+            padding: 10px 14px;
+            font-family: 'DM Sans', sans-serif;
+            transition: all .2s;
+            outline: none;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .fg-row input[type="number"]:focus {
+            border-color: var(--navy);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(27, 58, 107, 0.1);
+        }
+
+        .fg-row.chk {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            background: var(--surface2);
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all .2s;
+            cursor: pointer;
+        }
+
+        .fg-row.chk:hover {
+            border-color: var(--border2);
+            background: #fff;
+            transform: translateX(2px);
+        }
+
+        .chk-lbl {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            cursor: pointer;
+        }
+
+        .chk-lbl strong {
+            font-size: 13.5px;
+            color: var(--text);
+        }
+
+        .chk-lbl span {
+            font-size: 11px;
+            color: var(--text3);
+            line-height: 1.4;
+        }
+
+        .toggle {
+            position: relative;
+            width: 42px;
+            height: 24px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            display: none;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--border2);
+            transition: .25s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .25s;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle input:checked+.slider {
+            background-color: var(--green);
+        }
+
+        .toggle input:checked+.slider:before {
+            transform: translateX(18px);
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
     </style>
 </head>
 
 <body>
     <div class="w">
-
-        <!-- HEADER -->
         <div class="hdr">
             <div class="hdr-title">
                 <div class="eyebrow">Système GREEDY Optimisé</div>
                 <h1>Dashboard Examens 2026</h1>
-                <p class="hdr-sub">Session d'Examen · Rapport de Placement · Généré le 22/02/2026 02:43</p>
             </div>
             <div class="stats-row">
                 <div class="sbox">
@@ -1061,7 +1294,7 @@
                 </div>
                 <div class="sbox">
                     <div class="slbl">Salles Total</div>
-                    <div class="sval b">45</div>
+                    <div class="sval b">56</div>
                 </div>
                 <div class="sbox">
                     <div class="slbl">Ce Bloc</div>
@@ -1073,11 +1306,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- UNIVERSITY GROUPS TABLE -->
         <div id="univ-table-container" style="display:none;margin-bottom:24px"></div>
-
-        <!-- CONTROLS -->
         <div class="ctrl">
             <div class="tg">
                 <button class="tab on" data-bloc="matin" onclick="setBloc('matin')">Bloc Matin</button>
@@ -1096,11 +1325,8 @@
                 <input class="srch" id="srch" placeholder="Salle, filière…" oninput="render()" />
             </div>
         </div>
-
-        <!-- IMPORT BAR -->
         <div class="ibar">
             <span class="ibar-title">Importer :</span>
-
             <button class="btn btn-ph" id="btn-ph" onclick="document.getElementById('fp').click()">
                 <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
@@ -1109,7 +1335,6 @@
                 Scanner Photo Filière
             </button>
             <input type="file" id="fp" accept="image/*" onchange="handlePhoto(event)" />
-
             <button class="btn btn-xl" id="btn-xl" onclick="document.getElementById('fx').click()">
                 <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -1120,16 +1345,103 @@
                 Importer Excel / CSV
             </button>
             <input type="file" id="fx" accept=".xlsx,.xls,.csv" onchange="handleExcel(event)" />
-
+            <button class="btn btn-gd" style="background:var(--navy2)" onclick="openParamsModal()">
+                <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path
+                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                    </path>
+                </svg>
+                Paramètres
+            </button>
             <button class="btn btn-gd" onclick="runGreedy()">Lancer Greedy</button>
-
             <div class="status-box">
                 <div id="spin" class="spin"></div>
                 <div id="st" class="status">Prêt pour l'importation.</div>
             </div>
         </div>
 
-        <!-- LEGEND -->
+        <!-- MODAL -->
+        <div class="modal-overlay" id="paramsModal">
+            <div class="modal">
+                <div class="modal-hdr">
+                    <div>
+                        <h2>Paramètres du Solver</h2>
+                        <div style="font-size:12px;color:var(--text3);margin-top:6px">Ajustez les contraintes pour le
+                            placement des groupes</div>
+                    </div>
+                    <button class="modal-close" onclick="closeParamsModal()">
+                        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path d="M18 6L6 18M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="modal-sec">Remplissage & Marges</div>
+                <div class="modal-grid">
+                    <div class="fg-row">
+                        <label title="Pourcentage minimum de remplissage d'une salle">Occ. Min (%)</label>
+                        <input type="number" id="p_min_occ" value="40" min="0" max="100">
+                    </div>
+                    <div class="fg-row">
+                        <label title="Différence maximum tolérée entre deux salles d'un même bloc de bâtiments">Marge
+                            Déséq.</label>
+                        <input type="number" id="p_balance_slack" value="5" min="0">
+                    </div>
+                    <div class="fg-row">
+                        <label title="Nombre de places laissées vides par sécurité par salle">Buffer (places)</label>
+                        <input type="number" id="p_buffer" value="3" min="0">
+                    </div>
+                </div>
+
+                <div class="modal-sec">Règles & Optimisation</div>
+                <div class="fg-row chk" onclick="document.getElementById('p_exact_2').click()">
+                    <label class="toggle">
+                        <input type="checkbox" id="p_exact_2" checked onclick="event.stopPropagation()">
+                        <span class="slider"></span>
+                    </label>
+                    <div class="chk-lbl">
+                        <strong>Forcer 2 groupes maximum par salle</strong>
+                        <span>Évite de fragmenter avec 3 ou 4 petits groupes.</span>
+                    </div>
+                </div>
+                <div class="fg-row chk" onclick="document.getElementById('p_building_bloc').click()">
+                    <label class="toggle">
+                        <input type="checkbox" id="p_building_bloc" checked onclick="event.stopPropagation()">
+                        <span class="slider"></span>
+                    </label>
+                    <div class="chk-lbl">
+                        <strong>Regrouper dans le même bâtiment</strong>
+                        <span>Garde les groupes d'une même filière proches (ex: Bat. I).</span>
+                    </div>
+                </div>
+                <div class="fg-row chk" onclick="document.getElementById('p_optimize_rooms').click()">
+                    <label class="toggle">
+                        <input type="checkbox" id="p_optimize_rooms" checked onclick="event.stopPropagation()">
+                        <span class="slider"></span>
+                    </label>
+                    <div class="chk-lbl">
+                        <strong>Minimiser le nombre de salles</strong>
+                        <span>Recherche du placement le plus serré (Solver plus lent).</span>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn bsm" onclick="closeParamsModal()">Annuler</button>
+                    <div style="display:flex;gap:10px">
+                        <button class="btn bsm btn-gd" onclick="applyParamsAndRun('matin')"
+                            style="background:#F5B942;color:#9b6100;border:none">Lancer Matin</button>
+                        <button class="btn bsm btn-gd" onclick="applyParamsAndRun('apmidi')"
+                            style="background:var(--navy2);border:none;color: #ffffff;">Lancer Après-midi</button>
+                        <button class="btn bsm btn-gd" onclick="applyParamsAndRun('all')"
+                            style="background:var(--navy);border:none;box-shadow:0 4px 10px rgba(255, 255, 255, 0.3);color: #ffffff">Lancer
+                            Tout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="leg">
             <div class="li">
                 <div class="ld" style="background:#F5B942"></div>L1 — Licence 1
@@ -1155,45 +1467,23 @@
                 </div>
             </div>
         </div>
-
         <div id="si" class="si"></div>
         <div id="mc"></div>
-
-
         <footer>
-            <span>ENIS — Session Examens 2026 · Greedy Optimisé</span>
-            <span>22/02/2026 02:43 · Généré automatiquement</span>
         </footer>
     </div>
-
     <script>
-        // JSON Structure:
-        // {
-        //   "annee_universitaire": "2025/2026",
-        //   "nombre_total_etudiants": 2605,
-        //   "annees": {
-        //     "1ere_annee": { "total_groupes": 89, "filieres": { "L_ISI": 89, "L_GM": 88, "L_GC": 78, "L_EEA": 158, "L_Energ": 73, "L_EM": 80, "L_SI": 84, "Cycle_Preparatoire": 127, "Ingenieur": 115 } },
-        //     "2eme_annee": { "total_groupes": 112, "filieres": { "ISI": 112, "CPI": 81, "Batiment": 31, "SE": 159, "Energ": 33, "MA": 55, "SI": 72, "Cycle_Preparatoire": 88, "2GL": 105 } },
-        //     "3eme_annee": { "total_groupes": 93, "filieres": { "ISI": 93, "CPI": 50, "Batiment": 37, "SE": 131, "Energ": 22, "MA": 46, "SI": 63, "3GL": 110 } },
-        //     "master": { "total_master": 466, "programmes": { "MR_SPI": 42, "GM": 48, "MR_GM": 27, "MP_MERE": 51, "MR_MSEE": 99, "MP_GPPM": 22, "MP_PAI": 26, "MR_SPI_2": 25, "MP_EEB": 31, "MP_EEI": 17, "MR_SEE": 25, "MR_MSE": 15, "MR_MDEP": 12, "MR_SM": 12, "MR_MM": 14 } }
-        //   }
-        // }
         let DATA = { matin: [], apmidi: [] };
         let UNIV_DATA = null;
-
+        let ROOMS_DATA = [];
         async function loadAllData() {
             try {
-                // Load University Data (from filier.json via /get-data)
                 const r1 = await fetch('/get-data?t=' + Date.now());
                 if (r1.ok) {
                     const res = await r1.json();
-                    if (res.filiers) {
-                        UNIV_DATA = res.filiers;
-                        // renderUnivTable() is no longer called here as per user request
-                    }
+                    if (res.filiers) UNIV_DATA = res.filiers;
+                    if (res.rooms) ROOMS_DATA = res.rooms;
                 }
-
-                // Load Placement Data (from placement.json)
                 const r2 = await fetch('placement.json?t=' + Date.now());
                 if (r2.ok) {
                     const json = await r2.json();
@@ -1211,14 +1501,11 @@
                 render();
             }
         }
-
         let bloc = 'matin', view = 'salle', imported = null;
-
         const NBGS = { L1: '#FFF0CC', L2: '#D6F5E5', L3: '#D6E8FF', M: '#EDE0FF' };
         const NBGC = { L1: '#A0640A', L2: '#1A6040', L3: '#1A3F80', M: '#5A1F99' };
         function fc(p) { return p >= 95 ? 'fl-hi' : p >= 80 ? 'fl-mi' : 'fl-lo'; }
         function fcol(p) { return p >= 95 ? '#D94040' : p >= 80 ? '#C67C0D' : '#2D6A4F'; }
-
         function buildFil(salles) {
             const m = {};
             if (!salles) return [];
@@ -1229,21 +1516,16 @@
             }));
             return Object.values(m).sort((a, b) => a.filiere.localeCompare(b.filiere));
         }
-
         function renderUnivTable(editable = false) {
             const container = document.getElementById('univ-table-container');
             if (!container || !UNIV_DATA) return;
-
             const d = UNIV_DATA;
             const years = ['1ere_annee', '2eme_annee', '3eme_annee'];
-
             if (!d.annees) {
                 container.innerHTML = '<div class="empty">Structure de filier.json invalide</div>';
                 return;
             }
-
             const masterProgs = d.annees.master ? Object.entries(d.annees.master.programmes || {}) : [];
-
             let html = `
             <div class="uni-table-wrap">
                 <div class="uni-table-hdr">
@@ -1269,48 +1551,42 @@
                             </tr>
                         </thead>
                         <tbody>`;
-
             years.forEach(yr => {
                 const yearData = d.annees[yr];
                 const filieres = Object.entries(yearData.filieres);
                 const yearLabel = yr.replace('_', ' ').replace('ere', 'ère').replace('eme', 'ème');
-
                 html += `<tr class="section-hdr"><td colspan="11" class="left">${yearLabel}</td></tr>`;
-
-                // Filiere Names Row
                 html += `<tr><td class="row-label">Filière</td>`;
                 filieres.forEach(([name]) => {
                     html += `<td style="font-weight:600;font-size:10px">${name.replace('L_', 'L ')}</td>`;
                 });
                 html += `<td style="font-weight:600;font-size:10px">MASTER</td></tr>`;
-
-                // Groups Row
                 html += `<tr><td class="row-label">Groupes</td>`;
                 filieres.forEach(([name, count]) => {
                     html += `<td>${editable ? `<input type="number" class="bsm" value="${count}" onchange="UNIV_DATA.annees['${yr}'].filieres['${name}']=parseInt(this.value);updateUnivTotals();renderUnivTable(true)" style="width:40px;padding:2px">` : count}</td>`;
                 });
-
-                // Add master programs per year section
                 const start = years.indexOf(yr) * 5;
                 const end = start + 5;
                 const progs = masterProgs.slice(start, end);
-
-                let masterInfo = progs.map(([name, count]) => `<div style="margin-bottom:2px">${name}: <strong>${editable ? `<input type="number" class="bsm" value="${count}" onchange="UNIV_DATA.annees.master.programmes['${name}']=parseInt(this.value);updateUnivTotals();renderUnivTable(true)" style="width:40px;padding:2px">` : count}</strong></div>`).join('');
+                let masterInfo = progs.map(([name, count]) => `
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;gap:8px">
+                        <span>${name}:</span>
+                        <span style="font-weight:700">${editable ? `<input type="number" class="bsm" value="${count}" onchange="UNIV_DATA.annees.master.programmes['${name}']=parseInt(this.value);updateUnivTotals();renderUnivTable(true)" style="width:50px;padding:3px;text-align:right">` : count}</span>
+                    </div>`).join('');
                 if (yr === '3eme_annee') {
-                    masterInfo += `<div style="margin-top:6px;padding-top:4px;border-top:1px solid rgba(0,0,0,0.05);font-weight:700;color:var(--red)">Total Master: ${d.annees.master.total_master}</div>`;
+                    masterInfo += `<div style="margin-top:6px;padding-top:6px;border-top:1.5px solid rgba(0,0,0,0.1);display:flex;justify-content:space-between;font-weight:700;color:var(--red)">
+                        <span>Total Master:</span>
+                        <span>${d.annees.master.total_master}</span>
+                    </div>`;
                 }
-                html += `<td style="font-size:10px;text-align:left;padding:8px 12px;vertical-align:top;background:rgba(0,0,0,0.02)">${masterInfo || '—'}</td></tr>`;
-
-                // Total Row
+                html += `<td style="font-size:10.5px;text-align:left;padding:10px 14px;vertical-align:top;background:rgba(0,0,0,0.02);min-width:160px">${masterInfo || '—'}</td></tr>`;
                 html += `<tr class="total-row"><td class="row-label">TOTAL</td>`;
                 html += `<td colspan="${filieres.length}">${yearData.total_groupes}</td>`;
                 html += `<td>${yr === '3eme_annee' ? d.annees.master.total_master : '—'}</td></tr>`;
             });
-
             html += `</tbody></table></div></div>`;
             container.innerHTML = html;
         }
-
         function updateUnivTotals() {
             if (!UNIV_DATA) return;
             const d = UNIV_DATA;
@@ -1318,10 +1594,7 @@
                 d.annees[yr].total_groupes = Object.values(d.annees[yr].filieres).reduce((a, b) => a + b, 0);
             });
             d.annees.master.total_master = Object.values(d.annees.master.programmes).reduce((a, b) => a + b, 0);
-            // Optionally recalculate total student count if it matches the group sum
-            // d.nombre_total_etudiants = ...
         }
-
         async function saveUnivData() {
             setStatus('Enregistrement…', 'loading');
             try {
@@ -1333,7 +1606,6 @@
             } catch (e) { alert('Erreur lors de l\'enregistrement.'); }
             finally { setStatus('Prêt', ''); }
         }
-
         function filiersToNested(list, meta = {}) {
             console.log("Transformation du Excel en JSON imbriqué...", list);
             const d = {
@@ -1346,19 +1618,15 @@
                     "master": { "programmes": {}, "total_master": 0 }
                 }
             };
-
             const getV = (row, pattern) => {
                 const k = Object.keys(row).find(key => key.toLowerCase().includes(pattern.toLowerCase()));
                 return k ? row[k] : null;
             };
-
             list.forEach((row, i) => {
                 let niv = (getV(row, 'niv') || (row.Niveau || '')).toString().toUpperCase();
                 let fil = getV(row, 'fil') || (row.Filiere || 'Inconnue');
                 let eff = parseInt(getV(row, 'eff') || (row.Effectif || 0));
-
                 if (!niv || niv === 'NIVEAU') return;
-
                 if (niv.includes('1ERE') || niv.includes('L1') || niv.includes('1ÈRE')) {
                     d.annees["1ere_annee"].filieres[fil] = (d.annees["1ere_annee"].filieres[fil] || 0) + eff;
                     d.annees["1ere_annee"].total_groupes += eff;
@@ -1373,84 +1641,145 @@
                     d.annees.master.total_master += eff;
                 }
             });
-
-            // If not provided in meta, calculate total students
             if (!meta.total) {
                 d.nombre_total_etudiants = d.annees["1ere_annee"].total_groupes +
                     d.annees["2eme_annee"].total_groupes +
                     d.annees["3eme_annee"].total_groupes +
                     d.annees.master.total_master;
             }
-
             console.log("Résultat structuré:", d);
             return d;
         }
-
-
-
-
         function buildFil(salles) {
             const m = {};
+            // Pré-remplir avec toutes les filières connues pour afficher les "vides"
+            if (UNIV_DATA && UNIV_DATA.annees) {
+                const mapKey = (yr) => yr.includes('1ere') ? 'L1' : yr.includes('2eme') ? 'L2' : yr.includes('3eme') ? 'L3' : 'M';
+                Object.entries(UNIV_DATA.annees).forEach(([yr, ydata]) => {
+                    const level = mapKey(yr);
+                    const dict = (yr === 'master') ? ydata.programmes : ydata.filieres;
+                    if (dict) {
+                        Object.keys(dict).forEach(f => {
+                            const k = level + '|' + f;
+                            m[k] = { niveau: level, filiere: f, total: 0, salles: [], empty: true };
+                        });
+                    }
+                });
+            }
+            // Ajouter les données effectives
             salles.forEach(s => s.groupes.forEach(g => {
                 const k = g.n + '|' + g.f;
                 if (!m[k]) m[k] = { niveau: g.n, filiere: g.f, total: 0, salles: [] };
                 m[k].total += g.e; m[k].salles.push({ salle: s.id, etu: g.e });
+                m[k].empty = false;
             }));
-            return Object.values(m).sort((a, b) => a.filiere.localeCompare(b.filiere));
+            return Object.values(m).sort((a, b) => {
+                if (a.empty && !b.empty) return 1;
+                if (!a.empty && b.empty) return -1;
+                return a.filiere.localeCompare(b.filiere);
+            });
         }
-
         function render() {
-            const s = DATA[bloc];
-            if (!s || !s.length) {
-                document.getElementById('mc').innerHTML = '<div class="empty"><div class="eico"></div><div class="etit">Aucune donnée</div><div>Importez des données puis lancez l\'algorithme.</div></div>';
+            const s = DATA[bloc] || [];
+            // Fusionner avec ROOMS_DATA pour afficher les salles vides
+            const allRooms = ROOMS_DATA.length ? ROOMS_DATA.map(r => {
+                const scheduled = s.find(rs => rs.id === r.Salle);
+                if (scheduled) return scheduled;
+                return { id: r.Salle, cap: r.CapaciteTotal, fill: 0, groupes: [], empty: true };
+            }) : s;
+
+            if (!allRooms.length) {
+                document.getElementById('mc').innerHTML = `<div class="empty">
+                    <div class="eico">
+                        <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                            <polyline points="7 3 7 8 15 8"></polyline>
+                        </svg>
+                    </div>
+                    <div class="etit">Aucune donnée</div>
+                    <div style="font-size:13px">Importez des données puis paramétrez et lancez l'algorithme.</div>
+                </div>`;
                 return;
             }
             const q = document.getElementById('srch').value.toLowerCase();
             const te = s.reduce((a, sa) => a + sa.groupes.reduce((b, g) => b + g.e, 0), 0);
-            const avg = Math.round(s.reduce((a, sa) => a + sa.fill, 0) / s.length) || 0;
+            const avg = s.length ? Math.round(s.reduce((a, sa) => a + sa.fill, 0) / s.length) : 0;
             document.getElementById('s-bloc').textContent = te;
             document.getElementById('s-avg').textContent = avg + '%';
-
-            const flt = s.filter(x => !q || x.id.toLowerCase().includes(q) || x.groupes.some(g => g.f.toLowerCase().includes(q)));
-            document.getElementById('si').textContent = `${flt.length} salle${flt.length > 1 ? 's' : ''} · Bloc ${bloc === 'matin' ? 'Matin' : 'Après-midi'}`;
+            const flt = allRooms.filter(x => !q || x.id.toLowerCase().includes(q) || x.groupes.some(g => g.f.toLowerCase().includes(q)));
+            let pInfo = '';
+            if (DATA['params_' + bloc]) {
+                const p = DATA['params_' + bloc];
+                const rel = DATA['relaxation_' + bloc] || 'Inconnu';
+                pInfo = `<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
+                            <span style="background:var(--navy);color:#fff;padding:3px 10px;border-radius:12px;font-size:10px;font-weight:700">${rel.toUpperCase()}</span>
+                            <span style="background:var(--surface2);border:1px solid var(--border);padding:3px 10px;border-radius:12px;font-size:10px;color:var(--text2)">Min Occ: <strong style="color:var(--text)">${Math.round(p.min_occ * 100)}%</strong></span>
+                            <span style="background:var(--surface2);border:1px solid var(--border);padding:3px 10px;border-radius:12px;font-size:10px;color:var(--text2)">Exact 2: <strong style="color:var(--text)">${p.exact_2 ? 'Oui' : 'Non'}</strong></span>
+                            <span style="background:var(--surface2);border:1px solid var(--border);padding:3px 10px;border-radius:12px;font-size:10px;color:var(--text2)">Bâtiment: <strong style="color:var(--text)">${p.building_bloc ? 'Oui' : 'Non'}</strong></span>
+                         </div>`;
+            }
 
             if (view === 'salle') {
-                document.getElementById('mc').innerHTML = `<div class="cg">${flt.map(cardHTML).join('')}</div>`;
+                document.getElementById('si').innerHTML = `<strong>${flt.length} salle${flt.length > 1 ? 's' : ''}</strong> · Bloc ${bloc === 'matin' ? 'Matin' : 'Après-midi'}${pInfo}`;
+                const scheduledRooms = flt.filter(r => !r.empty);
+                const emptyRooms = flt.filter(r => r.empty);
+                const byBuilding = {};
+                scheduledRooms.forEach(s => {
+                    const b = s.id[0].toUpperCase();
+                    if (!byBuilding[b]) byBuilding[b] = [];
+                    byBuilding[b].push(s);
+                });
+                let html = '';
+                Object.keys(byBuilding).sort().forEach(b => {
+                    html += `<div style="grid-column: 1 / -1; margin-top: 15px; font-family: 'DM Serif Display', serif; font-size: 24px; color: var(--navy); border-bottom: 2px solid var(--border); padding-bottom: 5px;">Bâtiment ${b}</div>`;
+                    html += byBuilding[b].map(cardHTML).join('');
+                });
+                if (emptyRooms.length) {
+                    html += `<div style="grid-column: 1 / -1; margin-top: 40px; font-family: 'DM Serif Display', serif; font-size: 24px; color: var(--text3); border-bottom: 2px solid var(--border); padding-bottom: 5px;">Salles Libres (${emptyRooms.length})</div>`;
+                    html += emptyRooms.map(cardHTML).join('');
+                }
+                document.getElementById('mc').innerHTML = `<div class="cg">${html}</div>`;
             } else {
-                const fils = buildFil(s).filter(f => !q || f.filiere.toLowerCase().includes(q) || f.niveau.toLowerCase().includes(q));
-                document.getElementById('si').textContent = `${fils.length} filière${fils.length > 1 ? 's' : ''} · Bloc ${bloc === 'matin' ? 'Matin' : 'Après-midi'}`;
-                document.getElementById('mc').innerHTML = `<div class="fg">${fils.map(filHTML).join('')}</div>`;
+                const allFils = buildFil(s);
+                const scheduledFils = allFils.filter(f => !f.empty && (!q || f.filiere.toLowerCase().includes(q) || f.niveau.toLowerCase().includes(q)));
+                const emptyFils = allFils.filter(f => f.empty && (!q || f.filiere.toLowerCase().includes(q) || f.niveau.toLowerCase().includes(q)));
+                document.getElementById('si').innerHTML = `<strong>${scheduledFils.length} filière${scheduledFils.length > 1 ? 's' : ''} placée${scheduledFils.length > 1 ? 's' : ''}</strong> · Bloc ${bloc === 'matin' ? 'Matin' : 'Après-midi'}${pInfo}`;
+                
+                let html = scheduledFils.map(filHTML).join('');
+                if (emptyFils.length) {
+                    html += `<div style="grid-column: 1 / -1; margin-top: 30px; font-size: 16px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 15px;">Filières non placées / Vides (${emptyFils.length})</div>`;
+                    html += emptyFils.map(filHTML).join('');
+                }
+                document.getElementById('mc').innerHTML = `<div class="fg">${html}</div>`;
             }
             document.getElementById('mc').querySelectorAll('.card,.fc').forEach((el, i) => {
                 el.style.opacity = '0';
                 setTimeout(() => { el.classList.add('fi'); el.style.opacity = ''; }, i * 15);
             });
         }
-
         function cardHTML(s) {
-            return `<div class="card">
+            const isEmpty = s.empty || s.groupes.length === 0;
+            return `<div class="card" ${isEmpty ? 'style="opacity:0.6;border-style:dashed;background:rgba(0,0,0,0.02)"' : ''}>
     <div class="ch"><span class="cid">${s.id}</span><span class="ccap">Cap <span>${s.cap}</span></span></div>
     <div class="fbb"><div class="fbf ${fc(s.fill)}" style="width:${s.fill}%"></div></div>
-    <div class="fr"><span class="fl">Remplissage</span><span class="fp" style="color:${fcol(s.fill)}">${s.fill}%</span></div>
-    <div class="gs">${s.groupes.map(g => `
+    <div class="fr"><span class="fl">${isEmpty ? 'Salles Vide' : 'Remplissage'}</span><span class="fp" style="color:${fcol(s.fill)}">${s.fill}%</span></div>
+    <div class="gs">${isEmpty ? '<div style="font-size:11px;color:var(--text3);margin-top:10px;text-align:center">Aucun groupe assigné</div>' : s.groupes.map(g => `
       <div class="gr grp-${g.n}">
         <span class="gn"><span class="nb niv-${g.n}">${g.n}</span>${g.f}</span>
         <span class="ge">${g.e} <span>étu</span></span>
       </div>`).join('')}</div>
   </div>`;
         }
-
         function filHTML(f) {
-            return `<div class="fc">
+            const isEmpty = f.empty || f.salles.length === 0;
+            return `<div class="fc" ${isEmpty ? 'style="opacity:0.5;border-style:dashed;filter:grayscale(1)"' : ''}>
     <div class="fh"><div><span class="nb niv-${f.niveau}">${f.niveau}</span><span class="fn">${f.filiere}</span></div><span class="ft">${f.total}</span></div>
-    <div class="fchips">${f.salles.map(s => `<span class="chip">${s.salle} <strong>${s.etu}</strong></span>`).join('')}</div>
+    <div class="fchips">${isEmpty ? '<span style="font-size:11px;color:var(--text3);font-style:italic">Non placé / Vide</span>' : f.salles.map(s => `<span class="chip">${s.salle} <strong>${s.etu}</strong></span>`).join('')}</div>
   </div>`;
         }
-
         function setBloc(b) { bloc = b; document.querySelectorAll('[data-bloc]').forEach(t => t.classList.toggle('on', t.dataset.bloc === b)); render(); }
         function setView(v) { view = v; document.querySelectorAll('[data-view]').forEach(t => t.classList.toggle('on', t.dataset.view === v)); render(); }
-
-        // ── STATUS / LOADING ──────────────────────────────
         function setStatus(msg, type = '') {
             const el = document.getElementById('st');
             el.textContent = msg; el.className = 'status' + (type ? ' ' + type : '');
@@ -1460,8 +1789,6 @@
             document.getElementById('btn-ph').disabled = on;
             document.getElementById('btn-xl').disabled = on;
         }
-
-        // ── EXCEL ─────────────────────────────────────────
         function handleExcel(event) {
             const file = event.target.files[0]; if (!file) return;
             event.target.value = '';
@@ -1473,18 +1800,13 @@
                     const wb = XLSX.read(data, { type: 'array' });
                     const ws = wb.Sheets[wb.SheetNames[0]];
                     const rows = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' });
-
                     if (!rows.length) { setStatus('Fichier vide.', 'err'); setLoading(false); return; }
-
                     let meta = { year: "2025/2026", total: 0 };
                     let headerRowIdx = -1;
                     const flatData = [];
-
-                    // 1. Scanning rows for metadata and headers
                     for (let i = 0; i < rows.length; i++) {
                         const row = rows[i];
                         const lineStr = row.join(' ').toLowerCase();
-
                         if (lineStr.includes('année uni')) {
                             const val = row.find(c => c && c.toString().includes('/'));
                             if (val) meta.year = val;
@@ -1497,13 +1819,10 @@
                             headerRowIdx = i;
                             continue;
                         }
-
                         if (headerRowIdx !== -1 && row.some(c => c !== '')) {
-                            // Map row to Niveau, Filiere, Effectif based on detected positions
                             const nivIdx = row.findIndex((c, idx) => rows[headerRowIdx][idx]?.toString().toLowerCase().includes('niv'));
                             const filIdx = row.findIndex((c, idx) => rows[headerRowIdx][idx]?.toString().toLowerCase().includes('fil'));
                             const effIdx = row.findIndex((c, idx) => rows[headerRowIdx][idx]?.toString().toLowerCase().includes('eff'));
-
                             flatData.push({
                                 Niveau: row[nivIdx] || '',
                                 Filiere: row[filIdx] || 'Inconnue',
@@ -1512,14 +1831,11 @@
                             });
                         }
                     }
-
                     window._currentMeta = meta;
                     UNIV_DATA = filiersToNested(flatData, meta);
-
                     document.getElementById('univ-table-container').style.display = 'block';
                     setStatus(`✓ ${flatData.length} lignes extraites — "${file.name}"`, 'ok');
-                    renderUnivTable(true); // Open in edit mode
-
+                    renderUnivTable(true);
                 } catch (ex) {
                     console.error(ex);
                     setStatus('Erreur : ' + ex.message, 'err');
@@ -1527,25 +1843,47 @@
             };
             r.readAsArrayBuffer(file);
         }
+        function openParamsModal() {
+            document.getElementById('paramsModal').style.display = 'flex';
+        }
+        function closeParamsModal() {
+            document.getElementById('paramsModal').style.display = 'none';
+        }
+        function applyParamsAndRun(target = 'all') {
+            closeParamsModal();
+            runGreedy(target);
+        }
 
-        // Removed showVerificationTable as requested
-
-        // Removed legacy functions: showTable, saveImportedData, copyJSON
-
-        async function runGreedy() {
-            setStatus('Lancement Greedy…', 'loading'); setLoading(true);
+        async function runGreedy(target = 'all') {
+            let desc = 'Tout';
+            if (target === 'matin') desc = 'Matin';
+            if (target === 'apmidi') desc = 'Après-midi';
+            setStatus(`Lancement Greedy (${desc})…`, 'loading'); setLoading(true);
             try {
-                const r = await fetch('/run-algorithm', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ algorithm: 'greedy' }) });
+                // Collect params from modal
+                const customParams = {
+                    min_occ: parseFloat(document.getElementById('p_min_occ').value) / 100.0,
+                    balance_slack: parseInt(document.getElementById('p_balance_slack').value),
+                    buffer: parseInt(document.getElementById('p_buffer').value),
+                    exact_2: document.getElementById('p_exact_2').checked,
+                    building_bloc: document.getElementById('p_building_bloc').checked,
+                    optimize_rooms: document.getElementById('p_optimize_rooms').checked
+                };
+
+                const r = await fetch('/run-algorithm', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ algorithm: 'greedy', params: customParams, target: target })
+                });
                 const res = await r.json();
                 if (res.status === 'success') {
                     await loadAllData();
                     setStatus('✓ Placement engendré et chargé !', 'ok');
                 }
                 else alert('Erreur : ' + (res.message || 'Inconnue'));
-            } catch (e) { alert('Lancez app.py pour exécuter l\'algorithme Greedy.'); }
+            } catch (e) { alert('Lancez app.py pour exécuter l\'algorithme Greedy: ' + e); }
             finally { setLoading(false); }
         }
-
         loadAllData();
     </script>
 </body>

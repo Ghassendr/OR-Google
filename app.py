@@ -10,8 +10,6 @@ from PIL import Image
 app = Flask(__name__, static_folder='.', static_url_path='')
 CORS(app)
 
-# Configuration for Tesseract (User might need to adjust this path)
-# pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 UPLOAD_FOLDER = 'uploads'
 if not os.path.exists(UPLOAD_FOLDER):
@@ -28,7 +26,11 @@ def get_data():
             filiers = json.load(f)
         with open('matieres.json', 'r', encoding='utf-8') as f:
             matieres = json.load(f)
-        return jsonify({'filiers': filiers, 'matieres': matieres})
+        rooms = []
+        if os.path.exists('class.json'):
+            with open('class.json', 'r', encoding='utf-8') as f:
+                rooms = json.load(f)
+        return jsonify({'filiers': filiers, 'matieres': matieres, 'rooms': rooms})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
@@ -58,15 +60,11 @@ def upload_ocr():
     file.save(path)
     
     try:
-        # OCR logic
         text = pytesseract.image_to_string(Image.open(path))
         
-        # Heuristic parsing: look for lines like "Filiere : X (N étudiants)"
-        # This is highy dependent on the photo quality.
         new_filiers = []
         for line in text.split('\n'):
             if line.strip():
-                # Just a simple example: "NOM 56"
                 parts = line.split()
                 if len(parts) >= 2 and parts[-1].isdigit():
                     name = " ".join(parts[:-1])
@@ -79,7 +77,6 @@ def upload_ocr():
         
         return jsonify({'text': text, 'message': 'OCR terminé mais aucune donnée structurée trouvée. Vérifiez le texte brut.'})
     except Exception as e:
-        # Fallback for missing Tesseract
         return jsonify({'error': f"Erreur OCR: {str(e)}. Vérifiez que Tesseract est installé."}), 500
 
 @app.route('/upload-excel', methods=['POST'])
@@ -99,13 +96,10 @@ def upload_excel():
         else:
             df = pd.read_excel(path)
         
-        # Expected columns: "Filiere", "Effectif", "Niveau"
-        # If columns don't match, we try to guess or use the first two
         if 'Filiere' not in df.columns:
             df.columns = ['Filiere', 'Effectif'] + list(df.columns[2:])
             
         data = df[['Filiere', 'Effectif']].to_dict(orient='records')
-        # Add Niveau if present
         if 'Niveau' in df.columns:
             for i, d in enumerate(data):
                 d['Niveau'] = str(df.iloc[i]['Niveau'])
@@ -119,11 +113,27 @@ def upload_excel():
 
 @app.route('/run-algorithm', methods=['POST'])
 def run_algorithm():
-    algo = request.json.get('algorithm', 'greedy') # 'greedy' or 'sat'
+    algo = request.json.get('algorithm', 'greedy') 
     script = 'exam_greedy.py' if algo == 'greedy' else 'exam_placement.py'
     
+    params = request.json.get('params')
+    if params:
+        with open('solver_config.json', 'w', encoding='utf-8') as f:
+            json.dump(params, f, indent=4)
+    elif os.path.exists('solver_config.json'):
+        try:
+            os.remove('solver_config.json')
+        except:
+            pass
+
+    target = request.json.get('target', 'all')
+
+    cmd = ['python', script]
+    if target in ['matin', 'apmidi']:
+        cmd.append(target)
+
     try:
-        result = subprocess.run(['python', script], capture_output=True, text=True, check=True)
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
         return jsonify({'status': 'success', 'output': result.stdout})
     except subprocess.CalledProcessError as e:
         return jsonify({'status': 'error', 'message': e.stderr, 'output': e.stdout}), 500
