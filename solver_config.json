@@ -1,6 +1,6 @@
 {
     "min_occ": 0.4,
-    "balance_slack": 5,
+    "balance_slack": 3,
     "buffer": 3,
     "exact_2": true,
     "building_bloc": true,

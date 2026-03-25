@@ -11490,3 +11490,433 @@
 2026-03-24 16:06:39,288 [INFO]   Salles utilisées : 33
 2026-03-24 16:06:39,288 [INFO]   Étudiants placés : 1315/1315
 2026-03-24 16:06:39,295 [INFO] Résultats sauvegardés → placement.json
+2026-03-25 18:50:04,331 [INFO] Salles chargées : 56
+2026-03-25 18:50:04,331 [INFO] filier.json chargé OK
+2026-03-25 18:50:04,332 [INFO] Filières MATIN      : 24
+2026-03-25 18:50:04,332 [INFO] Filières APRES-MIDI : 17
+2026-03-25 18:50:04,332 [INFO] ══════════════════════════════════════════════════════════════════════
+2026-03-25 18:50:04,366 [INFO]   BLOC MATIN
+2026-03-25 18:50:04,366 [INFO] ══════════════════════════════════════════════════════════════════════
+2026-03-25 18:50:04,366 [INFO]   Étudiants  : 1332
+2026-03-25 18:50:04,366 [INFO]   Capacité   : 2125
+2026-03-25 18:50:04,366 [INFO]   Filières   : 24
+2026-03-25 18:50:04,366 [INFO]   Salles     : 56
+2026-03-25 18:50:04,367 [INFO]   Liste des filières :
+2026-03-25 18:50:04,367 [INFO]     L1 L_EEA                   158 etu  ███████████████
+2026-03-25 18:50:04,367 [INFO]     L1 Cycle_Preparatoire      127 etu  ████████████
+2026-03-25 18:50:04,367 [INFO]     M MR_MSEE                   99 etu  █████████
+2026-03-25 18:50:04,368 [INFO]     L1 L_ISI                    90 etu  █████████
+2026-03-25 18:50:04,368 [INFO]     L1 L_GM                     88 etu  ████████
+2026-03-25 18:50:04,369 [INFO]     L2 Cycle_Preparatoire       88 etu  ████████
+2026-03-25 18:50:04,369 [INFO]     L1 L_SI                     84 etu  ████████
+2026-03-25 18:50:04,370 [INFO]     L1 L_EM                     80 etu  ████████
+2026-03-25 18:50:04,370 [INFO]     L1 L_GC                     78 etu  ███████
+2026-03-25 18:50:04,371 [INFO]     L1 L_Energ                  73 etu  ███████
+2026-03-25 18:50:04,371 [INFO]     M MP_MERE                   51 etu  █████
+2026-03-25 18:50:04,372 [INFO]     M GM                        48 etu  ████
+2026-03-25 18:50:04,373 [INFO]     M MR_SPI                    42 etu  ████
+2026-03-25 18:50:04,373 [INFO]     M MP_EEB                    31 etu  ███
+2026-03-25 18:50:04,374 [INFO]     M MR_GM                     27 etu  ██
+2026-03-25 18:50:04,374 [INFO]     M MP_PAI                    26 etu  ██
+2026-03-25 18:50:04,375 [INFO]     M MR_SPI_2                  25 etu  ██
+2026-03-25 18:50:04,375 [INFO]     M MR_SEE                    25 etu  ██
+2026-03-25 18:50:04,376 [INFO]     M MP_GPPM                   22 etu  ██
+2026-03-25 18:50:04,376 [INFO]     M MP_EEI                    17 etu  █
+2026-03-25 18:50:04,376 [INFO]     M MR_MSE                    15 etu  █
+2026-03-25 18:50:04,377 [INFO]     M MR_MM                     14 etu  █
+2026-03-25 18:50:04,377 [INFO]     M MR_MDEP                   12 etu  █
+2026-03-25 18:50:04,378 [INFO]     M MR_SM                     12 etu  █
+2026-03-25 18:50:04,378 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:50:04,378 [INFO]   [MATIN] TENTATIVE niveau 0 — 'custom user params'
+2026-03-25 18:50:04,379 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:50:04,379 [INFO]   min_occ=40%  |  exact_2=True  |  balance_slack=5  |  building_bloc=True
+2026-03-25 18:50:04,379 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:50:04,379 [INFO]   [MATIN] DIAGNOSTIC — niveau 'custom user params'
+2026-03-25 18:50:04,379 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:50:04,380 [INFO]   Étudiants total        : 1332
+2026-03-25 18:50:04,380 [INFO]   Capacité brute totale  : 2125
+2026-03-25 18:50:04,380 [INFO]   Capacité nette totale  : 1957  (après buffer=3/salle)
+2026-03-25 18:50:04,380 [INFO]   [OK] Capacité nette suffisante  (+625 places libres)
+2026-03-25 18:50:04,380 [INFO]   Salles utilisables (min_occ=40%) : 56/56  — capacité utile = 1957
+2026-03-25 18:50:04,380 [INFO]   [OK] Capacité utile suffisante  (+625 places)
+2026-03-25 18:50:04,380 [INFO]   [exact_2=True] Slots-salles nécessaires (heuristique) : 88
+2026-03-25 18:50:04,380 [INFO]   [exact_2=True] Salles utilisables disponibles          : 56
+2026-03-25 18:50:04,380 [ERROR]   [BLOQUANT probable] exact_2=True requiert ~88 salles mais seulement 56 utilisables. → Passer exact_2=False (niveau suivant) devrait débloquer.
+2026-03-25 18:50:04,381 [INFO]   Bâtiments détectés : ['I', 'J', 'K', 'M']
+2026-03-25 18:50:04,381 [INFO]     Bâtiment K : 13 salles | cap brute=630 | cap nette=591
+2026-03-25 18:50:04,381 [INFO]     Bâtiment M : 17 salles | cap brute=690 | cap nette=639
+2026-03-25 18:50:04,381 [INFO]     Bâtiment I : 17 salles | cap brute=558 | cap nette=507
+2026-03-25 18:50:04,381 [INFO]     Bâtiment J : 9 salles | cap brute=247 | cap nette=220
+2026-03-25 18:50:04,381 [INFO]   Filière 'L1 L_ISI' (90 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,381 [INFO]   Filière 'L1 L_GM' (88 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,382 [INFO]   Filière 'L1 L_GC' (78 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,383 [INFO]   Filière 'L1 L_EEA' (158 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,383 [INFO]   Filière 'L1 L_Energ' (73 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,383 [INFO]   Filière 'L1 L_EM' (80 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,384 [INFO]   Filière 'L1 L_SI' (84 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,384 [INFO]   Filière 'L1 Cycle_Preparatoire' (127 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,384 [INFO]   Filière 'L2 Cycle_Preparatoire' (88 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,385 [INFO]   Filière 'M MR_SPI' (42 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,385 [INFO]   Filière 'M GM' (48 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,386 [INFO]   Filière 'M MR_GM' (27 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,386 [INFO]   Filière 'M MP_MERE' (51 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,386 [INFO]   Filière 'M MR_MSEE' (99 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,387 [INFO]   Filière 'M MP_GPPM' (22 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,387 [INFO]   Filière 'M MP_PAI' (26 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,388 [INFO]   Filière 'M MR_SPI_2' (25 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,388 [INFO]   Filière 'M MP_EEB' (31 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,388 [INFO]   Filière 'M MP_EEI' (17 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,389 [INFO]   Filière 'M MR_SEE' (25 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,389 [INFO]   Filière 'M MR_MSE' (15 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,389 [INFO]   Filière 'M MR_MDEP' (12 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,390 [INFO]   Filière 'M MR_SM' (12 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,390 [INFO]   Filière 'M MR_MM' (14 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:04,391 [INFO]   balance_slack=5 : écart max |groupeA - groupeB| dans une salle
+2026-03-25 18:50:04,391 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:50:24,678 [INFO]   ▶ Statut solver : FEASIBLE  |  durée wall=20.16s  elapsed=20.29s
+2026-03-25 18:50:24,679 [INFO]   ✓ Solution STRICTE trouvée — toutes les contraintes respectées.
+2026-03-25 18:50:24,679 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:50:24,680 [INFO]   [MATIN] VÉRIFICATION POST-SOLVE
+2026-03-25 18:50:24,680 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:50:24,680 [ERROR]   [VIOLATION min_occ]    SALLE K04 : occupation 39.6% < min_occ 40% (19/48 etu)
+2026-03-25 18:50:24,680 [ERROR]   1 violation(s) détectée(s) dans la solution !
+2026-03-25 18:50:24,680 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:50:24,681 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:50:24,681 [INFO]   [MATIN] RÉSUMÉ PLACEMENT
+2026-03-25 18:50:24,681 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:50:24,681 [INFO]   ✓ L1 L_EEA                   158 etu  bâtiment=I  salles=[I01, I02, I03, I05, I10, I13, I15, I17, I19]
+2026-03-25 18:50:24,682 [INFO]   ✓ L1 Cycle_Preparatoire      127 etu  bâtiment=M  salles=[M05, M07, M09, M13, M14, M16]
+2026-03-25 18:50:24,682 [INFO]   ✓ M MR_MSEE                   99 etu  bâtiment=K  salles=[K02, K09, K10, K11]
+2026-03-25 18:50:24,682 [INFO]   ✓ L1 L_ISI                    90 etu  bâtiment=I  salles=[I02, I03, I05, I10, I12]
+2026-03-25 18:50:24,683 [INFO]   ✓ L1 L_GM                     88 etu  bâtiment=K  salles=[K02, K06, K10, K13]
+2026-03-25 18:50:24,684 [INFO]   ✓ L2 Cycle_Preparatoire       88 etu  bâtiment=M  salles=[M06, M09, M16, M17]
+2026-03-25 18:50:24,684 [INFO]   ✓ L1 L_SI                     84 etu  bâtiment=I  salles=[I01, I12, I13, I15, I19]
+2026-03-25 18:50:24,684 [INFO]   ✓ L1 L_EM                     80 etu  bâtiment=K  salles=[K01, K03, K06, K12]
+2026-03-25 18:50:24,685 [INFO]   ✓ L1 L_GC                     78 etu  bâtiment=M  salles=[M07, M12, M13, M15]
+2026-03-25 18:50:24,685 [INFO]   ✓ L1 L_Energ                  73 etu  bâtiment=M  salles=[M06, M08, M11, M15]
+2026-03-25 18:50:24,685 [INFO]   ✓ M MP_MERE                   51 etu  bâtiment=K  salles=[K01, K12]
+2026-03-25 18:50:24,686 [INFO]   ✓ M GM                        48 etu  bâtiment=M  salles=[M05, M11, M12]
+2026-03-25 18:50:24,687 [INFO]   ✓ M MR_SPI                    42 etu  bâtiment=K  salles=[K03, K09]
+2026-03-25 18:50:24,687 [INFO]   ✓ M MP_EEB                    31 etu  bâtiment=K  salles=[K04, K07]
+2026-03-25 18:50:24,688 [INFO]   ✓ M MR_GM                     27 etu  bâtiment=M  salles=[M01, M08]
+2026-03-25 18:50:24,688 [INFO]   ✓ M MP_PAI                    26 etu  bâtiment=K  salles=[K04, K13]
+2026-03-25 18:50:24,688 [INFO]   ✓ M MR_SPI_2                  25 etu  bâtiment=K  salles=[K07]
+2026-03-25 18:50:24,689 [INFO]   ✓ M MR_SEE                    25 etu  bâtiment=K  salles=[K11]
+2026-03-25 18:50:24,689 [INFO]   ✓ M MP_GPPM                   22 etu  bâtiment=M  salles=[M03]
+2026-03-25 18:50:24,689 [INFO]   ✓ M MP_EEI                    17 etu  bâtiment=M  salles=[M03]
+2026-03-25 18:50:24,690 [INFO]   ✓ M MR_MSE                    15 etu  bâtiment=M  salles=[M01]
+2026-03-25 18:50:24,690 [INFO]   ✓ M MR_MM                     14 etu  bâtiment=I  salles=[I17]
+2026-03-25 18:50:24,690 [INFO]   ✓ M MR_MDEP                   12 etu  bâtiment=M  salles=[M17]
+2026-03-25 18:50:24,691 [INFO]   ✓ M MR_SM                     12 etu  bâtiment=M  salles=[M14]
+2026-03-25 18:50:24,691 [INFO]   Salles utilisées : 35
+2026-03-25 18:50:24,691 [INFO]   Étudiants placés : 1332/1332
+2026-03-25 18:50:24,691 [INFO] ══════════════════════════════════════════════════════════════════════
+2026-03-25 18:50:24,691 [INFO]   BLOC APRES-MIDI
+2026-03-25 18:50:24,692 [INFO] ══════════════════════════════════════════════════════════════════════
+2026-03-25 18:50:24,692 [INFO]   Étudiants  : 1315
+2026-03-25 18:50:24,692 [INFO]   Capacité   : 2125
+2026-03-25 18:50:24,692 [INFO]   Filières   : 17
+2026-03-25 18:50:24,692 [INFO]   Salles     : 56
+2026-03-25 18:50:24,692 [INFO]   Liste des filières :
+2026-03-25 18:50:24,692 [INFO]     L2 SE                      159 etu  ███████████████
+2026-03-25 18:50:24,693 [INFO]     L3 SE                      131 etu  █████████████
+2026-03-25 18:50:24,693 [INFO]     L1 Ingenieur               115 etu  ███████████
+2026-03-25 18:50:24,693 [INFO]     L2 ISI                     112 etu  ███████████
+2026-03-25 18:50:24,694 [INFO]     L3 3GL                     110 etu  ███████████
+2026-03-25 18:50:24,694 [INFO]     L2 2GL                     105 etu  ██████████
+2026-03-25 18:50:24,694 [INFO]     L3 ISI                      93 etu  █████████
+2026-03-25 18:50:24,695 [INFO]     L2 CPI                      81 etu  ████████
+2026-03-25 18:50:24,695 [INFO]     L2 SI                       72 etu  ███████
+2026-03-25 18:50:24,695 [INFO]     L3 SI                       63 etu  ██████
+2026-03-25 18:50:24,695 [INFO]     L2 MA                       55 etu  █████
+2026-03-25 18:50:24,696 [INFO]     L3 CPI                      50 etu  █████
+2026-03-25 18:50:24,696 [INFO]     L3 MA                       46 etu  ████
+2026-03-25 18:50:24,697 [INFO]     L3 Batiment                 37 etu  ███
+2026-03-25 18:50:24,697 [INFO]     L2 Energ                    33 etu  ███
+2026-03-25 18:50:24,697 [INFO]     L2 Batiment                 31 etu  ███
+2026-03-25 18:50:24,698 [INFO]     L3 Energ                    22 etu  ██
+2026-03-25 18:50:24,698 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:50:24,699 [INFO]   [APRES-MIDI] TENTATIVE niveau 0 — 'custom user params'
+2026-03-25 18:50:24,699 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:50:24,699 [INFO]   min_occ=40%  |  exact_2=True  |  balance_slack=5  |  building_bloc=True
+2026-03-25 18:50:24,699 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:50:24,699 [INFO]   [APRES-MIDI] DIAGNOSTIC — niveau 'custom user params'
+2026-03-25 18:50:24,699 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:50:24,700 [INFO]   Étudiants total        : 1315
+2026-03-25 18:50:24,700 [INFO]   Capacité brute totale  : 2125
+2026-03-25 18:50:24,700 [INFO]   Capacité nette totale  : 1957  (après buffer=3/salle)
+2026-03-25 18:50:24,700 [INFO]   [OK] Capacité nette suffisante  (+642 places libres)
+2026-03-25 18:50:24,700 [INFO]   Salles utilisables (min_occ=40%) : 56/56  — capacité utile = 1957
+2026-03-25 18:50:24,700 [INFO]   [OK] Capacité utile suffisante  (+642 places)
+2026-03-25 18:50:24,700 [INFO]   [exact_2=True] Slots-salles nécessaires (heuristique) : 85
+2026-03-25 18:50:24,700 [INFO]   [exact_2=True] Salles utilisables disponibles          : 56
+2026-03-25 18:50:24,700 [ERROR]   [BLOQUANT probable] exact_2=True requiert ~85 salles mais seulement 56 utilisables. → Passer exact_2=False (niveau suivant) devrait débloquer.
+2026-03-25 18:50:24,701 [INFO]   Bâtiments détectés : ['I', 'J', 'K', 'M']
+2026-03-25 18:50:24,701 [INFO]     Bâtiment K : 13 salles | cap brute=630 | cap nette=591
+2026-03-25 18:50:24,701 [INFO]     Bâtiment M : 17 salles | cap brute=690 | cap nette=639
+2026-03-25 18:50:24,701 [INFO]     Bâtiment I : 17 salles | cap brute=558 | cap nette=507
+2026-03-25 18:50:24,701 [INFO]     Bâtiment J : 9 salles | cap brute=247 | cap nette=220
+2026-03-25 18:50:24,701 [INFO]   Filière 'L1 Ingenieur' (115 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:24,702 [INFO]   Filière 'L2 ISI' (112 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:24,702 [INFO]   Filière 'L2 CPI' (81 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:24,702 [INFO]   Filière 'L2 Batiment' (31 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:24,703 [INFO]   Filière 'L2 SE' (159 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:24,703 [INFO]   Filière 'L2 Energ' (33 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:24,704 [INFO]   Filière 'L2 MA' (55 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:24,704 [INFO]   Filière 'L2 SI' (72 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:24,704 [INFO]   Filière 'L2 2GL' (105 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:24,705 [INFO]   Filière 'L3 ISI' (93 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:24,705 [INFO]   Filière 'L3 CPI' (50 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:24,705 [INFO]   Filière 'L3 Batiment' (37 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:24,706 [INFO]   Filière 'L3 SE' (131 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:24,706 [INFO]   Filière 'L3 Energ' (22 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:24,707 [INFO]   Filière 'L3 MA' (46 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:24,707 [INFO]   Filière 'L3 SI' (63 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:24,707 [INFO]   Filière 'L3 3GL' (110 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:50:24,708 [INFO]   balance_slack=5 : écart max |groupeA - groupeB| dans une salle
+2026-03-25 18:50:24,708 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:50:44,912 [INFO]   ▶ Statut solver : FEASIBLE  |  durée wall=20.13s  elapsed=20.20s
+2026-03-25 18:50:44,912 [INFO]   ✓ Solution STRICTE trouvée — toutes les contraintes respectées.
+2026-03-25 18:50:44,913 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:50:44,913 [INFO]   [APRES-MIDI] VÉRIFICATION POST-SOLVE
+2026-03-25 18:50:44,913 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:50:44,914 [INFO]   [OK] Toutes les contraintes respectées — 0 violation.
+2026-03-25 18:50:44,914 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:50:44,914 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:50:44,915 [INFO]   [APRES-MIDI] RÉSUMÉ PLACEMENT
+2026-03-25 18:50:44,915 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:50:44,915 [INFO]   ✓ L2 SE                      159 etu  bâtiment=M  salles=[M04, M05, M09, M11, M13, M15, M16]
+2026-03-25 18:50:44,916 [INFO]   ✓ L3 SE                      131 etu  bâtiment=K  salles=[K03, K04, K05, K06, K07, K10]
+2026-03-25 18:50:44,916 [INFO]   ✓ L1 Ingenieur               115 etu  bâtiment=K  salles=[K05, K09, K11, K12, K13]
+2026-03-25 18:50:44,916 [INFO]   ✓ L2 ISI                     112 etu  bâtiment=I  salles=[I01, I03, I10, I12, I13, I18]
+2026-03-25 18:50:44,917 [INFO]   ✓ L3 3GL                     110 etu  bâtiment=I  salles=[I01, I02, I03, I05, I08, I10, I12]
+2026-03-25 18:50:44,917 [INFO]   ✓ L2 2GL                     105 etu  bâtiment=M  salles=[M06, M11, M14, M15, M16]
+2026-03-25 18:50:44,918 [INFO]   ✓ L3 ISI                      93 etu  bâtiment=M  salles=[M04, M05, M06, M07, M09]
+2026-03-25 18:50:44,918 [INFO]   ✓ L2 CPI                      81 etu  bâtiment=K  salles=[K11, K12, K13]
+2026-03-25 18:50:44,918 [INFO]   ✓ L2 SI                       72 etu  bâtiment=K  salles=[K06, K09, K10]
+2026-03-25 18:50:44,919 [INFO]   ✓ L3 SI                       63 etu  bâtiment=K  salles=[K03, K04, K07]
+2026-03-25 18:50:44,919 [INFO]   ✓ L2 MA                       55 etu  bâtiment=I  salles=[I05, I08, I11, I17]
+2026-03-25 18:50:44,919 [INFO]   ✓ L3 CPI                      50 etu  bâtiment=I  salles=[I11, I13, I15]
+2026-03-25 18:50:44,920 [INFO]   ✓ L3 MA                       46 etu  bâtiment=M  salles=[M07, M13, M14]
+2026-03-25 18:50:44,920 [INFO]   ✓ L3 Batiment                 37 etu  bâtiment=I  salles=[I02, I15]
+2026-03-25 18:50:44,921 [INFO]   ✓ L2 Energ                    33 etu  bâtiment=I  salles=[I17, I18]
+2026-03-25 18:50:44,921 [INFO]   ✓ L2 Batiment                 31 etu  bâtiment=J  salles=[J05, J09]
+2026-03-25 18:50:44,921 [INFO]   ✓ L3 Energ                    22 etu  bâtiment=J  salles=[J05, J09]
+2026-03-25 18:50:44,922 [INFO]   Salles utilisées : 34
+2026-03-25 18:50:44,922 [INFO]   Étudiants placés : 1315/1315
+2026-03-25 18:50:44,929 [INFO] Résultats sauvegardés → placement.json
+2026-03-25 18:52:12,251 [INFO] Salles chargées : 56
+2026-03-25 18:52:12,252 [INFO] filier.json chargé OK
+2026-03-25 18:52:12,259 [INFO] Filières MATIN      : 24
+2026-03-25 18:52:12,259 [INFO] Filières APRES-MIDI : 17
+2026-03-25 18:52:12,259 [INFO] ══════════════════════════════════════════════════════════════════════
+2026-03-25 18:52:12,261 [INFO]   BLOC MATIN
+2026-03-25 18:52:12,261 [INFO] ══════════════════════════════════════════════════════════════════════
+2026-03-25 18:52:12,262 [INFO]   Étudiants  : 1332
+2026-03-25 18:52:12,262 [INFO]   Capacité   : 2125
+2026-03-25 18:52:12,262 [INFO]   Filières   : 24
+2026-03-25 18:52:12,262 [INFO]   Salles     : 56
+2026-03-25 18:52:12,262 [INFO]   Liste des filières :
+2026-03-25 18:52:12,262 [INFO]     L1 L_EEA                   158 etu  ███████████████
+2026-03-25 18:52:12,262 [INFO]     L1 Cycle_Preparatoire      127 etu  ████████████
+2026-03-25 18:52:12,263 [INFO]     M MR_MSEE                   99 etu  █████████
+2026-03-25 18:52:12,263 [INFO]     L1 L_ISI                    90 etu  █████████
+2026-03-25 18:52:12,263 [INFO]     L1 L_GM                     88 etu  ████████
+2026-03-25 18:52:12,264 [INFO]     L2 Cycle_Preparatoire       88 etu  ████████
+2026-03-25 18:52:12,264 [INFO]     L1 L_SI                     84 etu  ████████
+2026-03-25 18:52:12,265 [INFO]     L1 L_EM                     80 etu  ████████
+2026-03-25 18:52:12,265 [INFO]     L1 L_GC                     78 etu  ███████
+2026-03-25 18:52:12,265 [INFO]     L1 L_Energ                  73 etu  ███████
+2026-03-25 18:52:12,266 [INFO]     M MP_MERE                   51 etu  █████
+2026-03-25 18:52:12,266 [INFO]     M GM                        48 etu  ████
+2026-03-25 18:52:12,266 [INFO]     M MR_SPI                    42 etu  ████
+2026-03-25 18:52:12,267 [INFO]     M MP_EEB                    31 etu  ███
+2026-03-25 18:52:12,267 [INFO]     M MR_GM                     27 etu  ██
+2026-03-25 18:52:12,268 [INFO]     M MP_PAI                    26 etu  ██
+2026-03-25 18:52:12,268 [INFO]     M MR_SPI_2                  25 etu  ██
+2026-03-25 18:52:12,268 [INFO]     M MR_SEE                    25 etu  ██
+2026-03-25 18:52:12,269 [INFO]     M MP_GPPM                   22 etu  ██
+2026-03-25 18:52:12,269 [INFO]     M MP_EEI                    17 etu  █
+2026-03-25 18:52:12,269 [INFO]     M MR_MSE                    15 etu  █
+2026-03-25 18:52:12,270 [INFO]     M MR_MM                     14 etu  █
+2026-03-25 18:52:12,270 [INFO]     M MR_MDEP                   12 etu  █
+2026-03-25 18:52:12,271 [INFO]     M MR_SM                     12 etu  █
+2026-03-25 18:52:12,271 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:52:12,271 [INFO]   [MATIN] TENTATIVE niveau 0 — 'custom user params'
+2026-03-25 18:52:12,271 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:52:12,272 [INFO]   min_occ=40%  |  exact_2=True  |  balance_slack=3  |  building_bloc=True
+2026-03-25 18:52:12,272 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:52:12,272 [INFO]   [MATIN] DIAGNOSTIC — niveau 'custom user params'
+2026-03-25 18:52:12,272 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:52:12,273 [INFO]   Étudiants total        : 1332
+2026-03-25 18:52:12,273 [INFO]   Capacité brute totale  : 2125
+2026-03-25 18:52:12,273 [INFO]   Capacité nette totale  : 1957  (après buffer=3/salle)
+2026-03-25 18:52:12,273 [INFO]   [OK] Capacité nette suffisante  (+625 places libres)
+2026-03-25 18:52:12,273 [INFO]   Salles utilisables (min_occ=40%) : 56/56  — capacité utile = 1957
+2026-03-25 18:52:12,273 [INFO]   [OK] Capacité utile suffisante  (+625 places)
+2026-03-25 18:52:12,273 [INFO]   [exact_2=True] Slots-salles nécessaires (heuristique) : 88
+2026-03-25 18:52:12,273 [INFO]   [exact_2=True] Salles utilisables disponibles          : 56
+2026-03-25 18:52:12,273 [ERROR]   [BLOQUANT probable] exact_2=True requiert ~88 salles mais seulement 56 utilisables. → Passer exact_2=False (niveau suivant) devrait débloquer.
+2026-03-25 18:52:12,274 [INFO]   Bâtiments détectés : ['I', 'J', 'K', 'M']
+2026-03-25 18:52:12,274 [INFO]     Bâtiment K : 13 salles | cap brute=630 | cap nette=591
+2026-03-25 18:52:12,274 [INFO]     Bâtiment M : 17 salles | cap brute=690 | cap nette=639
+2026-03-25 18:52:12,274 [INFO]     Bâtiment I : 17 salles | cap brute=558 | cap nette=507
+2026-03-25 18:52:12,274 [INFO]     Bâtiment J : 9 salles | cap brute=247 | cap nette=220
+2026-03-25 18:52:12,274 [INFO]   Filière 'L1 L_ISI' (90 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,275 [INFO]   Filière 'L1 L_GM' (88 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,275 [INFO]   Filière 'L1 L_GC' (78 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,276 [INFO]   Filière 'L1 L_EEA' (158 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,276 [INFO]   Filière 'L1 L_Energ' (73 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,276 [INFO]   Filière 'L1 L_EM' (80 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,277 [INFO]   Filière 'L1 L_SI' (84 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,277 [INFO]   Filière 'L1 Cycle_Preparatoire' (127 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,278 [INFO]   Filière 'L2 Cycle_Preparatoire' (88 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,278 [INFO]   Filière 'M MR_SPI' (42 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,278 [INFO]   Filière 'M GM' (48 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,279 [INFO]   Filière 'M MR_GM' (27 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,279 [INFO]   Filière 'M MP_MERE' (51 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,279 [INFO]   Filière 'M MR_MSEE' (99 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,280 [INFO]   Filière 'M MP_GPPM' (22 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,280 [INFO]   Filière 'M MP_PAI' (26 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,281 [INFO]   Filière 'M MR_SPI_2' (25 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,281 [INFO]   Filière 'M MP_EEB' (31 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,282 [INFO]   Filière 'M MP_EEI' (17 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,282 [INFO]   Filière 'M MR_SEE' (25 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,282 [INFO]   Filière 'M MR_MSE' (15 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,283 [INFO]   Filière 'M MR_MDEP' (12 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,283 [INFO]   Filière 'M MR_SM' (12 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,284 [INFO]   Filière 'M MR_MM' (14 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:12,284 [INFO]   balance_slack=3 : écart max |groupeA - groupeB| dans une salle
+2026-03-25 18:52:12,284 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:52:32,594 [INFO]   ▶ Statut solver : FEASIBLE  |  durée wall=20.21s  elapsed=20.31s
+2026-03-25 18:52:32,595 [INFO]   ✓ Solution STRICTE trouvée — toutes les contraintes respectées.
+2026-03-25 18:52:32,595 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:52:32,596 [INFO]   [MATIN] VÉRIFICATION POST-SOLVE
+2026-03-25 18:52:32,596 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:52:32,596 [INFO]   [OK] Toutes les contraintes respectées — 0 violation.
+2026-03-25 18:52:32,596 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:52:32,597 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:52:32,597 [INFO]   [MATIN] RÉSUMÉ PLACEMENT
+2026-03-25 18:52:32,597 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:52:32,597 [INFO]   ✓ L1 L_EEA                   158 etu  bâtiment=I  salles=[I01, I03, I05, I07, I10, I13, I15, I17, I18, I19]
+2026-03-25 18:52:32,598 [INFO]   ✓ L1 Cycle_Preparatoire      127 etu  bâtiment=M  salles=[M01, M02, M03, M05, M06, M07, M14, M17]
+2026-03-25 18:52:32,598 [INFO]   ✓ M MR_MSEE                   99 etu  bâtiment=M  salles=[M03, M05, M07, M11, M13]
+2026-03-25 18:52:32,599 [INFO]   ✓ L1 L_ISI                    90 etu  bâtiment=M  salles=[M01, M04, M09, M10, M11]
+2026-03-25 18:52:32,599 [INFO]   ✓ L1 L_GM                     88 etu  bâtiment=K  salles=[K05, K07, K11, K12]
+2026-03-25 18:52:32,599 [INFO]   ✓ L2 Cycle_Preparatoire       88 etu  bâtiment=K  salles=[K01, K02, K04, K11]
+2026-03-25 18:52:32,600 [INFO]   ✓ L1 L_SI                     84 etu  bâtiment=M  salles=[M08, M09, M16, M17]
+2026-03-25 18:52:32,600 [INFO]   ✓ L1 L_EM                     80 etu  bâtiment=M  salles=[M04, M08, M10, M14]
+2026-03-25 18:52:32,601 [INFO]   ✓ L1 L_GC                     78 etu  bâtiment=K  salles=[K01, K05, K07, K10]
+2026-03-25 18:52:32,601 [INFO]   ✓ L1 L_Energ                  73 etu  bâtiment=I  salles=[I03, I07, I10, I13, I19]
+2026-03-25 18:52:32,601 [INFO]   ✓ M MP_MERE                   51 etu  bâtiment=K  salles=[K04, K13]
+2026-03-25 18:52:32,602 [INFO]   ✓ M GM                        48 etu  bâtiment=K  salles=[K02, K13]
+2026-03-25 18:52:32,602 [INFO]   ✓ M MR_SPI                    42 etu  bâtiment=I  salles=[I15, I17, I18]
+2026-03-25 18:52:32,603 [INFO]   ✓ M MP_EEB                    31 etu  bâtiment=M  salles=[M12, M13]
+2026-03-25 18:52:32,603 [INFO]   ✓ M MR_GM                     27 etu  bâtiment=K  salles=[K10]
+2026-03-25 18:52:32,603 [INFO]   ✓ M MP_PAI                    26 etu  bâtiment=M  salles=[M02, M16]
+2026-03-25 18:52:32,604 [INFO]   ✓ M MR_SPI_2                  25 etu  bâtiment=M  salles=[M06, M12]
+2026-03-25 18:52:32,604 [INFO]   ✓ M MR_SEE                    25 etu  bâtiment=K  salles=[K12]
+2026-03-25 18:52:32,604 [INFO]   ✓ M MP_GPPM                   22 etu  bâtiment=I  salles=[I05]
+2026-03-25 18:52:32,605 [INFO]   ✓ M MP_EEI                    17 etu  bâtiment=J  salles=[J06]
+2026-03-25 18:52:32,605 [INFO]   ✓ M MR_MSE                    15 etu  bâtiment=J  salles=[J06]
+2026-03-25 18:52:32,605 [INFO]   ✓ M MR_MM                     14 etu  bâtiment=I  salles=[I11]
+2026-03-25 18:52:32,606 [INFO]   ✓ M MR_MDEP                   12 etu  bâtiment=I  salles=[I01]
+2026-03-25 18:52:32,606 [INFO]   ✓ M MR_SM                     12 etu  bâtiment=I  salles=[I11]
+2026-03-25 18:52:32,607 [INFO]   Salles utilisées : 37
+2026-03-25 18:52:32,607 [INFO]   Étudiants placés : 1332/1332
+2026-03-25 18:52:32,607 [INFO] ══════════════════════════════════════════════════════════════════════
+2026-03-25 18:52:32,607 [INFO]   BLOC APRES-MIDI
+2026-03-25 18:52:32,608 [INFO] ══════════════════════════════════════════════════════════════════════
+2026-03-25 18:52:32,608 [INFO]   Étudiants  : 1315
+2026-03-25 18:52:32,608 [INFO]   Capacité   : 2125
+2026-03-25 18:52:32,608 [INFO]   Filières   : 17
+2026-03-25 18:52:32,608 [INFO]   Salles     : 56
+2026-03-25 18:52:32,608 [INFO]   Liste des filières :
+2026-03-25 18:52:32,608 [INFO]     L2 SE                      159 etu  ███████████████
+2026-03-25 18:52:32,608 [INFO]     L3 SE                      131 etu  █████████████
+2026-03-25 18:52:32,608 [INFO]     L1 Ingenieur               115 etu  ███████████
+2026-03-25 18:52:32,609 [INFO]     L2 ISI                     112 etu  ███████████
+2026-03-25 18:52:32,609 [INFO]     L3 3GL                     110 etu  ███████████
+2026-03-25 18:52:32,609 [INFO]     L2 2GL                     105 etu  ██████████
+2026-03-25 18:52:32,610 [INFO]     L3 ISI                      93 etu  █████████
+2026-03-25 18:52:32,610 [INFO]     L2 CPI                      81 etu  ████████
+2026-03-25 18:52:32,611 [INFO]     L2 SI                       72 etu  ███████
+2026-03-25 18:52:32,611 [INFO]     L3 SI                       63 etu  ██████
+2026-03-25 18:52:32,611 [INFO]     L2 MA                       55 etu  █████
+2026-03-25 18:52:32,612 [INFO]     L3 CPI                      50 etu  █████
+2026-03-25 18:52:32,612 [INFO]     L3 MA                       46 etu  ████
+2026-03-25 18:52:32,612 [INFO]     L3 Batiment                 37 etu  ███
+2026-03-25 18:52:32,613 [INFO]     L2 Energ                    33 etu  ███
+2026-03-25 18:52:32,613 [INFO]     L2 Batiment                 31 etu  ███
+2026-03-25 18:52:32,613 [INFO]     L3 Energ                    22 etu  ██
+2026-03-25 18:52:32,614 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:52:32,614 [INFO]   [APRES-MIDI] TENTATIVE niveau 0 — 'custom user params'
+2026-03-25 18:52:32,614 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:52:32,615 [INFO]   min_occ=40%  |  exact_2=True  |  balance_slack=3  |  building_bloc=True
+2026-03-25 18:52:32,615 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:52:32,615 [INFO]   [APRES-MIDI] DIAGNOSTIC — niveau 'custom user params'
+2026-03-25 18:52:32,615 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:52:32,616 [INFO]   Étudiants total        : 1315
+2026-03-25 18:52:32,616 [INFO]   Capacité brute totale  : 2125
+2026-03-25 18:52:32,616 [INFO]   Capacité nette totale  : 1957  (après buffer=3/salle)
+2026-03-25 18:52:32,616 [INFO]   [OK] Capacité nette suffisante  (+642 places libres)
+2026-03-25 18:52:32,616 [INFO]   Salles utilisables (min_occ=40%) : 56/56  — capacité utile = 1957
+2026-03-25 18:52:32,616 [INFO]   [OK] Capacité utile suffisante  (+642 places)
+2026-03-25 18:52:32,616 [INFO]   [exact_2=True] Slots-salles nécessaires (heuristique) : 85
+2026-03-25 18:52:32,616 [INFO]   [exact_2=True] Salles utilisables disponibles          : 56
+2026-03-25 18:52:32,616 [ERROR]   [BLOQUANT probable] exact_2=True requiert ~85 salles mais seulement 56 utilisables. → Passer exact_2=False (niveau suivant) devrait débloquer.
+2026-03-25 18:52:32,617 [INFO]   Bâtiments détectés : ['I', 'J', 'K', 'M']
+2026-03-25 18:52:32,617 [INFO]     Bâtiment K : 13 salles | cap brute=630 | cap nette=591
+2026-03-25 18:52:32,617 [INFO]     Bâtiment M : 17 salles | cap brute=690 | cap nette=639
+2026-03-25 18:52:32,617 [INFO]     Bâtiment I : 17 salles | cap brute=558 | cap nette=507
+2026-03-25 18:52:32,617 [INFO]     Bâtiment J : 9 salles | cap brute=247 | cap nette=220
+2026-03-25 18:52:32,617 [INFO]   Filière 'L1 Ingenieur' (115 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:32,617 [INFO]   Filière 'L2 ISI' (112 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:32,618 [INFO]   Filière 'L2 CPI' (81 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:32,618 [INFO]   Filière 'L2 Batiment' (31 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:32,618 [INFO]   Filière 'L2 SE' (159 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:32,619 [INFO]   Filière 'L2 Energ' (33 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:32,619 [INFO]   Filière 'L2 MA' (55 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:32,620 [INFO]   Filière 'L2 SI' (72 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:32,620 [INFO]   Filière 'L2 2GL' (105 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:32,620 [INFO]   Filière 'L3 ISI' (93 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:32,621 [INFO]   Filière 'L3 CPI' (50 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:32,621 [INFO]   Filière 'L3 Batiment' (37 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:32,622 [INFO]   Filière 'L3 SE' (131 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:32,622 [INFO]   Filière 'L3 Energ' (22 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:32,623 [INFO]   Filière 'L3 MA' (46 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:32,623 [INFO]   Filière 'L3 SI' (63 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:32,623 [INFO]   Filière 'L3 3GL' (110 etu) → bâtiments viables : ['K', 'M', 'I', 'J']
+2026-03-25 18:52:32,624 [INFO]   balance_slack=3 : écart max |groupeA - groupeB| dans une salle
+2026-03-25 18:52:32,624 [WARNING]   [RISQUE balance] Filière 'L2 SE' : répartition sur ~5 salles laisse un reste de 4 (> balance_slack=3).
+2026-03-25 18:52:32,624 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:52:52,870 [INFO]   ▶ Statut solver : FEASIBLE  |  durée wall=20.17s  elapsed=20.25s
+2026-03-25 18:52:52,870 [INFO]   ✓ Solution STRICTE trouvée — toutes les contraintes respectées.
+2026-03-25 18:52:52,871 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:52:52,871 [INFO]   [APRES-MIDI] VÉRIFICATION POST-SOLVE
+2026-03-25 18:52:52,871 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:52:52,872 [INFO]   [OK] Toutes les contraintes respectées — 0 violation.
+2026-03-25 18:52:52,872 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:52:52,872 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:52:52,873 [INFO]   [APRES-MIDI] RÉSUMÉ PLACEMENT
+2026-03-25 18:52:52,873 [INFO] ──────────────────────────────────────────────────────────────────────
+2026-03-25 18:52:52,873 [INFO]   ✓ L2 SE                      159 etu  bâtiment=K  salles=[K02, K04, K05, K07, K09, K10, K12]
+2026-03-25 18:52:52,874 [INFO]   ✓ L3 SE                      131 etu  bâtiment=I  salles=[I01, I03, I08, I10, I11, I12, I15, I17]
+2026-03-25 18:52:52,874 [INFO]   ✓ L1 Ingenieur               115 etu  bâtiment=I  salles=[I02, I05, I08, I10, I11, I12, I19]
+2026-03-25 18:52:52,875 [INFO]   ✓ L2 ISI                     112 etu  bâtiment=M  salles=[M04, M09, M10, M11, M15, M16]
+2026-03-25 18:52:52,875 [INFO]   ✓ L3 3GL                     110 etu  bâtiment=K  salles=[K01, K05, K08, K09, K11]
+2026-03-25 18:52:52,876 [INFO]   ✓ L2 2GL                     105 etu  bâtiment=M  salles=[M04, M05, M07, M08, M15]
+2026-03-25 18:52:52,876 [INFO]   ✓ L3 ISI                      93 etu  bâtiment=M  salles=[M08, M09, M10, M12, M14]
+2026-03-25 18:52:52,876 [INFO]   ✓ L2 CPI                      81 etu  bâtiment=I  salles=[I01, I02, I03, I14, I19]
+2026-03-25 18:52:52,877 [INFO]   ✓ L2 SI                       72 etu  bâtiment=M  salles=[M05, M11, M12, M14]
+2026-03-25 18:52:52,877 [INFO]   ✓ L3 SI                       63 etu  bâtiment=K  salles=[K06, K07, K13]
+2026-03-25 18:52:52,878 [INFO]   ✓ L2 MA                       55 etu  bâtiment=I  salles=[I05, I14, I15, I17]
+2026-03-25 18:52:52,878 [INFO]   ✓ L3 CPI                      50 etu  bâtiment=K  salles=[K11, K12]
+2026-03-25 18:52:52,879 [INFO]   ✓ L3 MA                       46 etu  bâtiment=K  salles=[K04, K10]
+2026-03-25 18:52:52,879 [INFO]   ✓ L3 Batiment                 37 etu  bâtiment=K  salles=[K08, K13]
+2026-03-25 18:52:52,879 [INFO]   ✓ L2 Energ                    33 etu  bâtiment=M  salles=[M07, M16]
+2026-03-25 18:52:52,880 [INFO]   ✓ L2 Batiment                 31 etu  bâtiment=K  salles=[K02, K06]
+2026-03-25 18:52:52,880 [INFO]   ✓ L3 Energ                    22 etu  bâtiment=K  salles=[K01]
+2026-03-25 18:52:52,880 [INFO]   Salles utilisées : 35
+2026-03-25 18:52:52,881 [INFO]   Étudiants placés : 1315/1315
+2026-03-25 18:52:52,887 [INFO] Résultats sauvegardés → placement.json
