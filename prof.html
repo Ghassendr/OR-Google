@@ -3,267 +3,675 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>Professeurs - Distribution</title>
+    <title>ISSAT Sousse - Répertoire Académique</title>
+    <link rel="icon" type="image/jpeg" href="/logo%20issat-small.jpg">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
-        html, body {
-            height: 100%;
-            font-family: 'Inter', sans-serif;
+        :root {
+            --bg: #F5F3EE;
+            --surface: #FFF;
+            --surface2: #F9F7F3;
+            --border: #E2DDD5;
+            --border2: #CFC9BE;
+            --navy: #1B3A6B;
+            --navy2: #254D8F;
+            --amber: #C67C0D;
+            --amber-lt: #FDF3E0;
+            --green: #2D6A4F;
+            --green-lt: #E8F5EE;
+            --red: #B02A37;
+            --red-lt: #FDECEA;
+            --text: #1A1714;
+            --text2: #4A453E;
+            --text3: #8C8078;
+            --sh: 0 1px 4px rgba(0, 0, 0, .07), 0 4px 16px rgba(0, 0, 0, .05);
+            --sh2: 0 2px 8px rgba(0, 0, 0, .10), 0 8px 32px rgba(0, 0, 0, .07);
         }
-        body {
+
+        * {
+            box-sizing: border-box;
             margin: 0;
-            background: linear-gradient(to bottom right, #0f172a, #1e293b);
-            color: #e2e8f0; /* Light gray for text in dark mode */
-            background-attachment: fixed;
+            padding: 0
         }
-        .glass {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            border-radius: 0.75rem; /* rounded-xl */
-        }
-        h1, h2, h3, h4, h5, h6 {
-            color: #f8fafc; /* Lighter color for headings */
-        }
-        .btn {
-            display: inline-block;
-            margin-bottom: 12px;
-            padding: 10px 14px;
-            border: none;
-            background: #38bdf8; /* Accent blue */
-            color: white;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .btn:hover {
-            background-color: #0ea5e9; /* Darker blue on hover */
-        }
-        .tab {
-            padding: 8px 16px;
-            border-radius: 9999px; /* rounded-full */
-            background-color: rgba(255, 255, 255, 0.05);
-            color: #94a3b8; /* Gray text */
-            cursor: pointer;
-            transition: all 0.2s;
-            border: 1px solid transparent;
-        }
-        .tab:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #f8fafc;
-        }
-        .tab.active {
-            background-color: #38bdf8; /* Accent blue */
-            color: white;
-            border-color: #38bdf8;
-        }
-        .search-input {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 8px 12px;
-            border-radius: 0.5rem; /* rounded-lg */
-            color: #f8fafc;
-            outline: none;
-            min-width: 200px;
-        }
-        /* Nouvelles couleurs pour la charge */
-        .charge-0 { color: #94a3b8; font-weight: bold; } /* Gris */
-        .charge-low { color: #22c55e; font-weight: bold; } /* Vert (1-5) */
-        .charge-mid { color: #f97316; font-weight: bold; } /* Orange (6-10) */
-        .charge-high { color: #ef4444; font-weight: bold; } /* Rouge (>10) */
 
-        /* Badges pour les grades */
-        .badge-grade {
-            padding: 2px 10px;
-            border-radius: 9999px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        html {
+            scroll-behavior: smooth
         }
-        .grade-prof { background: rgba(56, 189, 248, 0.2); color: #38bdf8; }
-        .grade-maitre { background: rgba(168, 85, 247, 0.2); color: #a855f7; }
-        .grade-assistant { background: rgba(249, 115, 22, 0.2); color: #f97316; }
-        .grade-default { background: rgba(148, 163, 184, 0.2); color: #94a3b8; }
 
-        table {
-            color: #94a3b8;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-            background: rgba(255, 255, 255, 0.02); /* Slightly darker glass for table */
-            border-radius: 0.5rem;
-            overflow: hidden; /* For rounded corners */
-        }
-        th, td {
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 12px 15px;
-            text-align: left;
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
             font-size: 14px;
-            color: #e2e8f0;
+            line-height: 1.5
         }
-        th {
-            background: rgba(255, 255, 255, 0.08);
-            font-weight: 600;
-            color: #f8fafc;
+
+        .w {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 28px 24px
         }
-        .modal {
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.6);
-            display: none; /* Changé de flex à none pour cacher par défaut */
+
+        .hdr {
+            background: var(--navy);
+            border-radius: 16px;
+            padding: 28px 36px;
+            margin-bottom: 22px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
             align-items: center;
-            justify-content: center;
-        }
-        .modal-content {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 1rem;
-            padding: 2rem;
-            width: 90%;
-            max-width: 700px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            color: #e2e8f0;
+            justify-content: space-between;
+            box-shadow: var(--sh2);
             position: relative;
+            overflow: hidden
         }
-        .modal-content .close {
+
+        .hdr::before {
+            content: '';
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #e2e8f0;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23fff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat
         }
-        .progress-bar {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 9999px;
-            height: 8px;
+
+        .hdr-title {
+            position: relative
+        }
+
+        .eyebrow {
+            font-size: 10px;
+            letter-spacing: 3px;
+            color: #92AACF;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 6px
+        }
+
+        .hdr h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 28px;
+            color: #fff;
+            line-height: 1.1;
+            margin-bottom: 4px
+        }
+
+        .hdr-sub {
+            font-size: 12px;
+            color: #6B8BBF
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            position: relative
+        }
+
+        .sbox {
+            background: rgba(255, 255, 255, .09);
+            border: 1px solid rgba(255, 255, 255, .12);
+            border-radius: 10px;
+            padding: 12px 18px;
+            min-width: 110px
+        }
+
+        .slbl {
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #92AACF;
+            font-weight: 600;
+            margin-bottom: 4px
+        }
+
+        .sval {
+            font-family: 'DM Serif Display', serif;
+            font-size: 24px;
+            color: #fff
+        }
+
+        .ctrl {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 20px;
+            margin-bottom: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            box-shadow: var(--sh)
+        }
+
+        .tg {
+            display: flex;
+            gap: 4px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 4px
+        }
+
+        .tab {
+            padding: 7px 18px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all .2s;
+            color: var(--text3);
+            background: transparent
+        }
+
+        .tab.on {
+            background: var(--navy);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(27, 58, 107, .3)
+        }
+
+        .tab:hover:not(.on) {
+            background: var(--border);
+            color: var(--text2)
+        }
+
+        .srch {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            color: var(--text);
+            background: var(--surface2);
+            outline: none;
+            width: 220px;
+            transition: border .2s
+        }
+
+        .srch:focus {
+            border-color: var(--navy2);
+            background: #fff
+        }
+
+        .btn-navy {
+            background: var(--navy);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-navy:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.1);
+        }
+
+        /* Sidebar Filter System */
+        .page-wrapper {
+            display: flex;
+            gap: 24px;
+            margin-top: 24px;
+            min-height: 80vh;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .filter-sidebar {
+            width: 280px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            height: fit-content;
+            position: sticky;
+            top: 24px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 1;
+            transform-origin: left;
             overflow: hidden;
         }
-        .progress-fill {
-            height: 100%;
-            border-radius: 9999px;
-            transition: width 0.3s ease-in-out;
-        }
-        .charge-light { background-color: #22c55e; /* Green */ }
-        .charge-normal { background-color: #f97316; /* Orange */ }
-        .charge-high { background-color: #ef4444; /* Red */ }
 
-        .status-active { background-color: rgba(34, 197, 94, 0.2); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.5); }
-        .status-inactive { background-color: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.5); }
+        /* Hidden State - Desktop */
+        .sidebar-collapsed .filter-sidebar {
+            width: 0;
+            padding: 0;
+            border: none;
+            margin-right: -24px;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(-20px);
+        }
+
+        .filter-group {
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 16px;
+        }
+
+        .filter-group:last-child { border-bottom: none; }
+
+        .filter-title {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--text2);
+            transition: color 0.2s;
+        }
+
+        .filter-option:hover { color: var(--navy); }
+
+        /* Custom Checkbox */
+        .cb-container {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+            background: #fff;
+        }
+
+        .filter-option.active .cb-container {
+            background: var(--navy);
+            border-color: var(--navy);
+        }
+
+        .cb-mark {
+            width: 8px;
+            height: 4px;
+            border-left: 2px solid #fff;
+            border-bottom: 2px solid #fff;
+            transform: rotate(-45deg) translateY(-1px);
+            opacity: 0;
+        }
+
+        .filter-option.active .cb-mark { opacity: 1; }
+
+        .count-pill {
+            margin-left: auto;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text3);
+            opacity: 0.6;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            min-width: 0;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 1024px) {
+            .page-wrapper { flex-direction: column; }
+            .filter-sidebar { 
+                width: 100%; 
+                position: fixed; 
+                top: 0; left: 0; right: 0; bottom: 0;
+                z-index: 2000;
+                transform: translateX(-100%);
+                border-radius: 0;
+            }
+            .filter-sidebar.open { transform: translateX(0); }
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--sh);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--sh2);
+            border-color: var(--border2);
+            transform: translateY(-2px);
+        }
+
+        .badge {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .badge-navy { background: var(--amber-lt); color: var(--amber); }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        th {
+            background: var(--surface2);
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text3);
+            border-bottom: 2px solid var(--border);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        th:hover {
+            background: var(--border);
+            color: var(--navy);
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+            color: var(--text2);
+            transition: background 0.2s;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(198, 124, 13, 0.03); /* Subtle Amber hover */
+        }
+
+        /* Status & Grade Badges */
+        .badge-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .status-on { background: #ECFDF5; color: #059669; }
+        .status-off { background: #FEF2F2; color: #DC2626; }
+        .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+        .dot-on { background: #10B981; }
+        .dot-off { background: #EF4444; }
+
+        .badge-grade {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .grade-prof { background: #E0E7FF; color: #3730A3; }
+        .grade-maitre { background: #FEF3C7; color: #92400E; }
+        .grade-assistant { background: #F3F4F6; color: #4B5563; }
+        .grade-default { background: var(--bg); color: var(--text3); }
+
+        /* Graph Container */
+        #graph-container {
+            background: var(--surface2) !important;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);
+            position: relative;
+        }
+
+        .graph-legend {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(4px);
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            z-index: 10;
+        }
+
+        .legend-item { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; color: var(--text3); margin-bottom: 4px; }
+        .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+        .tooltip {
+            position: absolute;
+            background: var(--navy);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            z-index: 100;
+        }
+
+        /* Modal Theme */
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(26, 23, 20, 0.4);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--surface);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--sh2);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .modal-header-sticky {
+            background: var(--surface2);
+            padding: 24px 32px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title-text {
+            font-family: 'DM Serif Display', serif;
+            font-size: 24px;
+            color: var(--navy);
+        }
+
+        .modal-body {
+            padding: 32px;
+            overflow-y: auto;
+        }
+
+        .close-btn {
+            background: var(--border);
+            color: var(--text2);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .close-btn:hover {
+            background: var(--red-lt);
+            color: var(--red);
+        }
+
+        .subject-card {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px;
+            transition: all 0.2s;
+        }
+
+        .subject-card:hover {
+            border-color: var(--navy);
+            background: var(--surface);
+        }
+
+        .type-badge {
+            font-size: 9px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .type-ds { background: var(--amber-lt); color: var(--amber); }
+        .type-examen { background: var(--green-lt); color: var(--green); }
+        .type-none { background: var(--red-lt); color: var(--red); opacity: 0.8; }
+        
+        .border-red { border-left-color: var(--red) !important; }
+        .border-amber { border-left-color: var(--amber) !important; }
+        .border-navy { border-left-color: var(--navy) !important; }
     </style>
 </head>
-<body class="font-inter">
-    <div class="max-w-7xl mx-auto">
+<body class="font-sans">
+    <div class="w">
         <!-- Header -->
-        <div class="glass rounded-2xl p-6 mb-6">
-            <div class="flex justify-between items-center mb-4">
-                <h1 class="text-3xl font-bold">Dashboard Académique ISSAT Sousse</h1>
-                <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition" onclick="window.location.href='/'">← Retour Rapport</button>
+        <header class="hdr">
+            <div class="hdr-title flex items-center gap-6">
+                <div class="bg-white/10 p-2 rounded-xl backdrop-blur-sm border border-white/10 flex items-center justify-center">
+                    <img src="/logo%20issat-small.jpg" alt="ISSAT Logo" class="h-14 w-auto rounded-lg">
+                </div>
+                <div>
+                    <div class="eyebrow">Institut Supérieur des Sciences Appliquées et de Technologie de Sousse</div>
+                    <h1>Explorateur Académique</h1>
+                    <div class="text-[10px] text-white/50 font-bold uppercase tracking-widest mt-1">Répertoire des Enseignants & Filières</div>
+                </div>
             </div>
-            <div class="breadcrumb mb-4 text-gray-400">
-                <a href="#home" class="hover:text-blue-300 transition-colors">Accueil</a> <span class="mx-2">/</span> <span id="breadcrumb-current" class="text-blue-400 font-semibold">Vue d'ensemble</span>
+            
+            <div class="stats-row">
+                <div class="sbox">
+                    <div class="slbl">Professeurs</div>
+                    <div class="sval" id="stat-prof">—</div>
+                </div>
+                <div class="sbox">
+                    <div class="slbl">Matières</div>
+                    <div class="sval a" id="stat-mat">—</div>
+                </div>
+                <div class="sbox">
+                    <div class="slbl">Filières</div>
+                    <div class="sval g" id="stat-fil">—</div>
+                </div>
+                <button class="btn-navy" onclick="window.location.href='/'">← Rapport</button>
             </div>
-            <!-- Stats Bento Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div class="glass-card p-4 text-center">
-                    <div class="text-2xl font-bold text-blue-400" id="stat-prof">—</div>
-                    <div class="text-sm text-gray-400">Professeurs</div>
+        </header>
+
+        <!-- Search & Control -->
+        <div class="ctrl justify-between">
+            <div class="flex gap-4 items-center">
+                <div class="tg" id="view-tabs">
+                    <button class="tab on" data-view="filieres">Filières</button>
+                    <button class="tab" data-view="matieres">Matières</button>
+                    <button class="tab" data-view="professeurs">Professeurs</button>
+                    <button class="tab" data-view="relations">Graphe</button>
                 </div>
-                <div class="glass-card p-4 text-center">
-                    <div class="text-2xl font-bold text-green-400" id="stat-mat">—</div>
-                    <div class="text-sm text-gray-400">Matières</div>
-                </div>
-                <div class="glass-card p-4 text-center">
-                    <div class="text-2xl font-bold text-purple-400" id="stat-fil">—</div>
-                    <div class="text-sm text-gray-400">Filières</div>
-                </div>
-                <div class="glass-card p-4 text-center">
-                    <div class="text-2xl font-bold text-orange-400" id="stat-charge">—</div>
-                    <div class="text-sm text-gray-400">Charge Moyenne</div>
-                </div>
+                <div class="dvdr"></div>
+                <!-- Filter Toggle -->
+                <button class="btn-navy !bg-surface2 !text-navy border border-border" onclick="toggleSidebar()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                    </svg>
+                    Filtrer
+                </button>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <div id="results-count" class="text-[10px] font-bold text-text3 uppercase tracking-widest mr-2">0 Résultats</div>
+                <input type="text" id="search" class="srch" placeholder="Rechercher..." />
             </div>
         </div>
 
-        <!-- Distribution Context -->
-        <div id="distribution-context" class="glass rounded-2xl p-4 mb-6 hidden border-blue-500/50">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
-                    <div>
-                        <span class="text-sm text-gray-400">Distribution active :</span>
-                        <span id="active-dist-name" class="font-bold text-blue-400 ml-1">...</span>
-                    </div>
+        <div class="page-wrapper">
+            <!-- Sidebar -->
+            <aside id="filter-sidebar" class="filter-sidebar">
+                <div class="flex justify-between items-center mb-8 lg:hidden">
+                    <h2 class="font-bold text-navy">Filtres</h2>
+                    <button onclick="toggleSidebar()" class="text-text3">&times;</button>
                 </div>
-                <div class="flex gap-4 items-center">
-                    <div class="text-xs text-gray-500" id="active-dist-meta">...</div>
-                    <button onclick="clearDistribution()" class="text-xs text-red-400 hover:text-red-300 transition-colors">Réinitialiser</button>
-                </div>
-            </div>
-        </div>
 
-        <!-- Search & Navigation -->
-        <div class="glass rounded-2xl p-6 mb-6">
-            <div class="flex flex-wrap gap-4 items-center justify-between">
-                <div class="flex gap-2">
-                    <button class="tab active" data-view="filieres">Explorateur Filières</button>
-                    <button class="tab" data-view="professeurs">Répertoire Professeurs</button>
-                    <button class="tab" data-view="relations">Graphe Relations</button>
+                <div id="filter-groups-container">
+                    <!-- Categories will be injected here -->
+                    <div class="text-center py-8 text-text3 italic text-xs">Chargement des filtres...</div>
                 </div>
-                <div class="flex flex-wrap gap-2">
-                    <input type="text" id="search" class="search-input" placeholder="Rechercher professeur... (Ctrl+K)" />
-                    <select id="grade-filter" class="search-input">
-                        <option value="">Tous les grades</option>
-                    </select>
-                    <select id="filiere-filter" class="search-input">
-                        <option value="">Toutes les filières</option>
-                    </select>
-                    <select id="annee-filter" class="search-input">
-                        <option value="">Tous les niveaux</option>
-                        <option value="1ere_annee">1ère Année</option>
-                        <option value="2eme_annee">2ème Année</option>
-                        <option value="3eme_annee">3ème Année</option>
-                        <option value="Master">Master</option>
-                        <option value="Preparatoire">Préparatoire</option>
-                    </select>
-                </div>
-            </div>
-        </div>
 
-        <!-- Content Area -->
-        <div id="content" class="glass rounded-2xl p-6">
-            <!-- Loading -->
-            <div id="loading" class="text-center py-12">
-                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-400 mx-auto mb-4"></div>
-                <p>Chargement des données...</p>
-            </div>
+                <button class="w-full btn-navy mt-6 !justify-center" onclick="resetFilters()">Réinitialiser</button>
+            </aside>
+
+            <!-- Content Area -->
+            <main class="main-content">
+                <div id="loading" class="card py-12 text-center">
+                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-navy mb-4"></div>
+                    <p class="text-text3 italic">Préparation du répertoire académique...</p>
+                </div>
+                <div id="content"></div>
+            </main>
         </div>
     </div>
 
-    <!-- Modal for Filière Details -->
-    <div id="modal" class="modal hidden">
-        <div class="modal-content p-6">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold" id="modal-title"></h2>
-                <button onclick="closeModal()" class="text-gray-400 hover:text-white">&times;</button>
+    <!-- Enhanced Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header-sticky">
+                <h2 id="modal-title" class="modal-title-text">Détails</h2>
+                <button onclick="closeModal()" class="close-btn" title="Fermer">
+                    &times;
+                </button>
             </div>
-            <div id="modal-content"></div>
+            <div id="modal-content" class="modal-body">
+                <!-- Dynamically populated -->
+            </div>
         </div>
     </div>
 
@@ -271,6 +679,12 @@
         let data = { professors: [], matieres: [], filieres: [], distribution: null };
         let currentView = 'filieres';
         let searchTerm = '';
+        let selectedFilters = {
+            annee: [],
+            filiere: [],
+            grade: [],
+            status: []
+        };
         let sortBy = 'name';
         let sortDir = 'asc';
         let page = 1;
@@ -288,45 +702,172 @@
                 data.matieres = matResp.ok ? (await matResp.json()).matieres || [] : [];
                 const filieresData = filResp.ok ? (await filResp.json()).filieres || [] : [];
 
-                // Check for distribution in localStorage
                 const storedDist = localStorage.getItem('or_google_selected_distribution');
                 if (storedDist) {
                     data.distribution = JSON.parse(storedDist);
                     showDistributionContext();
                 }
 
-                // Map filieres with full info from DB
                 data.filieres = filieresData.map(f => ({
                     ...f,
-                    matieres: data.matieres.filter(m => m.filiere === f.nom),
-                    professeurs: [...new Set(data.matieres.filter(m => m.filiere === f.nom).map(m => m.professeur))]
+                    matieres: data.matieres.filter(m => m.filiere_id === f.id),
+                    professeurs: [...new Set(data.matieres.filter(m => m.filiere_id === f.id).map(m => m.professeur))]
                 }));
 
-                // Populate grade filter
-                const gradeFilter = document.getElementById('grade-filter');
-                const uniqueGrades = [...new Set(data.professors.map(p => p.grade).filter(Boolean))].sort();
-                uniqueGrades.forEach(grade => {
-                    const option = document.createElement('option');
-                    option.value = grade;
-                    option.textContent = grade;
-                    gradeFilter.appendChild(option);
-                });
-
-                // Populate filiere filter
-                const filiereFilter = document.getElementById('filiere-filter');
-                data.filieres.sort((a,b) => a.nom.localeCompare(b.nom)).forEach(f => {
-                    const option = document.createElement('option');
-                    option.value = f.nom;
-                    option.textContent = f.nom;
-                    filiereFilter.appendChild(option);
-                });
-
                 updateStats();
+                renderFilters();
                 renderView();
             } catch (e) {
-                console.error('Erreur chargement:', e);
-                document.getElementById('loading').innerHTML = '<p class="text-red-400">Erreur de chargement des données.</p>';
+                console.error('Erreur:', e);
+                document.getElementById('loading').innerHTML = '<p class="text-red-400">Erreur de chargement.</p>';
             }
+        }
+
+        function toggleSidebar() {
+            const wrapper = document.querySelector('.page-wrapper');
+            const sidebar = document.getElementById('filter-sidebar');
+            
+            if (window.innerWidth <= 1024) {
+                sidebar.classList.toggle('open');
+            } else {
+                wrapper.classList.toggle('sidebar-collapsed');
+            }
+        }
+
+        function resetFilters() {
+            selectedFilters = { annee: [], filiere: [], grade: [], status: [] };
+            searchTerm = '';
+            document.getElementById('search').value = '';
+            renderFilters();
+            renderView();
+        }
+
+        function toggleFilter(category, value) {
+            const arr = selectedFilters[category];
+            const index = arr.indexOf(value);
+            if (index > -1) arr.splice(index, 1);
+            else arr.push(value);
+            
+            page = 1;
+            renderFilters();
+            renderView();
+        }
+
+        function getFilteredData() {
+            if (currentView === 'filieres' || currentView === 'relations') {
+                return data.filieres.filter(f => {
+                    const matchesSearch = !searchTerm || f.nom.toLowerCase().includes(searchTerm.toLowerCase()) || f.abrevation.toLowerCase().includes(searchTerm.toLowerCase());
+                    const matchesAnnee = selectedFilters.annee.length === 0 || selectedFilters.annee.includes(f.annee);
+                    const matchesSpec = selectedFilters.filiere.length === 0 || selectedFilters.filiere.includes(f.nom);
+                    return matchesSearch && matchesAnnee && matchesSpec;
+                });
+            } else if (currentView === 'professeurs') {
+                return data.professors.filter(p => {
+                    const matchesSearch = !searchTerm || p.full_name.toLowerCase().includes(searchTerm.toLowerCase());
+                    const matchesGrade = selectedFilters.grade.length === 0 || selectedFilters.grade.includes(p.grade);
+                    const matchesStatus = selectedFilters.status.length === 0 || selectedFilters.status.includes(p.status ? 'Actif' : 'Inactif');
+                    
+                    let matchesSpec = true;
+                    if (selectedFilters.filiere.length > 0) {
+                        const profMatieres = data.matieres.filter(m => m.id_professeur === p.id);
+                        matchesSpec = profMatieres.some(m => selectedFilters.filiere.includes(m.filiere));
+                    }
+                    return matchesSearch && matchesGrade && matchesStatus && matchesSpec;
+                });
+            } else if (currentView === 'matieres') {
+                return data.matieres.filter(m => {
+                    const matchesSearch = !searchTerm || m.nom.toLowerCase().includes(searchTerm.toLowerCase());
+                    const matchesAnnee = selectedFilters.annee.length === 0 || selectedFilters.annee.includes(m.filiere_annee);
+                    const matchesSpec = selectedFilters.filiere.length === 0 || selectedFilters.filiere.includes(m.filiere);
+                    return matchesSearch && matchesAnnee && matchesSpec;
+                });
+            }
+            return [];
+        }
+
+        function renderFilters() {
+            const container = document.getElementById('filter-groups-container');
+            container.innerHTML = '';
+
+            const groups = [];
+
+            if (currentView === 'filieres' || currentView === 'relations' || currentView === 'matieres') {
+                groups.push({
+                    id: 'annee',
+                    title: 'Niveau d\'Études',
+                    options: [...new Set(data.filieres.map(f => f.annee))].sort().map(a => ({
+                        label: a.replace('_', ' '),
+                        value: a,
+                        count: currentView === 'matieres' ? data.matieres.filter(m => m.filiere_annee === a).length : data.filieres.filter(f => f.annee === a).length
+                    }))
+                });
+                groups.push({
+                    id: 'filiere',
+                    title: 'Spécialité Académique',
+                    options: [...new Set(data.filieres.map(f => f.nom))].sort().map(nom => ({
+                        label: nom,
+                        value: nom,
+                        count: currentView === 'matieres' ? data.matieres.filter(m => m.filiere === nom).length : data.filieres.filter(f => f.nom === nom).length
+                    }))
+                });
+            }
+
+            if (currentView === 'professeurs') {
+                groups.push({
+                    id: 'filiere',
+                    title: 'Filtrer par Filière',
+                    options: [...new Set(data.filieres.map(f => f.nom))].sort().map(nom => ({
+                        label: nom,
+                        value: nom,
+                        count: data.professors.filter(p => {
+                            const profMatieres = data.matieres.filter(m => m.id_professeur === p.id);
+                            return profMatieres.some(m => m.filiere === nom);
+                        }).length
+                    }))
+                });
+                groups.push({
+                    id: 'grade',
+                    title: 'Grade Académique',
+                    options: [...new Set(data.professors.map(p => p.grade).filter(Boolean))].sort().map(g => ({
+                        label: g,
+                        value: g,
+                        count: data.professors.filter(p => p.grade === g).length
+                    }))
+                });
+                groups.push({
+                    id: 'status',
+                    title: 'Statut de Disponibilité',
+                    options: [
+                        { label: 'Actif', value: 'Actif', count: data.professors.filter(p => p.status).length },
+                        { label: 'Inactif', value: 'Inactif', count: data.professors.filter(p => !p.status).length }
+                    ]
+                });
+            }
+
+            groups.forEach(group => {
+                const groupDiv = document.createElement('div');
+                groupDiv.className = 'filter-group';
+                
+                let optionsHtml = group.options.map(opt => `
+                    <div class="filter-option ${selectedFilters[group.id].includes(opt.value) ? 'active' : ''}" 
+                         onclick="toggleFilter('${group.id}', '${opt.value}')">
+                        <div class="cb-container"><div class="cb-mark"></div></div>
+                        <span>${opt.label}</span>
+                        <span class="count-pill">(${opt.count})</span>
+                    </div>
+                `).join('');
+
+                groupDiv.innerHTML = `
+                    <div class="filter-title">
+                        ${group.title}
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <path d="M6 9l6 6 6-6"></path>
+                        </svg>
+                    </div>
+                    <div class="filter-options">${optionsHtml}</div>
+                `;
+                container.appendChild(groupDiv);
+            });
         }
 
         function getGradeBadgeClass(grade) {
@@ -347,21 +888,24 @@
 
         function showDistributionContext() {
             const context = document.getElementById('distribution-context');
+            if (!context) return;
+            
             const name = document.getElementById('active-dist-name');
             const meta = document.getElementById('active-dist-meta');
             
             if (data.distribution) {
                 context.classList.remove('hidden');
-                name.textContent = `Bloc ${data.distribution.bloc === 'matin' ? 'Matin' : 'Après-midi'}`;
+                if (name) name.textContent = `Bloc ${data.distribution.bloc === 'matin' ? 'Matin' : 'Après-midi'}`;
                 const date = new Date(data.distribution.timestamp).toLocaleString();
-                meta.textContent = `Généré le ${date}`;
+                if (meta) meta.textContent = `Généré le ${date}`;
             }
         }
 
         function clearDistribution() {
             localStorage.removeItem('or_google_selected_distribution');
             data.distribution = null;
-            document.getElementById('distribution-context').classList.add('hidden');
+            const context = document.getElementById('distribution-context');
+            if (context) context.classList.add('hidden');
             renderView();
         }
 
@@ -369,44 +913,100 @@
             document.getElementById('stat-prof').textContent = data.professors.length;
             document.getElementById('stat-mat').textContent = data.matieres.length;
             document.getElementById('stat-fil').textContent = data.filieres.length;
-            const avgCharge = data.professors.length ? (data.professors.reduce((s, p) => s + (p.charge || 0), 0) / data.professors.length).toFixed(1) : 0;
-            document.getElementById('stat-charge').textContent = avgCharge + 'h';
         }
 
         function renderView() {
-            document.getElementById('loading').style.display = 'none';
+            const loading = document.getElementById('loading');
+            if (loading) loading.style.display = 'none';
+            
             const content = document.getElementById('content');
             content.innerHTML = '';
 
+            const filtered = getFilteredData();
+            const countLabel = document.getElementById('results-count');
+            if (countLabel) countLabel.textContent = `${filtered.length} Résultats`;
+
             if (currentView === 'filieres') {
-                renderFilieres(content);
+                renderFilieres(content, filtered);
             } else if (currentView === 'professeurs') {
-                renderProfesseurs(content);
+                renderProfesseurs(content, filtered);
+            } else if (currentView === 'matieres') {
+                renderMatieres(content, filtered);
             } else if (currentView === 'relations') {
-                renderRelations(content);
+                renderRelations(content, filtered);
             }
         }
 
-        function renderFilieres(container) {
-            const selectedAnnee = document.getElementById('annee-filter').value;
-            const filtered = data.filieres.filter(f => {
-                const matchesSearch = !searchTerm || f.nom.toLowerCase().includes(searchTerm.toLowerCase()) || f.abrevation.toLowerCase().includes(searchTerm.toLowerCase());
-                const matchesAnnee = !selectedAnnee || f.annee === selectedAnnee;
-                return matchesSearch && matchesAnnee;
-            });
-            
-            // Get filieres from distribution
-            const distFilieres = data.distribution ? 
-                [...new Set(data.distribution.placement[data.distribution.bloc].flatMap(room => room.groupes.map(g => g.f)))] : 
-                [];
+        function renderMatieres(container, filtered) {
+            // Sort by filiere then name
+            filtered.sort((a,b) => a.filiere.localeCompare(b.filiere) || a.nom.localeCompare(b.nom));
 
-            const anneeOrder = ['1ere_annee', '2eme_annee', '3eme_annee', 'Master', 'Preparatoire'];
+            const totalRows = filtered.length;
+            const totalPages = Math.max(1, Math.ceil(totalRows / pageSize));
+            if (page > totalPages) page = totalPages;
+            const start = (page - 1) * pageSize;
+            const end = start + pageSize;
+            const pageRows = filtered.slice(start, end);
+
+            container.innerHTML = `
+                <div class="card overflow-hidden !p-0">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-surface2 border-b border-border">
+                                <th class="p-4">Discipline / ID</th>
+                                <th class="p-4">Filière / Niveau</th>
+                                <th class="p-4">Enseignant</th>
+                                <th class="p-4">Modalités d'Éval.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${pageRows.map(m => {
+                                const hasEval = m.ds || m.examen;
+                                return `
+                                <tr class="hover:bg-surface2/50 transition-colors border-b border-border/10 last:border-0">
+                                    <td class="p-4">
+                                        <div class="font-bold text-navy">${m.nom}</div>
+                                        <div class="flex gap-2 mt-1">
+                                            <span class="text-[9px] bg-navy/5 text-navy px-1.5 py-0.5 rounded font-black border border-navy/10 uppercase">CODE: ${m.code || 'N/A'}</span>
+                                            <span class="text-[9px] text-text3 font-bold uppercase tracking-tighter opacity-60">ID: ${m.id}</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="text-xs font-bold text-navy2 uppercase">${m.filiere_abrev || m.filiere}</div>
+                                        <div class="text-[10px] text-text3 font-bold uppercase tracking-widest mt-1 opacity-70">${m.filiere_annee.replace('_',' ')}</div>
+                                    </td>
+                                    <td class="p-4 text-xs font-semibold text-text2">${m.professeur || 'Non Assigné'}</td>
+                                    <td class="p-4">
+                                        <div class="flex gap-2">
+                                            ${m.ds ? '<span class="type-badge type-ds">DS</span>' : ''}
+                                            ${m.examen ? '<span class="type-badge type-examen">EXAMEN</span>' : ''}
+                                            ${!hasEval ? '<span class="type-badge type-none border border-red text-red px-2 py-0.5 rounded text-[9px] font-black">AUCUNE EVALUATION</span>' : ''}
+                                        </div>
+                                    </td>
+                                </tr>
+                            `}).join('')}
+                        </tbody>
+                    </table>
+                    <div class="p-6 bg-surface2 border-t border-border flex justify-between items-center">
+                        <div class="text-[10px] font-bold text-text3 uppercase tracking-widest">
+                            Affichage ${start + 1}-${Math.min(end, totalRows)} sur ${totalRows} sujets
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button class="tab !py-1 !px-4 border border-border bg-surface" onclick="page--; renderView()" ${page<=1?'disabled':''}>Précédent</button>
+                            <div class="text-xs font-bold text-navy px-2">${page} / ${totalPages}</div>
+                            <button class="tab !py-1 !px-4 border border-border bg-surface" onclick="page++; renderView()" ${page>=totalPages?'disabled':''}>Suivant</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderFilieres(container, filtered) {
+            const anneeOrder = ['1ERE', '2EME', '3EME'];
             const anneeLabels = {
-                '1ere_annee': '1ère Année',
-                '2eme_annee': '2ème Année',
-                '3eme_annee': '3ème Année',
-                'Master': 'Cycles Master',
-                'Preparatoire': 'Cycle Préparatoire'
+                '1ERE': '1ère Année',
+                '2EME': '2ème Année',
+                '3EME': '3ème Année'
             };
 
             let html = '';
@@ -415,32 +1015,41 @@
                 const filieresInAnnee = filtered.filter(f => f.annee === annee);
                 if (filieresInAnnee.length > 0) {
                     html += `
-                        <div class="mb-10">
+                        <div class="mb-12">
                             <div class="flex items-center gap-4 mb-6">
-                                <h2 class="text-xl font-bold text-blue-400 uppercase tracking-wider">${anneeLabels[annee]}</h2>
-                                <div class="h-px bg-blue-500/20 flex-1"></div>
-                                <span class="text-xs text-gray-500">${filieresInAnnee.length} filières</span>
+                                <h2 class="text-lg font-bold text-navy uppercase tracking-widest">${anneeLabels[annee]}</h2>
+                                <div class="h-px bg-border flex-1"></div>
+                                <span class="text-xs text-text3 font-medium">${filieresInAnnee.length} filières</span>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                ${filieresInAnnee.map(f => {
-                                    const isActive = distFilieres.includes(f.nom);
-                                    return `
-                                    <div class="glass-card p-6 card cursor-pointer transition-all duration-300 ${isActive ? 'ring-2 ring-blue-500 bg-blue-500/10' : 'hover:border-blue-400'}" onclick="showFiliereModal('${f.nom}')">
-                                        <div class="flex justify-between items-start mb-4">
-                                            <div class="flex flex-col">
-                                                <h3 class="text-2xl font-bold ${isActive ? 'text-blue-300' : 'text-blue-400'}">${f.abrevation}</h3>
-                                                <span class="text-xs text-gray-400 mb-1">${f.nom}</span>
-                                                ${isActive ? '<span class="mt-2 text-[10px] text-blue-400 font-bold uppercase tracking-wider">Active dans la distribution</span>' : ''}
+                                ${filieresInAnnee.map(f => `
+                                    <div class="card cursor-pointer" onclick="showFiliereModal(${f.id})">
+                                        <div class="flex justify-between items-start mb-6">
+                                            <div>
+                                                <div class="eyebrow flex justify-between items-center w-full">
+                                                    <span>${f.annee.replace('_', ' ')}</span>
+                                                    <span class="text-[9px] bg-navy/5 px-2 py-0.5 rounded border border-navy/10 text-navy font-black tracking-widest">${f.code || 'N/A'}</span>
+                                                </div>
+                                                <h3 class="text-2xl font-serif text-navy mb-1">${f.abrevation}</h3>
+                                                <div class="text-xs text-text3 font-medium">${f.nom}</div>
                                             </div>
-                                            <span class="bg-blue-500/20 text-blue-300 text-xs px-3 py-1 rounded-full border border-blue-500/50">${f.matieres.length} Matières</span>
+                                            <div class="badge badge-navy">${f.matieres.length} Mat.</div>
                                         </div>
-                                        <div class="flex justify-between items-end mt-4">
-                                            <p class="text-sm text-gray-400">${f.professeurs.length} Professeurs</p>
-                                            <span class="text-[10px] text-gray-500 italic">ID: ${f.id}</span>
+                                        <div class="space-y-2 mb-6">
+                                            ${f.matieres.slice(0, 4).map(m => `
+                                                <div class="flex items-center gap-2 text-xs text-text2">
+                                                    <div class="w-1.5 h-1.5 rounded-full bg-amber"></div>
+                                                    <span class="truncate">${m.nom}</span>
+                                                </div>
+                                            `).join('')}
+                                            ${f.matieres.length > 4 ? `<div class="text-[10px] text-text3 font-bold ml-4">+ ${f.matieres.length - 4} AUTRES...</div>` : ''}
+                                        </div>
+                                        <div class="pt-4 border-t border-border flex justify-between items-center">
+                                            <div class="text-[11px] text-text3 font-bold uppercase tracking-tighter">${f.professeurs.length} Professeurs</div>
+                                            <div class="text-[10px] text-text3 italic">ID: ${f.id}</div>
                                         </div>
                                     </div>
-                                    `;
-                                }).join('')}
+                                `).join('')}
                             </div>
                         </div>
                     `;
@@ -448,65 +1057,14 @@
             });
 
             if (html === '') {
-                html = '<div class="text-center py-20 text-gray-500">Aucune filière trouvée pour ces critères.</div>';
+                html = '<div class="card py-20 text-center text-text3 italic">Aucune filière trouvée pour ces critères.</div>';
             }
 
             container.innerHTML = html;
         }
 
-        function renderProfesseurs(container) {
-            const selectedGrade = document.getElementById('grade-filter').value;
-            const selectedFiliere = document.getElementById('filiere-filter').value;
-            const selectedAnnee = document.getElementById('annee-filter').value;
-            
-            // Get filieres from distribution
-            const distFilieres = data.distribution ? 
-                [...new Set(data.distribution.placement[data.distribution.bloc].flatMap(room => room.groupes.map(g => g.f)))] : 
-                [];
-
-            // Create flat list of (Prof, Grade, Charge, Matiere, Filiere, Annee)
-            let rows = [];
-            data.professors.forEach(p => {
-                const profMatieres = data.matieres.filter(m => m.id_professeur === p.id);
-                if (profMatieres.length > 0) {
-                    profMatieres.forEach(m => {
-                        rows.push({
-                            id: p.id,
-                            name: p.full_name,
-                            grade: p.grade,
-                            charge: p.charge,
-                            matiere: m.nom,
-                            filiere: m.filiere,
-                            filiere_abrev: m.filiere_abrev,
-                            annee: m.filiere_annee,
-                            status: p.status
-                        });
-                    });
-                } else {
-                    rows.push({
-                        id: p.id,
-                        name: p.full_name,
-                        grade: p.grade,
-                        charge: p.charge,
-                        matiere: 'Aucune',
-                        filiere: 'Aucune',
-                        filiere_abrev: '—',
-                        annee: '',
-                        status: p.status
-                    });
-                }
-            });
-
-            // Combined filtering
-            let filtered = rows.filter(r => {
-                const matchesSearch = !searchTerm || r.name.toLowerCase().includes(searchTerm.toLowerCase());
-                const matchesGrade = !selectedGrade || r.grade === selectedGrade;
-                const matchesFiliere = !selectedFiliere || r.filiere === selectedFiliere;
-                const matchesAnnee = !selectedAnnee || r.annee === selectedAnnee;
-                return matchesSearch && matchesGrade && matchesFiliere && matchesAnnee;
-            });
-
-            // Sorting
+        function renderProfesseurs(container, filtered) {
+            // Sort original data for consistent display
             filtered.sort((a, b) => {
                 const av = (a[sortBy] || '').toString().toLowerCase();
                 const bv = (b[sortBy] || '').toString().toLowerCase();
@@ -515,7 +1073,6 @@
                 return 0;
             });
 
-            // Pagination
             const totalRows = filtered.length;
             const totalPages = Math.max(1, Math.ceil(totalRows / pageSize));
             if (page > totalPages) page = totalPages;
@@ -524,72 +1081,64 @@
             const pageRows = filtered.slice(start, end);
             
             container.innerHTML = `
-                <div class="overflow-x-auto">
-                    <table>
+                <div class="card overflow-hidden !p-0">
+                    <table class="w-full text-left border-collapse">
                         <thead>
-                            <tr>
-                                <th class="cursor-pointer select-none" data-sort="name">Professeur ${sortBy==='name'?(sortDir==='asc'?'▲':'▼'):''}</th>
-                                <th class="cursor-pointer select-none" data-sort="grade">Grade ${sortBy==='grade'?(sortDir==='asc'?'▲':'▼'):''}</th>
-                                <th class="cursor-pointer select-none" data-sort="charge">Charge ${sortBy==='charge'?(sortDir==='asc'?'▲':'▼'):''}</th>
-                                <th class="cursor-pointer select-none" data-sort="matiere">Matière ${sortBy==='matiere'?(sortDir==='asc'?'▲':'▼'):''}</th>
-                                <th class="cursor-pointer select-none" data-sort="filiere">Filière ${sortBy==='filiere'?(sortDir==='asc'?'▲':'▼'):''}</th>
-                                <th class="cursor-pointer select-none" data-sort="annee">Niveau ${sortBy==='annee'?(sortDir==='asc'?'▲':'▼'):''}</th>
-                                <th>Status</th>
-                                <th>Actions</th>
+                            <tr class="bg-surface2 border-b border-border">
+                                <th class="cursor-pointer select-none" data-sort="name">Professeur ${sortBy==='name'?(sortDir==='asc'?'↑':'↓'):''}</th>
+                                <th class="cursor-pointer select-none" data-sort="grade">Grade ${sortBy==='grade'?(sortDir==='asc'?'↑':'↓'):''}</th>
+                                <th class="cursor-pointer select-none" data-sort="charge">Charge ${sortBy==='charge'?(sortDir==='asc'?'↑':'↓'):''}</th>
+                                <th class="cursor-pointer select-none" data-sort="matiere">Discipline</th>
+                                <th class="cursor-pointer select-none" data-sort="filiere">Filière</th>
+                                <th class="cursor-pointer select-none">Statut</th>
+                                <th class="text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            ${pageRows.map(r => {
-                                const isActive = distFilieres.includes(r.filiere);
-                                return `
-                                    <tr class="${isActive ? 'bg-blue-500/5' : ''}">
-                                        <td class="font-semibold">
-                                            <div class="flex items-center gap-2">
-                                                ${r.name}
-                                                ${isActive ? '<span class="w-2 h-2 bg-blue-500 rounded-full" title="Active dans la distribution"></span>' : ''}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="badge-grade ${getGradeBadgeClass(r.grade)}">
-                                                ${r.grade || 'N/A'}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span class="${getChargeClass(r.charge)}">
-                                                ${r.charge || 0}h
-                                            </span>
-                                        </td>
-                                        <td class="text-xs italic">${r.matiere}</td>
-                                        <td class="text-xs font-bold text-blue-300">
-                                            <span title="${r.filiere}">${r.filiere_abrev || r.filiere}</span>
-                                        </td>
-                                        <td class="text-xs">${(r.annee || '').replace('_', ' ')}</td>
-                                        <td>
-                                            <span class="px-2 py-1 rounded-full text-xs ${r.status ? 'status-active' : 'status-inactive'}">
-                                                ${r.status ? 'Actif' : 'Inactif'}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <button class="px-3 py-1 bg-blue-600 hover:bg-blue-700 rounded text-sm" onclick="showProfDetails(${r.id})">
-                                                Détails
-                                            </button>
-                                        </td>
-                                    </tr>
-                                `;
-                            }).join('')}
+                            ${pageRows.map(r => `
+                                <tr>
+                                    <td class="font-bold text-navy">${r.name}</td>
+                                    <td>
+                                        <span class="badge-grade ${getGradeBadgeClass(r.grade)}">
+                                            ${r.grade || 'N/A'}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="flex flex-col">
+                                            <span class="font-bold text-text">${r.charge || 0}h</span>
+                                            <span class="text-[10px] text-text3 uppercase font-bold tracking-tighter">Hebdo.</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-xs italic text-text2">${r.matiere}</td>
+                                    <td class="text-xs font-bold text-navy2">${r.filiere_abrev || r.filiere}</td>
+                                    <td>
+                                        <span class="badge-status ${r.status ? 'status-on' : 'status-off'}">
+                                            <span class="dot ${r.status ? 'dot-on' : 'dot-off'}"></span>
+                                            ${r.status ? 'Actif' : 'Inactif'}
+                                        </span>
+                                    </td>
+                                    <td class="text-right">
+                                        <button class="text-xs font-bold text-amber hover:underline uppercase tracking-widest" onclick="showProfDetails(${r.id})">
+                                            Détails →
+                                        </button>
+                                    </td>
+                                </tr>
+                            `).join('')}
                         </tbody>
                     </table>
-                    <div class="flex items-center justify-between mt-4">
-                        <div class="text-xs text-gray-400">Lignes ${Math.min(end, totalRows)} / ${totalRows}</div>
-                        <div class="flex items-center gap-2">
-                            <button class="px-2 py-1 bg-white/5 rounded disabled:opacity-50" id="btn-prev" ${page<=1?'disabled':''}>Préc.</button>
-                            <span class="text-sm">${page} / ${totalPages}</span>
-                            <button class="px-2 py-1 bg-white/5 rounded disabled:opacity-50" id="btn-next" ${page>=totalPages?'disabled':''}>Suiv.</button>
-                            <select id="page-size" class="search-input">
+                    <div class="p-6 bg-surface2 border-t border-border flex justify-between items-center">
+                        <div class="text-[10px] font-bold text-text3 uppercase tracking-widest">
+                            Affichage ${start + 1}-${Math.min(end, totalRows)} sur ${totalRows}
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <select id="page-size" class="srch !w-20 !py-1 !px-2 mr-4">
                                 <option ${pageSize===10?'selected':''} value="10">10</option>
                                 <option ${pageSize===20?'selected':''} value="20">20</option>
                                 <option ${pageSize===50?'selected':''} value="50">50</option>
                             </select>
+                            <button class="tab !py-1 !px-4 border border-border bg-surface" id="btn-prev" ${page<=1?'disabled':''}>Précédent</button>
+                            <div class="text-xs font-bold text-navy px-2">${page} / ${totalPages}</div>
+                            <button class="tab !py-1 !px-4 border border-border bg-surface" id="btn-next" ${page>=totalPages?'disabled':''}>Suivant</button>
                         </div>
                     </div>
                 </div>
@@ -616,193 +1165,270 @@
             if (psSel) psSel.addEventListener('change', e => { pageSize = parseInt(e.target.value, 10) || 20; page = 1; renderView(); });
         }
 
-        function renderRelations(container) {
+        function renderRelations(container, filtered) {
             container.innerHTML = `
-                <div id="graph-container" class="w-full h-96 bg-gray-800 rounded-lg"></div>
-                <p class="text-sm text-gray-400 mt-4">Graphe des relations Professeur → Matière → Filière</p>
+                <div id="graph-container" class="w-full h-[600px]">
+                    <div class="graph-legend">
+                        <div class="legend-item"><span class="legend-dot" style="background:#1B3A6B"></span> Professeurs</div>
+                        <div class="legend-item"><span class="legend-dot" style="background:#2D6A4F"></span> Matières</div>
+                        <div class="legend-item"><span class="legend-dot" style="background:#C67C0D"></span> Filières</div>
+                    </div>
+                    <div id="graph-tooltip" class="tooltip"></div>
+                </div>
+                <div class="flex justify-between items-center mt-6">
+                    <p class="text-xs text-text3 font-medium uppercase tracking-widest">Graphe Interactif des Relations Académiques</p>
+                    <button class="tab !py-1 !px-4 border border-border" onclick="renderView()">Réinitialiser la Vue</button>
+                </div>
             `;
-            // Simple D3 force-directed graph
+            
             setTimeout(() => {
-                const width = document.getElementById('graph-container').clientWidth;
-                const height = 400;
-                const svg = d3.select('#graph-container').append('svg').attr('width', width).attr('height', height);
+                const el = document.getElementById('graph-container');
+                if (!el) return;
+                const width = el.clientWidth;
+                const height = 600;
+                const tooltip = d3.select('#graph-tooltip');
+
+                const svg = d3.select('#graph-container')
+                    .append('svg')
+                    .attr('width', '100%')
+                    .attr('height', '100%')
+                    .attr('viewBox', [0, 0, width, height]);
+
+                const g = svg.append('g');
+
+                svg.call(d3.zoom().on('zoom', (event) => {
+                    g.attr('transform', event.transform);
+                }));
 
                 const nodes = [];
                 const links = [];
-                const nodeMap = new Map(); // To keep track of unique nodes and avoid duplicates
+                const nodeMap = new Map();
 
-                // Add professors
-                data.professors.forEach(p => {
-                    const profId = 'p' + p.id;
-                    if (!nodeMap.has(profId)) {
-                        nodes.push({ id: profId, name: p.full_name, type: 'prof' });
-                        nodeMap.set(profId, true);
+                // Build graph from FILTERED filieres
+                filtered.forEach(f => {
+                    const filId = 'f' + f.id;
+                    if (!nodeMap.has(filId)) {
+                        nodes.push({ id: filId, name: f.abrevation, type: 'filiere' });
+                        nodeMap.set(filId, true);
                     }
+
+                    f.matieres.forEach(m => {
+                        const matId = 'm' + m.id;
+                        if (!nodeMap.has(matId)) {
+                            nodes.push({ id: matId, name: m.nom, type: 'matiere' });
+                            nodeMap.set(matId, true);
+                        }
+                        links.push({ source: filId, target: matId });
+
+                        if (m.id_professeur) {
+                            const profId = 'p' + m.id_professeur;
+                            if (!nodeMap.has(profId)) {
+                                nodes.push({ id: profId, name: m.professeur, type: 'prof' });
+                                nodeMap.set(profId, true);
+                            }
+                            links.push({ source: matId, target: profId });
+                        }
+                    });
                 });
 
-                // Add matieres and their links to professors and filieres
-                data.matieres.forEach(m => {
-                    const matiereId = 'm' + m.id;
-                    if (!nodeMap.has(matiereId)) {
-                        nodes.push({ id: matiereId, name: m.nom, type: 'matiere' });
-                        nodeMap.set(matiereId, true);
-                    }
-                    // Link matiere to professor
-                    if (m.id_professeur) {
-                        const profId = 'p' + m.id_professeur;
-                        if (nodeMap.has(profId)) { // Ensure professor node exists
-                            links.push({ source: profId, target: matiereId });
-                        }
-                    }
-                    // Add filiere node and link matiere to filiere
-                    if (m.filiere) {
-                        const filiereId = 'f' + m.filiere.replace(/\s/g, '_'); // Create a valid ID
-                        if (!nodeMap.has(filiereId)) {
-                            nodes.push({ id: filiereId, name: m.filiere, type: 'filiere' });
-                            nodeMap.set(filiereId, true);
-                        }
-                        links.push({ source: matiereId, target: filiereId });
-                    }
-                });
+                if (nodes.length === 0) {
+                    el.innerHTML = '<div class="h-full flex items-center justify-center text-text3 italic">Aucun node à afficher pour ces filtres.</div>';
+                    return;
+                }
 
                 const simulation = d3.forceSimulation(nodes)
-                    .force('link', d3.forceLink(links).id(d => d.id).distance(50)) // Increased distance for better separation
-                    .force('charge', d3.forceManyBody().strength(-300)) // Increased repulsion
+                    .force('link', d3.forceLink(links).id(d => d.id).distance(100))
+                    .force('charge', d3.forceManyBody().strength(-400))
                     .force('center', d3.forceCenter(width / 2, height / 2))
-                    .force('collide', d3.forceCollide(20)); // Prevent overlap
+                    .force('collide', d3.forceCollide(30));
 
-                const link = svg.append('g')
-                    .attr('stroke', '#94a3b8')
-                    .attr('stroke-opacity', 0.6)
+                const link = g.append('g')
+                    .attr('stroke', '#E2DDD5')
+                    .attr('stroke-opacity', 0.8)
                     .selectAll('line')
                     .data(links)
                     .join('line')
-                    .attr('stroke-width', 1);
+                    .attr('stroke-width', 2);
 
-                const nodeGroup = svg.append('g')
+                const nodeGroup = g.append('g')
                     .selectAll('g')
                     .data(nodes)
                     .join('g')
+                    .on('mouseover', (event, d) => {
+                        tooltip.style('opacity', 1).html(`<strong>${d.name}</strong><br>${d.type.toUpperCase()}`);
+                    })
+                    .on('mousemove', (event) => {
+                        tooltip.style('left', (event.offsetX + 15) + 'px').style('top', (event.offsetY - 15) + 'px');
+                    })
+                    .on('mouseout', () => tooltip.style('opacity', 0))
                     .call(d3.drag()
                         .on('start', (event, d) => {
                             if (!event.active) simulation.alphaTarget(0.3).restart();
-                            d.fx = d.x;
-                            d.fy = d.y;
+                            d.fx = d.x; d.fy = d.y;
                         })
                         .on('drag', (event, d) => {
-                            d.fx = event.x;
-                            d.fy = event.y;
+                            d.fx = event.x; d.fy = event.y;
                         })
                         .on('end', (event, d) => {
                             if (!event.active) simulation.alphaTarget(0);
-                            d.fx = null;
-                            d.fy = null;
+                            d.fx = null; d.fy = null;
                         }));
 
                 nodeGroup.append('circle')
-                    .attr('r', d => {
-                        if (d.type === 'prof') return 10;
-                        if (d.type === 'matiere') return 7;
-                        if (d.type === 'filiere') return 12;
-                        return 5;
-                    })
+                    .attr('r', d => d.type === 'prof' ? 12 : (d.type === 'filiere' ? 15 : 8))
                     .attr('fill', d => {
-                        if (d.type === 'prof') return '#38bdf8'; // Accent blue
-                        if (d.type === 'matiere') return '#10b981'; // Green
-                        if (d.type === 'filiere') return '#a855f7'; // Purple
-                        return '#e2e8f0'; // Default light gray
+                        if (d.type === 'prof') return '#1B3A6B';
+                        if (d.type === 'matiere') return '#2D6A4F';
+                        return '#C67C0D';
                     })
                     .attr('stroke', '#fff')
-                    .attr('stroke-width', 1.5);
+                    .attr('stroke-width', 2);
 
                 nodeGroup.append('text')
-                    .attr('x', d => {
-                        if (d.type === 'prof') return 12;
-                        if (d.type === 'matiere') return 9;
-                        if (d.type === 'filiere') return 14;
-                        return 7;
-                    })
-                    .attr('y', '0.31em')
-                    .attr('font-size', d => {
-                        if (d.type === 'prof') return '10px';
-                        if (d.type === 'matiere') return '8px';
-                        if (d.type === 'filiere') return '11px';
-                        return '8px';
-                    })
-                    .attr('fill', '#e2e8f0')
-                    .text(d => d.name)
-                    .clone(true).lower() // Add a stroke for better readability on complex backgrounds
-                    .attr('fill', 'none')
-                    .attr('stroke', 'black')
-                    .attr('stroke-width', 3);
-
+                    .attr('dy', 25)
+                    .attr('text-anchor', 'middle')
+                    .attr('font-size', '10px')
+                    .attr('font-weight', '700')
+                    .attr('fill', '#4A453E')
+                    .text(d => d.name);
 
                 simulation.on('tick', () => {
-                    link
-                        .attr('x1', d => d.source.x)
-                        .attr('y1', d => d.source.y)
-                        .attr('x2', d => d.target.x)
-                        .attr('y2', d => d.target.y);
-
-                    nodeGroup
-                        .attr('transform', d => `translate(${d.x},${d.y})`);
+                    link.attr('x1', d => d.source.x).attr('y1', d => d.source.y).attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+                    nodeGroup.attr('transform', d => `translate(${d.x},${d.y})`);
                 });
             }, 100);
         }
 
-        function showFiliereModal(name) {
-            const fil = data.filieres.find(f => f.name === name);
+        function showFiliereModal(id) {
+            const fil = data.filieres.find(f => f.id === id);
             if (!fil) return;
 
-            document.getElementById('modal-title').textContent = `Filière: ${name}`;
+            const sem1 = fil.matieres.filter(m => m.semestre === 'SEMESTER1');
+            const sem2 = fil.matieres.filter(m => m.semestre === 'SEMESTER2');
+
+            document.getElementById('modal-title').textContent = `${fil.nom} [${fil.code || 'N/A'}] (${fil.annee})`;
             document.getElementById('modal-content').innerHTML = `
-                <div class="mb-6">
-                    <h3 class="text-xl font-semibold text-blue-300 mb-3">Matières (${fil.matieres.length})</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        ${fil.matieres.map(m => `<div class="glass p-3 rounded-lg text-sm">${m.nom}</div>`).join('')}
+                <div class="mb-10">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-1.5 h-6 bg-navy rounded-full"></div>
+                        <div>
+                            <h3 class="text-lg font-bold text-navy uppercase tracking-widest">Semestre 1</h3>
+                            <p class="text-[10px] text-text3 font-bold uppercase">${sem1.length} matières</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        ${sem1.length > 0 ? sem1.map(m => {
+                            const hasEval = m.ds || m.examen;
+                            return `
+                                <div class="subject-card border-l-4 ${m.examen ? 'border-navy' : (m.ds ? 'border-amber' : (hasEval ? 'border-border' : 'border-red'))} ${!hasEval ? 'opacity-90' : ''}">
+                                    <div class="flex justify-between items-start mb-2 gap-2">
+                                        <div class="text-sm font-bold ${!hasEval ? 'text-red' : 'text-navy'} leading-tight">${m.nom}</div>
+                                        <div class="flex gap-1 flex-shrink-0">
+                                            ${m.ds ? '<span class="type-badge type-ds">DS</span>' : ''}
+                                            ${m.examen ? '<span class="type-badge type-examen">EXAMEN</span>' : ''}
+                                            ${!hasEval ? '<span class="type-badge type-none">AUCUNE ÉVAL.</span>' : ''}
+                                        </div>
+                                    </div>
+                                    <div class="text-[10px] text-text3 font-medium uppercase tracking-tight">${m.professeur || 'Non assigné'}</div>
+                                </div>
+                            `;
+                        }).join('') : '<div class="col-span-2 py-6 text-center text-text3 italic text-xs">Aucune matière pour le S1</div>'}
                     </div>
                 </div>
+
+                <div class="mb-10">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-1.5 h-6 bg-green rounded-full"></div>
+                        <div>
+                            <h3 class="text-lg font-bold text-navy uppercase tracking-widest">Semestre 2</h3>
+                            <p class="text-[10px] text-text3 font-bold uppercase">${sem2.length} matières</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        ${sem2.length > 0 ? sem2.map(m => {
+                            const hasEval = m.ds || m.examen;
+                            return `
+                                <div class="subject-card border-l-4 ${m.examen ? 'border-navy' : (m.ds ? 'border-amber' : (hasEval ? 'border-border' : 'border-red'))} ${!hasEval ? 'opacity-90' : ''}">
+                                    <div class="flex justify-between items-start mb-2 gap-2">
+                                        <div class="text-sm font-bold ${!hasEval ? 'text-red' : 'text-navy'} leading-tight">${m.nom}</div>
+                                        <div class="flex gap-1 flex-shrink-0">
+                                            ${m.ds ? '<span class="type-badge type-ds">DS</span>' : ''}
+                                            ${m.examen ? '<span class="type-badge type-examen">EXAMEN</span>' : ''}
+                                            ${!hasEval ? '<span class="type-badge type-none">AUCUNE ÉVAL.</span>' : ''}
+                                        </div>
+                                    </div>
+                                    <div class="text-[10px] text-text3 font-medium uppercase tracking-tight">${m.professeur || 'Non assigné'}</div>
+                                </div>
+                            `;
+                        }).join('') : '<div class="col-span-2 py-6 text-center text-text3 italic text-xs">Aucune matière pour le S2</div>'}
+                    </div>
+                </div>
+
                 <div>
-                    <h3 class="text-xl font-semibold text-blue-300 mb-3">Professeurs Associés (${fil.professeurs.length})</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        ${fil.professeurs.map(p => `<div class="glass p-3 rounded-lg text-sm">${p}</div>`).join('')}
+                    <h3 class="text-sm font-bold text-navy uppercase tracking-widest mb-4">Intervenants</h3>
+                    <div class="flex flex-wrap gap-2">
+                        ${fil.professeurs.map(p => `
+                            <span class="bg-surface2 border border-border px-3 py-1.5 rounded-lg text-xs font-medium text-text2">${p}</span>
+                        `).join('')}
                     </div>
                 </div>
             `;
-            document.getElementById('modal').style.display = 'flex'; // Afficher avec flex
+            document.getElementById('modal').style.display = 'flex';
         }
 
         function showProfDetails(id) {
             const prof = data.professors.find(p => p.id === id);
             const matieres = data.matieres.filter(m => m.id_professeur === id);
-            document.getElementById('modal-title').textContent = `Professeur: ${prof.full_name}`;
+            document.getElementById('modal-title').textContent = `Détails Professeur`;
             document.getElementById('modal-content').innerHTML = `
-                <div class="mb-4">
-                    <p><strong>Grade:</strong> ${prof.grade || 'N/A'}</p>
-                    <p><strong>Charge:</strong> ${prof.charge || 0}h</p>
-                    <p><strong>Status:</strong> ${prof.status ? 'Actif' : 'Inactif'}</p>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-2">Matières enseignées (${matieres.length})</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                        ${matieres.map(m => `<div class="glass p-2 rounded">${m.nom} (${m.filiere})</div>`).join('')}
+                <div class="mb-10 grid grid-cols-3 gap-4">
+                    <div class="bg-surface2 p-4 rounded-xl border border-border text-center">
+                        <div class="eyebrow">Grade</div>
+                        <div class="text-sm font-bold text-navy">${prof.grade || 'N/A'}</div>
+                    </div>
+                    <div class="bg-surface2 p-4 rounded-xl border border-border text-center">
+                        <div class="eyebrow">Charge</div>
+                        <div class="text-sm font-bold text-amber">${prof.charge || 0}h</div>
+                    </div>
+                    <div class="bg-surface2 p-4 rounded-xl border border-border text-center">
+                        <div class="eyebrow">Status</div>
+                        <div class="text-xs font-bold text-green uppercase">En service</div>
                     </div>
                 </div>
+                
+                <h3 class="text-lg font-serif text-navy mb-4">${prof.full_name}</h3>
+                <div class="space-y-3">
+                    ${matieres.map(m => {
+                        const hasEval = m.ds || m.examen;
+                        return `
+                        <div class="subject-card border-l-4 ${m.examen ? 'border-navy' : (m.ds ? 'border-amber' : (hasEval ? 'border-border' : 'border-red'))} flex justify-between items-center ${!hasEval ? 'opacity-90' : ''}">
+                            <div>
+                                <div class="text-sm font-bold ${!hasEval ? 'text-red' : 'text-navy'}">${m.nom}</div>
+                                <div class="text-[10px] text-text3 font-bold uppercase">${m.filiere}</div>
+                            </div>
+                            <div class="flex gap-1">
+                                ${m.ds ? '<span class="type-badge type-ds">DS</span>' : ''}
+                                ${m.examen ? '<span class="type-badge type-examen text-[8px]">EXAMEN</span>' : ''}
+                                ${!hasEval ? '<span class="type-badge type-none">AUCUNE ÉVAL.</span>' : ''}
+                            </div>
+                        </div>
+                    `;}).join('')}
+                </div>
             `;
-            document.getElementById('modal').style.display = 'flex'; // Afficher avec flex
+            document.getElementById('modal').style.display = 'flex';
         }
 
         function closeModal() {
-            document.getElementById('modal').style.display = 'none'; // Cacher avec none
+            document.getElementById('modal').style.display = 'none';
         }
 
-        // Event listeners
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                currentView = tab.dataset.view;
-                document.getElementById('breadcrumb-current').textContent = tab.textContent;
+        // Tabs
+        document.querySelectorAll('.tab').forEach(t => {
+            t.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
+                t.classList.add('on');
+                currentView = t.dataset.view;
+                renderFilters();
                 renderView();
             });
         });
@@ -810,25 +1436,6 @@
         document.getElementById('search').addEventListener('input', (e) => {
             searchTerm = e.target.value;
             renderView();
-        });
-
-        document.getElementById('grade-filter').addEventListener('change', () => {
-            renderView();
-        });
-
-        document.getElementById('filiere-filter').addEventListener('change', () => {
-            renderView();
-        });
-
-        document.getElementById('annee-filter').addEventListener('change', () => {
-            renderView();
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.key === 'k') {
-                e.preventDefault();
-                document.getElementById('search').focus();
-            }
         });
 
         // Init

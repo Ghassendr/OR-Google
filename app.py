@@ -51,7 +51,7 @@ def get_db_connection():
         'port': int(os.getenv('DB_PORT', '3306')),
         'user': os.getenv('DB_USER', 'root'),
         'password': os.getenv('DB_PASSWORD', ''),
-        'database': os.getenv('DB_NAME', 'OR_google_database'),
+        'database': os.getenv('DB_NAME', 'gestion_examens'),
         'charset': 'utf8mb4'
     }
     return mysql.connector.connect(**cfg)
@@ -67,7 +67,7 @@ def api_professors():
     try:
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute('SELECT id, full_name, grade, charge, status FROM professeur ORDER BY full_name LIMIT 1000')
+        cursor.execute('SELECT id_proffer AS id, nom_professeur AS full_name, \'N/A\' AS grade, 0 AS charge, 1 AS status FROM proffer ORDER BY nom_professeur LIMIT 1000')
         rows = cursor.fetchall()
         cursor.close()
         conn.close()
@@ -82,12 +82,14 @@ def api_matieres():
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
         cursor.execute('''
-            SELECT m.id, m.nom, m.id_professeur, p.full_name AS professeur, 
-                   f.nom AS filiere, f.abrevation AS filiere_abrev, f.annee AS filiere_annee
-            FROM matiere m
-            LEFT JOIN professeur p ON m.id_professeur = p.id
-            LEFT JOIN filaire f ON m.id_filaire = f.id
-            ORDER BY m.nom
+            SELECT m.id_mataire AS id, m.code_matiere AS code, m.nom_mataire AS nom, m.id_proffe AS id_professeur, p.nom_professeur AS professeur, 
+                   f.id_filaire AS filiere_id, f.nom_filaire AS filiere, f.abreviation_filaire AS filiere_abrev, 
+                   f.code_filaire AS filiere_code, f.annee AS filiere_annee, 
+                   m.ds, m.examen, m.semestre
+            FROM mataire m
+            LEFT JOIN proffer p ON m.id_proffe = p.id_proffer
+            LEFT JOIN filaire f ON m.filaire_id = f.id_filaire
+            ORDER BY m.nom_mataire
             LIMIT 1000
         ''')
         rows = cursor.fetchall()
@@ -103,7 +105,7 @@ def api_filieres():
     try:
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute('SELECT id, nom, abrevation, annee FROM filaire ORDER BY nom LIMIT 1000')
+        cursor.execute('SELECT id_filaire AS id, nom_filaire AS nom, abreviation_filaire AS abrevation, code_filaire AS code, annee FROM filaire ORDER BY nom_filaire LIMIT 1000')
         rows = cursor.fetchall()
         cursor.close()
         conn.close()
