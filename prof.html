@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Professeurs - Distribution</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            margin: 0;
+            background: linear-gradient(to bottom right, #0f172a, #1e293b);
+            color: #e2e8f0; /* Light gray for text in dark mode */
+            background-attachment: fixed;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 0.75rem; /* rounded-xl */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #f8fafc; /* Lighter color for headings */
+        }
+        .btn {
+            display: inline-block;
+            margin-bottom: 12px;
+            padding: 10px 14px;
+            border: none;
+            background: #38bdf8; /* Accent blue */
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .btn:hover {
+            background-color: #0ea5e9; /* Darker blue on hover */
+        }
+        .tab {
+            padding: 8px 16px;
+            border-radius: 9999px; /* rounded-full */
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #94a3b8; /* Gray text */
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        .tab:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #f8fafc;
+        }
+        .tab.active {
+            background-color: #38bdf8; /* Accent blue */
+            color: white;
+            border-color: #38bdf8;
+        }
+        .search-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 12px;
+            border-radius: 0.5rem; /* rounded-lg */
+            color: #f8fafc;
+            outline: none;
+            min-width: 200px;
+        }
+        /* Nouvelles couleurs pour la charge */
+        .charge-0 { color: #94a3b8; font-weight: bold; } /* Gris */
+        .charge-low { color: #22c55e; font-weight: bold; } /* Vert (1-5) */
+        .charge-mid { color: #f97316; font-weight: bold; } /* Orange (6-10) */
+        .charge-high { color: #ef4444; font-weight: bold; } /* Rouge (>10) */
+
+        /* Badges pour les grades */
+        .badge-grade {
+            padding: 2px 10px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .grade-prof { background: rgba(56, 189, 248, 0.2); color: #38bdf8; }
+        .grade-maitre { background: rgba(168, 85, 247, 0.2); color: #a855f7; }
+        .grade-assistant { background: rgba(249, 115, 22, 0.2); color: #f97316; }
+        .grade-default { background: rgba(148, 163, 184, 0.2); color: #94a3b8; }
+
+        table {
+            color: #94a3b8;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.02); /* Slightly darker glass for table */
+            border-radius: 0.5rem;
+            overflow: hidden; /* For rounded corners */
+        }
+        th, td {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 15px;
+            text-align: left;
+            font-size: 14px;
+            color: #e2e8f0;
+        }
+        th {
+            background: rgba(255, 255, 255, 0.08);
+            font-weight: 600;
+            color: #f8fafc;
+        }
+        .modal {
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: none; /* Changé de flex à none pour cacher par défaut */
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 1rem;
+            padding: 2rem;
+            width: 90%;
+            max-width: 700px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            color: #e2e8f0;
+            position: relative;
+        }
+        .modal-content .close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #e2e8f0;
+        }
+        .progress-bar {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            height: 8px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.3s ease-in-out;
+        }
+        .charge-light { background-color: #22c55e; /* Green */ }
+        .charge-normal { background-color: #f97316; /* Orange */ }
+        .charge-high { background-color: #ef4444; /* Red */ }
+
+        .status-active { background-color: rgba(34, 197, 94, 0.2); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.5); }
+        .status-inactive { background-color: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.5); }
+    </style>
+</head>
+<body class="font-inter">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="glass rounded-2xl p-6 mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h1 class="text-3xl font-bold">Dashboard Académique ISSAT Sousse</h1>
+                <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition" onclick="window.location.href='/'">← Retour Rapport</button>
+            </div>
+            <div class="breadcrumb mb-4 text-gray-400">
+                <a href="#home" class="hover:text-blue-300 transition-colors">Accueil</a> <span class="mx-2">/</span> <span id="breadcrumb-current" class="text-blue-400 font-semibold">Vue d'ensemble</span>
+            </div>
+            <!-- Stats Bento Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="glass-card p-4 text-center">
+                    <div class="text-2xl font-bold text-blue-400" id="stat-prof">—</div>
+                    <div class="text-sm text-gray-400">Professeurs</div>
+                </div>
+                <div class="glass-card p-4 text-center">
+                    <div class="text-2xl font-bold text-green-400" id="stat-mat">—</div>
+                    <div class="text-sm text-gray-400">Matières</div>
+                </div>
+                <div class="glass-card p-4 text-center">
+                    <div class="text-2xl font-bold text-purple-400" id="stat-fil">—</div>
+                    <div class="text-sm text-gray-400">Filières</div>
+                </div>
+                <div class="glass-card p-4 text-center">
+                    <div class="text-2xl font-bold text-orange-400" id="stat-charge">—</div>
+                    <div class="text-sm text-gray-400">Charge Moyenne</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Distribution Context -->
+        <div id="distribution-context" class="glass rounded-2xl p-4 mb-6 hidden border-blue-500/50">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
+                    <div>
+                        <span class="text-sm text-gray-400">Distribution active :</span>
+                        <span id="active-dist-name" class="font-bold text-blue-400 ml-1">...</span>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-center">
+                    <div class="text-xs text-gray-500" id="active-dist-meta">...</div>
+                    <button onclick="clearDistribution()" class="text-xs text-red-400 hover:text-red-300 transition-colors">Réinitialiser</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search & Navigation -->
+        <div class="glass rounded-2xl p-6 mb-6">
+            <div class="flex flex-wrap gap-4 items-center justify-between">
+                <div class="flex gap-2">
+                    <button class="tab active" data-view="filieres">Explorateur Filières</button>
+                    <button class="tab" data-view="professeurs">Répertoire Professeurs</button>
+                    <button class="tab" data-view="relations">Graphe Relations</button>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <input type="text" id="search" class="search-input" placeholder="Rechercher professeur... (Ctrl+K)" />
+                    <select id="grade-filter" class="search-input">
+                        <option value="">Tous les grades</option>
+                    </select>
+                    <select id="filiere-filter" class="search-input">
+                        <option value="">Toutes les filières</option>
+                    </select>
+                    <select id="annee-filter" class="search-input">
+                        <option value="">Tous les niveaux</option>
+                        <option value="1ere_annee">1ère Année</option>
+                        <option value="2eme_annee">2ème Année</option>
+                        <option value="3eme_annee">3ème Année</option>
+                        <option value="Master">Master</option>
+                        <option value="Preparatoire">Préparatoire</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div id="content" class="glass rounded-2xl p-6">
+            <!-- Loading -->
+            <div id="loading" class="text-center py-12">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-400 mx-auto mb-4"></div>
+                <p>Chargement des données...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Filière Details -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-content p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold" id="modal-title"></h2>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white">&times;</button>
+            </div>
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
+    <script>
+        let data = { professors: [], matieres: [], filieres: [], distribution: null };
+        let currentView = 'filieres';
+        let searchTerm = '';
+        let sortBy = 'name';
+        let sortDir = 'asc';
+        let page = 1;
+        let pageSize = 20;
+
+        // Load data
+        async function loadData() {
+            try {
+                const [profResp, matResp, filResp] = await Promise.all([
+                    fetch('/api/professors'),
+                    fetch('/api/matieres'),
+                    fetch('/api/filieres')
+                ]);
+                data.professors = profResp.ok ? (await profResp.json()).professors || [] : [];
+                data.matieres = matResp.ok ? (await matResp.json()).matieres || [] : [];
+                const filieresData = filResp.ok ? (await filResp.json()).filieres || [] : [];
+
+                // Check for distribution in localStorage
+                const storedDist = localStorage.getItem('or_google_selected_distribution');
+                if (storedDist) {
+                    data.distribution = JSON.parse(storedDist);
+                    showDistributionContext();
+                }
+
+                // Map filieres with full info from DB
+                data.filieres = filieresData.map(f => ({
+                    ...f,
+                    matieres: data.matieres.filter(m => m.filiere === f.nom),
+                    professeurs: [...new Set(data.matieres.filter(m => m.filiere === f.nom).map(m => m.professeur))]
+                }));
+
+                // Populate grade filter
+                const gradeFilter = document.getElementById('grade-filter');
+                const uniqueGrades = [...new Set(data.professors.map(p => p.grade).filter(Boolean))].sort();
+                uniqueGrades.forEach(grade => {
+                    const option = document.createElement('option');
+                    option.value = grade;
+                    option.textContent = grade;
+                    gradeFilter.appendChild(option);
+                });
+
+                // Populate filiere filter
+                const filiereFilter = document.getElementById('filiere-filter');
+                data.filieres.sort((a,b) => a.nom.localeCompare(b.nom)).forEach(f => {
+                    const option = document.createElement('option');
+                    option.value = f.nom;
+                    option.textContent = f.nom;
+                    filiereFilter.appendChild(option);
+                });
+
+                updateStats();
+                renderView();
+            } catch (e) {
+                console.error('Erreur chargement:', e);
+                document.getElementById('loading').innerHTML = '<p class="text-red-400">Erreur de chargement des données.</p>';
+            }
+        }
+
+        function getGradeBadgeClass(grade) {
+            if (!grade) return 'grade-default';
+            const g = grade.toLowerCase();
+            if (g.includes('prof') || g.includes('conf')) return 'grade-prof';
+            if (g.includes('maitre')) return 'grade-maitre';
+            if (g.includes('assistant')) return 'grade-assistant';
+            return 'grade-default';
+        }
+
+        function getChargeClass(charge) {
+            if (!charge || charge === 0) return 'charge-0';
+            if (charge <= 5) return 'charge-low';
+            if (charge <= 10) return 'charge-mid';
+            return 'charge-high';
+        }
+
+        function showDistributionContext() {
+            const context = document.getElementById('distribution-context');
+            const name = document.getElementById('active-dist-name');
+            const meta = document.getElementById('active-dist-meta');
+            
+            if (data.distribution) {
+                context.classList.remove('hidden');
+                name.textContent = `Bloc ${data.distribution.bloc === 'matin' ? 'Matin' : 'Après-midi'}`;
+                const date = new Date(data.distribution.timestamp).toLocaleString();
+                meta.textContent = `Généré le ${date}`;
+            }
+        }
+
+        function clearDistribution() {
+            localStorage.removeItem('or_google_selected_distribution');
+            data.distribution = null;
+            document.getElementById('distribution-context').classList.add('hidden');
+            renderView();
+        }
+
+        function updateStats() {
+            document.getElementById('stat-prof').textContent = data.professors.length;
+            document.getElementById('stat-mat').textContent = data.matieres.length;
+            document.getElementById('stat-fil').textContent = data.filieres.length;
+            const avgCharge = data.professors.length ? (data.professors.reduce((s, p) => s + (p.charge || 0), 0) / data.professors.length).toFixed(1) : 0;
+            document.getElementById('stat-charge').textContent = avgCharge + 'h';
+        }
+
+        function renderView() {
+            document.getElementById('loading').style.display = 'none';
+            const content = document.getElementById('content');
+            content.innerHTML = '';
+
+            if (currentView === 'filieres') {
+                renderFilieres(content);
+            } else if (currentView === 'professeurs') {
+                renderProfesseurs(content);
+            } else if (currentView === 'relations') {
+                renderRelations(content);
+            }
+        }
+
+        function renderFilieres(container) {
+            const selectedAnnee = document.getElementById('annee-filter').value;
+            const filtered = data.filieres.filter(f => {
+                const matchesSearch = !searchTerm || f.nom.toLowerCase().includes(searchTerm.toLowerCase()) || f.abrevation.toLowerCase().includes(searchTerm.toLowerCase());
+                const matchesAnnee = !selectedAnnee || f.annee === selectedAnnee;
+                return matchesSearch && matchesAnnee;
+            });
+            
+            // Get filieres from distribution
+            const distFilieres = data.distribution ? 
+                [...new Set(data.distribution.placement[data.distribution.bloc].flatMap(room => room.groupes.map(g => g.f)))] : 
+                [];
+
+            const anneeOrder = ['1ere_annee', '2eme_annee', '3eme_annee', 'Master', 'Preparatoire'];
+            const anneeLabels = {
+                '1ere_annee': '1ère Année',
+                '2eme_annee': '2ème Année',
+                '3eme_annee': '3ème Année',
+                'Master': 'Cycles Master',
+                'Preparatoire': 'Cycle Préparatoire'
+            };
+
+            let html = '';
+            
+            anneeOrder.forEach(annee => {
+                const filieresInAnnee = filtered.filter(f => f.annee === annee);
+                if (filieresInAnnee.length > 0) {
+                    html += `
+                        <div class="mb-10">
+                            <div class="flex items-center gap-4 mb-6">
+                                <h2 class="text-xl font-bold text-blue-400 uppercase tracking-wider">${anneeLabels[annee]}</h2>
+                                <div class="h-px bg-blue-500/20 flex-1"></div>
+                                <span class="text-xs text-gray-500">${filieresInAnnee.length} filières</span>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                ${filieresInAnnee.map(f => {
+                                    const isActive = distFilieres.includes(f.nom);
+                                    return `
+                                    <div class="glass-card p-6 card cursor-pointer transition-all duration-300 ${isActive ? 'ring-2 ring-blue-500 bg-blue-500/10' : 'hover:border-blue-400'}" onclick="showFiliereModal('${f.nom}')">
+                                        <div class="flex justify-between items-start mb-4">
+                                            <div class="flex flex-col">
+                                                <h3 class="text-2xl font-bold ${isActive ? 'text-blue-300' : 'text-blue-400'}">${f.abrevation}</h3>
+                                                <span class="text-xs text-gray-400 mb-1">${f.nom}</span>
+                                                ${isActive ? '<span class="mt-2 text-[10px] text-blue-400 font-bold uppercase tracking-wider">Active dans la distribution</span>' : ''}
+                                            </div>
+                                            <span class="bg-blue-500/20 text-blue-300 text-xs px-3 py-1 rounded-full border border-blue-500/50">${f.matieres.length} Matières</span>
+                                        </div>
+                                        <div class="flex justify-between items-end mt-4">
+                                            <p class="text-sm text-gray-400">${f.professeurs.length} Professeurs</p>
+                                            <span class="text-[10px] text-gray-500 italic">ID: ${f.id}</span>
+                                        </div>
+                                    </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            if (html === '') {
+                html = '<div class="text-center py-20 text-gray-500">Aucune filière trouvée pour ces critères.</div>';
+            }
+
+            container.innerHTML = html;
+        }
+
+        function renderProfesseurs(container) {
+            const selectedGrade = document.getElementById('grade-filter').value;
+            const selectedFiliere = document.getElementById('filiere-filter').value;
+            const selectedAnnee = document.getElementById('annee-filter').value;
+            
+            // Get filieres from distribution
+            const distFilieres = data.distribution ? 
+                [...new Set(data.distribution.placement[data.distribution.bloc].flatMap(room => room.groupes.map(g => g.f)))] : 
+                [];
+
+            // Create flat list of (Prof, Grade, Charge, Matiere, Filiere, Annee)
+            let rows = [];
+            data.professors.forEach(p => {
+                const profMatieres = data.matieres.filter(m => m.id_professeur === p.id);
+                if (profMatieres.length > 0) {
+                    profMatieres.forEach(m => {
+                        rows.push({
+                            id: p.id,
+                            name: p.full_name,
+                            grade: p.grade,
+                            charge: p.charge,
+                            matiere: m.nom,
+                            filiere: m.filiere,
+                            filiere_abrev: m.filiere_abrev,
+                            annee: m.filiere_annee,
+                            status: p.status
+                        });
+                    });
+                } else {
+                    rows.push({
+                        id: p.id,
+                        name: p.full_name,
+                        grade: p.grade,
+                        charge: p.charge,
+                        matiere: 'Aucune',
+                        filiere: 'Aucune',
+                        filiere_abrev: '—',
+                        annee: '',
+                        status: p.status
+                    });
+                }
+            });
+
+            // Combined filtering
+            let filtered = rows.filter(r => {
+                const matchesSearch = !searchTerm || r.name.toLowerCase().includes(searchTerm.toLowerCase());
+                const matchesGrade = !selectedGrade || r.grade === selectedGrade;
+                const matchesFiliere = !selectedFiliere || r.filiere === selectedFiliere;
+                const matchesAnnee = !selectedAnnee || r.annee === selectedAnnee;
+                return matchesSearch && matchesGrade && matchesFiliere && matchesAnnee;
+            });
+
+            // Sorting
+            filtered.sort((a, b) => {
+                const av = (a[sortBy] || '').toString().toLowerCase();
+                const bv = (b[sortBy] || '').toString().toLowerCase();
+                if (av < bv) return sortDir === 'asc' ? -1 : 1;
+                if (av > bv) return sortDir === 'asc' ? 1 : -1;
+                return 0;
+            });
+
+            // Pagination
+            const totalRows = filtered.length;
+            const totalPages = Math.max(1, Math.ceil(totalRows / pageSize));
+            if (page > totalPages) page = totalPages;
+            const start = (page - 1) * pageSize;
+            const end = start + pageSize;
+            const pageRows = filtered.slice(start, end);
+            
+            container.innerHTML = `
+                <div class="overflow-x-auto">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="cursor-pointer select-none" data-sort="name">Professeur ${sortBy==='name'?(sortDir==='asc'?'▲':'▼'):''}</th>
+                                <th class="cursor-pointer select-none" data-sort="grade">Grade ${sortBy==='grade'?(sortDir==='asc'?'▲':'▼'):''}</th>
+                                <th class="cursor-pointer select-none" data-sort="charge">Charge ${sortBy==='charge'?(sortDir==='asc'?'▲':'▼'):''}</th>
+                                <th class="cursor-pointer select-none" data-sort="matiere">Matière ${sortBy==='matiere'?(sortDir==='asc'?'▲':'▼'):''}</th>
+                                <th class="cursor-pointer select-none" data-sort="filiere">Filière ${sortBy==='filiere'?(sortDir==='asc'?'▲':'▼'):''}</th>
+                                <th class="cursor-pointer select-none" data-sort="annee">Niveau ${sortBy==='annee'?(sortDir==='asc'?'▲':'▼'):''}</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${pageRows.map(r => {
+                                const isActive = distFilieres.includes(r.filiere);
+                                return `
+                                    <tr class="${isActive ? 'bg-blue-500/5' : ''}">
+                                        <td class="font-semibold">
+                                            <div class="flex items-center gap-2">
+                                                ${r.name}
+                                                ${isActive ? '<span class="w-2 h-2 bg-blue-500 rounded-full" title="Active dans la distribution"></span>' : ''}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge-grade ${getGradeBadgeClass(r.grade)}">
+                                                ${r.grade || 'N/A'}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="${getChargeClass(r.charge)}">
+                                                ${r.charge || 0}h
+                                            </span>
+                                        </td>
+                                        <td class="text-xs italic">${r.matiere}</td>
+                                        <td class="text-xs font-bold text-blue-300">
+                                            <span title="${r.filiere}">${r.filiere_abrev || r.filiere}</span>
+                                        </td>
+                                        <td class="text-xs">${(r.annee || '').replace('_', ' ')}</td>
+                                        <td>
+                                            <span class="px-2 py-1 rounded-full text-xs ${r.status ? 'status-active' : 'status-inactive'}">
+                                                ${r.status ? 'Actif' : 'Inactif'}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button class="px-3 py-1 bg-blue-600 hover:bg-blue-700 rounded text-sm" onclick="showProfDetails(${r.id})">
+                                                Détails
+                                            </button>
+                                        </td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                        </tbody>
+                    </table>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="text-xs text-gray-400">Lignes ${Math.min(end, totalRows)} / ${totalRows}</div>
+                        <div class="flex items-center gap-2">
+                            <button class="px-2 py-1 bg-white/5 rounded disabled:opacity-50" id="btn-prev" ${page<=1?'disabled':''}>Préc.</button>
+                            <span class="text-sm">${page} / ${totalPages}</span>
+                            <button class="px-2 py-1 bg-white/5 rounded disabled:opacity-50" id="btn-next" ${page>=totalPages?'disabled':''}>Suiv.</button>
+                            <select id="page-size" class="search-input">
+                                <option ${pageSize===10?'selected':''} value="10">10</option>
+                                <option ${pageSize===20?'selected':''} value="20">20</option>
+                                <option ${pageSize===50?'selected':''} value="50">50</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            container.querySelectorAll('th[data-sort]').forEach(th => {
+                th.addEventListener('click', () => {
+                    const key = th.getAttribute('data-sort');
+                    if (sortBy === key) {
+                        sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+                    } else {
+                        sortBy = key;
+                        sortDir = 'asc';
+                    }
+                    page = 1;
+                    renderView();
+                });
+            });
+            const prevBtn = container.querySelector('#btn-prev');
+            const nextBtn = container.querySelector('#btn-next');
+            const psSel = container.querySelector('#page-size');
+            if (prevBtn) prevBtn.addEventListener('click', () => { if (page>1){ page--; renderView(); } });
+            if (nextBtn) nextBtn.addEventListener('click', () => { if (page<totalPages){ page++; renderView(); } });
+            if (psSel) psSel.addEventListener('change', e => { pageSize = parseInt(e.target.value, 10) || 20; page = 1; renderView(); });
+        }
+
+        function renderRelations(container) {
+            container.innerHTML = `
+                <div id="graph-container" class="w-full h-96 bg-gray-800 rounded-lg"></div>
+                <p class="text-sm text-gray-400 mt-4">Graphe des relations Professeur → Matière → Filière</p>
+            `;
+            // Simple D3 force-directed graph
+            setTimeout(() => {
+                const width = document.getElementById('graph-container').clientWidth;
+                const height = 400;
+                const svg = d3.select('#graph-container').append('svg').attr('width', width).attr('height', height);
+
+                const nodes = [];
+                const links = [];
+                const nodeMap = new Map(); // To keep track of unique nodes and avoid duplicates
+
+                // Add professors
+                data.professors.forEach(p => {
+                    const profId = 'p' + p.id;
+                    if (!nodeMap.has(profId)) {
+                        nodes.push({ id: profId, name: p.full_name, type: 'prof' });
+                        nodeMap.set(profId, true);
+                    }
+                });
+
+                // Add matieres and their links to professors and filieres
+                data.matieres.forEach(m => {
+                    const matiereId = 'm' + m.id;
+                    if (!nodeMap.has(matiereId)) {
+                        nodes.push({ id: matiereId, name: m.nom, type: 'matiere' });
+                        nodeMap.set(matiereId, true);
+                    }
+                    // Link matiere to professor
+                    if (m.id_professeur) {
+                        const profId = 'p' + m.id_professeur;
+                        if (nodeMap.has(profId)) { // Ensure professor node exists
+                            links.push({ source: profId, target: matiereId });
+                        }
+                    }
+                    // Add filiere node and link matiere to filiere
+                    if (m.filiere) {
+                        const filiereId = 'f' + m.filiere.replace(/\s/g, '_'); // Create a valid ID
+                        if (!nodeMap.has(filiereId)) {
+                            nodes.push({ id: filiereId, name: m.filiere, type: 'filiere' });
+                            nodeMap.set(filiereId, true);
+                        }
+                        links.push({ source: matiereId, target: filiereId });
+                    }
+                });
+
+                const simulation = d3.forceSimulation(nodes)
+                    .force('link', d3.forceLink(links).id(d => d.id).distance(50)) // Increased distance for better separation
+                    .force('charge', d3.forceManyBody().strength(-300)) // Increased repulsion
+                    .force('center', d3.forceCenter(width / 2, height / 2))
+                    .force('collide', d3.forceCollide(20)); // Prevent overlap
+
+                const link = svg.append('g')
+                    .attr('stroke', '#94a3b8')
+                    .attr('stroke-opacity', 0.6)
+                    .selectAll('line')
+                    .data(links)
+                    .join('line')
+                    .attr('stroke-width', 1);
+
+                const nodeGroup = svg.append('g')
+                    .selectAll('g')
+                    .data(nodes)
+                    .join('g')
+                    .call(d3.drag()
+                        .on('start', (event, d) => {
+                            if (!event.active) simulation.alphaTarget(0.3).restart();
+                            d.fx = d.x;
+                            d.fy = d.y;
+                        })
+                        .on('drag', (event, d) => {
+                            d.fx = event.x;
+                            d.fy = event.y;
+                        })
+                        .on('end', (event, d) => {
+                            if (!event.active) simulation.alphaTarget(0);
+                            d.fx = null;
+                            d.fy = null;
+                        }));
+
+                nodeGroup.append('circle')
+                    .attr('r', d => {
+                        if (d.type === 'prof') return 10;
+                        if (d.type === 'matiere') return 7;
+                        if (d.type === 'filiere') return 12;
+                        return 5;
+                    })
+                    .attr('fill', d => {
+                        if (d.type === 'prof') return '#38bdf8'; // Accent blue
+                        if (d.type === 'matiere') return '#10b981'; // Green
+                        if (d.type === 'filiere') return '#a855f7'; // Purple
+                        return '#e2e8f0'; // Default light gray
+                    })
+                    .attr('stroke', '#fff')
+                    .attr('stroke-width', 1.5);
+
+                nodeGroup.append('text')
+                    .attr('x', d => {
+                        if (d.type === 'prof') return 12;
+                        if (d.type === 'matiere') return 9;
+                        if (d.type === 'filiere') return 14;
+                        return 7;
+                    })
+                    .attr('y', '0.31em')
+                    .attr('font-size', d => {
+                        if (d.type === 'prof') return '10px';
+                        if (d.type === 'matiere') return '8px';
+                        if (d.type === 'filiere') return '11px';
+                        return '8px';
+                    })
+                    .attr('fill', '#e2e8f0')
+                    .text(d => d.name)
+                    .clone(true).lower() // Add a stroke for better readability on complex backgrounds
+                    .attr('fill', 'none')
+                    .attr('stroke', 'black')
+                    .attr('stroke-width', 3);
+
+
+                simulation.on('tick', () => {
+                    link
+                        .attr('x1', d => d.source.x)
+                        .attr('y1', d => d.source.y)
+                        .attr('x2', d => d.target.x)
+                        .attr('y2', d => d.target.y);
+
+                    nodeGroup
+                        .attr('transform', d => `translate(${d.x},${d.y})`);
+                });
+            }, 100);
+        }
+
+        function showFiliereModal(name) {
+            const fil = data.filieres.find(f => f.name === name);
+            if (!fil) return;
+
+            document.getElementById('modal-title').textContent = `Filière: ${name}`;
+            document.getElementById('modal-content').innerHTML = `
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-blue-300 mb-3">Matières (${fil.matieres.length})</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        ${fil.matieres.map(m => `<div class="glass p-3 rounded-lg text-sm">${m.nom}</div>`).join('')}
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-blue-300 mb-3">Professeurs Associés (${fil.professeurs.length})</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        ${fil.professeurs.map(p => `<div class="glass p-3 rounded-lg text-sm">${p}</div>`).join('')}
+                    </div>
+                </div>
+            `;
+            document.getElementById('modal').style.display = 'flex'; // Afficher avec flex
+        }
+
+        function showProfDetails(id) {
+            const prof = data.professors.find(p => p.id === id);
+            const matieres = data.matieres.filter(m => m.id_professeur === id);
+            document.getElementById('modal-title').textContent = `Professeur: ${prof.full_name}`;
+            document.getElementById('modal-content').innerHTML = `
+                <div class="mb-4">
+                    <p><strong>Grade:</strong> ${prof.grade || 'N/A'}</p>
+                    <p><strong>Charge:</strong> ${prof.charge || 0}h</p>
+                    <p><strong>Status:</strong> ${prof.status ? 'Actif' : 'Inactif'}</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-2">Matières enseignées (${matieres.length})</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        ${matieres.map(m => `<div class="glass p-2 rounded">${m.nom} (${m.filiere})</div>`).join('')}
+                    </div>
+                </div>
+            `;
+            document.getElementById('modal').style.display = 'flex'; // Afficher avec flex
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none'; // Cacher avec none
+        }
+
+        // Event listeners
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentView = tab.dataset.view;
+                document.getElementById('breadcrumb-current').textContent = tab.textContent;
+                renderView();
+            });
+        });
+
+        document.getElementById('search').addEventListener('input', (e) => {
+            searchTerm = e.target.value;
+            renderView();
+        });
+
+        document.getElementById('grade-filter').addEventListener('change', () => {
+            renderView();
+        });
+
+        document.getElementById('filiere-filter').addEventListener('change', () => {
+            renderView();
+        });
+
+        document.getElementById('annee-filter').addEventListener('change', () => {
+            renderView();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('search').focus();
+            }
+        });
+
+        // Init
+        loadData();
+    </script>
+</body>
+</html>

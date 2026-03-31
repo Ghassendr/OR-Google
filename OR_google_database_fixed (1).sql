@@ -19,42 +19,54 @@ CREATE TABLE filaire (
   id         INT          NOT NULL AUTO_INCREMENT,
   nom        VARCHAR(200) NOT NULL,
   abrevation VARCHAR(30)  NOT NULL,
+  annee      ENUM('1ere_annee','2eme_annee','3eme_annee','Master','Preparatoire') NOT NULL DEFAULT '1ere_annee',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO filaire (id, nom, abrevation) VALUES
-  (1, 'Formation d\'Ingénieurs', 'FI'),
-  (2, 'Formation d\'Ingénieurs – Génie Logiciel', 'FI-GL'),
-  (3, 'Formation d\'Ingénieurs – GL (AL)', 'FI-GLAL'),
-  (4, 'Licence Electronique, Electrotechnique, Automatique', 'LEEA'),
-  (5, 'Licence EEA – Automatique et Informatique Industrielle', 'LEEA-AII'),
-  (6, 'Licence EEA – Electronique Industrielle', 'LEEA-EI'),
-  (7, 'Licence EEA – Systèmes Embarqués', 'LEEA-SE'),
-  (8, 'Licence Electromécanique', 'LEM'),
-  (9, 'Licence EM – Mécanique Automobile', 'LEM-MA'),
-  (10, 'Licence EM – Maintenance Industrielle', 'LEM-MI'),
-  (11, 'Licence Génie Civil', 'LGC'),
-  (12, 'Licence GC – Bâtiment', 'LGC-BAT'),
-  (13, 'Licence GC – Ponts et Chaussées', 'LGC-PC'),
-  (14, 'Licence Génie Mécanique', 'LGM'),
-  (15, 'Licence GM – Conception et Production Industrielle', 'LGM-CPI'),
-  (16, 'Licence Energétique', 'LGenerg'),
-  (17, 'Licence Informatique et Systèmes d\'Information', 'LISI'),
-  (18, 'Licence Systèmes d\'Information', 'LSI'),
-  (19, 'Master Pro. – Génie Mécanique', 'MP-GM'),
-  (20, 'MP-GPPM', 'MP-GPPM'),
-  (21, 'Master Pro. – Maîtrise des Energies Renouvelables', 'MP-MERE'),
-  (22, 'Master Pro. – MERE spécialité Efficacité Energétique des Bâtiments', 'MP-MERE-EEB'),
-  (23, 'Master Pro. – MERE spécialité Efficacité Energétique Industrielle', 'MP-MERE-EEI'),
-  (24, 'Master Rech. – Génie Mécanique', 'MR-GM'),
-  (25, 'Master Rech. – GM spécialité Mécanique des Matériaux', 'MR-GM-MM'),
-  (26, 'Master Rech. – GM spécialité Systèmes Mécaniques', 'MR-GM-SM'),
-  (27, 'Master Rech. – Maîtrise des Dispositifs d\'Energie et de Puissance', 'MR-MDEP'),
-  (28, 'Master Rech. – Microsystèmes et Systèmes Embarqués', 'MR-MSE'),
-  (29, 'Master Rech. – Microélectronique et Systèmes Embarqués', 'MR-MSEE'),
-  (30, 'Master Rech. – Systèmes Embarqués', 'MR-SEE'),
-  (31, 'Master Rech. – Systèmes et Programmation Informatique', 'MR-SPI'),
-  (32, 'Cycle Préparatoire', 'PREPA');
+INSERT INTO filaire (id, nom, abrevation, annee) VALUES
+  -- Formation d'Ingénieurs (3 niveaux distincts)
+  (1,  'Formation d\'Ingénieurs',                                                    'FI',          '1ere_annee'),
+  (2,  'Formation d\'Ingénieurs – Génie Logiciel',                                   'FI-GL',       '2eme_annee'),
+  (3,  'Formation d\'Ingénieurs – GL (AL)',                                           'FI-GLAL',     '3eme_annee'),
+  -- Licence EEA : filière-tronc 1ère année, sous-filières 2ème/3ème année
+  (4,  'Licence Electronique, Electrotechnique, Automatique',                        'LEEA',        '1ere_annee'),
+  (5,  'Licence EEA – Automatique et Informatique Industrielle',                     'LEEA-AII',    '2eme_annee'),
+  (6,  'Licence EEA – Electronique Industrielle',                                    'LEEA-EI',     '2eme_annee'),
+  (7,  'Licence EEA – Systèmes Embarqués',                                           'LEEA-SE',     '2eme_annee'),
+  -- Licence EM
+  (8,  'Licence Electromécanique',                                                   'LEM',         '1ere_annee'),
+  (9,  'Licence EM – Mécanique Automobile',                                          'LEM-MA',      '2eme_annee'),
+  (10, 'Licence EM – Maintenance Industrielle',                                      'LEM-MI',      '2eme_annee'),
+  -- Licence GC
+  (11, 'Licence Génie Civil',                                                        'LGC',         '1ere_annee'),
+  (12, 'Licence GC – Bâtiment',                                                      'LGC-BAT',     '2eme_annee'),
+  (13, 'Licence GC – Ponts et Chaussées',                                            'LGC-PC',      '2eme_annee'),
+  -- Licence GM
+  (14, 'Licence Génie Mécanique',                                                    'LGM',         '1ere_annee'),
+  (15, 'Licence GM – Conception et Production Industrielle',                         'LGM-CPI',     '2eme_annee'),
+  -- Licences à 3 années continues (filière unique, groupes SE1/SE3/SE5)
+  (16, 'Licence Energétique',                                                        'LGenerg',     '1ere_annee'),
+  (17, 'Licence Informatique et Systèmes d\'Information',                            'LISI',        '1ere_annee'),
+  (18, 'Licence Systèmes d\'Information',                                            'LSI',         '1ere_annee'),
+  -- Masters Professionnels
+  (19, 'Master Pro. – Génie Mécanique',                                              'MP-GM',       'Master'),
+  (20, 'MP-GPPM',                                                                    'MP-GPPM',     'Master'),
+  (21, 'Master Pro. – Maîtrise des Energies Renouvelables',                         'MP-MERE',     'Master'),
+  (22, 'Master Pro. – MERE spécialité Efficacité Energétique des Bâtiments',        'MP-MERE-EEB', 'Master'),
+  (23, 'Master Pro. – MERE spécialité Efficacité Energétique Industrielle',         'MP-MERE-EEI', 'Master'),
+  -- Masters Recherche
+  (24, 'Master Rech. – Génie Mécanique',                                             'MR-GM',       'Master'),
+  (25, 'Master Rech. – GM spécialité Mécanique des Matériaux',                      'MR-GM-MM',    'Master'),
+  (26, 'Master Rech. – GM spécialité Systèmes Mécaniques',                          'MR-GM-SM',    'Master'),
+  (27, 'Master Rech. – Maîtrise des Dispositifs d\'Energie et de Puissance',        'MR-MDEP',     'Master'),
+  (28, 'Master Rech. – Microsystèmes et Systèmes Embarqués',                        'MR-MSE',      'Master'),
+  (29, 'Master Rech. – Microélectronique et Systèmes Embarqués',                    'MR-MSEE',     'Master'),
+  (30, 'Master Rech. – Systèmes Embarqués',                                          'MR-SEE',      'Master'),
+  (31, 'Master Rech. – Systèmes et Programmation Informatique',                     'MR-SPI',      'Master'),
+  -- Cycle Préparatoire
+  (32, 'Cycle Préparatoire',                                                         'PREPA',       'Preparatoire'),
+  -- Master Pro. PAI
+  (33, 'Master Pro. – Production Automatisée et Intégrée',                          'MP-PAI',      'Master');
 
 CREATE TABLE professeur (
   id        INT          NOT NULL AUTO_INCREMENT,
@@ -385,10 +397,10 @@ CREATE TABLE matiere (
   id            INT          NOT NULL AUTO_INCREMENT,
   nom           VARCHAR(300) NOT NULL,
   id_professeur INT          NOT NULL,
-  id_filaire    INT,
+  id_filaire    INT          NOT NULL,
   PRIMARY KEY (id),
   CONSTRAINT fk_matiere_prof    FOREIGN KEY (id_professeur) REFERENCES professeur(id) ON DELETE CASCADE,
-  CONSTRAINT fk_matiere_filaire FOREIGN KEY (id_filaire)    REFERENCES filaire(id)    ON DELETE SET NULL
+  CONSTRAINT fk_matiere_filaire FOREIGN KEY (id_filaire)    REFERENCES filaire(id)    ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO matiere (id, nom, id_professeur, id_filaire) VALUES
@@ -889,3 +901,25 @@ INSERT INTO matiere (id, nom, id_professeur, id_filaire) VALUES
   (495, 'Mise en forme par déformation plastique', 295, 24);
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+-- ============================================================
+-- MIGRATION SCRIPT (for existing databases)
+-- Run the block below if the table already exists and you only
+-- need to add the 'annee' column without recreating everything.
+-- ============================================================
+/*
+ALTER TABLE filaire
+  ADD COLUMN annee ENUM('1ere_annee','2eme_annee','3eme_annee','Master','Preparatoire')
+  NOT NULL DEFAULT '1ere_annee'
+  AFTER abrevation;
+
+UPDATE filaire SET annee = '1ere_annee'   WHERE id IN (4,8,11,14,16,17,18);
+UPDATE filaire SET annee = '2eme_annee'   WHERE id IN (5,6,7,9,10,12,13,15);
+UPDATE filaire SET annee = '3eme_annee'   WHERE id IN (3);
+UPDATE filaire SET annee = 'Master'       WHERE id IN (19,20,21,22,23,24,25,26,27,28,29,30,31,33);
+UPDATE filaire SET annee = 'Preparatoire' WHERE id IN (32);
+-- FI (id=1) : 1ere_annee  (already the default)
+-- FI-GL (id=2) : 2eme_annee
+UPDATE filaire SET annee = '2eme_annee'   WHERE id = 2;
+-- FI-GLAL (id=3) : 3eme_annee  (already set above)
+*/

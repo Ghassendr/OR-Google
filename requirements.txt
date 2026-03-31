@@ -5,3 +5,4 @@ openpyxl
 pytesseract
 Pillow
 ortools
+mysql-connector-python

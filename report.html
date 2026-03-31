@@ -1355,6 +1355,7 @@
                 Paramètres
             </button>
             <button class="btn btn-gd" onclick="runGreedy()">Lancer Greedy</button>
+            <button class="btn btn-gd" style="background:#4F86D6" onclick="gotoProfPage()">Utiliser cette distribution</button>
             <div class="status-box">
                 <div id="spin" class="spin"></div>
                 <div id="st" class="status">Prêt pour l'importation.</div>
@@ -1852,6 +1853,17 @@
         function applyParamsAndRun(target = 'all') {
             closeParamsModal();
             runGreedy(target);
+        }
+
+        function gotoProfPage() {
+            try {
+                const dataToSend = { timestamp: Date.now(), placement: DATA, bloc: bloc, view: view };
+                localStorage.setItem('or_google_selected_distribution', JSON.stringify(dataToSend));
+                window.location.href = '/prof';
+            } catch (e) {
+                console.error('Impossible d\'envoyer la distribution :', e);
+                alert('Impossible de naviguer vers la page Prof. Ouvrez les outils développeur pour plus de détails.');
+            }
         }
 
         async function runGreedy(target = 'all') {

@@ -7,6 +7,13 @@ import json
 import pytesseract
 from PIL import Image
 
+try:
+    import mysql.connector
+    from mysql.connector import Error
+except ImportError:
+    mysql = None
+    Error = Exception
+
 app = Flask(__name__, static_folder='.', static_url_path='')
 CORS(app)
 
@@ -33,6 +40,77 @@ def get_data():
         return jsonify({'filiers': filiers, 'matieres': matieres, 'rooms': rooms})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+
+def get_db_connection():
+    if mysql is None:
+        raise RuntimeError('mysql.connector introuvable, installez mysql-connector-python')
+
+    cfg = {
+        'host': os.getenv('DB_HOST', '127.0.0.1'),
+        'port': int(os.getenv('DB_PORT', '3306')),
+        'user': os.getenv('DB_USER', 'root'),
+        'password': os.getenv('DB_PASSWORD', ''),
+        'database': os.getenv('DB_NAME', 'OR_google_database'),
+        'charset': 'utf8mb4'
+    }
+    return mysql.connector.connect(**cfg)
+
+
+@app.route('/prof', methods=['GET'])
+def prof_page():
+    return send_from_directory('.', 'prof.html')
+
+
+@app.route('/api/professors', methods=['GET'])
+def api_professors():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute('SELECT id, full_name, grade, charge, status FROM professeur ORDER BY full_name LIMIT 1000')
+        rows = cursor.fetchall()
+        cursor.close()
+        conn.close()
+        return jsonify({'professors': rows})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/matieres', methods=['GET'])
+def api_matieres():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute('''
+            SELECT m.id, m.nom, m.id_professeur, p.full_name AS professeur, 
+                   f.nom AS filiere, f.abrevation AS filiere_abrev, f.annee AS filiere_annee
+            FROM matiere m
+            LEFT JOIN professeur p ON m.id_professeur = p.id
+            LEFT JOIN filaire f ON m.id_filaire = f.id
+            ORDER BY m.nom
+            LIMIT 1000
+        ''')
+        rows = cursor.fetchall()
+        cursor.close()
+        conn.close()
+        return jsonify({'matieres': rows})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/filieres', methods=['GET'])
+def api_filieres():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute('SELECT id, nom, abrevation, annee FROM filaire ORDER BY nom LIMIT 1000')
+        rows = cursor.fetchall()
+        cursor.close()
+        conn.close()
+        return jsonify({'filieres': rows})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 
 @app.route('/save-data', methods=['POST'])
 def save_data():
