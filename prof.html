@@ -368,6 +368,20 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .filter-title svg {
+            transition: transform 0.3s ease;
+        }
+
+        .filter-group.collapsed .filter-title svg {
+            transform: rotate(-90deg);
+        }
+
+        .filter-group.collapsed .filter-options {
+            display: none;
         }
 
         .filter-options {
@@ -754,14 +768,35 @@
             opacity: 0.8;
         }
 
-        .dark-mode .type-ds { border-color: rgba(251, 191, 36, 0.3); }
-        .dark-mode .type-examen { border-color: rgba(52, 211, 153, 0.3); }
-        .dark-mode .type-none { border-color: rgba(248, 113, 113, 0.3); }
+        .dark-mode .type-ds {
+            border-color: rgba(251, 191, 36, 0.3);
+        }
 
-        .sval.a { color: #F59E0B; }
-        .sval.g { color: #10B981; }
-        .dark-mode .sval.a { color: #FBBF24; text-shadow: 0 0 10px rgba(251, 191, 36, 0.3); }
-        .dark-mode .sval.g { color: #34D399; text-shadow: 0 0 10px rgba(52, 211, 153, 0.3); }
+        .dark-mode .type-examen {
+            border-color: rgba(52, 211, 153, 0.3);
+        }
+
+        .dark-mode .type-none {
+            border-color: rgba(248, 113, 113, 0.3);
+        }
+
+        .sval.a {
+            color: #F59E0B;
+        }
+
+        .sval.g {
+            color: #10B981;
+        }
+
+        .dark-mode .sval.a {
+            color: #FBBF24;
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+        }
+
+        .dark-mode .sval.g {
+            color: #34D399;
+            text-shadow: 0 0 10px rgba(52, 211, 153, 0.3);
+        }
 
         .border-red {
             border-left: 4px solid var(--red) !important;
@@ -938,8 +973,21 @@
                 data.filieres = filieresData.map(f => ({
                     ...f,
                     matieres: data.matieres.filter(m => m.filiere_id === f.id),
-                    professeurs: [...new Set(data.matieres.filter(m => m.filiere_id === f.id).map(m => m.professeur).filter(p => p !== null))]
+                    professeurs: [...new Set(data.matieres.filter(m => m.filiere_id === f.id).map(m => m.professeur).filter(p => !!p))]
                 }));
+
+                // FIX: Standardize property names and link subjects
+                data.professors = data.professors.map(p => {
+                    const profMatieres = data.matieres.filter(m => m.id_professeur === p.id);
+                    const subjects = profMatieres.map(m => m.nom);
+                    const specs = [...new Set(profMatieres.map(m => m.filiere_abrev || m.filiere))];
+                    return {
+                        ...p,
+                        name: p.full_name || p.name, // Ensure "name" is used for the UI
+                        matiere: subjects.length > 0 ? subjects.join(', ') : 'Aucune matière assignée',
+                        filiere: specs.length > 0 ? specs.join(', ') : 'N/A'
+                    };
+                });
 
                 updateStats();
                 renderFilters();
@@ -981,21 +1029,25 @@
         }
 
         function getFilteredData() {
+            return getFilteredSubset(null);
+        }
+
+        function getFilteredSubset(excludeCategory) {
             if (currentView === 'filieres' || currentView === 'relations') {
                 return data.filieres.filter(f => {
                     const matchesSearch = !searchTerm || f.nom.toLowerCase().includes(searchTerm.toLowerCase()) || f.abrevation.toLowerCase().includes(searchTerm.toLowerCase());
-                    const matchesAnnee = selectedFilters.annee.length === 0 || selectedFilters.annee.includes(f.annee);
-                    const matchesSpec = selectedFilters.filiere.length === 0 || selectedFilters.filiere.includes(f.nom);
+                    const matchesAnnee = (excludeCategory === 'annee' || selectedFilters.annee.length === 0 || selectedFilters.annee.includes(f.annee));
+                    const matchesSpec = (excludeCategory === 'filiere' || selectedFilters.filiere.length === 0 || selectedFilters.filiere.includes(f.nom));
                     return matchesSearch && matchesAnnee && matchesSpec;
                 });
             } else if (currentView === 'professeurs') {
                 return data.professors.filter(p => {
                     const matchesSearch = !searchTerm || p.full_name.toLowerCase().includes(searchTerm.toLowerCase());
-                    const matchesGrade = selectedFilters.grade.length === 0 || selectedFilters.grade.includes(p.grade);
-                    const matchesStatus = selectedFilters.status.length === 0 || selectedFilters.status.includes(p.status ? 'Actif' : 'Inactif');
+                    const matchesGrade = (excludeCategory === 'grade' || selectedFilters.grade.length === 0 || selectedFilters.grade.includes(p.grade));
+                    const matchesStatus = (excludeCategory === 'status' || selectedFilters.status.length === 0 || selectedFilters.status.includes(p.status ? 'Actif' : 'Inactif'));
 
                     let matchesSpec = true;
-                    if (selectedFilters.filiere.length > 0) {
+                    if (excludeCategory !== 'filiere' && selectedFilters.filiere.length > 0) {
                         const profMatieres = data.matieres.filter(m => m.id_professeur === p.id);
                         matchesSpec = profMatieres.some(m => selectedFilters.filiere.includes(m.filiere));
                     }
@@ -1004,8 +1056,8 @@
             } else if (currentView === 'matieres') {
                 return data.matieres.filter(m => {
                     const matchesSearch = !searchTerm || m.nom.toLowerCase().includes(searchTerm.toLowerCase());
-                    const matchesAnnee = selectedFilters.annee.length === 0 || selectedFilters.annee.includes(m.filiere_annee);
-                    const matchesSpec = selectedFilters.filiere.length === 0 || selectedFilters.filiere.includes(m.filiere);
+                    const matchesAnnee = (excludeCategory === 'annee' || selectedFilters.annee.length === 0 || selectedFilters.annee.includes(m.filiere_annee));
+                    const matchesSpec = (excludeCategory === 'filiere' || selectedFilters.filiere.length === 0 || selectedFilters.filiere.includes(m.filiere));
                     return matchesSearch && matchesAnnee && matchesSpec;
                 });
             }
@@ -1019,54 +1071,74 @@
             const groups = [];
 
             if (currentView === 'filieres' || currentView === 'relations' || currentView === 'matieres') {
+                // Determine potential options based on ALL OTHER filters
+                const subsetForAnnee = getFilteredSubset('annee');
+                const subsetForSpec = getFilteredSubset('filiere');
+
                 groups.push({
                     id: 'annee',
                     title: 'Niveau d\'Études',
-                    options: [...new Set(data.filieres.map(f => f.annee))].sort().map(a => ({
-                        label: a.replace('_', ' '),
-                        value: a,
-                        count: currentView === 'matieres' ? data.matieres.filter(m => m.filiere_annee === a).length : data.filieres.filter(f => f.annee === a).length
-                    }))
+                    options: [...new Set(data.filieres.map(f => f.annee))].sort().map(a => {
+                        const count = currentView === 'matieres'
+                            ? subsetForAnnee.filter(m => m.filiere_annee === a).length
+                            : subsetForAnnee.filter(f => f.annee === a).length;
+                        return {
+                            label: a.replace('_', ' '),
+                            value: a,
+                            count: count
+                        };
+                    })
                 });
+
                 groups.push({
                     id: 'filiere',
                     title: 'Spécialité Académique',
-                    options: [...new Set(data.filieres.map(f => f.nom))].sort().map(nom => ({
-                        label: nom,
-                        value: nom,
-                        count: currentView === 'matieres' ? data.matieres.filter(m => m.filiere === nom).length : data.filieres.filter(f => f.nom === nom).length
-                    }))
+                    options: [...new Set(data.filieres.map(f => f.nom))].sort().map(nom => {
+                        const count = currentView === 'matieres'
+                            ? subsetForSpec.filter(m => m.filiere === nom).length
+                            : subsetForSpec.filter(f => f.nom === nom).length;
+                        return {
+                            label: nom,
+                            value: nom,
+                            count: count
+                        };
+                    })
                 });
             }
 
             if (currentView === 'professeurs') {
+                const subsetForSpec = getFilteredSubset('filiere');
+                const subsetForGrade = getFilteredSubset('grade');
+                const subsetForStatus = getFilteredSubset('status');
+
                 groups.push({
                     id: 'filiere',
                     title: 'Filtrer par Filière',
-                    options: [...new Set(data.filieres.map(f => f.nom))].sort().map(nom => ({
-                        label: nom,
-                        value: nom,
-                        count: data.professors.filter(p => {
+                    options: [...new Set(data.filieres.map(f => f.nom))].sort().map(nom => {
+                        const count = subsetForSpec.filter(p => {
                             const profMatieres = data.matieres.filter(m => m.id_professeur === p.id);
                             return profMatieres.some(m => m.filiere === nom);
-                        }).length
-                    }))
+                        }).length;
+                        return { label: nom, value: nom, count: count };
+                    })
                 });
+
                 groups.push({
                     id: 'grade',
                     title: 'Grade Académique',
                     options: [...new Set(data.professors.map(p => p.grade).filter(Boolean))].sort().map(g => ({
                         label: g,
                         value: g,
-                        count: data.professors.filter(p => p.grade === g).length
+                        count: subsetForGrade.filter(p => p.grade === g).length
                     }))
                 });
+
                 groups.push({
                     id: 'status',
                     title: 'Statut de Disponibilité',
                     options: [
-                        { label: 'Actif', value: 'Actif', count: data.professors.filter(p => p.status).length },
-                        { label: 'Inactif', value: 'Inactif', count: data.professors.filter(p => !p.status).length }
+                        { label: 'Actif', value: 'Actif', count: subsetForStatus.filter(p => p.status).length },
+                        { label: 'Inactif', value: 'Inactif', count: subsetForStatus.filter(p => !p.status).length }
                     ]
                 });
             }
@@ -1075,8 +1147,12 @@
                 const groupDiv = document.createElement('div');
                 groupDiv.className = 'filter-group';
 
-                let optionsHtml = group.options.map(opt => `
-                    <div class="filter-option ${selectedFilters[group.id].includes(opt.value) ? 'active' : ''}" 
+                // Only show options with count > 0 or if they are already selected
+                const validOptions = group.options.filter(opt => opt.count > 0 || selectedFilters[group.id].includes(opt.value));
+                if (validOptions.length === 0) return; // Hide empty group
+
+                let optionsHtml = validOptions.map(opt => `
+                    <div class="filter-option ${selectedFilters[group.id].includes(opt.value) ? 'active' : ''} ${opt.count === 0 ? 'opacity-40 grayscale pointer-events-none' : ''}" 
                          onclick="toggleFilter('${group.id}', '${opt.value}')">
                         <div class="cb-container"><div class="cb-mark"></div></div>
                         <span>${opt.label}</span>
@@ -1085,7 +1161,7 @@
                 `).join('');
 
                 groupDiv.innerHTML = `
-                    <div class="filter-title">
+                    <div class="filter-title" onclick="this.parentElement.classList.toggle('collapsed')">
                         ${group.title}
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <path d="M6 9l6 6 6-6"></path>

@@ -67,7 +67,7 @@ def api_professors():
     try:
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT id_proffer AS id, nom_professeur AS full_name, 'Grade Unknown' AS grade, 0 AS charge, 1 AS status FROM proffer ORDER BY nom_professeur LIMIT 1000")
+        cursor.execute("SELECT id_proffer AS id, nom_professeur AS full_name, grade, charge_surv AS charge, 1 AS status FROM proffer ORDER BY nom_professeur LIMIT 1000")
         rows = cursor.fetchall()
         cursor.close()
         conn.close()
