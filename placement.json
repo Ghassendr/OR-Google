@@ -3,75 +3,24 @@
         {
             "id": "I01",
             "cap": 48,
-            "fill": 56,
-            "groupes": [
-                {
-                    "n": "L1",
-                    "f": "L_EEA",
-                    "e": 15
-                },
-                {
-                    "n": "M",
-                    "f": "MR_MDEP",
-                    "e": 12
-                }
-            ]
-        },
-        {
-            "id": "I03",
-            "cap": 36,
-            "fill": 80,
-            "groupes": [
-                {
-                    "n": "L1",
-                    "f": "L_EEA",
-                    "e": 13
-                },
-                {
-                    "n": "L1",
-                    "f": "L_Energ",
-                    "e": 16
-                }
-            ]
-        },
-        {
-            "id": "I05",
-            "cap": 45,
-            "fill": 93,
-            "groupes": [
-                {
-                    "n": "L1",
-                    "f": "L_EEA",
-                    "e": 20
-                },
-                {
-                    "n": "M",
-                    "f": "MP_GPPM",
-                    "e": 22
-                }
-            ]
-        },
-        {
-            "id": "I07",
-            "cap": 20,
-            "fill": 85,
-            "groupes": [
-                {
-                    "n": "L1",
-                    "f": "L_EEA",
-                    "e": 10
-                },
-                {
-                    "n": "L1",
-                    "f": "L_Energ",
-                    "e": 7
-                }
-            ]
-        },
-        {
-            "id": "I10",
-            "cap": 36,
             "fill": 91,
+            "groupes": [
+                {
+                    "n": "L1",
+                    "f": "L_EEA",
+                    "e": 24
+                },
+                {
+                    "n": "M",
+                    "f": "MR_MSEE",
+                    "e": 20
+                }
+            ]
+        },
+        {
+            "id": "I02",
+            "cap": 36,
+            "fill": 88,
             "groupes": [
                 {
                     "n": "L1",
@@ -80,20 +29,88 @@
                 },
                 {
                     "n": "L1",
-                    "f": "L_Energ",
-                    "e": 15
+                    "f": "L_SI",
+                    "e": 14
                 }
             ]
         },
         {
-            "id": "I11",
-            "cap": 36,
-            "fill": 72,
+            "id": "I05",
+            "cap": 45,
+            "fill": 91,
             "groupes": [
+                {
+                    "n": "L1",
+                    "f": "L_SI",
+                    "e": 19
+                },
+                {
+                    "n": "M",
+                    "f": "MP_MERE",
+                    "e": 22
+                }
+            ]
+        },
+        {
+            "id": "I08",
+            "cap": 25,
+            "fill": 84,
+            "groupes": [
+                {
+                    "n": "L1",
+                    "f": "L_GC",
+                    "e": 9
+                },
                 {
                     "n": "M",
                     "f": "MR_SM",
                     "e": 12
+                }
+            ]
+        },
+        {
+            "id": "I09",
+            "cap": 20,
+            "fill": 80,
+            "groupes": [
+                {
+                    "n": "L1",
+                    "f": "L_ISI",
+                    "e": 9
+                },
+                {
+                    "n": "M",
+                    "f": "MP_EEB",
+                    "e": 7
+                }
+            ]
+        },
+        {
+            "id": "I10",
+            "cap": 36,
+            "fill": 88,
+            "groupes": [
+                {
+                    "n": "L1",
+                    "f": "L_GM",
+                    "e": 14
+                },
+                {
+                    "n": "L1",
+                    "f": "Ingenieur",
+                    "e": 18
+                }
+            ]
+        },
+        {
+            "id": "I12",
+            "cap": 36,
+            "fill": 88,
+            "groupes": [
+                {
+                    "n": "L1",
+                    "f": "Cycle_Preparatoire",
+                    "e": 18
                 },
                 {
                     "n": "M",
@@ -105,50 +122,50 @@
         {
             "id": "I13",
             "cap": 36,
-            "fill": 91,
+            "fill": 88,
             "groupes": [
                 {
-                    "n": "L1",
-                    "f": "L_EEA",
-                    "e": 15
+                    "n": "L2",
+                    "f": "Cycle_Preparatoire",
+                    "e": 16
                 },
                 {
-                    "n": "L1",
-                    "f": "L_Energ",
-                    "e": 18
+                    "n": "M",
+                    "f": "MR_GM",
+                    "e": 16
                 }
             ]
         },
         {
-            "id": "I15",
-            "cap": 36,
-            "fill": 75,
+            "id": "I14",
+            "cap": 20,
+            "fill": 80,
             "groupes": [
                 {
-                    "n": "L1",
-                    "f": "L_EEA",
-                    "e": 15
+                    "n": "M",
+                    "f": "GM",
+                    "e": 7
                 },
                 {
                     "n": "M",
-                    "f": "MR_SPI",
-                    "e": 12
+                    "f": "MR_SPI_2",
+                    "e": 9
                 }
             ]
         },
         {
             "id": "I17",
             "cap": 36,
-            "fill": 91,
+            "fill": 88,
             "groupes": [
                 {
                     "n": "L1",
-                    "f": "L_EEA",
-                    "e": 18
+                    "f": "L_Energ",
+                    "e": 17
                 },
                 {
-                    "n": "M",
-                    "f": "MR_SPI",
+                    "n": "L1",
+                    "f": "Cycle_Preparatoire",
                     "e": 15
                 }
             ]
@@ -156,7 +173,24 @@
         {
             "id": "I18",
             "cap": 36,
-            "fill": 91,
+            "fill": 88,
+            "groupes": [
+                {
+                    "n": "L1",
+                    "f": "L_ISI",
+                    "e": 15
+                },
+                {
+                    "n": "M",
+                    "f": "MP_EEI",
+                    "e": 17
+                }
+            ]
+        },
+        {
+            "id": "I19",
+            "cap": 36,
+            "fill": 88,
             "groupes": [
                 {
                     "n": "L1",
@@ -164,38 +198,293 @@
                     "e": 18
                 },
                 {
-                    "n": "M",
-                    "f": "MR_SPI",
-                    "e": 15
+                    "n": "L1",
+                    "f": "Cycle_Preparatoire",
+                    "e": 14
                 }
             ]
         },
         {
-            "id": "I19",
-            "cap": 36,
-            "fill": 91,
+            "id": "J01",
+            "cap": 24,
+            "fill": 83,
+            "groupes": [
+                {
+                    "n": "L1",
+                    "f": "L_ISI",
+                    "e": 12
+                },
+                {
+                    "n": "M",
+                    "f": "MP_MERE",
+                    "e": 8
+                }
+            ]
+        },
+        {
+            "id": "J02",
+            "cap": 24,
+            "fill": 83,
             "groupes": [
                 {
                     "n": "L1",
                     "f": "L_EEA",
-                    "e": 16
+                    "e": 12
                 },
                 {
-                    "n": "L1",
-                    "f": "L_Energ",
-                    "e": 17
+                    "n": "M",
+                    "f": "MR_SEE",
+                    "e": 8
                 }
             ]
         },
         {
             "id": "J06",
             "cap": 35,
+            "fill": 88,
+            "groupes": [
+                {
+                    "n": "L1",
+                    "f": "L_SI",
+                    "e": 14
+                },
+                {
+                    "n": "L1",
+                    "f": "Ingenieur",
+                    "e": 17
+                }
+            ]
+        },
+        {
+            "id": "J07",
+            "cap": 30,
+            "fill": 86,
+            "groupes": [
+                {
+                    "n": "L1",
+                    "f": "L_ISI",
+                    "e": 15
+                },
+                {
+                    "n": "M",
+                    "f": "MR_GM",
+                    "e": 11
+                }
+            ]
+        },
+        {
+            "id": "J08",
+            "cap": 30,
+            "fill": 86,
+            "groupes": [
+                {
+                    "n": "L1",
+                    "f": "L_EEA",
+                    "e": 11
+                },
+                {
+                    "n": "M",
+                    "f": "MP_PAI",
+                    "e": 15
+                }
+            ]
+        },
+        {
+            "id": "J09",
+            "cap": 30,
+            "fill": 86,
+            "groupes": [
+                {
+                    "n": "L1",
+                    "f": "L_GC",
+                    "e": 14
+                },
+                {
+                    "n": "M",
+                    "f": "MR_MDEP",
+                    "e": 12
+                }
+            ]
+        },
+        {
+            "id": "K02",
+            "cap": 48,
             "fill": 91,
             "groupes": [
                 {
+                    "n": "L1",
+                    "f": "L_GC",
+                    "e": 20
+                },
+                {
+                    "n": "L1",
+                    "f": "L_EEA",
+                    "e": 24
+                }
+            ]
+        },
+        {
+            "id": "K05",
+            "cap": 48,
+            "fill": 91,
+            "groupes": [
+                {
+                    "n": "L1",
+                    "f": "L_Energ",
+                    "e": 20
+                },
+                {
                     "n": "M",
-                    "f": "MP_EEI",
+                    "f": "MR_MSEE",
+                    "e": 24
+                }
+            ]
+        },
+        {
+            "id": "K06",
+            "cap": 48,
+            "fill": 91,
+            "groupes": [
+                {
+                    "n": "L2",
+                    "f": "Cycle_Preparatoire",
+                    "e": 22
+                },
+                {
+                    "n": "M",
+                    "f": "MP_GPPM",
+                    "e": 22
+                }
+            ]
+        },
+        {
+            "id": "K07",
+            "cap": 48,
+            "fill": 91,
+            "groupes": [
+                {
+                    "n": "L1",
+                    "f": "Ingenieur",
+                    "e": 23
+                },
+                {
+                    "n": "M",
+                    "f": "MP_MERE",
+                    "e": 21
+                }
+            ]
+        },
+        {
+            "id": "K08",
+            "cap": 36,
+            "fill": 88,
+            "groupes": [
+                {
+                    "n": "L1",
+                    "f": "L_Energ",
+                    "e": 16
+                },
+                {
+                    "n": "M",
+                    "f": "MR_SPI_2",
+                    "e": 16
+                }
+            ]
+        },
+        {
+            "id": "K09",
+            "cap": 42,
+            "fill": 90,
+            "groupes": [
+                {
+                    "n": "L1",
+                    "f": "L_SI",
                     "e": 17
+                },
+                {
+                    "n": "M",
+                    "f": "GM",
+                    "e": 21
+                }
+            ]
+        },
+        {
+            "id": "K10",
+            "cap": 54,
+            "fill": 92,
+            "groupes": [
+                {
+                    "n": "L1",
+                    "f": "L_GM",
+                    "e": 23
+                },
+                {
+                    "n": "L2",
+                    "f": "Cycle_Preparatoire",
+                    "e": 27
+                }
+            ]
+        },
+        {
+            "id": "K11",
+            "cap": 54,
+            "fill": 92,
+            "groupes": [
+                {
+                    "n": "L1",
+                    "f": "L_GM",
+                    "e": 27
+                },
+                {
+                    "n": "M",
+                    "f": "MR_SPI",
+                    "e": 23
+                }
+            ]
+        },
+        {
+            "id": "K12",
+            "cap": 54,
+            "fill": 92,
+            "groupes": [
+                {
+                    "n": "L1",
+                    "f": "L_EEA",
+                    "e": 27
+                },
+                {
+                    "n": "L2",
+                    "f": "Cycle_Preparatoire",
+                    "e": 23
+                }
+            ]
+        },
+        {
+            "id": "K13",
+            "cap": 54,
+            "fill": 81,
+            "groupes": [
+                {
+                    "n": "L1",
+                    "f": "L_GM",
+                    "e": 24
+                },
+                {
+                    "n": "L1",
+                    "f": "L_EM",
+                    "e": 20
+                }
+            ]
+        },
+        {
+            "id": "M01",
+            "cap": 30,
+            "fill": 86,
+            "groupes": [
+                {
+                    "n": "M",
+                    "f": "MP_PAI",
+                    "e": 11
                 },
                 {
                     "n": "M",
@@ -205,196 +494,9 @@
             ]
         },
         {
-            "id": "K01",
-            "cap": 48,
-            "fill": 85,
-            "groupes": [
-                {
-                    "n": "L1",
-                    "f": "L_GC",
-                    "e": 19
-                },
-                {
-                    "n": "L2",
-                    "f": "Cycle_Preparatoire",
-                    "e": 22
-                }
-            ]
-        },
-        {
-            "id": "K02",
-            "cap": 48,
-            "fill": 93,
-            "groupes": [
-                {
-                    "n": "L2",
-                    "f": "Cycle_Preparatoire",
-                    "e": 21
-                },
-                {
-                    "n": "M",
-                    "f": "GM",
-                    "e": 24
-                }
-            ]
-        },
-        {
-            "id": "K04",
-            "cap": 48,
-            "fill": 93,
-            "groupes": [
-                {
-                    "n": "L2",
-                    "f": "Cycle_Preparatoire",
-                    "e": 21
-                },
-                {
-                    "n": "M",
-                    "f": "MP_MERE",
-                    "e": 24
-                }
-            ]
-        },
-        {
-            "id": "K05",
-            "cap": 48,
-            "fill": 72,
-            "groupes": [
-                {
-                    "n": "L1",
-                    "f": "L_GM",
-                    "e": 17
-                },
-                {
-                    "n": "L1",
-                    "f": "L_GC",
-                    "e": 18
-                }
-            ]
-        },
-        {
-            "id": "K07",
-            "cap": 48,
-            "fill": 72,
-            "groupes": [
-                {
-                    "n": "L1",
-                    "f": "L_GM",
-                    "e": 18
-                },
-                {
-                    "n": "L1",
-                    "f": "L_GC",
-                    "e": 17
-                }
-            ]
-        },
-        {
-            "id": "K10",
-            "cap": 54,
-            "fill": 94,
-            "groupes": [
-                {
-                    "n": "L1",
-                    "f": "L_GC",
-                    "e": 24
-                },
-                {
-                    "n": "M",
-                    "f": "MR_GM",
-                    "e": 27
-                }
-            ]
-        },
-        {
-            "id": "K11",
-            "cap": 54,
-            "fill": 94,
-            "groupes": [
-                {
-                    "n": "L1",
-                    "f": "L_GM",
-                    "e": 27
-                },
-                {
-                    "n": "L2",
-                    "f": "Cycle_Preparatoire",
-                    "e": 24
-                }
-            ]
-        },
-        {
-            "id": "K12",
-            "cap": 54,
-            "fill": 94,
-            "groupes": [
-                {
-                    "n": "L1",
-                    "f": "L_GM",
-                    "e": 26
-                },
-                {
-                    "n": "M",
-                    "f": "MR_SEE",
-                    "e": 25
-                }
-            ]
-        },
-        {
-            "id": "K13",
-            "cap": 54,
-            "fill": 94,
-            "groupes": [
-                {
-                    "n": "M",
-                    "f": "GM",
-                    "e": 24
-                },
-                {
-                    "n": "M",
-                    "f": "MP_MERE",
-                    "e": 27
-                }
-            ]
-        },
-        {
-            "id": "M01",
-            "cap": 30,
-            "fill": 70,
-            "groupes": [
-                {
-                    "n": "L1",
-                    "f": "L_ISI",
-                    "e": 12
-                },
-                {
-                    "n": "L1",
-                    "f": "Cycle_Preparatoire",
-                    "e": 9
-                }
-            ]
-        },
-        {
-            "id": "M02",
-            "cap": 25,
-            "fill": 40,
-            "groupes": [
-                {
-                    "n": "L1",
-                    "f": "Cycle_Preparatoire",
-                    "e": 5
-                },
-                {
-                    "n": "M",
-                    "f": "MP_PAI",
-                    "e": 5
-                }
-            ]
-        },
-        {
             "id": "M03",
             "cap": 42,
-            "fill": 83,
+            "fill": 90,
             "groupes": [
                 {
                     "n": "L1",
@@ -402,230 +504,196 @@
                     "e": 17
                 },
                 {
-                    "n": "M",
-                    "f": "MR_MSEE",
-                    "e": 18
+                    "n": "L1",
+                    "f": "Ingenieur",
+                    "e": 21
                 }
             ]
         },
         {
             "id": "M04",
             "cap": 42,
-            "fill": 92,
+            "fill": 90,
             "groupes": [
                 {
                     "n": "L1",
-                    "f": "L_ISI",
+                    "f": "Cycle_Preparatoire",
                     "e": 19
                 },
                 {
                     "n": "L1",
-                    "f": "L_EM",
-                    "e": 20
+                    "f": "Ingenieur",
+                    "e": 19
                 }
             ]
         },
         {
             "id": "M05",
             "cap": 42,
-            "fill": 92,
+            "fill": 90,
             "groupes": [
                 {
                     "n": "L1",
-                    "f": "Cycle_Preparatoire",
+                    "f": "L_GC",
                     "e": 21
                 },
-                {
-                    "n": "M",
-                    "f": "MR_MSEE",
-                    "e": 18
-                }
-            ]
-        },
-        {
-            "id": "M06",
-            "cap": 42,
-            "fill": 92,
-            "groupes": [
                 {
                     "n": "L1",
-                    "f": "Cycle_Preparatoire",
-                    "e": 21
-                },
-                {
-                    "n": "M",
-                    "f": "MR_SPI_2",
-                    "e": 18
+                    "f": "Ingenieur",
+                    "e": 17
                 }
             ]
         },
         {
             "id": "M07",
             "cap": 42,
-            "fill": 92,
+            "fill": 88,
             "groupes": [
                 {
                     "n": "L1",
-                    "f": "Cycle_Preparatoire",
-                    "e": 21
+                    "f": "L_EM",
+                    "e": 17
                 },
                 {
-                    "n": "M",
-                    "f": "MR_MSEE",
-                    "e": 18
+                    "n": "L1",
+                    "f": "L_SI",
+                    "e": 20
                 }
             ]
         },
         {
             "id": "M08",
             "cap": 48,
-            "fill": 93,
+            "fill": 91,
             "groupes": [
                 {
                     "n": "L1",
-                    "f": "L_EM",
+                    "f": "L_ISI",
                     "e": 24
                 },
                 {
-                    "n": "L1",
-                    "f": "L_SI",
-                    "e": 21
+                    "n": "M",
+                    "f": "GM",
+                    "e": 20
                 }
             ]
         },
         {
             "id": "M09",
             "cap": 48,
-            "fill": 93,
+            "fill": 91,
             "groupes": [
                 {
                     "n": "L1",
-                    "f": "L_ISI",
-                    "e": 23
+                    "f": "L_Energ",
+                    "e": 20
                 },
                 {
-                    "n": "L1",
-                    "f": "L_SI",
-                    "e": 22
-                }
-            ]
-        },
-        {
-            "id": "M10",
-            "cap": 30,
-            "fill": 90,
-            "groupes": [
-                {
-                    "n": "L1",
-                    "f": "L_ISI",
-                    "e": 12
-                },
-                {
-                    "n": "L1",
-                    "f": "L_EM",
-                    "e": 15
+                    "n": "M",
+                    "f": "MR_MSEE",
+                    "e": 24
                 }
             ]
         },
         {
             "id": "M11",
             "cap": 48,
-            "fill": 93,
+            "fill": 91,
             "groupes": [
                 {
                     "n": "L1",
-                    "f": "L_ISI",
+                    "f": "L_EEA",
                     "e": 24
                 },
                 {
                     "n": "M",
                     "f": "MR_MSEE",
-                    "e": 21
+                    "e": 20
                 }
             ]
         },
         {
             "id": "M12",
             "cap": 30,
-            "fill": 56,
+            "fill": 86,
             "groupes": [
                 {
-                    "n": "M",
-                    "f": "MR_SPI_2",
-                    "e": 7
+                    "n": "L1",
+                    "f": "L_ISI",
+                    "e": 15
                 },
                 {
                     "n": "M",
-                    "f": "MP_EEB",
-                    "e": 10
+                    "f": "MR_MSEE",
+                    "e": 11
                 }
             ]
         },
         {
             "id": "M13",
             "cap": 48,
-            "fill": 93,
-            "groupes": [
-                {
-                    "n": "M",
-                    "f": "MR_MSEE",
-                    "e": 24
-                },
-                {
-                    "n": "M",
-                    "f": "MP_EEB",
-                    "e": 21
-                }
-            ]
-        },
-        {
-            "id": "M14",
-            "cap": 42,
-            "fill": 92,
+            "fill": 91,
             "groupes": [
                 {
                     "n": "L1",
                     "f": "L_EM",
-                    "e": 21
+                    "e": 20
                 },
                 {
                     "n": "L1",
                     "f": "Cycle_Preparatoire",
-                    "e": 18
+                    "e": 24
+                }
+            ]
+        },
+        {
+            "id": "M15",
+            "cap": 48,
+            "fill": 87,
+            "groupes": [
+                {
+                    "n": "L1",
+                    "f": "L_EM",
+                    "e": 23
+                },
+                {
+                    "n": "M",
+                    "f": "MR_SPI",
+                    "e": 19
                 }
             ]
         },
         {
             "id": "M16",
             "cap": 48,
-            "fill": 93,
+            "fill": 91,
             "groupes": [
                 {
                     "n": "L1",
-                    "f": "L_SI",
-                    "e": 24
+                    "f": "Cycle_Preparatoire",
+                    "e": 20
                 },
                 {
                     "n": "M",
-                    "f": "MP_PAI",
-                    "e": 21
+                    "f": "MP_EEB",
+                    "e": 24
                 }
             ]
         },
         {
             "id": "M17",
             "cap": 35,
-            "fill": 91,
+            "fill": 88,
             "groupes": [
                 {
                     "n": "L1",
-                    "f": "L_SI",
-                    "e": 17
+                    "f": "L_GC",
+                    "e": 14
                 },
                 {
-                    "n": "L1",
-                    "f": "Cycle_Preparatoire",
-                    "e": 15
+                    "n": "M",
+                    "f": "MR_SEE",
+                    "e": 17
                 }
             ]
         }
@@ -634,267 +702,250 @@
         {
             "id": "I01",
             "cap": 48,
-            "fill": 93,
-            "groupes": [
-                {
-                    "n": "L2",
-                    "f": "CPI",
-                    "e": 24
-                },
-                {
-                    "n": "L3",
-                    "f": "SE",
-                    "e": 21
-                }
-            ]
-        },
-        {
-            "id": "I02",
-            "cap": 36,
-            "fill": 77,
-            "groupes": [
-                {
-                    "n": "L1",
-                    "f": "Ingenieur",
-                    "e": 13
-                },
-                {
-                    "n": "L2",
-                    "f": "CPI",
-                    "e": 15
-                }
-            ]
-        },
-        {
-            "id": "I03",
-            "cap": 36,
             "fill": 91,
             "groupes": [
                 {
                     "n": "L2",
-                    "f": "CPI",
-                    "e": 15
+                    "f": "SE",
+                    "e": 20
                 },
                 {
                     "n": "L3",
-                    "f": "SE",
-                    "e": 18
+                    "f": "MA",
+                    "e": 24
                 }
             ]
         },
         {
             "id": "I05",
             "cap": 45,
-            "fill": 91,
+            "fill": 84,
             "groupes": [
-                {
-                    "n": "L1",
-                    "f": "Ingenieur",
-                    "e": 22
-                },
                 {
                     "n": "L2",
                     "f": "MA",
-                    "e": 19
-                }
-            ]
-        },
-        {
-            "id": "I08",
-            "cap": 25,
-            "fill": 88,
-            "groupes": [
-                {
-                    "n": "L1",
-                    "f": "Ingenieur",
-                    "e": 11
+                    "e": 21
                 },
                 {
                     "n": "L3",
-                    "f": "SE",
-                    "e": 11
+                    "f": "SI",
+                    "e": 17
                 }
             ]
         },
         {
             "id": "I10",
             "cap": 36,
-            "fill": 91,
+            "fill": 88,
             "groupes": [
                 {
-                    "n": "L1",
-                    "f": "Ingenieur",
-                    "e": 18
-                },
-                {
-                    "n": "L3",
+                    "n": "L2",
                     "f": "SE",
-                    "e": 15
-                }
-            ]
-        },
-        {
-            "id": "I11",
-            "cap": 36,
-            "fill": 91,
-            "groupes": [
-                {
-                    "n": "L1",
-                    "f": "Ingenieur",
-                    "e": 18
-                },
-                {
-                    "n": "L3",
-                    "f": "SE",
-                    "e": 15
-                }
-            ]
-        },
-        {
-            "id": "I12",
-            "cap": 36,
-            "fill": 91,
-            "groupes": [
-                {
-                    "n": "L1",
-                    "f": "Ingenieur",
                     "e": 17
                 },
                 {
-                    "n": "L3",
-                    "f": "SE",
-                    "e": 16
+                    "n": "L2",
+                    "f": "SI",
+                    "e": 15
                 }
             ]
         },
         {
-            "id": "I14",
-            "cap": 20,
-            "fill": 85,
-            "groupes": [
-                {
-                    "n": "L2",
-                    "f": "CPI",
-                    "e": 10
-                },
-                {
-                    "n": "L2",
-                    "f": "MA",
-                    "e": 7
-                }
-            ]
-        },
-        {
-            "id": "I15",
+            "id": "I18",
             "cap": 36,
-            "fill": 86,
+            "fill": 88,
             "groupes": [
                 {
                     "n": "L2",
-                    "f": "MA",
-                    "e": 14
-                },
-                {
-                    "n": "L3",
                     "f": "SE",
                     "e": 17
-                }
-            ]
-        },
-        {
-            "id": "I17",
-            "cap": 36,
-            "fill": 91,
-            "groupes": [
+                },
                 {
                     "n": "L2",
                     "f": "MA",
                     "e": 15
-                },
-                {
-                    "n": "L3",
-                    "f": "SE",
-                    "e": 18
                 }
             ]
         },
         {
             "id": "I19",
             "cap": 36,
-            "fill": 91,
+            "fill": 69,
             "groupes": [
                 {
-                    "n": "L1",
-                    "f": "Ingenieur",
-                    "e": 16
+                    "n": "L2",
+                    "f": "Batiment",
+                    "e": 11
                 },
                 {
+                    "n": "L3",
+                    "f": "Batiment",
+                    "e": 14
+                }
+            ]
+        },
+        {
+            "id": "J01",
+            "cap": 24,
+            "fill": 83,
+            "groupes": [
+                {
                     "n": "L2",
-                    "f": "CPI",
-                    "e": 17
+                    "f": "Energ",
+                    "e": 10
+                },
+                {
+                    "n": "L3",
+                    "f": "ISI",
+                    "e": 10
                 }
             ]
         },
         {
             "id": "K01",
             "cap": 48,
-            "fill": 93,
+            "fill": 91,
             "groupes": [
                 {
                     "n": "L3",
-                    "f": "Energ",
+                    "f": "SE",
                     "e": 22
                 },
                 {
                     "n": "L3",
-                    "f": "3GL",
-                    "e": 23
+                    "f": "MA",
+                    "e": 22
                 }
             ]
         },
         {
             "id": "K02",
             "cap": 48,
-            "fill": 93,
+            "fill": 91,
             "groupes": [
                 {
                     "n": "L2",
-                    "f": "Batiment",
-                    "e": 22
+                    "f": "SE",
+                    "e": 20
                 },
                 {
                     "n": "L2",
-                    "f": "SE",
-                    "e": 23
+                    "f": "2GL",
+                    "e": 24
+                }
+            ]
+        },
+        {
+            "id": "K03",
+            "cap": 48,
+            "fill": 91,
+            "groupes": [
+                {
+                    "n": "L2",
+                    "f": "SI",
+                    "e": 24
+                },
+                {
+                    "n": "L3",
+                    "f": "3GL",
+                    "e": 20
                 }
             ]
         },
         {
             "id": "K04",
             "cap": 48,
-            "fill": 93,
+            "fill": 91,
             "groupes": [
                 {
                     "n": "L2",
-                    "f": "SE",
-                    "e": 23
+                    "f": "CPI",
+                    "e": 24
                 },
                 {
                     "n": "L3",
-                    "f": "MA",
-                    "e": 22
+                    "f": "SE",
+                    "e": 20
                 }
             ]
         },
         {
             "id": "K05",
             "cap": 48,
-            "fill": 93,
+            "fill": 91,
             "groupes": [
                 {
                     "n": "L2",
                     "f": "SE",
-                    "e": 22
+                    "e": 20
+                },
+                {
+                    "n": "L3",
+                    "f": "SE",
+                    "e": 24
+                }
+            ]
+        },
+        {
+            "id": "K06",
+            "cap": 48,
+            "fill": 91,
+            "groupes": [
+                {
+                    "n": "L2",
+                    "f": "CPI",
+                    "e": 20
+                },
+                {
+                    "n": "L3",
+                    "f": "ISI",
+                    "e": 24
+                }
+            ]
+        },
+        {
+            "id": "K07",
+            "cap": 48,
+            "fill": 91,
+            "groupes": [
+                {
+                    "n": "L2",
+                    "f": "ISI",
+                    "e": 21
+                },
+                {
+                    "n": "L2",
+                    "f": "Energ",
+                    "e": 23
+                }
+            ]
+        },
+        {
+            "id": "K08",
+            "cap": 36,
+            "fill": 83,
+            "groupes": [
+                {
+                    "n": "L2",
+                    "f": "2GL",
+                    "e": 17
+                },
+                {
+                    "n": "L3",
+                    "f": "SI",
+                    "e": 13
+                }
+            ]
+        },
+        {
+            "id": "K10",
+            "cap": 54,
+            "fill": 92,
+            "groupes": [
+                {
+                    "n": "L3",
+                    "f": "CPI",
+                    "e": 27
                 },
                 {
                     "n": "L3",
@@ -904,103 +955,18 @@
             ]
         },
         {
-            "id": "K06",
-            "cap": 48,
-            "fill": 43,
-            "groupes": [
-                {
-                    "n": "L2",
-                    "f": "Batiment",
-                    "e": 9
-                },
-                {
-                    "n": "L3",
-                    "f": "SI",
-                    "e": 12
-                }
-            ]
-        },
-        {
-            "id": "K07",
-            "cap": 48,
-            "fill": 93,
-            "groupes": [
-                {
-                    "n": "L2",
-                    "f": "SE",
-                    "e": 21
-                },
-                {
-                    "n": "L3",
-                    "f": "SI",
-                    "e": 24
-                }
-            ]
-        },
-        {
-            "id": "K08",
-            "cap": 36,
-            "fill": 80,
-            "groupes": [
-                {
-                    "n": "L3",
-                    "f": "Batiment",
-                    "e": 13
-                },
-                {
-                    "n": "L3",
-                    "f": "3GL",
-                    "e": 16
-                }
-            ]
-        },
-        {
-            "id": "K09",
-            "cap": 42,
+            "id": "K11",
+            "cap": 54,
             "fill": 92,
             "groupes": [
                 {
                     "n": "L2",
                     "f": "SE",
-                    "e": 18
+                    "e": 23
                 },
-                {
-                    "n": "L3",
-                    "f": "3GL",
-                    "e": 21
-                }
-            ]
-        },
-        {
-            "id": "K10",
-            "cap": 54,
-            "fill": 94,
-            "groupes": [
                 {
                     "n": "L2",
-                    "f": "SE",
-                    "e": 27
-                },
-                {
-                    "n": "L3",
-                    "f": "MA",
-                    "e": 24
-                }
-            ]
-        },
-        {
-            "id": "K11",
-            "cap": 54,
-            "fill": 94,
-            "groupes": [
-                {
-                    "n": "L3",
-                    "f": "CPI",
-                    "e": 24
-                },
-                {
-                    "n": "L3",
-                    "f": "3GL",
+                    "f": "2GL",
                     "e": 27
                 }
             ]
@@ -1008,84 +974,101 @@
         {
             "id": "K12",
             "cap": 54,
-            "fill": 94,
+            "fill": 88,
             "groupes": [
                 {
                     "n": "L2",
-                    "f": "SE",
-                    "e": 25
+                    "f": "ISI",
+                    "e": 26
                 },
                 {
                     "n": "L3",
-                    "f": "CPI",
-                    "e": 26
+                    "f": "Energ",
+                    "e": 22
                 }
             ]
         },
         {
             "id": "K13",
             "cap": 54,
-            "fill": 94,
+            "fill": 92,
             "groupes": [
                 {
-                    "n": "L3",
-                    "f": "Batiment",
-                    "e": 24
+                    "n": "L2",
+                    "f": "ISI",
+                    "e": 27
                 },
                 {
                     "n": "L3",
-                    "f": "SI",
-                    "e": 27
+                    "f": "3GL",
+                    "e": 23
+                }
+            ]
+        },
+        {
+            "id": "M03",
+            "cap": 42,
+            "fill": 90,
+            "groupes": [
+                {
+                    "n": "L2",
+                    "f": "2GL",
+                    "e": 17
+                },
+                {
+                    "n": "L3",
+                    "f": "ISI",
+                    "e": 21
                 }
             ]
         },
         {
             "id": "M04",
             "cap": 42,
-            "fill": 88,
+            "fill": 90,
             "groupes": [
                 {
                     "n": "L2",
                     "f": "ISI",
-                    "e": 17
+                    "e": 20
                 },
                 {
                     "n": "L2",
-                    "f": "2GL",
-                    "e": 20
+                    "f": "SE",
+                    "e": 18
                 }
             ]
         },
         {
             "id": "M05",
             "cap": 42,
-            "fill": 92,
+            "fill": 90,
             "groupes": [
                 {
                     "n": "L2",
                     "f": "SI",
-                    "e": 18
+                    "e": 17
                 },
                 {
-                    "n": "L2",
-                    "f": "2GL",
+                    "n": "L3",
+                    "f": "ISI",
                     "e": 21
                 }
             ]
         },
         {
-            "id": "M07",
+            "id": "M06",
             "cap": 42,
-            "fill": 92,
+            "fill": 90,
             "groupes": [
                 {
                     "n": "L2",
-                    "f": "Energ",
-                    "e": 19
+                    "f": "ISI",
+                    "e": 18
                 },
                 {
                     "n": "L2",
-                    "f": "2GL",
+                    "f": "CPI",
                     "e": 20
                 }
             ]
@@ -1093,153 +1076,139 @@
         {
             "id": "M08",
             "cap": 48,
-            "fill": 93,
+            "fill": 91,
             "groupes": [
                 {
                     "n": "L2",
-                    "f": "2GL",
-                    "e": 23
+                    "f": "Batiment",
+                    "e": 20
                 },
                 {
                     "n": "L3",
-                    "f": "ISI",
-                    "e": 22
+                    "f": "SE",
+                    "e": 24
                 }
             ]
         },
         {
             "id": "M09",
             "cap": 48,
-            "fill": 93,
+            "fill": 91,
             "groupes": [
                 {
-                    "n": "L2",
-                    "f": "ISI",
-                    "e": 24
+                    "n": "L3",
+                    "f": "CPI",
+                    "e": 23
                 },
                 {
                     "n": "L3",
-                    "f": "ISI",
+                    "f": "SE",
                     "e": 21
-                }
-            ]
-        },
-        {
-            "id": "M10",
-            "cap": 30,
-            "fill": 90,
-            "groupes": [
-                {
-                    "n": "L2",
-                    "f": "ISI",
-                    "e": 12
-                },
-                {
-                    "n": "L3",
-                    "f": "ISI",
-                    "e": 15
                 }
             ]
         },
         {
             "id": "M11",
             "cap": 48,
-            "fill": 93,
+            "fill": 91,
             "groupes": [
                 {
                     "n": "L2",
-                    "f": "ISI",
-                    "e": 22
+                    "f": "SE",
+                    "e": 24
                 },
                 {
-                    "n": "L2",
-                    "f": "SI",
-                    "e": 23
+                    "n": "L3",
+                    "f": "3GL",
+                    "e": 20
                 }
             ]
         },
         {
-            "id": "M12",
-            "cap": 30,
-            "fill": 90,
+            "id": "M13",
+            "cap": 48,
+            "fill": 91,
             "groupes": [
                 {
-                    "n": "L2",
+                    "n": "L3",
                     "f": "SI",
-                    "e": 12
+                    "e": 20
                 },
                 {
                     "n": "L3",
-                    "f": "ISI",
-                    "e": 15
+                    "f": "3GL",
+                    "e": 24
                 }
             ]
         },
         {
             "id": "M14",
             "cap": 42,
-            "fill": 92,
+            "fill": 78,
             "groupes": [
                 {
                     "n": "L2",
-                    "f": "SI",
-                    "e": 19
+                    "f": "CPI",
+                    "e": 17
                 },
                 {
-                    "n": "L3",
-                    "f": "ISI",
-                    "e": 20
+                    "n": "L2",
+                    "f": "SI",
+                    "e": 16
                 }
             ]
         },
         {
             "id": "M15",
             "cap": 48,
-            "fill": 93,
+            "fill": 87,
             "groupes": [
                 {
                     "n": "L2",
-                    "f": "ISI",
-                    "e": 24
+                    "f": "MA",
+                    "e": 19
                 },
                 {
-                    "n": "L2",
-                    "f": "2GL",
-                    "e": 21
+                    "n": "L3",
+                    "f": "Batiment",
+                    "e": 23
                 }
             ]
         },
         {
             "id": "M16",
             "cap": 48,
-            "fill": 56,
+            "fill": 83,
             "groupes": [
                 {
                     "n": "L2",
-                    "f": "ISI",
-                    "e": 13
+                    "f": "2GL",
+                    "e": 20
                 },
                 {
-                    "n": "L2",
-                    "f": "Energ",
-                    "e": 14
+                    "n": "L3",
+                    "f": "SE",
+                    "e": 20
+                }
+            ]
+        },
+        {
+            "id": "M17",
+            "cap": 35,
+            "fill": 85,
+            "groupes": [
+                {
+                    "n": "L3",
+                    "f": "ISI",
+                    "e": 17
+                },
+                {
+                    "n": "L3",
+                    "f": "SI",
+                    "e": 13
                 }
             ]
         }
     ],
-    "relaxation_matin": "custom user params",
-    "relaxation_apmidi": "custom user params",
-    "params_matin": {
-        "min_occ": 0.4,
-        "exact_2": true,
-        "balance_slack": 3,
-        "building_bloc": true
-    },
-    "params_apmidi": {
-        "min_occ": 0.4,
-        "exact_2": true,
-        "balance_slack": 3,
-        "building_bloc": true
-    },
-    "timestamp": "2026-03-25 18:52:52"
+    "timestamp": "2026-04-01 19:06:57"
 }

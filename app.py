@@ -67,7 +67,7 @@ def api_professors():
     try:
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute('SELECT id_proffer AS id, nom_professeur AS full_name, \'N/A\' AS grade, 0 AS charge, 1 AS status FROM proffer ORDER BY nom_professeur LIMIT 1000')
+        cursor.execute("SELECT id_proffer AS id, nom_professeur AS full_name, 'Grade Unknown' AS grade, 0 AS charge, 1 AS status FROM proffer ORDER BY nom_professeur LIMIT 1000")
         rows = cursor.fetchall()
         cursor.close()
         conn.close()
@@ -82,10 +82,12 @@ def api_matieres():
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
         cursor.execute('''
-            SELECT m.id_mataire AS id, m.code_matiere AS code, m.nom_mataire AS nom, m.id_proffe AS id_professeur, p.nom_professeur AS professeur, 
-                   f.id_filaire AS filiere_id, f.nom_filaire AS filiere, f.abreviation_filaire AS filiere_abrev, 
-                   f.code_filaire AS filiere_code, f.annee AS filiere_annee, 
-                   m.ds, m.examen, m.semestre
+            SELECT m.id_mataire AS id, m.nom_mataire AS nom, m.id_proffe AS id_professeur, 
+                   p.nom_professeur AS professeur, 
+                   f.id_filaire AS filiere_id, f.nom_filaire AS filiere, 
+                   f.abreviation_filaire AS filiere_abrev, 
+                   f.annee AS filiere_annee,
+                   m.semestre, m.ds, m.examen
             FROM mataire m
             LEFT JOIN proffer p ON m.id_proffe = p.id_proffer
             LEFT JOIN filaire f ON m.filaire_id = f.id_filaire

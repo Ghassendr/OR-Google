@@ -1,8 +1,8 @@
 {
     "min_occ": 0.4,
-    "balance_slack": 3,
+    "balance_slack": 5,
     "buffer": 3,
-    "exact_2": true,
+    "exact_2": false,
     "building_bloc": true,
     "optimize_rooms": true
 }

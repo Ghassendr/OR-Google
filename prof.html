@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
@@ -12,24 +13,120 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
         :root {
-            --bg: #F5F3EE;
-            --surface: #FFF;
-            --surface2: #F9F7F3;
-            --border: #E2DDD5;
-            --border2: #CFC9BE;
-            --navy: #1B3A6B;
-            --navy2: #254D8F;
-            --amber: #C67C0D;
-            --amber-lt: #FDF3E0;
-            --green: #2D6A4F;
-            --green-lt: #E8F5EE;
-            --red: #B02A37;
-            --red-lt: #FDECEA;
-            --text: #1A1714;
-            --text2: #4A453E;
-            --text3: #8C8078;
-            --sh: 0 1px 4px rgba(0, 0, 0, .07), 0 4px 16px rgba(0, 0, 0, .05);
-            --sh2: 0 2px 8px rgba(0, 0, 0, .10), 0 8px 32px rgba(0, 0, 0, .07);
+            --bg: #F8F9FA;
+            --surface: #FFFFFF;
+            --surface2: #F1F5F9;
+            --border: #E2E8F0;
+            --border2: #CBD5E1;
+            --navy: #1E40AF;
+            --navy2: #3B82F6;
+            --amber: #D97706;
+            --amber-lt: #FEF3C7;
+            --green: #059669;
+            --green-lt: #D1FAE5;
+            --red: #DC2626;
+            --red-lt: #FEE2E2;
+            --text: #0F172A;
+            --text2: #334155;
+            --text3: #64748B;
+            --sh: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+            --sh2: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --hdr-bg: #1E3A8A;
+        }
+
+        :root.dark-mode {
+            --bg: #0F172A;
+            --surface: #1E293B;
+            --surface2: #334155;
+            --border: #334155;
+            --border2: #475569;
+            --navy: #60A5FA;
+            --navy2: #93C5FD;
+            --amber: #FBBF24;
+            --amber-lt: rgba(251, 191, 36, 0.1);
+            --green: #34D399;
+            --green-lt: rgba(52, 211, 153, 0.1);
+            --red: #F87171;
+            --red-lt: rgba(248, 113, 113, 0.1);
+            --text: #F8FAFC;
+            --text2: #CBD5E1;
+            --text3: #94A3B8;
+            --sh: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            --sh2: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+            --hdr-bg: #111827;
+        }
+
+        .dark-mode .hdr {
+            background: var(--hdr-bg);
+            border: 1px solid var(--border);
+        }
+
+        .dark-mode .sbox {
+            background: rgba(255, 255, 255, .05);
+        }
+
+        .dark-mode .tg,
+        .dark-mode .srch {
+            background: var(--surface2);
+        }
+
+        .dark-mode .tab.on {
+            background: var(--navy);
+            color: #000;
+            font-weight: 800;
+        }
+
+        .dark-mode img {
+            filter: brightness(0.9);
+        }
+
+        .dark-mode .subject-card {
+            border-color: var(--border);
+        }
+
+        .dark-mode .close-btn {
+            background: var(--border);
+            color: var(--text);
+        }
+
+        .dark-mode .badge-grade.grade-prof {
+            background: rgba(96, 165, 250, 0.2);
+            color: #93C5FD;
+        }
+
+        .dark-mode .badge-grade.grade-maitre {
+            background: rgba(251, 191, 36, 0.2);
+            color: #FCD34D;
+        }
+
+        .mode-toggle {
+            cursor: pointer;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+        }
+
+        .mode-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .dark-mode .mode-toggle {
+            background: #FBBF24;
+            color: #000;
+            border-color: transparent;
         }
 
         * {
@@ -258,7 +355,9 @@
             padding-bottom: 16px;
         }
 
-        .filter-group:last-child { border-bottom: none; }
+        .filter-group:last-child {
+            border-bottom: none;
+        }
 
         .filter-title {
             font-family: 'DM Sans', sans-serif;
@@ -287,7 +386,9 @@
             transition: color 0.2s;
         }
 
-        .filter-option:hover { color: var(--navy); }
+        .filter-option:hover {
+            color: var(--navy);
+        }
 
         /* Custom Checkbox */
         .cb-container {
@@ -317,7 +418,9 @@
             opacity: 0;
         }
 
-        .filter-option.active .cb-mark { opacity: 1; }
+        .filter-option.active .cb-mark {
+            opacity: 1;
+        }
 
         .count-pill {
             margin-left: auto;
@@ -334,16 +437,25 @@
 
         /* Mobile Adjustments */
         @media (max-width: 1024px) {
-            .page-wrapper { flex-direction: column; }
-            .filter-sidebar { 
-                width: 100%; 
-                position: fixed; 
-                top: 0; left: 0; right: 0; bottom: 0;
+            .page-wrapper {
+                flex-direction: column;
+            }
+
+            .filter-sidebar {
+                width: 100%;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
                 z-index: 2000;
                 transform: translateX(-100%);
                 border-radius: 0;
             }
-            .filter-sidebar.open { transform: translateX(0); }
+
+            .filter-sidebar.open {
+                transform: translateX(0);
+            }
         }
 
         .card {
@@ -370,7 +482,10 @@
             border-radius: 6px;
         }
 
-        .badge-navy { background: var(--amber-lt); color: var(--amber); }
+        .badge-navy {
+            background: var(--amber-lt);
+            color: var(--amber);
+        }
 
         /* Table Styling */
         table {
@@ -411,7 +526,8 @@
         }
 
         tr:hover td {
-            background: rgba(198, 124, 13, 0.03); /* Subtle Amber hover */
+            background: rgba(198, 124, 13, 0.03);
+            /* Subtle Amber hover */
         }
 
         /* Status & Grade Badges */
@@ -425,11 +541,31 @@
             font-weight: 700;
             text-transform: uppercase;
         }
-        .status-on { background: #ECFDF5; color: #059669; }
-        .status-off { background: #FEF2F2; color: #DC2626; }
-        .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
-        .dot-on { background: #10B981; }
-        .dot-off { background: #EF4444; }
+
+        .status-on {
+            background: #ECFDF5;
+            color: #059669;
+        }
+
+        .status-off {
+            background: #FEF2F2;
+            color: #DC2626;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot-on {
+            background: #10B981;
+        }
+
+        .dot-off {
+            background: #EF4444;
+        }
 
         .badge-grade {
             padding: 4px 10px;
@@ -439,10 +575,26 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
-        .grade-prof { background: #E0E7FF; color: #3730A3; }
-        .grade-maitre { background: #FEF3C7; color: #92400E; }
-        .grade-assistant { background: #F3F4F6; color: #4B5563; }
-        .grade-default { background: var(--bg); color: var(--text3); }
+
+        .grade-prof {
+            background: #E0E7FF;
+            color: #3730A3;
+        }
+
+        .grade-maitre {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        .grade-assistant {
+            background: #F3F4F6;
+            color: #4B5563;
+        }
+
+        .grade-default {
+            background: var(--bg);
+            color: var(--text3);
+        }
 
         /* Graph Container */
         #graph-container {
@@ -450,7 +602,7 @@
             border: 1px solid var(--border);
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.02);
             position: relative;
         }
 
@@ -466,8 +618,21 @@
             z-index: 10;
         }
 
-        .legend-item { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; color: var(--text3); margin-bottom: 4px; }
-        .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text3);
+            margin-bottom: 4px;
+        }
+
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
 
         .tooltip {
             position: absolute;
@@ -561,36 +726,74 @@
         }
 
         .type-badge {
-            font-size: 9px;
-            font-weight: 800;
-            padding: 2px 8px;
-            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid transparent;
         }
 
-        .type-ds { background: var(--amber-lt); color: var(--amber); }
-        .type-examen { background: var(--green-lt); color: var(--green); }
-        .type-none { background: var(--red-lt); color: var(--red); opacity: 0.8; }
-        
-        .border-red { border-left-color: var(--red) !important; }
-        .border-amber { border-left-color: var(--amber) !important; }
-        .border-navy { border-left-color: var(--navy) !important; }
+        .type-ds {
+            background: var(--amber-lt);
+            color: var(--amber);
+            border-color: rgba(217, 119, 6, 0.2);
+        }
+
+        .type-examen {
+            background: var(--green-lt);
+            color: var(--green);
+            border-color: rgba(5, 150, 105, 0.2);
+        }
+
+        .type-none {
+            background: var(--red-lt);
+            color: var(--red);
+            border-color: rgba(220, 38, 38, 0.2);
+            opacity: 0.8;
+        }
+
+        .dark-mode .type-ds { border-color: rgba(251, 191, 36, 0.3); }
+        .dark-mode .type-examen { border-color: rgba(52, 211, 153, 0.3); }
+        .dark-mode .type-none { border-color: rgba(248, 113, 113, 0.3); }
+
+        .sval.a { color: #F59E0B; }
+        .sval.g { color: #10B981; }
+        .dark-mode .sval.a { color: #FBBF24; text-shadow: 0 0 10px rgba(251, 191, 36, 0.3); }
+        .dark-mode .sval.g { color: #34D399; text-shadow: 0 0 10px rgba(52, 211, 153, 0.3); }
+
+        .border-red {
+            border-left: 4px solid var(--red) !important;
+        }
+
+        .border-amber {
+            border-left: 4px solid var(--amber) !important;
+        }
+
+        .border-navy {
+            border-left: 4px solid var(--navy) !important;
+        }
     </style>
 </head>
+
 <body class="font-sans">
     <div class="w">
         <!-- Header -->
         <header class="hdr">
             <div class="hdr-title flex items-center gap-6">
-                <div class="bg-white/10 p-2 rounded-xl backdrop-blur-sm border border-white/10 flex items-center justify-center">
+                <div
+                    class="bg-white/10 p-2 rounded-xl backdrop-blur-sm border border-white/10 flex items-center justify-center">
                     <img src="/logo%20issat-small.jpg" alt="ISSAT Logo" class="h-14 w-auto rounded-lg">
                 </div>
                 <div>
                     <div class="eyebrow">Institut Supérieur des Sciences Appliquées et de Technologie de Sousse</div>
                     <h1>Explorateur Académique</h1>
-                    <div class="text-[10px] text-white/50 font-bold uppercase tracking-widest mt-1">Répertoire des Enseignants & Filières</div>
+                    <div class="text-[10px] text-white/50 font-bold uppercase tracking-widest mt-1">Répertoire des
+                        Enseignants & Filières</div>
                 </div>
             </div>
-            
+
             <div class="stats-row">
                 <div class="sbox">
                     <div class="slbl">Professeurs</div>
@@ -604,8 +807,31 @@
                     <div class="slbl">Filières</div>
                     <div class="sval g" id="stat-fil">—</div>
                 </div>
-                <button class="btn-navy" onclick="window.location.href='/'">← Rapport</button>
+                <div class="flex items-center gap-2">
+                    <button class="btn-navy" onclick="window.location.href='/'" style="margin-top: 50px;">←
+                        Rapport</button>
+                </div>
             </div>
+
+            <!-- Absolute Positioned Toggle -->
+            <button class="mode-toggle" id="theme-toggle" title="Changer de thème">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    class="sun-icon">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="moon-icon"
+                    style="display:none">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
         </header>
 
         <!-- Search & Control -->
@@ -626,9 +852,10 @@
                     Filtrer
                 </button>
             </div>
-            
+
             <div class="flex items-center gap-3">
-                <div id="results-count" class="text-[10px] font-bold text-text3 uppercase tracking-widest mr-2">0 Résultats</div>
+                <div id="results-count" class="text-[10px] font-bold text-text3 uppercase tracking-widest mr-2">0
+                    Résultats</div>
                 <input type="text" id="search" class="srch" placeholder="Rechercher..." />
             </div>
         </div>
@@ -711,7 +938,7 @@
                 data.filieres = filieresData.map(f => ({
                     ...f,
                     matieres: data.matieres.filter(m => m.filiere_id === f.id),
-                    professeurs: [...new Set(data.matieres.filter(m => m.filiere_id === f.id).map(m => m.professeur))]
+                    professeurs: [...new Set(data.matieres.filter(m => m.filiere_id === f.id).map(m => m.professeur).filter(p => p !== null))]
                 }));
 
                 updateStats();
@@ -726,7 +953,7 @@
         function toggleSidebar() {
             const wrapper = document.querySelector('.page-wrapper');
             const sidebar = document.getElementById('filter-sidebar');
-            
+
             if (window.innerWidth <= 1024) {
                 sidebar.classList.toggle('open');
             } else {
@@ -747,7 +974,7 @@
             const index = arr.indexOf(value);
             if (index > -1) arr.splice(index, 1);
             else arr.push(value);
-            
+
             page = 1;
             renderFilters();
             renderView();
@@ -766,7 +993,7 @@
                     const matchesSearch = !searchTerm || p.full_name.toLowerCase().includes(searchTerm.toLowerCase());
                     const matchesGrade = selectedFilters.grade.length === 0 || selectedFilters.grade.includes(p.grade);
                     const matchesStatus = selectedFilters.status.length === 0 || selectedFilters.status.includes(p.status ? 'Actif' : 'Inactif');
-                    
+
                     let matchesSpec = true;
                     if (selectedFilters.filiere.length > 0) {
                         const profMatieres = data.matieres.filter(m => m.id_professeur === p.id);
@@ -847,7 +1074,7 @@
             groups.forEach(group => {
                 const groupDiv = document.createElement('div');
                 groupDiv.className = 'filter-group';
-                
+
                 let optionsHtml = group.options.map(opt => `
                     <div class="filter-option ${selectedFilters[group.id].includes(opt.value) ? 'active' : ''}" 
                          onclick="toggleFilter('${group.id}', '${opt.value}')">
@@ -889,10 +1116,10 @@
         function showDistributionContext() {
             const context = document.getElementById('distribution-context');
             if (!context) return;
-            
+
             const name = document.getElementById('active-dist-name');
             const meta = document.getElementById('active-dist-meta');
-            
+
             if (data.distribution) {
                 context.classList.remove('hidden');
                 if (name) name.textContent = `Bloc ${data.distribution.bloc === 'matin' ? 'Matin' : 'Après-midi'}`;
@@ -918,7 +1145,7 @@
         function renderView() {
             const loading = document.getElementById('loading');
             if (loading) loading.style.display = 'none';
-            
+
             const content = document.getElementById('content');
             content.innerHTML = '';
 
@@ -939,7 +1166,7 @@
 
         function renderMatieres(container, filtered) {
             // Sort by filiere then name
-            filtered.sort((a,b) => a.filiere.localeCompare(b.filiere) || a.nom.localeCompare(b.nom));
+            filtered.sort((a, b) => a.filiere.localeCompare(b.filiere) || a.nom.localeCompare(b.nom));
 
             const totalRows = filtered.length;
             const totalPages = Math.max(1, Math.ceil(totalRows / pageSize));
@@ -961,8 +1188,8 @@
                         </thead>
                         <tbody>
                             ${pageRows.map(m => {
-                                const hasEval = m.ds || m.examen;
-                                return `
+                const hasEval = m.ds || m.examen;
+                return `
                                 <tr class="hover:bg-surface2/50 transition-colors border-b border-border/10 last:border-0">
                                     <td class="p-4">
                                         <div class="font-bold text-navy">${m.nom}</div>
@@ -973,7 +1200,7 @@
                                     </td>
                                     <td class="p-4">
                                         <div class="text-xs font-bold text-navy2 uppercase">${m.filiere_abrev || m.filiere}</div>
-                                        <div class="text-[10px] text-text3 font-bold uppercase tracking-widest mt-1 opacity-70">${m.filiere_annee.replace('_',' ')}</div>
+                                        <div class="text-[10px] text-text3 font-bold uppercase tracking-widest mt-1 opacity-70">${m.filiere_annee.replace('_', ' ')}</div>
                                     </td>
                                     <td class="p-4 text-xs font-semibold text-text2">${m.professeur || 'Non Assigné'}</td>
                                     <td class="p-4">
@@ -992,9 +1219,9 @@
                             Affichage ${start + 1}-${Math.min(end, totalRows)} sur ${totalRows} sujets
                         </div>
                         <div class="flex items-center gap-3">
-                            <button class="tab !py-1 !px-4 border border-border bg-surface" onclick="page--; renderView()" ${page<=1?'disabled':''}>Précédent</button>
+                            <button class="tab !py-1 !px-4 border border-border bg-surface" onclick="page--; renderView()" ${page <= 1 ? 'disabled' : ''}>Précédent</button>
                             <div class="text-xs font-bold text-navy px-2">${page} / ${totalPages}</div>
-                            <button class="tab !py-1 !px-4 border border-border bg-surface" onclick="page++; renderView()" ${page>=totalPages?'disabled':''}>Suivant</button>
+                            <button class="tab !py-1 !px-4 border border-border bg-surface" onclick="page++; renderView()" ${page >= totalPages ? 'disabled' : ''}>Suivant</button>
                         </div>
                     </div>
                 </div>
@@ -1010,7 +1237,7 @@
             };
 
             let html = '';
-            
+
             anneeOrder.forEach(annee => {
                 const filieresInAnnee = filtered.filter(f => f.annee === annee);
                 if (filieresInAnnee.length > 0) {
@@ -1079,15 +1306,15 @@
             const start = (page - 1) * pageSize;
             const end = start + pageSize;
             const pageRows = filtered.slice(start, end);
-            
+
             container.innerHTML = `
                 <div class="card overflow-hidden !p-0">
                     <table class="w-full text-left border-collapse">
                         <thead>
                             <tr class="bg-surface2 border-b border-border">
-                                <th class="cursor-pointer select-none" data-sort="name">Professeur ${sortBy==='name'?(sortDir==='asc'?'↑':'↓'):''}</th>
-                                <th class="cursor-pointer select-none" data-sort="grade">Grade ${sortBy==='grade'?(sortDir==='asc'?'↑':'↓'):''}</th>
-                                <th class="cursor-pointer select-none" data-sort="charge">Charge ${sortBy==='charge'?(sortDir==='asc'?'↑':'↓'):''}</th>
+                                <th class="cursor-pointer select-none" data-sort="name">Professeur ${sortBy === 'name' ? (sortDir === 'asc' ? '↑' : '↓') : ''}</th>
+                                <th class="cursor-pointer select-none" data-sort="grade">Grade ${sortBy === 'grade' ? (sortDir === 'asc' ? '↑' : '↓') : ''}</th>
+                                <th class="cursor-pointer select-none" data-sort="charge">Charge ${sortBy === 'charge' ? (sortDir === 'asc' ? '↑' : '↓') : ''}</th>
                                 <th class="cursor-pointer select-none" data-sort="matiere">Discipline</th>
                                 <th class="cursor-pointer select-none" data-sort="filiere">Filière</th>
                                 <th class="cursor-pointer select-none">Statut</th>
@@ -1132,13 +1359,13 @@
                         </div>
                         <div class="flex items-center gap-3">
                             <select id="page-size" class="srch !w-20 !py-1 !px-2 mr-4">
-                                <option ${pageSize===10?'selected':''} value="10">10</option>
-                                <option ${pageSize===20?'selected':''} value="20">20</option>
-                                <option ${pageSize===50?'selected':''} value="50">50</option>
+                                <option ${pageSize === 10 ? 'selected' : ''} value="10">10</option>
+                                <option ${pageSize === 20 ? 'selected' : ''} value="20">20</option>
+                                <option ${pageSize === 50 ? 'selected' : ''} value="50">50</option>
                             </select>
-                            <button class="tab !py-1 !px-4 border border-border bg-surface" id="btn-prev" ${page<=1?'disabled':''}>Précédent</button>
+                            <button class="tab !py-1 !px-4 border border-border bg-surface" id="btn-prev" ${page <= 1 ? 'disabled' : ''}>Précédent</button>
                             <div class="text-xs font-bold text-navy px-2">${page} / ${totalPages}</div>
-                            <button class="tab !py-1 !px-4 border border-border bg-surface" id="btn-next" ${page>=totalPages?'disabled':''}>Suivant</button>
+                            <button class="tab !py-1 !px-4 border border-border bg-surface" id="btn-next" ${page >= totalPages ? 'disabled' : ''}>Suivant</button>
                         </div>
                     </div>
                 </div>
@@ -1160,8 +1387,8 @@
             const prevBtn = container.querySelector('#btn-prev');
             const nextBtn = container.querySelector('#btn-next');
             const psSel = container.querySelector('#page-size');
-            if (prevBtn) prevBtn.addEventListener('click', () => { if (page>1){ page--; renderView(); } });
-            if (nextBtn) nextBtn.addEventListener('click', () => { if (page<totalPages){ page++; renderView(); } });
+            if (prevBtn) prevBtn.addEventListener('click', () => { if (page > 1) { page--; renderView(); } });
+            if (nextBtn) nextBtn.addEventListener('click', () => { if (page < totalPages) { page++; renderView(); } });
             if (psSel) psSel.addEventListener('change', e => { pageSize = parseInt(e.target.value, 10) || 20; page = 1; renderView(); });
         }
 
@@ -1180,7 +1407,7 @@
                     <button class="tab !py-1 !px-4 border border-border" onclick="renderView()">Réinitialiser la Vue</button>
                 </div>
             `;
-            
+
             setTimeout(() => {
                 const el = document.getElementById('graph-container');
                 if (!el) return;
@@ -1318,8 +1545,8 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         ${sem1.length > 0 ? sem1.map(m => {
-                            const hasEval = m.ds || m.examen;
-                            return `
+                const hasEval = m.ds || m.examen;
+                return `
                                 <div class="subject-card border-l-4 ${m.examen ? 'border-navy' : (m.ds ? 'border-amber' : (hasEval ? 'border-border' : 'border-red'))} ${!hasEval ? 'opacity-90' : ''}">
                                     <div class="flex justify-between items-start mb-2 gap-2">
                                         <div class="text-sm font-bold ${!hasEval ? 'text-red' : 'text-navy'} leading-tight">${m.nom}</div>
@@ -1332,7 +1559,7 @@
                                     <div class="text-[10px] text-text3 font-medium uppercase tracking-tight">${m.professeur || 'Non assigné'}</div>
                                 </div>
                             `;
-                        }).join('') : '<div class="col-span-2 py-6 text-center text-text3 italic text-xs">Aucune matière pour le S1</div>'}
+            }).join('') : '<div class="col-span-2 py-6 text-center text-text3 italic text-xs">Aucune matière pour le S1</div>'}
                     </div>
                 </div>
 
@@ -1346,8 +1573,8 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         ${sem2.length > 0 ? sem2.map(m => {
-                            const hasEval = m.ds || m.examen;
-                            return `
+                const hasEval = m.ds || m.examen;
+                return `
                                 <div class="subject-card border-l-4 ${m.examen ? 'border-navy' : (m.ds ? 'border-amber' : (hasEval ? 'border-border' : 'border-red'))} ${!hasEval ? 'opacity-90' : ''}">
                                     <div class="flex justify-between items-start mb-2 gap-2">
                                         <div class="text-sm font-bold ${!hasEval ? 'text-red' : 'text-navy'} leading-tight">${m.nom}</div>
@@ -1360,7 +1587,7 @@
                                     <div class="text-[10px] text-text3 font-medium uppercase tracking-tight">${m.professeur || 'Non assigné'}</div>
                                 </div>
                             `;
-                        }).join('') : '<div class="col-span-2 py-6 text-center text-text3 italic text-xs">Aucune matière pour le S2</div>'}
+            }).join('') : '<div class="col-span-2 py-6 text-center text-text3 italic text-xs">Aucune matière pour le S2</div>'}
                     </div>
                 </div>
 
@@ -1399,8 +1626,8 @@
                 <h3 class="text-lg font-serif text-navy mb-4">${prof.full_name}</h3>
                 <div class="space-y-3">
                     ${matieres.map(m => {
-                        const hasEval = m.ds || m.examen;
-                        return `
+                const hasEval = m.ds || m.examen;
+                return `
                         <div class="subject-card border-l-4 ${m.examen ? 'border-navy' : (m.ds ? 'border-amber' : (hasEval ? 'border-border' : 'border-red'))} flex justify-between items-center ${!hasEval ? 'opacity-90' : ''}">
                             <div>
                                 <div class="text-sm font-bold ${!hasEval ? 'text-red' : 'text-navy'}">${m.nom}</div>
@@ -1412,7 +1639,8 @@
                                 ${!hasEval ? '<span class="type-badge type-none">AUCUNE ÉVAL.</span>' : ''}
                             </div>
                         </div>
-                    `;}).join('')}
+                    `;
+            }).join('')}
                 </div>
             `;
             document.getElementById('modal').style.display = 'flex';
@@ -1438,8 +1666,27 @@
             renderView();
         });
 
+        // Theme Management
+        function initTheme() {
+            const isDark = localStorage.getItem('theme') === 'dark';
+            if (isDark) {
+                document.documentElement.classList.add('dark-mode');
+                document.querySelector('.sun-icon').style.display = 'none';
+                document.querySelector('.moon-icon').style.display = 'block';
+            }
+        }
+
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            document.querySelector('.sun-icon').style.display = isDark ? 'none' : 'block';
+            document.querySelector('.moon-icon').style.display = isDark ? 'block' : 'none';
+        });
+
         // Init
+        initTheme();
         loadData();
     </script>
 </body>
+
 </html>
