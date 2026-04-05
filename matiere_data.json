@@ -1,0 +1,102 @@
+[
+  {
+    "id_matiere": 1,
+    "code_matiere": "1101",
+    "nom_matiere": "Alg\u00e8bre 1_SI",
+    "id_filaire": 9,
+    "id_professeur": 204,
+    "has_examen": 1,
+    "has_ds": 1,
+    "jour_num": 3
+  },
+  {
+    "id_matiere": 2,
+    "code_matiere": "1102",
+    "nom_matiere": "Analyse 1_SI",
+    "id_filaire": 9,
+    "id_professeur": 92,
+    "has_examen": 1,
+    "has_ds": 1,
+    "jour_num": 2
+  },
+  {
+    "id_matiere": 3,
+    "code_matiere": "1103",
+    "nom_matiere": "Algorithmique et structure de donn\u00e9es",
+    "id_filaire": 9,
+    "id_professeur": 52,
+    "has_examen": 1,
+    "has_ds": 1,
+    "jour_num": 4
+  },
+  {
+    "id_matiere": 4,
+    "code_matiere": "1104",
+    "nom_matiere": "Atelier programmation 1_SI",
+    "id_filaire": 9,
+    "id_professeur": 4,
+    "has_examen": 1,
+    "has_ds": 1,
+    "jour_num": 3
+  },
+  {
+    "id_matiere": 5,
+    "code_matiere": "1105",
+    "nom_matiere": "Syst\u00e8me d'exploitation 1_SI",
+    "id_filaire": 9,
+    "id_professeur": 209,
+    "has_examen": 1,
+    "has_ds": 1,
+    "jour_num": 1
+  },
+  {
+    "id_matiere": 6,
+    "code_matiere": "1106",
+    "nom_matiere": "Syst\u00e8mes Logiques & Architecture des ordinateurs",
+    "id_filaire": 9,
+    "id_professeur": 183,
+    "has_examen": 1,
+    "has_ds": 1,
+    "jour_num": 1
+  },
+  {
+    "id_matiere": 7,
+    "code_matiere": "1107",
+    "nom_matiere": "Logique formelle",
+    "id_filaire": 9,
+    "id_professeur": 116,
+    "has_examen": 1,
+    "has_ds": 1,
+    "jour_num": 4
+  },
+  {
+    "id_matiere": 8,
+    "code_matiere": "1108",
+    "nom_matiere": "Technologies Multim\u00e9dias",
+    "id_filaire": 9,
+    "id_professeur": 70,
+    "has_examen": 1,
+    "has_ds": 1,
+    "jour_num": 2
+  },
+  {
+    "id_matiere": 9,
+    "code_matiere": "1109",
+    "nom_matiere": "Anglais 1_SI",
+    "id_filaire": 9,
+    "id_professeur": 240,
+    "has_examen": 1,
+    "has_ds": 0,
+    "jour_num": null
+  },
+  {
+    "id_matiere": 10,
+    "code_matiere": "1110",
+    "nom_matiere": "Techniques de communication 1_SI",
+    "id_filaire": 9,
+    "id_professeur": 276,
+    "has_examen": 1,
+    "has_ds": 0,
+    "jour_num": null
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "id_matiere": 30,
+    "has_examen": 1,
+    "nom_matiere": "Pr\u00e9paration \u00e0 l'environnement professionnel_SI",
+    "nom_filaire": "Licence SI"
+  },
+  {
+    "id_matiere": 201,
+    "has_examen": 1,
+    "nom_matiere": "Installations de chauffage",
+    "nom_filaire": "Licence Eng"
+  },
+  {
+    "id_matiere": 202,
+    "has_examen": 1,
+    "nom_matiere": "Sch\u00e9mas \u00e9lectriques appliqu\u00e9s aux syst\u00e8mes HVAC",
+    "nom_filaire": "Licence Eng"
+  },
+  {
+    "id_matiere": 216,
+    "has_examen": 1,
+    "nom_matiere": "Comptabilit\u00e9 \u00e9nerg\u00e9tique",
+    "nom_filaire": "Licence Eng"
+  },
+  {
+    "id_matiere": 235,
+    "has_examen": 1,
+    "nom_matiere": "Fondements des Bases de donn\u00e9es",
+    "nom_filaire": "Licence ISI"
+  },
+  {
+    "id_matiere": 245,
+    "has_examen": 1,
+    "nom_matiere": "S\u00e9curit\u00e9 IoT",
+    "nom_filaire": "Licence ISI"
+  },
+  {
+    "id_matiere": 254,
+    "has_examen": 1,
+    "nom_matiere": "Calcul Haute performance",
+    "nom_filaire": "Licence ISI"
+  }
+]

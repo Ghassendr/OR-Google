@@ -1,0 +1,520 @@
+[
+  {
+    "id": 1,
+    "salle_name": "K02",
+    "type_session": "matin",
+    "id_filiere1": 4,
+    "id_filiere2": 35
+  },
+  {
+    "id": 2,
+    "salle_name": "K03",
+    "type_session": "matin",
+    "id_filiere1": 3,
+    "id_filiere2": 5
+  },
+  {
+    "id": 3,
+    "salle_name": "K04",
+    "type_session": "matin",
+    "id_filiere1": 8,
+    "id_filiere2": 6
+  },
+  {
+    "id": 4,
+    "salle_name": "K05",
+    "type_session": "matin",
+    "id_filiere1": 21,
+    "id_filiere2": 21
+  },
+  {
+    "id": 5,
+    "salle_name": "K06",
+    "type_session": "matin",
+    "id_filiere1": 38,
+    "id_filiere2": 5
+  },
+  {
+    "id": 6,
+    "salle_name": "K10",
+    "type_session": "matin",
+    "id_filiere1": 8,
+    "id_filiere2": 4
+  },
+  {
+    "id": 7,
+    "salle_name": "K11",
+    "type_session": "matin",
+    "id_filiere1": 7,
+    "id_filiere2": 8
+  },
+  {
+    "id": 8,
+    "salle_name": "K12",
+    "type_session": "matin",
+    "id_filiere1": 1,
+    "id_filiere2": 9
+  },
+  {
+    "id": 9,
+    "salle_name": "K13",
+    "type_session": "matin",
+    "id_filiere1": 9,
+    "id_filiere2": 2
+  },
+  {
+    "id": 10,
+    "salle_name": "M02",
+    "type_session": "matin",
+    "id_filiere1": 1,
+    "id_filiere2": 21
+  },
+  {
+    "id": 11,
+    "salle_name": "M03",
+    "type_session": "matin",
+    "id_filiere1": 1,
+    "id_filiere2": 21
+  },
+  {
+    "id": 12,
+    "salle_name": "M04",
+    "type_session": "matin",
+    "id_filiere1": 5,
+    "id_filiere2": 7
+  },
+  {
+    "id": 13,
+    "salle_name": "M05",
+    "type_session": "matin",
+    "id_filiere1": 1,
+    "id_filiere2": 2
+  },
+  {
+    "id": 14,
+    "salle_name": "M08",
+    "type_session": "matin",
+    "id_filiere1": 38,
+    "id_filiere2": 8
+  },
+  {
+    "id": 15,
+    "salle_name": "M09",
+    "type_session": "matin",
+    "id_filiere1": 1,
+    "id_filiere2": 8
+  },
+  {
+    "id": 16,
+    "salle_name": "M10",
+    "type_session": "matin",
+    "id_filiere1": 1,
+    "id_filiere2": 5
+  },
+  {
+    "id": 17,
+    "salle_name": "M11",
+    "type_session": "matin",
+    "id_filiere1": 5,
+    "id_filiere2": 7
+  },
+  {
+    "id": 18,
+    "salle_name": "M12",
+    "type_session": "matin",
+    "id_filiere1": 3,
+    "id_filiere2": 38
+  },
+  {
+    "id": 19,
+    "salle_name": "M13",
+    "type_session": "matin",
+    "id_filiere1": 8,
+    "id_filiere2": 5
+  },
+  {
+    "id": 20,
+    "salle_name": "M14",
+    "type_session": "matin",
+    "id_filiere1": 1,
+    "id_filiere2": 4
+  },
+  {
+    "id": 21,
+    "salle_name": "M15",
+    "type_session": "matin",
+    "id_filiere1": 21,
+    "id_filiere2": 8
+  },
+  {
+    "id": 22,
+    "salle_name": "M17",
+    "type_session": "matin",
+    "id_filiere1": 8,
+    "id_filiere2": 4
+  },
+  {
+    "id": 23,
+    "salle_name": "I01",
+    "type_session": "matin",
+    "id_filiere1": 1,
+    "id_filiere2": 2
+  },
+  {
+    "id": 24,
+    "salle_name": "I02",
+    "type_session": "matin",
+    "id_filiere1": 21,
+    "id_filiere2": 13
+  },
+  {
+    "id": 25,
+    "salle_name": "I03",
+    "type_session": "matin",
+    "id_filiere1": 6,
+    "id_filiere2": 8
+  },
+  {
+    "id": 26,
+    "salle_name": "I05",
+    "type_session": "matin",
+    "id_filiere1": 21,
+    "id_filiere2": 6
+  },
+  {
+    "id": 27,
+    "salle_name": "I07",
+    "type_session": "matin",
+    "id_filiere1": 21,
+    "id_filiere2": 35
+  },
+  {
+    "id": 28,
+    "salle_name": "I08",
+    "type_session": "matin",
+    "id_filiere1": 5,
+    "id_filiere2": 7
+  },
+  {
+    "id": 29,
+    "salle_name": "I10",
+    "type_session": "matin",
+    "id_filiere1": 3,
+    "id_filiere2": 7
+  },
+  {
+    "id": 30,
+    "salle_name": "I11",
+    "type_session": "matin",
+    "id_filiere1": 3,
+    "id_filiere2": 7
+  },
+  {
+    "id": 31,
+    "salle_name": "I12",
+    "type_session": "matin",
+    "id_filiere1": 48,
+    "id_filiere2": 2
+  },
+  {
+    "id": 32,
+    "salle_name": "I13",
+    "type_session": "matin",
+    "id_filiere1": 9,
+    "id_filiere2": 6
+  },
+  {
+    "id": 33,
+    "salle_name": "I14",
+    "type_session": "matin",
+    "id_filiere1": 6,
+    "id_filiere2": 35
+  },
+  {
+    "id": 34,
+    "salle_name": "I15",
+    "type_session": "matin",
+    "id_filiere1": 38,
+    "id_filiere2": 35
+  },
+  {
+    "id": 35,
+    "salle_name": "I17",
+    "type_session": "matin",
+    "id_filiere1": 35,
+    "id_filiere2": 8
+  },
+  {
+    "id": 36,
+    "salle_name": "I18",
+    "type_session": "matin",
+    "id_filiere1": 1,
+    "id_filiere2": 5
+  },
+  {
+    "id": 37,
+    "salle_name": "J01",
+    "type_session": "matin",
+    "id_filiere1": 3,
+    "id_filiere2": 5
+  },
+  {
+    "id": 38,
+    "salle_name": "J02",
+    "type_session": "matin",
+    "id_filiere1": 43,
+    "id_filiere2": 35
+  },
+  {
+    "id": 39,
+    "salle_name": "J05",
+    "type_session": "matin",
+    "id_filiere1": 21,
+    "id_filiere2": 8
+  },
+  {
+    "id": 40,
+    "salle_name": "J06",
+    "type_session": "matin",
+    "id_filiere1": 40,
+    "id_filiere2": 9
+  },
+  {
+    "id": 41,
+    "salle_name": "J07",
+    "type_session": "matin",
+    "id_filiere1": 42,
+    "id_filiere2": 47
+  },
+  {
+    "id": 42,
+    "salle_name": "J08",
+    "type_session": "matin",
+    "id_filiere1": 43,
+    "id_filiere2": 6
+  },
+  {
+    "id": 43,
+    "salle_name": "J09",
+    "type_session": "matin",
+    "id_filiere1": 40,
+    "id_filiere2": 5
+  },
+  {
+    "id": 44,
+    "salle_name": "K01",
+    "type_session": "apmidi",
+    "id_filiere1": 12,
+    "id_filiere2": 9
+  },
+  {
+    "id": 45,
+    "salle_name": "K02",
+    "type_session": "apmidi",
+    "id_filiere1": 15,
+    "id_filiere2": 6
+  },
+  {
+    "id": 46,
+    "salle_name": "K03",
+    "type_session": "apmidi",
+    "id_filiere1": 9,
+    "id_filiere2": 15
+  },
+  {
+    "id": 47,
+    "salle_name": "K04",
+    "type_session": "apmidi",
+    "id_filiere1": 15,
+    "id_filiere2": 11
+  },
+  {
+    "id": 48,
+    "salle_name": "K05",
+    "type_session": "apmidi",
+    "id_filiere1": 15,
+    "id_filiere2": 21
+  },
+  {
+    "id": 49,
+    "salle_name": "K06",
+    "type_session": "apmidi",
+    "id_filiere1": 11,
+    "id_filiere2": 21
+  },
+  {
+    "id": 50,
+    "salle_name": "K07",
+    "type_session": "apmidi",
+    "id_filiere1": 17,
+    "id_filiere2": 21
+  },
+  {
+    "id": 51,
+    "salle_name": "K08",
+    "type_session": "apmidi",
+    "id_filiere1": 6,
+    "id_filiere2": 21
+  },
+  {
+    "id": 52,
+    "salle_name": "K09",
+    "type_session": "apmidi",
+    "id_filiere1": 3,
+    "id_filiere2": 21
+  },
+  {
+    "id": 53,
+    "salle_name": "K10",
+    "type_session": "apmidi",
+    "id_filiere1": 21,
+    "id_filiere2": 9
+  },
+  {
+    "id": 54,
+    "salle_name": "K11",
+    "type_session": "apmidi",
+    "id_filiere1": 6,
+    "id_filiere2": 15
+  },
+  {
+    "id": 55,
+    "salle_name": "K12",
+    "type_session": "apmidi",
+    "id_filiere1": 21,
+    "id_filiere2": 6
+  },
+  {
+    "id": 56,
+    "salle_name": "K13",
+    "type_session": "apmidi",
+    "id_filiere1": 17,
+    "id_filiere2": 17
+  },
+  {
+    "id": 57,
+    "salle_name": "M01",
+    "type_session": "apmidi",
+    "id_filiere1": 21,
+    "id_filiere2": 3
+  },
+  {
+    "id": 58,
+    "salle_name": "M02",
+    "type_session": "apmidi",
+    "id_filiere1": 12,
+    "id_filiere2": 3
+  },
+  {
+    "id": 59,
+    "salle_name": "M03",
+    "type_session": "apmidi",
+    "id_filiere1": 12,
+    "id_filiere2": 9
+  },
+  {
+    "id": 60,
+    "salle_name": "M04",
+    "type_session": "apmidi",
+    "id_filiere1": 15,
+    "id_filiere2": 17
+  },
+  {
+    "id": 61,
+    "salle_name": "M05",
+    "type_session": "apmidi",
+    "id_filiere1": 21,
+    "id_filiere2": 9
+  },
+  {
+    "id": 62,
+    "salle_name": "M07",
+    "type_session": "apmidi",
+    "id_filiere1": 21,
+    "id_filiere2": 9
+  },
+  {
+    "id": 63,
+    "salle_name": "M08",
+    "type_session": "apmidi",
+    "id_filiere1": 9,
+    "id_filiere2": 15
+  },
+  {
+    "id": 64,
+    "salle_name": "M09",
+    "type_session": "apmidi",
+    "id_filiere1": 12,
+    "id_filiere2": 21
+  },
+  {
+    "id": 65,
+    "salle_name": "M11",
+    "type_session": "apmidi",
+    "id_filiere1": 11,
+    "id_filiere2": 15
+  },
+  {
+    "id": 66,
+    "salle_name": "M13",
+    "type_session": "apmidi",
+    "id_filiere1": 12,
+    "id_filiere2": 6
+  },
+  {
+    "id": 67,
+    "salle_name": "M14",
+    "type_session": "apmidi",
+    "id_filiere1": 21,
+    "id_filiere2": 12
+  },
+  {
+    "id": 68,
+    "salle_name": "M15",
+    "type_session": "apmidi",
+    "id_filiere1": 12,
+    "id_filiere2": 15
+  },
+  {
+    "id": 69,
+    "salle_name": "M16",
+    "type_session": "apmidi",
+    "id_filiere1": 21,
+    "id_filiere2": 6
+  },
+  {
+    "id": 70,
+    "salle_name": "M17",
+    "type_session": "apmidi",
+    "id_filiere1": 21,
+    "id_filiere2": 6
+  },
+  {
+    "id": 71,
+    "salle_name": "I01",
+    "type_session": "apmidi",
+    "id_filiere1": 11,
+    "id_filiere2": 6
+  },
+  {
+    "id": 72,
+    "salle_name": "I05",
+    "type_session": "apmidi",
+    "id_filiere1": 21,
+    "id_filiere2": 15
+  },
+  {
+    "id": 73,
+    "salle_name": "I18",
+    "type_session": "apmidi",
+    "id_filiere1": 17,
+    "id_filiere2": 6
+  },
+  {
+    "id": 74,
+    "salle_name": "I19",
+    "type_session": "apmidi",
+    "id_filiere1": 3,
+    "id_filiere2": 6
+  }
+]

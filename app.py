@@ -153,6 +153,146 @@ def api_timetable():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/api/salle-filieres', methods=['GET'])
+def api_salle_filieres():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute('''
+            SELECT sf.salle_name, sf.type_session, 
+                   f1.nom_filaire as filiere1_nom, 
+                   f2.nom_filaire as filiere2_nom
+            FROM salle_filieres sf
+            LEFT JOIN filaire f1 ON sf.id_filiere1 = f1.id_filaire
+            LEFT JOIN filaire f2 ON sf.id_filiere2 = f2.id_filaire
+            ORDER BY sf.type_session DESC, sf.salle_name ASC
+        ''')
+        rows = cursor.fetchall()
+        cursor.close()
+        conn.close()
+        return jsonify({'data': rows})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/calendrier/<int:jour_num>', methods=['GET'])
+def api_calendrier(jour_num):
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute('''
+            SELECT 
+                m.nom_matiere, 
+                m.id_filaire,
+                f.nom_filaire,
+                sf.salle_name, 
+                sf.type_session
+            FROM matiere m
+            JOIN filaire f ON m.id_filaire = f.id_filaire
+            JOIN salle_filieres sf ON (sf.id_filiere1 = m.id_filaire OR sf.id_filiere2 = m.id_filaire)
+            WHERE m.jour_num = %s AND m.has_examen = 1
+        ''', (jour_num,))
+        rows = cursor.fetchall()
+        cursor.close()
+        conn.close()
+
+        rooms = {}
+        for r in rows:
+            s_name = r['salle_name']
+            if s_name not in rooms:
+                rooms[s_name] = {'salle': s_name, 'matin': {'slot1': [], 'slot2': []}, 'apmidi': {'slot1': [], 'slot2': []}}
+                
+        filiere_mats = {}
+        for r in rows:
+            key = (r['salle_name'], r['type_session'], r['id_filaire'], r['nom_filaire'])
+            if key not in filiere_mats:
+                filiere_mats[key] = []
+            filiere_mats[key].append(r['nom_matiere'])
+            
+        for (s_name, t_session, f_id, f_nom), mat_list in filiere_mats.items():
+            mat1 = mat_list[0] if len(mat_list) > 0 else None
+            mat2 = mat_list[1] if len(mat_list) > 1 else None
+            
+            if mat1:
+                rooms[s_name][t_session]['slot1'].append({'filiere': f_nom, 'matiere': mat1})
+            if mat2:
+                rooms[s_name][t_session]['slot2'].append({'filiere': f_nom, 'matiere': mat2})
+
+        final_rooms = []
+        for s_name, data in rooms.items():
+            has_data = len(data['matin']['slot1']) > 0 or len(data['matin']['slot2']) > 0 or \
+                       len(data['apmidi']['slot1']) > 0 or len(data['apmidi']['slot2']) > 0
+            if has_data:
+                final_rooms.append(data)
+
+        final_rooms.sort(key=lambda x: x['salle'])
+        return jsonify({'data': final_rooms})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/surveillance-stats', methods=['GET'])
+def api_surveillance_stats():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        
+        # 1. Get Room assignments
+        cursor.execute("SELECT salle_name, type_session, id_filiere1, id_filiere2 FROM salle_filieres")
+        rooms = cursor.fetchall()
+        
+        # 2. Get Exam counts per filiere and day
+        cursor.execute('''
+            SELECT id_filaire, jour_num, COUNT(*) as exam_count 
+            FROM matiere 
+            WHERE has_examen = 1 
+            GROUP BY id_filaire, jour_num
+        ''')
+        exam_data = cursor.fetchall()
+        
+        # Organize exam counts: {filiere_id: {jour_num: count}}
+        filiere_counts = {}
+        for row in exam_data:
+            fid = row['id_filaire']
+            jno = row['jour_num']
+            if fid not in filiere_counts: filiere_counts[fid] = {}
+            filiere_counts[fid][jno] = row['exam_count']
+            
+        # 3. Calculate per room
+        results = []
+        for r in rooms:
+            room_name = r['salle_name']
+            id1 = r['id_filiere1']
+            id2 = r['id_filiere2']
+            
+            daily_stats = {}
+            total_profs = 0
+            
+            for day in range(1, 7): # Lundi to Samedi
+                c1 = filiere_counts.get(id1, {}).get(day, 0) if id1 else 0
+                c2 = filiere_counts.get(id2, {}).get(day, 0) if id2 else 0
+                
+                # Max slots used in the room that day
+                slots = max(c1, c2)
+                profs_needed = slots * 2
+                
+                day_name = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'][day-1]
+                daily_stats[day_name] = profs_needed
+                total_profs += profs_needed
+                
+            results.append({
+                'salle': room_name,
+                'session': r['type_session'],
+                'total_profs': total_profs,
+                'daily': daily_stats,
+                'building': room_name[0]
+            })
+            
+        cursor.close()
+        conn.close()
+        
+        results.sort(key=lambda x: (x['building'], x['salle']))
+        return jsonify({'data': results})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/save-data', methods=['POST'])
 def save_data():

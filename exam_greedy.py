@@ -1,6 +1,11 @@
-import sys, json, math, random, time
+import sys, json, math, random, time, os
 from collections import defaultdict
 from ortools.sat.python import cp_model
+
+try:
+    import mysql.connector
+except ImportError:
+    mysql = None
 
 # ============================================================
 # 1. CHARGEMENT
@@ -34,6 +39,8 @@ annees = filieres_raw.get('annees', {})
 year_labels = {'1ere_annee': 'L1', '2eme_annee': 'L2', '3eme_annee': 'L3', 'master': 'M'}
 
 for annee_key, annee_val in annees.items():
+    if annee_key == 'master': continue
+    
     sub = annee_val.get('programmes', {}) if annee_key == 'master' else annee_val.get('filieres', {})
     label = year_labels.get(annee_key, annee_key)
     
@@ -126,11 +133,32 @@ def greedy_solve(bloc_name, filieres, rooms_data):
             model.Add(2 * x[(fi, ri)] - occ_ri <= 4).OnlyEnforceIf(fil_present[(fi, ri)])
             model.Add(occ_ri - 2 * x[(fi, ri)] <= 4).OnlyEnforceIf(fil_present[(fi, ri)])
 
-    # Objectif : Minimiser le nombre de salles
-    model.Minimize(sum(room_used))
+    # NOUVEAU : Regroupement par bâtiment
+    # bats = set de tous les premiers caractères des noms de salles (ex: 'K', 'M', 'I', 'J')
+    bats = sorted(list(set(rooms_data[ri]['Salle'][0] for ri in range(nr))))
+    bat_to_ri = {b: [ri for ri in range(nr) if rooms_data[ri]['Salle'][0] == b] for b in bats}
+    
+    # fil_in_bat[fi, b] = 1 si la filière fi est présente dans le bâtiment b
+    fil_in_bat = {}
+    for fi in range(nf):
+        for b in bats:
+            fil_in_bat[(fi, b)] = model.NewBoolVar(f"fib_{fi}_{b}")
+            # Si un étudiant de fi est dans une salle ri du bâtiment b, alors fil_in_bat = 1
+            # On utilise une contrainte de maximum ou OR
+            rooms_in_bat = bat_to_ri[b]
+            model.AddMaxEquality(fil_in_bat[(fi, b)], [fil_present[(fi, ri)] for ri in rooms_in_bat])
+
+    # REGROUPEMENT (SOFT CONSTRAINT FORTE) : On minimise le nombre de bâtiments par filière
+    # L'objectif est de tendre vers 1 bâtiment par filière, mais sans bloquer s'il faut splitter.
+    obj_rooms = sum(room_used)
+    obj_bats = sum(fil_in_bat.values())
+    
+    # On donne une priorité extrêmement élevée au regroupement par bâtiment
+    # tout en gardant l'utilisation des salles comme base.
+    model.Minimize(100 * obj_rooms + 5000 * obj_bats)
     
     solver = cp_model.CpSolver()
-    solver.parameters.max_time_in_seconds = 20.0 # Rapide
+    solver.parameters.max_time_in_seconds = 60.0
     solver.parameters.num_search_workers  = 16
     status = solver.Solve(model)
     
@@ -252,6 +280,89 @@ def save_results_to_json(morning_res, afternoon_res):
     with open('placement.json', 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=4, ensure_ascii=False)
     print("  [JSON] Résultats sauvegardés dans : placement.json")
+
+    # Save to Database `salle_filieres`
+    if mysql:
+        try:
+            conn = mysql.connector.connect(
+                host=os.getenv('DB_HOST', '127.0.0.1'),
+                port=int(os.getenv('DB_PORT', '3306')),
+                user=os.getenv('DB_USER', 'root'),
+                password=os.getenv('DB_PASSWORD', ''),
+                database=os.getenv('DB_NAME', 'gestion_examens_s1'),
+                charset='utf8mb4'
+            )
+            cursor = conn.cursor(dictionary=True)
+            cursor.execute("SELECT id_filaire, nom_filaire, abreviation_filaire FROM filaire")
+            filieres_db = cursor.fetchall()
+
+            cursor.execute("TRUNCATE TABLE salle_filieres")
+
+            def find_filiere_id(name_with_label):
+                parts = name_with_label.split(' ', 1)
+                f_name = parts[1] if len(parts) > 1 else name_with_label
+                
+                f_name_lower = f_name.strip().lower()
+                f_clean = f_name_lower.replace('l_', '').replace('mr_', '').replace('mp_', '').replace('_', ' ').strip()
+                
+                # Try exact match with multiple variations
+                for db_f in filieres_db:
+                    db_nom = db_f['nom_filaire'].strip().lower()
+                    db_abrev = (db_f['abreviation_filaire'] or '').strip().lower()
+                    
+                    if f_name_lower == db_nom or f_clean == db_nom:
+                        return db_f['id_filaire']
+                    if f_name_lower == db_abrev or f_clean == db_abrev:
+                        return db_f['id_filaire']
+                        
+                    if db_abrev and (f_clean == db_abrev.replace('-', ' ') or f_clean == db_abrev.replace('-', '')):
+                        return db_f['id_filaire']
+                        
+                    # Specific fixes for common prefixes "Licence ", "Master "
+                    if db_abrev and db_abrev in f_name_lower:
+                        return db_f['id_filaire']
+                
+                # Try partial match
+                for db_f in filieres_db:
+                    db_nom = db_f['nom_filaire'].strip().lower()
+                    if f_clean in db_nom or db_nom in f_clean:
+                        return db_f['id_filaire']
+                
+                # Ultimate fallback for entries missing in DB
+                fallbacks = {
+                    'energ': 3,      # Map to Licence Eng
+                    'pai': 35,       # Map to Master MERE
+                    'spi 2': 38,     # Map to Master MR-SPI
+                    'spi 1': 38
+                }
+                for key, val in fallbacks.items():
+                    if key in f_clean:
+                        return val
+                        
+                return None
+
+            insert_query = "INSERT INTO salle_filieres (salle_name, type_session, id_filiere1, id_filiere2) VALUES (%s, %s, %s, %s)"
+            
+            def process_db(data_list, session_name):
+                per_room = defaultdict(list)
+                for r in data_list:
+                    per_room[r['salle']].append(r)
+                
+                for s_name, records in per_room.items():
+                    f_list = list(set([r['filiere'] for r in records]))
+                    id1 = find_filiere_id(f_list[0]) if len(f_list) > 0 else None
+                    id2 = find_filiere_id(f_list[1]) if len(f_list) > 1 else None
+                    cursor.execute(insert_query, (s_name, session_name, id1, id2))
+            
+            process_db(morning_res, 'matin')
+            process_db(afternoon_res, 'apmidi')
+            
+            conn.commit()
+            cursor.close()
+            conn.close()
+            print("  [DB] Résultats sauvegardés dans : salle_filieres")
+        except Exception as e:
+            print("  [DB Error] Impossible de sauvegarder dans la base :", str(e))
 
 # ============================================================
 # 6. RECAPITULATIF ET EXECUTION FINALE

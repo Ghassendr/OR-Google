@@ -1,0 +1,47 @@
+{
+  "apmidi": {
+    "slot1": [
+      {
+        "filiere": "Licence ISI",
+        "matiere": "Syst\u00e8me d'exploitation 1_ISI"
+      },
+      {
+        "filiere": "Ingenieur GL",
+        "matiere": "Analyse Num\u00e9rique_GL"
+      }
+    ],
+    "slot2": [
+      {
+        "filiere": "Licence ISI",
+        "matiere": "Syst\u00e8mes Logiques"
+      },
+      {
+        "filiere": "Ingenieur GL",
+        "matiere": "Comptabilit\u00e9 analytique"
+      }
+    ]
+  },
+  "matin": {
+    "slot1": [
+      {
+        "filiere": "Ingenieur A1",
+        "matiere": "Math\u00e9matiques discr\u00e8tes"
+      },
+      {
+        "filiere": "Cycle Preparatoire",
+        "matiere": "Electrostatique - Magn\u00e9tostatique"
+      }
+    ],
+    "slot2": [
+      {
+        "filiere": "Ingenieur A1",
+        "matiere": "Fondements des syst\u00e8mes d'exploitation"
+      },
+      {
+        "filiere": "Cycle Preparatoire",
+        "matiere": "Algorithmique et structures de donn\u00e9es 1"
+      }
+    ]
+  },
+  "salle": "K11"
+}

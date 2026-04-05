@@ -1,338 +1,67 @@
-[
-    {
-        "id": 1,
-        "Filiere": "Licence EEA",
-        "abrevation": "EEA",
-        "Niveau": "1ERE",
-        "Effectif": 0
-    },
-    {
-        "id": 2,
-        "Filiere": "Licence EM",
-        "abrevation": "EM",
-        "Niveau": "1ERE",
-        "Effectif": 0
-    },
-    {
-        "id": 3,
-        "Filiere": "Licence Eng",
-        "abrevation": "ENG",
-        "Niveau": "1ERE",
-        "Effectif": 0
-    },
-    {
-        "id": 4,
-        "Filiere": "Licence GC",
-        "abrevation": "GC",
-        "Niveau": "1ERE",
-        "Effectif": 0
-    },
-    {
-        "id": 5,
-        "Filiere": "Licence GM",
-        "abrevation": "GM",
-        "Niveau": "1ERE",
-        "Effectif": 0
-    },
-    {
-        "id": 6,
-        "Filiere": "Licence ISI",
-        "abrevation": "ISI",
-        "Niveau": "1ERE",
-        "Effectif": 0
-    },
-    {
-        "id": 7,
-        "Filiere": "Ingenieur A1",
-        "abrevation": "ING",
-        "Niveau": "1ERE",
-        "Effectif": 0
-    },
-    {
-        "id": 8,
-        "Filiere": "Cycle Preparatoire",
-        "abrevation": "PREP",
-        "Niveau": "1ERE",
-        "Effectif": 0
-    },
-    {
-        "id": 9,
-        "Filiere": "Licence SI",
-        "abrevation": "SI",
-        "Niveau": "1ERE",
-        "Effectif": 0
-    },
-    {
-        "id": 10,
-        "Filiere": "Licence EEA AII",
-        "abrevation": "AII",
-        "Niveau": "2EME",
-        "Effectif": 0
-    },
-    {
-        "id": 11,
-        "Filiere": "Licence GC Batiment",
-        "abrevation": "BAT",
-        "Niveau": "2EME",
-        "Effectif": 0
-    },
-    {
-        "id": 12,
-        "Filiere": "Licence CPI",
-        "abrevation": "CPI",
-        "Niveau": "2EME",
-        "Effectif": 0
-    },
-    {
-        "id": 13,
-        "Filiere": "Licence EEA EI",
-        "abrevation": "EI",
-        "Niveau": "2EME",
-        "Effectif": 0
-    },
-    {
-        "id": 14,
-        "Filiere": "Licence Eng",
-        "abrevation": "ENG",
-        "Niveau": "2EME",
-        "Effectif": 0
-    },
-    {
-        "id": 15,
-        "Filiere": "Ingenieur GL",
-        "abrevation": "GL",
-        "Niveau": "2EME",
-        "Effectif": 0
-    },
-    {
-        "id": 16,
-        "Filiere": "Licence ISI",
-        "abrevation": "ISI",
-        "Niveau": "2EME",
-        "Effectif": 0
-    },
-    {
-        "id": 17,
-        "Filiere": "Licence MA",
-        "abrevation": "MA",
-        "Niveau": "2EME",
-        "Effectif": 0
-    },
-    {
-        "id": 18,
-        "Filiere": "Licence MI",
-        "abrevation": "MI",
-        "Niveau": "2EME",
-        "Effectif": 0
-    },
-    {
-        "id": 19,
-        "Filiere": "Licence GC P&C",
-        "abrevation": "PC",
-        "Niveau": "2EME",
-        "Effectif": 0
-    },
-    {
-        "id": 20,
-        "Filiere": "Cycle Preparatoire",
-        "abrevation": "PREP",
-        "Niveau": "2EME",
-        "Effectif": 0
-    },
-    {
-        "id": 21,
-        "Filiere": "Licence EEA SE",
-        "abrevation": "SE",
-        "Niveau": "2EME",
-        "Effectif": 0
-    },
-    {
-        "id": 22,
-        "Filiere": "Licence SI",
-        "abrevation": "SI",
-        "Niveau": "2EME",
-        "Effectif": 0
-    },
-    {
-        "id": 23,
-        "Filiere": "Licence EEA AII",
-        "abrevation": "AII",
-        "Niveau": "3EME",
-        "Effectif": 0
-    },
-    {
-        "id": 24,
-        "Filiere": "Licence GC Batiment",
-        "abrevation": "BAT",
-        "Niveau": "3EME",
-        "Effectif": 0
-    },
-    {
-        "id": 25,
-        "Filiere": "Licence CPI",
-        "abrevation": "CPI",
-        "Niveau": "3EME",
-        "Effectif": 0
-    },
-    {
-        "id": 26,
-        "Filiere": "Licence EEA EI",
-        "abrevation": "EI",
-        "Niveau": "3EME",
-        "Effectif": 0
-    },
-    {
-        "id": 27,
-        "Filiere": "Licence Eng",
-        "abrevation": "ENG",
-        "Niveau": "3EME",
-        "Effectif": 0
-    },
-    {
-        "id": 28,
-        "Filiere": "Ingenieur GLAL",
-        "abrevation": "GLAL",
-        "Niveau": "3EME",
-        "Effectif": 0
-    },
-    {
-        "id": 29,
-        "Filiere": "Licence ISI",
-        "abrevation": "ISI",
-        "Niveau": "3EME",
-        "Effectif": 0
-    },
-    {
-        "id": 30,
-        "Filiere": "Licence MA",
-        "abrevation": "MA",
-        "Niveau": "3EME",
-        "Effectif": 0
-    },
-    {
-        "id": 31,
-        "Filiere": "Licence MI",
-        "abrevation": "MI",
-        "Niveau": "3EME",
-        "Effectif": 0
-    },
-    {
-        "id": 32,
-        "Filiere": "Licence GC P&C",
-        "abrevation": "PC",
-        "Niveau": "3EME",
-        "Effectif": 0
-    },
-    {
-        "id": 33,
-        "Filiere": "Licence EEA SE",
-        "abrevation": "SE",
-        "Niveau": "3EME",
-        "Effectif": 0
-    },
-    {
-        "id": 34,
-        "Filiere": "Licence SI",
-        "abrevation": "SI",
-        "Niveau": "3EME",
-        "Effectif": 0
-    },
-    {
-        "id": 35,
-        "Filiere": "Master Pro MERE",
-        "abrevation": "MP-MERE",
-        "Niveau": "1ERE",
-        "Effectif": 0
-    },
-    {
-        "id": 36,
-        "Filiere": "Master Recherche GM",
-        "abrevation": "MR-GM",
-        "Niveau": "1ERE",
-        "Effectif": 0
-    },
-    {
-        "id": 37,
-        "Filiere": "Master Recherche MSEE",
-        "abrevation": "MR-MSEE",
-        "Niveau": "1ERE",
-        "Effectif": 0
-    },
-    {
-        "id": 38,
-        "Filiere": "Master Recherche SPI",
-        "abrevation": "MR-SPI",
-        "Niveau": "1ERE",
-        "Effectif": 0
-    },
-    {
-        "id": 39,
-        "Filiere": "Master Pro GM",
-        "abrevation": "MP-GM",
-        "Niveau": "1ERE",
-        "Effectif": 0
-    },
-    {
-        "id": 40,
-        "Filiere": "Master Pro EEB",
-        "abrevation": "EEB",
-        "Niveau": "2EME",
-        "Effectif": 0
-    },
-    {
-        "id": 41,
-        "Filiere": "Master Pro EEI",
-        "abrevation": "EEI",
-        "Niveau": "2EME",
-        "Effectif": 0
-    },
-    {
-        "id": 42,
-        "Filiere": "Master Recherche MDEP",
-        "abrevation": "MDEP",
-        "Niveau": "2EME",
-        "Effectif": 0
-    },
-    {
-        "id": 43,
-        "Filiere": "Master Pro GPPM",
-        "abrevation": "MP-GPPM",
-        "Niveau": "2EME",
-        "Effectif": 0
-    },
-    {
-        "id": 44,
-        "Filiere": "Master Recherche SPI",
-        "abrevation": "MR-SPI",
-        "Niveau": "2EME",
-        "Effectif": 0
-    },
-    {
-        "id": 45,
-        "Filiere": "Master Recherche MSE",
-        "abrevation": "MSE",
-        "Niveau": "2EME",
-        "Effectif": 0
-    },
-    {
-        "id": 46,
-        "Filiere": "Master Recherche SEE",
-        "abrevation": "SEE",
-        "Niveau": "2EME",
-        "Effectif": 0
-    },
-    {
-        "id": 47,
-        "Filiere": "Master Recherche GM MM",
-        "abrevation": "MR-GM-MM",
-        "Niveau": "2EME",
-        "Effectif": 0
-    },
-    {
-        "id": 48,
-        "Filiere": "Master Recherche GM SM",
-        "abrevation": "MR-GM-SM",
-        "Niveau": "2EME",
-        "Effectif": 0
+{
+    "annee_universitaire": "2025/2026",
+    "nombre_total_etudiants": 2605,
+    "annees": {
+        "1ere_annee": {
+            "total_groupes": 893,
+            "filieres": {
+                "L_ISI": 90,
+                "L_GM": 88,
+                "L_GC": 78,
+                "L_EEA": 158,
+                "L_Energ": 73,
+                "L_EM": 80,
+                "L_SI": 84,
+                "Cycle_Preparatoire": 127,
+                "Ingenieur": 115
+            }
+        },
+        "2eme_annee": {
+            "total_groupes": 736,
+            "filieres": {
+                "ISI": 112,
+                "CPI": 81,
+                "Batiment": 31,
+                "SE": 159,
+                "Energ": 33,
+                "MA": 55,
+                "SI": 72,
+                "Cycle_Preparatoire": 88,
+                "2GL": 105
+            }
+        },
+        "3eme_annee": {
+            "total_groupes": 552,
+            "filieres": {
+                "ISI": 93,
+                "CPI": 50,
+                "Batiment": 37,
+                "SE": 131,
+                "Energ": 22,
+                "MA": 46,
+                "SI": 63,
+                "3GL": 110
+            }
+        },
+        "master": {
+            "programmes": {
+                "MR_SPI": 42,
+                "GM": 48,
+                "MR_GM": 27,
+                "MP_MERE": 51,
+                "MR_MSEE": 99,
+                "MP_GPPM": 22,
+                "MP_PAI": 26,
+                "MR_SPI_2": 25,
+                "MP_EEB": 31,
+                "MP_EEI": 17,
+                "MR_SEE": 25,
+                "MR_MSE": 15,
+                "MR_MDEP": 12,
+                "MR_SM": 12,
+                "MR_MM": 14
+            },
+            "total_master": 466
+        }
     }
-]
+}
