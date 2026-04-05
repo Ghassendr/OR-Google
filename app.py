@@ -51,7 +51,7 @@ def get_db_connection():
         'port': int(os.getenv('DB_PORT', '3306')),
         'user': os.getenv('DB_USER', 'root'),
         'password': os.getenv('DB_PASSWORD', ''),
-        'database': os.getenv('DB_NAME', 'gestion_examens'),
+        'database': os.getenv('DB_NAME', 'gestion_examens_s1'),
         'charset': 'utf8mb4'
     }
     return mysql.connector.connect(**cfg)
@@ -67,7 +67,7 @@ def api_professors():
     try:
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT id_proffer AS id, nom_professeur AS full_name, grade, charge_surv AS charge, 1 AS status FROM proffer ORDER BY nom_professeur LIMIT 1000")
+        cursor.execute("SELECT id_professeur AS id, nom_prenom AS full_name, grade, charge_surv AS charge, 1 AS status FROM professeur ORDER BY nom_prenom LIMIT 1000")
         rows = cursor.fetchall()
         cursor.close()
         conn.close()
@@ -82,16 +82,15 @@ def api_matieres():
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
         cursor.execute('''
-            SELECT m.id_mataire AS id, m.nom_mataire AS nom, m.id_proffe AS id_professeur, 
-                   p.nom_professeur AS professeur, 
-                   f.id_filaire AS filiere_id, f.nom_filaire AS filiere, 
-                   f.abreviation_filaire AS filiere_abrev, 
-                   f.annee AS filiere_annee,
-                   m.semestre, m.ds, m.examen
-            FROM mataire m
-            LEFT JOIN proffer p ON m.id_proffe = p.id_proffer
-            LEFT JOIN filaire f ON m.filaire_id = f.id_filaire
-            ORDER BY m.nom_mataire
+            SELECT m.id_matiere AS id, m.code_matiere AS code, m.nom_matiere AS nom, m.id_professeur AS id_professeur, 
+                   COALESCE(m.has_ds, 0) AS ds, COALESCE(m.has_examen, 0) AS examen, 
+                   m.id_filaire AS filiere_id, m.jour_num AS jour, p.nom_prenom AS prof_nom, p.grade AS prof_grade,
+                   f.nom_filaire AS filiere, f.abreviation_filaire AS filiere_abrev,
+                   f.annee AS filiere_annee
+            FROM matiere m
+            LEFT JOIN professeur p ON m.id_professeur = p.id_professeur
+            LEFT JOIN filaire f ON m.id_filaire = f.id_filaire
+            ORDER BY m.nom_matiere
             LIMIT 1000
         ''')
         rows = cursor.fetchall()
@@ -112,6 +111,45 @@ def api_filieres():
         cursor.close()
         conn.close()
         return jsonify({'filieres': rows})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/timetable', methods=['GET'])
+def api_timetable():
+    try:
+        filiere_id = request.args.get('filiere_id')
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        
+        query = '''
+            SELECT e.id, e.filiere_id, e.matiere_id, e.prof_id, e.jour, 
+                   e.heure_debut, 
+                   e.heure_fin, 
+                   e.salle, e.type_session,
+                   m.nom_matiere as matiere_nom, p.nom_prenom as prof_nom
+            FROM emploi_du_temps e
+            JOIN matiere m ON e.matiere_id = m.id_matiere
+            LEFT JOIN professeur p ON e.prof_id = p.id_professeur
+        '''
+        
+        if filiere_id:
+            query += " WHERE e.filiere_id = %s"
+            cursor.execute(query, (filiere_id,))
+        else:
+            cursor.execute(query)
+            
+        rows = cursor.fetchall() or []
+        
+        for r in rows:
+            if r['heure_debut']:
+                r['heure_debut'] = str(r['heure_debut'])[:5]
+            if r['heure_fin']:
+                r['heure_fin'] = str(r['heure_fin'])[:5]
+        
+        cursor.close()
+        conn.close()
+        return jsonify({'timetable': rows})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 

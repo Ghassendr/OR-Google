@@ -8,7 +8,7 @@ def get_db_connection():
         'port': int(os.getenv('DB_PORT', '3306')),
         'user': os.getenv('DB_USER', 'root'),
         'password': os.getenv('DB_PASSWORD', ''),
-        'database': 'gestion_examens',
+        'database': 'gestion_examens_s1',
         'charset': 'utf8mb4'
     }
     return mysql.connector.connect(**cfg)

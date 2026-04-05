@@ -7,7 +7,7 @@ def test_connection():
         'port': 3306,
         'user': 'root',
         'password': '',
-        'database': 'gestion_examens'
+        'database': 'gestion_examens_s1'
     }
     try:
         print(f"Connecting to {cfg['database']}...")

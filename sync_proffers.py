@@ -8,7 +8,7 @@ def sync_proffers():
         'port': int(os.getenv('DB_PORT', '3306')),
         'user': os.getenv('DB_USER', 'root'),
         'password': os.getenv('DB_PASSWORD', ''),
-        'database': os.getenv('DB_NAME', 'gestion_examens'),
+        'database': os.getenv('DB_NAME', 'gestion_examens_s1'),
         'charset': 'utf8mb4'
     }
     

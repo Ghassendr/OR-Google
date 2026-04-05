@@ -12,6 +12,46 @@
         rel="stylesheet" />
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
+        @media print {
+
+            .side-nav,
+            .top-hdr,
+            .no-print,
+            .filters-bar,
+            #btn-actions {
+                display: none !important;
+            }
+
+            .main-content {
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100% !important;
+            }
+
+            .card {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+
+            body {
+                background: white !important;
+            }
+
+            .timetable-header {
+                display: block !important;
+            }
+        }
+
+        .timetable-header {
+            display: none;
+        }
+
+        @media screen {
+            .timetable-header {
+                display: none;
+            }
+        }
+
         :root {
             --bg: #F8F9FA;
             --surface: #FFFFFF;
@@ -809,6 +849,166 @@
         .border-navy {
             border-left: 4px solid var(--navy) !important;
         }
+
+        .bg-navy-main {
+            background-color: var(--navy);
+        }
+
+        .bg-navy-soft {
+            background-color: var(--surface2);
+        }
+
+        .text-navy-main {
+            color: var(--navy);
+        }
+
+        .border-navy-main {
+            border-color: var(--navy);
+        }
+
+        .premium-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .premium-btn-active {
+            background: linear-gradient(135deg, #1E40AF, #3B82F6) !important;
+            color: #FFFFFF !important;
+            box-shadow: 0 10px 15px -3px rgba(30, 64, 175, 0.3);
+            transform: translateY(-2px);
+            border: 2px solid transparent !important;
+        }
+
+        .premium-btn-inactive {
+            background: #FFFFFF !important;
+            color: #64748B !important;
+            border: 2px solid #E2E8F0 !important;
+        }
+
+        .premium-btn-inactive:hover {
+            border-color: #1E40AF !important;
+            color: #1E40AF !important;
+            background: #F8F9FA !important;
+        }
+
+        .noscrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .noscrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .dashboard-card {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .dashboard-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: var(--navy);
+        }
+
+        /* Legend Style From Image */
+        .premium-legend {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .legend-box {
+            background: white;
+            border: 1.5px solid #F1F5F9;
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .l-dot {
+            width: 10px;
+            height: 100%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* Legend dots for row status */
+        .dot-ok {
+            background-color: #059669;
+            box-shadow: 0 0 6px rgba(5, 150, 105, 0.6);
+        }
+
+        .dot-warn {
+            background-color: #DC2626;
+            box-shadow: 0 0 6px rgba(220, 38, 38, 0.6);
+        }
+
+        /* Analysis Row Colors – professional & high-contrast */
+        .analyse-row-ok {
+            background-color: #ECFDF5 !important;
+            border-left: 4px solid #059669 !important;
+        }
+
+        .analyse-row-ok td {
+            color: #064E3B !important;
+            font-weight: 600 !important;
+        }
+
+        .analyse-row-ok .font-black {
+            color: #064E3B !important;
+        }
+
+        .analyse-row-ok:hover {
+            background-color: #D1FAE5 !important;
+        }
+
+        .analyse-row-warn {
+            background-color: #FFF5F5 !important;
+            border-left: 4px solid #DC2626 !important;
+        }
+
+        .analyse-row-warn td {
+            color: #7F1D1D !important;
+            font-weight: 600 !important;
+        }
+
+        .analyse-row-warn .font-black {
+            color: #7F1D1D !important;
+        }
+
+        .analyse-row-warn:hover {
+            background-color: #FEE2E2 !important;
+        }
+
+        /* Override navy text inside coloured rows */
+        .analyse-row-ok .text-navy,
+        .analyse-row-ok .text-navy2 {
+            color: #065F46 !important;
+        }
+
+        .analyse-row-warn .text-navy,
+        .analyse-row-warn .text-navy2 {
+            color: #991B1B !important;
+        }
     </style>
 </head>
 
@@ -876,7 +1076,10 @@
                     <button class="tab on" data-view="filieres">Filières</button>
                     <button class="tab" data-view="matieres">Matières</button>
                     <button class="tab" data-view="professeurs">Professeurs</button>
+                    <button class="tab" data-view="timetable">Emploi du temps</button>
                     <button class="tab" data-view="relations">Graphe</button>
+                    <button class="tab" data-view="analyse">Analyse Calendrier</button>
+                    <button class="tab" data-view="surveillance">Surveillance</button>
                 </div>
                 <div class="dvdr"></div>
                 <!-- Filter Toggle -->
@@ -938,14 +1141,17 @@
     </div>
 
     <script>
-        let data = { professors: [], matieres: [], filieres: [], distribution: null };
+        let data = { professors: [], matieres: [], filieres: [], timetable: [], distribution: null, rooms: [] };
         let currentView = 'filieres';
         let searchTerm = '';
+        let selectedDay = 1; // 1=Lundi
+        let isAnalyseMode = false;
         let selectedFilters = {
             annee: [],
             filiere: [],
             grade: [],
-            status: []
+            status: [],
+            evaluation: []
         };
         let sortBy = 'name';
         let sortDir = 'asc';
@@ -955,13 +1161,17 @@
         // Load data
         async function loadData() {
             try {
-                const [profResp, matResp, filResp] = await Promise.all([
+                const [profResp, matResp, filResp, timeResp, roomResp] = await Promise.all([
                     fetch('/api/professors'),
                     fetch('/api/matieres'),
-                    fetch('/api/filieres')
+                    fetch('/api/filieres'),
+                    fetch('/api/timetable'),
+                    fetch('/class.json')
                 ]);
                 data.professors = profResp.ok ? (await profResp.json()).professors || [] : [];
                 data.matieres = matResp.ok ? (await matResp.json()).matieres || [] : [];
+                data.timetable = timeResp.ok ? (await timeResp.json()).timetable || [] : [];
+                data.rooms = roomResp.ok ? (await roomResp.json()) || [] : [];
                 const filieresData = filResp.ok ? (await filResp.json()).filieres || [] : [];
 
                 const storedDist = localStorage.getItem('or_google_selected_distribution');
@@ -973,7 +1183,7 @@
                 data.filieres = filieresData.map(f => ({
                     ...f,
                     matieres: data.matieres.filter(m => m.filiere_id === f.id),
-                    professeurs: [...new Set(data.matieres.filter(m => m.filiere_id === f.id).map(m => m.professeur).filter(p => !!p))]
+                    professeurs: [...new Set(data.matieres.filter(m => m.filiere_id === f.id).map(m => m.prof_nom).filter(p => !!p))]
                 }));
 
                 // FIX: Standardize property names and link subjects
@@ -983,7 +1193,7 @@
                     const specs = [...new Set(profMatieres.map(m => m.filiere_abrev || m.filiere))];
                     return {
                         ...p,
-                        name: p.full_name || p.name, // Ensure "name" is used for the UI
+                        name: (p.full_name && p.full_name.trim() !== '') ? p.full_name : ((p.name && p.name.trim() !== '') ? p.name : 'Non Spécifié'), // Ensure "name" is used for the UI
                         matiere: subjects.length > 0 ? subjects.join(', ') : 'Aucune matière assignée',
                         filiere: specs.length > 0 ? specs.join(', ') : 'N/A'
                     };
@@ -1010,7 +1220,7 @@
         }
 
         function resetFilters() {
-            selectedFilters = { annee: [], filiere: [], grade: [], status: [] };
+            selectedFilters = { annee: [], filiere: [], grade: [], status: [], evaluation: [] };
             searchTerm = '';
             document.getElementById('search').value = '';
             renderFilters();
@@ -1020,8 +1230,18 @@
         function toggleFilter(category, value) {
             const arr = selectedFilters[category];
             const index = arr.indexOf(value);
-            if (index > -1) arr.splice(index, 1);
-            else arr.push(value);
+
+            if (category === 'evaluation') {
+                // Radio behavior for evaluation filters
+                if (index > -1) {
+                    selectedFilters[category] = [];
+                } else {
+                    selectedFilters[category] = [value];
+                }
+            } else {
+                if (index > -1) arr.splice(index, 1);
+                else arr.push(value);
+            }
 
             page = 1;
             renderFilters();
@@ -1033,32 +1253,79 @@
         }
 
         function getFilteredSubset(excludeCategory) {
-            if (currentView === 'filieres' || currentView === 'relations') {
+            if (currentView === 'filieres' || currentView === 'relations' || currentView === 'timetable') {
                 return data.filieres.filter(f => {
-                    const matchesSearch = !searchTerm || f.nom.toLowerCase().includes(searchTerm.toLowerCase()) || f.abrevation.toLowerCase().includes(searchTerm.toLowerCase());
+                    const matchesSearch = !searchTerm || (f.nom || '').toLowerCase().includes(searchTerm.toLowerCase()) || (f.abrevation || '').toLowerCase().includes(searchTerm.toLowerCase());
                     const matchesAnnee = (excludeCategory === 'annee' || selectedFilters.annee.length === 0 || selectedFilters.annee.includes(f.annee));
                     const matchesSpec = (excludeCategory === 'filiere' || selectedFilters.filiere.length === 0 || selectedFilters.filiere.includes(f.nom));
-                    return matchesSearch && matchesAnnee && matchesSpec;
+
+                    let matchesEval = true;
+                    if (excludeCategory !== 'evaluation' && selectedFilters.evaluation.length > 0) {
+                        matchesEval = f.matieres.some(m => {
+                            if (selectedFilters.evaluation.includes('DS') && m.ds) return true;
+                            if (selectedFilters.evaluation.includes('Examen') && m.examen) return true;
+                            if (selectedFilters.evaluation.includes('Aucune') && !m.ds && !m.examen) return true;
+                            return false;
+                        });
+                    }
+
+                    return matchesSearch && matchesAnnee && matchesSpec && matchesEval;
                 });
             } else if (currentView === 'professeurs') {
                 return data.professors.filter(p => {
-                    const matchesSearch = !searchTerm || p.full_name.toLowerCase().includes(searchTerm.toLowerCase());
+                    const matchesSearch = !searchTerm || (p.full_name || p.name || '').toLowerCase().includes(searchTerm.toLowerCase());
                     const matchesGrade = (excludeCategory === 'grade' || selectedFilters.grade.length === 0 || selectedFilters.grade.includes(p.grade));
                     const matchesStatus = (excludeCategory === 'status' || selectedFilters.status.length === 0 || selectedFilters.status.includes(p.status ? 'Actif' : 'Inactif'));
 
                     let matchesSpec = true;
+                    const profMatieres = data.matieres.filter(m => m.id_professeur === p.id);
                     if (excludeCategory !== 'filiere' && selectedFilters.filiere.length > 0) {
-                        const profMatieres = data.matieres.filter(m => m.id_professeur === p.id);
                         matchesSpec = profMatieres.some(m => selectedFilters.filiere.includes(m.filiere));
                     }
-                    return matchesSearch && matchesGrade && matchesStatus && matchesSpec;
+
+                    let matchesEval = true;
+                    if (excludeCategory !== 'evaluation' && selectedFilters.evaluation.length > 0) {
+                        matchesEval = profMatieres.some(m => {
+                            if (selectedFilters.evaluation.includes('DS') && m.ds) return true;
+                            if (selectedFilters.evaluation.includes('Examen') && m.examen) return true;
+                            if (selectedFilters.evaluation.includes('Aucune') && !m.ds && !m.examen) return true;
+                            return false;
+                        });
+                    }
+
+                    return matchesSearch && matchesGrade && matchesStatus && matchesSpec && matchesEval;
                 });
             } else if (currentView === 'matieres') {
                 return data.matieres.filter(m => {
-                    const matchesSearch = !searchTerm || m.nom.toLowerCase().includes(searchTerm.toLowerCase());
+                    const matchesSearch = !searchTerm || (m.nom || '').toLowerCase().includes(searchTerm.toLowerCase());
                     const matchesAnnee = (excludeCategory === 'annee' || selectedFilters.annee.length === 0 || selectedFilters.annee.includes(m.filiere_annee));
                     const matchesSpec = (excludeCategory === 'filiere' || selectedFilters.filiere.length === 0 || selectedFilters.filiere.includes(m.filiere));
-                    return matchesSearch && matchesAnnee && matchesSpec;
+
+                    let matchesEval = true;
+                    if (excludeCategory !== 'evaluation' && selectedFilters.evaluation.length > 0) {
+                        matchesEval = false;
+                        if (selectedFilters.evaluation.includes('DS') && m.ds) matchesEval = true;
+                        if (selectedFilters.evaluation.includes('Examen') && m.examen) matchesEval = true;
+                        if (selectedFilters.evaluation.includes('Aucune') && !m.ds && !m.examen) matchesEval = true;
+                    }
+
+                    return matchesSearch && matchesAnnee && matchesSpec && matchesEval;
+                });
+            } else if (currentView === 'analyse' || currentView === 'surveillance') {
+                return data.matieres.filter(m => {
+                    const matchesSearch = !searchTerm || (m.nom || '').toLowerCase().includes(searchTerm.toLowerCase());
+                    const matchesAnnee = (excludeCategory === 'annee' || selectedFilters.annee.length === 0 || selectedFilters.annee.includes(m.filiere_annee));
+                    const matchesSpec = (excludeCategory === 'filiere' || selectedFilters.filiere.length === 0 || selectedFilters.filiere.includes(m.filiere));
+                    const matchesDay = (excludeCategory === 'day' || selectedDay === 0 || String(selectedDay) === String(m.jour || m.jour_num));
+
+                    let matchesEval = true;
+                    if (excludeCategory !== 'evaluation' && selectedFilters.evaluation.length > 0) {
+                        matchesEval = false;
+                        if (selectedFilters.evaluation.includes('DS') && m.ds) matchesEval = true;
+                        if (selectedFilters.evaluation.includes('Examen') && m.examen) matchesEval = true;
+                    }
+
+                    return matchesSearch && matchesAnnee && matchesSpec && matchesEval && matchesDay;
                 });
             }
             return [];
@@ -1070,20 +1337,37 @@
 
             const groups = [];
 
-            if (currentView === 'filieres' || currentView === 'relations' || currentView === 'matieres') {
+            if (currentView === 'filieres' || currentView === 'relations' || currentView === 'matieres' || currentView === 'timetable' || currentView === 'analyse' || currentView === 'surveillance') {
                 // Determine potential options based on ALL OTHER filters
                 const subsetForAnnee = getFilteredSubset('annee');
                 const subsetForSpec = getFilteredSubset('filiere');
+                const subsetForEval = getFilteredSubset('evaluation');
+                const subsetForDay = getFilteredSubset('day');
+
+                if (currentView === 'analyse' || currentView === 'surveillance') {
+                    groups.push({
+                        id: 'day',
+                        title: 'Jour de la Semaine',
+                        options: [
+                            { label: 'Tous les Jours', value: 0, count: subsetForDay.length },
+                            ...[1, 2, 3, 4, 5, 6].map(d => ({
+                                label: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'][d - 1],
+                                value: d,
+                                count: subsetForDay.filter(m => String(m.jour || m.jour_num) === String(d)).length
+                            }))
+                        ]
+                    });
+                }
 
                 groups.push({
                     id: 'annee',
                     title: 'Niveau d\'Études',
-                    options: [...new Set(data.filieres.map(f => f.annee))].sort().map(a => {
-                        const count = currentView === 'matieres'
-                            ? subsetForAnnee.filter(m => m.filiere_annee === a).length
+                    options: [...new Set(data.filieres.map(f => f.annee).filter(Boolean))].sort().map(a => {
+                        const count = (currentView === 'matieres' || currentView === 'analyse' || currentView === 'surveillance')
+                            ? subsetForAnnee.filter(m => m.filiere_annee === a || m.annee === a).length
                             : subsetForAnnee.filter(f => f.annee === a).length;
                         return {
-                            label: a.replace('_', ' '),
+                            label: (a || '').replace('_', ' '),
                             value: a,
                             count: count
                         };
@@ -1094,15 +1378,32 @@
                     id: 'filiere',
                     title: 'Spécialité Académique',
                     options: [...new Set(data.filieres.map(f => f.nom))].sort().map(nom => {
-                        const count = currentView === 'matieres'
+                        const count = (currentView === 'matieres' || currentView === 'analyse' || currentView === 'surveillance')
                             ? subsetForSpec.filter(m => m.filiere === nom).length
                             : subsetForSpec.filter(f => f.nom === nom).length;
-                        return {
-                            label: nom,
-                            value: nom,
-                            count: count
-                        };
+                        return { label: nom, value: nom, count: count };
                     })
+                });
+
+                groups.push({
+                    id: 'evaluation',
+                    title: 'Type d\'Évaluation',
+                    options: [
+                        {
+                            label: 'DS (Devoir)',
+                            value: 'DS',
+                            count: (currentView === 'matieres' || currentView === 'analyse' || currentView === 'surveillance')
+                                ? subsetForEval.filter(m => m.ds).length
+                                : subsetForEval.filter(f => f.matieres.some(m => m.ds)).length
+                        },
+                        {
+                            label: 'Examen Final',
+                            value: 'Examen',
+                            count: (currentView === 'matieres' || currentView === 'analyse' || currentView === 'surveillance')
+                                ? subsetForEval.filter(m => m.examen).length
+                                : subsetForEval.filter(f => f.matieres.some(m => m.examen)).length
+                        }
+                    ]
                 });
             }
 
@@ -1147,13 +1448,17 @@
                 const groupDiv = document.createElement('div');
                 groupDiv.className = 'filter-group';
 
-                // Only show options with count > 0 or if they are already selected
-                const validOptions = group.options.filter(opt => opt.count > 0 || selectedFilters[group.id].includes(opt.value));
-                if (validOptions.length === 0) return; // Hide empty group
+                const isSelected = (val) => {
+                    if (group.id === 'day') return String(selectedDay) === String(val);
+                    return selectedFilters[group.id].includes(val);
+                };
+
+                const validOptions = group.options.filter(opt => opt.count > 0 || isSelected(opt.value));
+                if (validOptions.length === 0) return;
 
                 let optionsHtml = validOptions.map(opt => `
-                    <div class="filter-option ${selectedFilters[group.id].includes(opt.value) ? 'active' : ''} ${opt.count === 0 ? 'opacity-40 grayscale pointer-events-none' : ''}" 
-                         onclick="toggleFilter('${group.id}', '${opt.value}')">
+                    <div class="filter-option ${isSelected(opt.value) ? 'active' : ''} ${opt.count === 0 ? 'opacity-40 grayscale pointer-events-none' : ''}" 
+                         onclick="${group.id === 'day' ? `selectedDay=${opt.value}; renderView();` : `toggleFilter('${group.id}', '${opt.value}')`}">
                         <div class="cb-container"><div class="cb-mark"></div></div>
                         <span>${opt.label}</span>
                         <span class="count-pill">(${opt.count})</span>
@@ -1235,8 +1540,14 @@
                 renderProfesseurs(content, filtered);
             } else if (currentView === 'matieres') {
                 renderMatieres(content, filtered);
+            } else if (currentView === 'timetable') {
+                renderTimetable(content, filtered);
             } else if (currentView === 'relations') {
                 renderRelations(content, filtered);
+            } else if (currentView === 'analyse') {
+                renderAnalyse(content, filtered);
+            } else if (currentView === 'surveillance') {
+                renderSurveillance(content);
             }
         }
 
@@ -1275,15 +1586,15 @@
                                         </div>
                                     </td>
                                     <td class="p-4">
-                                        <div class="text-xs font-bold text-navy2 uppercase">${m.filiere_abrev || m.filiere}</div>
-                                        <div class="text-[10px] text-text3 font-bold uppercase tracking-widest mt-1 opacity-70">${m.filiere_annee.replace('_', ' ')}</div>
+                                        <div class="text-xs font-bold text-navy2 uppercase">${m.filiere_abrev || m.filiere || 'N/A'}</div>
+                                        <div class="text-[10px] text-text3 font-bold uppercase tracking-widest mt-1 opacity-70">${(m.filiere_annee || '').replace('_', ' ')}</div>
                                     </td>
-                                    <td class="p-4 text-xs font-semibold text-text2">${m.professeur || 'Non Assigné'}</td>
+                                    <td class="p-4 text-xs font-semibold text-text2">${m.prof_nom || 'Non Assigné'}</td>
                                     <td class="p-4">
                                         <div class="flex gap-2">
-                                            ${m.ds ? '<span class="type-badge type-ds">DS</span>' : ''}
-                                            ${m.examen ? '<span class="type-badge type-examen">EXAMEN</span>' : ''}
-                                            ${!hasEval ? '<span class="type-badge type-none border border-red text-red px-2 py-0.5 rounded text-[9px] font-black">AUCUNE EVALUATION</span>' : ''}
+                                            ${(m.ds && (selectedFilters.evaluation.length === 0 || selectedFilters.evaluation.includes('DS'))) ? '<span class="type-badge type-ds">DS</span>' : ''}
+                                            ${(m.examen && (selectedFilters.evaluation.length === 0 || selectedFilters.evaluation.includes('Examen'))) ? '<span class="type-badge type-examen">EXAMEN</span>' : ''}
+                                            ${(!hasEval && (selectedFilters.evaluation.length === 0 || selectedFilters.evaluation.includes('Aucune'))) ? '<span class="type-badge type-none border border-red text-red px-2 py-0.5 rounded text-[9px] font-black">AUCUNE EVALUATION</span>' : ''}
                                         </div>
                                     </td>
                                 </tr>
@@ -1330,7 +1641,7 @@
                                         <div class="flex justify-between items-start mb-6">
                                             <div>
                                                 <div class="eyebrow flex justify-between items-center w-full">
-                                                    <span>${f.annee.replace('_', ' ')}</span>
+                                                    <span>${(f.annee || '').replace('_', ' ')}</span>
                                                     <span class="text-[9px] bg-navy/5 px-2 py-0.5 rounded border border-navy/10 text-navy font-black tracking-widest">${f.code || 'N/A'}</span>
                                                 </div>
                                                 <h3 class="text-2xl font-serif text-navy mb-1">${f.abrevation}</h3>
@@ -1466,6 +1777,431 @@
             if (prevBtn) prevBtn.addEventListener('click', () => { if (page > 1) { page--; renderView(); } });
             if (nextBtn) nextBtn.addEventListener('click', () => { if (page < totalPages) { page++; renderView(); } });
             if (psSel) psSel.addEventListener('change', e => { pageSize = parseInt(e.target.value, 10) || 20; page = 1; renderView(); });
+        }
+
+        function renderAnalyse(container, filtered) {
+            const dayNames = ['Tous les Jours', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+            const currentDayLabel = selectedDay === 0 ? 'Semaine Complète' : dayNames[selectedDay];
+            const dayMap = { 0: 'Tous', 1: 'Lundi', 2: 'Mardi', 3: 'Mercredi', 4: 'Jeudi', 5: 'Vendredi', 6: 'Samedi' };
+
+            // Internal filters for this view
+            const matieresFiltered = data.matieres.filter(m => {
+                const matchesDay = (selectedDay === 0 || String(m.jour || m.jour_num) === String(selectedDay));
+                const matchesEval = selectedFilters.evaluation.length === 0 ||
+                    (selectedFilters.evaluation.includes('DS') && m.ds) ||
+                    (selectedFilters.evaluation.includes('Examen') && m.examen);
+                const matchesFiliere = selectedFilters.filiere.length === 0 || selectedFilters.filiere.includes(m.filiere);
+                return matchesDay && matchesEval && matchesFiliere;
+            });
+
+            // Group by professor
+            const profMap = new Map();
+            matieresFiltered.forEach(m => {
+                if (!m.id_professeur) return;
+                if (!profMap.has(m.id_professeur)) {
+                    const p = data.professors.find(prof => prof.id === m.id_professeur);
+                    profMap.set(m.id_professeur, {
+                        id: m.id_professeur,
+                        name: p ? p.name : m.prof_nom,
+                        grade: p ? p.grade : 'N/A',
+                        charge: p ? p.charge : 0,
+                        matieres: []
+                    });
+                }
+                profMap.get(m.id_professeur).matieres.push(m);
+            });
+
+            const uniqueProfs = Array.from(profMap.values()).sort((a, b) => a.name.localeCompare(b.name));
+
+            container.innerHTML = `
+                <div class="mb-10">
+                    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 mb-12">
+                        <div>
+                            <h2 class="text-4xl font-serif text-navy tracking-tight">Analyse Calendrier</h2>
+                            <p class="text-text3 text-sm mt-2 flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-amber animate-pulse"></span>
+                                Analyse des affectations et de la charge de surveillance par jour.
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-10">
+                            <!-- Row Color Legend (like user image) -->
+                            <div class="premium-legend">
+                                <div class="legend-box">
+                                    <div class="l-dot dot-ok"></div>
+                                    <span class="l-text">Charge complète</span>
+                                </div>
+                                <div class="legend-box">
+                                    <div class="l-dot dot-warn"></div>
+                                    <span class="l-text">Surcharge restante</span>
+                                </div>
+                            </div>
+
+                            <button onclick="isAnalyseMode = !isAnalyseMode; renderView();" 
+                                    class="px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all border-2 flex items-center gap-3
+                                    ${isAnalyseMode ? 'premium-btn-active !from-amber !to-orange-600 shadow-amber/20' : 'bg-white text-navy border-navy/10 hover:border-navy shadow-sm hover:shadow-lg'}">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+                                    <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+                                </svg>
+                                <span>${isAnalyseMode ? 'Quitter l\'Analyse' : 'Lancer l\'Analyse Charge'}</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                        <div class="dashboard-card border-navy/10 group">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="text-[10px] font-black text-navy group-hover:text-navy2 transition-colors uppercase tracking-[0.2em]">Matières Identifiées</div>
+                                <div class="w-8 h-8 rounded-lg bg-navy/5 flex items-center justify-center text-navy"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></div>
+                            </div>
+                            <div class="flex items-baseline gap-3">
+                                <div class="text-4xl font-black text-navy tracking-tighter">${matieresFiltered.length}</div>
+                                <div class="text-[10px] text-text3 font-bold uppercase opacity-50">Sujets du jour</div>
+                            </div>
+                        </div>
+                        <div class="dashboard-card border-amber/10 group">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="text-[10px] font-black text-amber transition-colors uppercase tracking-[0.2em]">Professeurs Actifs</div>
+                                <div class="w-8 h-8 rounded-lg bg-amber/5 flex items-center justify-center text-amber"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+                            </div>
+                            <div class="flex items-baseline gap-3">
+                                <div class="text-4xl font-black text-amber tracking-tighter">${uniqueProfs.length}</div>
+                                <div class="text-[10px] text-text3 font-bold uppercase opacity-50">En service</div>
+                            </div>
+                        </div>
+                        <div class="dashboard-card border-green/10 group">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="text-[10px] font-black text-green transition-colors uppercase tracking-[0.2em]">Taux d'Occupation</div>
+                                <div class="w-8 h-8 rounded-lg bg-green/5 flex items-center justify-center text-green"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg></div>
+                            </div>
+                            <div class="flex items-baseline gap-3">
+                                <div class="text-4xl font-black text-green tracking-tighter">${Math.round((uniqueProfs.length / (data.professors.length || 1)) * 100)}%</div>
+                                <div class="text-[10px] text-text3 font-bold uppercase opacity-50">Effectif total</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card !p-0 overflow-hidden shadow-xl border-navy/10">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-surface2 border-b border-border">
+                                    <th class="p-4 w-12 text-center">#</th>
+                                    <th class="p-4">Professeur</th>
+                                    <th class="p-4">Grade</th>
+                                    ${isAnalyseMode ? '<th class="p-4 text-center">Charge Initiale</th><th class="p-4 text-center">Droit de Charge (4)</th><th class="p-4 text-center bg-amber/5">Reste Charge</th>' : ''}
+                                    <th class="p-4 text-center">Nb Matières</th>
+                                    <th class="p-4 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-border/50">
+                                ${uniqueProfs.map((p, idx) => {
+                const surcharge = Math.max(0, p.charge - 4);
+                const isSurcharge = p.charge > 4;
+                return `
+                                        <tr class="${isSurcharge ? 'analyse-row-warn' : 'analyse-row-ok'} transition-all cursor-default">
+                                            <td class="p-4 text-center text-text3 font-black opacity-30">${idx + 1}</td>
+                                            <td class="p-4">
+                                                <div class="font-black text-navy uppercase tracking-tight">${p.name}</div>
+                                                <div class="text-[9px] text-text3 font-bold uppercase mt-0.5 opacity-60">ID: ${p.id}</div>
+                                            </td>
+                                            <td class="p-4">
+                                                <span class="badge-grade ${getGradeBadgeClass(p.grade)}">${p.grade || 'N/A'}</span>
+                                            </td>
+                                            ${isAnalyseMode || true ? `
+                                                <td class="p-4 text-center font-black">${p.charge || 0}</td>
+                                                <td class="p-4 text-center font-black text-red">4</td>
+                                                <td class="p-4 text-center">
+                                                    <span class="px-4 py-1 rounded-full font-black text-xs ${surcharge > 0 ? 'bg-red text-white shadow-lg shadow-red/20' : 'bg-green text-white shadow-lg shadow-green/20'}">
+                                                        ${surcharge > 0 ? '+' : ''}${surcharge}
+                                                    </span>
+                                                </td>
+                                            ` : ''}
+                                            <td class="p-4 text-center">
+                                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-navy/5 text-navy font-black text-xs">
+                                                    ${p.matieres.length}
+                                                </span>
+                                            </td>
+                                            <td class="p-4 text-right">
+                                                <button onclick="toggleProfAnalyseDetail('${p.id}')" 
+                                                        class="px-4 py-1.5 rounded-lg border-2 border-border text-[10px] font-black uppercase tracking-widest hover:bg-navy hover:text-white hover:border-navy transition-all">
+                                                    Détails
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr id="detail-row-${p.id}" class="hidden bg-surface2/50 border-l-4 border-navy">
+                                            <td colspan="${isAnalyseMode ? 7 : 5}" class="p-6">
+                                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                                    ${p.matieres.map(m => {
+                    let typeClass = 'dot-cm';
+                    let typeName = 'COURS (CM)';
+                    if (m.ds) { typeClass = 'dot-ds'; typeName = 'DEVOIR (DS)'; }
+                    else if (m.examen) { typeClass = 'dot-ex'; typeName = 'EXAMEN FINAL'; }
+                    else if ((m.nom || '').toLowerCase().includes('tp') || (m.nom || '').toLowerCase().includes('pratique')) { typeClass = 'dot-tp'; typeName = 'PRATIQUE (TP)'; }
+
+                    return `
+                                                            <div class="bg-white p-4 rounded-2xl border border-border/50 shadow-sm hover:shadow-md transition-all">
+                                                                <div class="flex justify-between items-center mb-3">
+                                                                    <div class="flex items-center gap-2">
+                                                                        <div class="w-2 h-2 rounded-full ${typeClass}"></div>
+                                                                        <span class="text-[9px] font-black uppercase tracking-widest text-text3">${typeName}</span>
+                                                                    </div>
+                                                                    <div class="text-[9px] font-black text-navy/40">${m.code || 'N/A'}</div>
+                                                                </div>
+                                                                <div class="text-xs font-black text-navy leading-tight mb-2">${m.nom}</div>
+                                                                <div class="text-[10px] font-bold text-text3 uppercase tracking-tighter opacity-60">${m.filiere}</div>
+                                                            </div>
+                                                        `;
+                }).join('')}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    `}).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleProfAnalyseDetail(id) {
+            const row = document.getElementById(`detail-row-${id}`);
+            if (row) row.classList.toggle('hidden');
+        }
+
+        function toggleEvalType(type) {
+            if (type === 'TOUT') {
+                selectedFilters.evaluation = [];
+            } else {
+                selectedFilters.evaluation = [type];
+            }
+            renderFilters();
+            renderView();
+        }
+
+        function renderTimetable(container, filtered) {
+            const targetFilieres = filtered;
+
+            if (targetFilieres.length === 0) {
+                container.innerHTML = `
+                    <div class="card py-20 text-center">
+                        <div class="bg-navy/5 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-navy">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-serif text-navy mb-2">Précisez votre sélection</h3>
+                        <p class="text-text3 text-sm max-w-md mx-auto">Veuillez utiliser les filtres pour sélectionner une ou plusieurs spécialités à afficher.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+            const timeSlots = [
+                { start: '08:30', end: '10:00' },
+                { start: '10:15', end: '11:45' },
+                { start: '12:00', end: '13:30' },
+                { start: '13:45', end: '15:15' },
+                { start: '15:30', end: '17:00' }
+            ];
+
+            // Master Header for the whole view
+            let htmlContent = `
+                <div class="no-print flex justify-between items-center mb-8 pb-4 border-b border-border">
+                    <div>
+                        <h2 class="text-2xl font-serif text-navy">Emplois du Temps</h2>
+                        <div class="text-xs text-text3 font-medium mt-1">${targetFilieres.length} Spécialité(s) sélectionnée(s)</div>
+                    </div>
+                    <div class="flex items-center gap-6">
+                        <div class="flex gap-2 text-[9px] font-bold text-text2 uppercase tracking-wide">
+                            <div class="flex items-center gap-1.5 px-2 py-1 bg-surface2 rounded border border-border shadow-sm"><span class="w-2 h-2 rounded-full" style="background-color: #3B82F6;"></span> Cours (CM)</div>
+                            <div class="flex items-center gap-1.5 px-2 py-1 bg-surface2 rounded border border-border shadow-sm"><span class="w-2 h-2 rounded-full" style="background-color: #F59E0B;"></span> Devoirs (DS)</div>
+                            <div class="flex items-center gap-1.5 px-2 py-1 bg-surface2 rounded border border-border shadow-sm"><span class="w-2 h-2 rounded-full" style="background-color: #10B981;"></span> Pratique (TP)</div>
+                            <div class="flex items-center gap-1.5 px-2 py-1 bg-surface2 rounded border border-border shadow-sm"><span class="w-2 h-2 rounded-full" style="background-color: #EF4444;"></span> Examen Final</div>
+                        </div>
+                        <button onclick="window.print()" class="no-print flex items-center justify-center gap-2 px-6 py-2.5 text-white transition-all outline-none border-none cursor-pointer hover:opacity-90" style="background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%); border-radius: 9999px; box-shadow: 0 4px 14px 0 rgba(220, 38, 38, 0.39);">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"></path><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                            <span style="font-weight: 800; font-size: 13px; letter-spacing: 0.5px;">IMPRIMER / PDF</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            // Render each filiere's timetable
+            htmlContent += targetFilieres.map((filiereObj, index) => {
+                // Apply subject-level filters to the timetable slots
+                let slots = data.timetable.filter(t => String(t.filiere_id) === String(filiereObj.id));
+
+                // FALLBACK: Generate Synthetic Slots for DS/Examen if no timetable data
+                const hasFilters = selectedFilters.evaluation.length > 0;
+                if (slots.length === 0 && hasFilters) {
+                    const dayMap = { 1: 'Lundi', 2: 'Mardi', 3: 'Mercredi', 4: 'Jeudi', 5: 'Vendredi', 6: 'Samedi' };
+                    let dayCounts = {};
+                    filiereObj.matieres.forEach(m => {
+                        const dayName = dayMap[m.jour_num || m.jour];
+                        if (!dayName) return;
+                        const isDS = selectedFilters.evaluation.includes('DS') && m.ds;
+                        const isEx = selectedFilters.evaluation.includes('Examen') && m.examen;
+                        if (isDS || isEx) {
+                            const count = dayCounts[dayName] || 0;
+                            if (count < timeSlots.length) {
+                                slots.push({
+                                    id: 'v' + m.id,
+                                    filiere_id: filiereObj.id,
+                                    matiere_id: m.id,
+                                    prof_nom: m.prof_nom,
+                                    jour: dayName,
+                                    heure_debut: timeSlots[count].start,
+                                    heure_fin: timeSlots[count].end,
+                                    salle: 'A DEFINIR',
+                                    type_session: isEx ? 'EXAM' : 'TD'
+                                });
+                                dayCounts[dayName] = count + 1;
+                            }
+                        }
+                    });
+                }
+
+                // Filtering by session type if filter active
+                slots = slots.filter(t => {
+                    const m = data.matieres.find(mat => String(mat.id) === String(t.matiere_id));
+                    if (!m) return !hasFilters;
+                    if (hasFilters) {
+                        if (selectedFilters.evaluation.includes('DS') && m.ds) return true;
+                        if (selectedFilters.evaluation.includes('Examen') && m.examen) return true;
+                        if (selectedFilters.evaluation.includes('Aucune') && !m.ds && !m.examen) return true;
+                        return false;
+                    }
+                    return true;
+                });
+
+                return `
+                    <div class="mb-16 print:break-after-page print:mb-0">
+                        <div class="no-print mb-4">
+                            <div class="eyebrow">${(filiereObj.annee || '').replace('_', ' ')}</div>
+                            <h3 class="text-xl font-serif text-navy">${filiereObj.nom}</h3>
+                        </div>
+
+                        <!-- Official Document Header (Visible in Print) -->
+                        <div class="timetable-header mb-8 p-6 border-b-2 border-navy bg-white">
+                            <div class="flex justify-between items-start mb-6">
+                                <div class="text-[10px] font-bold text-navy leading-relaxed uppercase">
+                                    REPUBLIQUE TUNISIENNE<br>
+                                    Ministère de l'Enseignement Supérieur<br>
+                                    et de la Recherche Scientifique<br>
+                                    Université de Sousse
+                                </div>
+                                <div class="text-center bg-navy text-white px-6 py-2 rounded-lg font-serif italic shadow-sm">
+                                    ISSAT SOUSSE
+                                </div>
+                                <div class="text-right text-[10px] font-bold text-navy leading-relaxed uppercase">
+                                    Institut Supérieur des Sciences Appliquées<br>
+                                    et de Technologie de Sousse
+                                </div>
+                            </div>
+                            <div class="text-center mb-4">
+                                <h1 class="text-3xl font-serif text-navy uppercase tracking-widest border-b-2 border-navy inline-block pb-1">Emploi du Temps</h1>
+                                <div class="text-sm font-bold text-navy/70 mt-2">Année Universitaire : 2025/2026</div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 text-xs font-bold uppercase text-navy/80 bg-surface2 p-4 rounded-xl border border-navy/10 print:border-navy">
+                                <div><span class="opacity-60 mr-2">Spécialité :</span> ${filiereObj.nom}</div>
+                                <div><span class="opacity-60 mr-2">Niveau :</span> ${(filiereObj.annee || '').replace('_', ' ')}</div>
+                                <div><span class="opacity-60 mr-2">Semestre :</span> ${filiereObj.semestre || 'S1'}</div>
+                                <div class="text-right">
+                                    <span class="opacity-60 mr-2">Session :</span> 
+                                    ${selectedFilters.evaluation.includes('DS') ? 'Devoirs Surveillés (DS)' :
+                        selectedFilters.evaluation.includes('Examen') ? 'Examens (Session Principale)' :
+                            'Session Principale'}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card !p-0 overflow-x-auto shadow-xl border-navy/20 print:border-black print:shadow-none bg-white">
+                            <table class="w-full border-collapse min-w-[900px] print:text-sm">
+                                <thead>
+                                    <tr class="bg-navy text-white">
+                                        <th class="p-3 border-r border-white/20 w-32 font-bold uppercase tracking-widest text-[10px]">Jour / Heure</th>
+                                        ${timeSlots.map(ts => `<th class="p-3 text-center border-r border-white/20 text-[10px] font-black uppercase tracking-[0.2em]">${ts.start} - ${ts.end}</th>`).join('')}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${days.map(day => `
+                                        <tr class="border-b border-border h-36 print:h-28">
+                                            <td class="p-4 bg-surface2 border-r border-navy/10 font-black text-navy text-center uppercase tracking-widest text-[11px] print:bg-gray-50">${day}</td>
+                                            ${timeSlots.map(ts => {
+                                const session = slots.find(s => s.jour === day && s.heure_debut === ts.start);
+                                if (!session) return `<td class="border-r border-border bg-white/40 print:bg-white"></td>`;
+
+                                const m = data.matieres.find(mat => String(mat.id) === String(session.matiere_id));
+                                const matiereNom = m ? m.nom : (session.matiere_nom || "Matière Inconnue");
+                                const profNom = m ? (m.prof_nom || m.professeur || 'Non Assigné') : (session.prof_nom || 'Non Assigné');
+
+                                let typeStyle = 'border-color: #93C5FD; background-color: #EFF6FF; color: #1E3A8A;'; // Default Blue (CM)
+                                let dotStyle = 'background-color: #3B82F6;';
+                                let displayType = session.type_session || 'CM';
+
+                                // Dynamic styling based on selected filter OR subject property
+                                if (selectedFilters.evaluation.includes('Examen') || (selectedFilters.evaluation.length === 0 && m && m.examen)) {
+                                    displayType = 'EXAMEN';
+                                    typeStyle = 'border-color: #FCA5A5; background-color: #FEF2F2; color: #991B1B;';
+                                    dotStyle = 'background-color: #EF4444;'; // red
+                                } else if (selectedFilters.evaluation.includes('DS') || (selectedFilters.evaluation.length === 0 && m && m.ds)) {
+                                    displayType = 'DS';
+                                    typeStyle = 'border-color: #FCD34D; background-color: #FFFBEB; color: #92400E;';
+                                    dotStyle = 'background-color: #F59E0B;'; // yellow/amber
+                                } else {
+                                    // Fallback to specific session types if no evaluation focus
+                                    if (session.type_session === 'TD') {
+                                        typeStyle = 'border-color: #FCD34D; background-color: #FFFBEB; color: #92400E;';
+                                        dotStyle = 'background-color: #F59E0B;';
+                                    } else if (session.type_session === 'TP') {
+                                        typeStyle = 'border-color: #6EE7B7; background-color: #ECFDF5; color: #065F46;';
+                                        dotStyle = 'background-color: #10B981;';
+                                    } else if (session.type_session === 'EXAM') {
+                                        displayType = 'EXAMEN';
+                                        typeStyle = 'border-color: #FCA5A5; background-color: #FEF2F2; color: #991B1B;';
+                                        dotStyle = 'background-color: #EF4444;';
+                                    }
+                                }
+
+                                return `
+                                                    <td class="p-1.5 border-r border-border align-top">
+                                                        <div class="h-full rounded-lg border-2 p-2.5 flex flex-col justify-between shadow-sm print:shadow-none transition-transform hover:scale-[1.01] cursor-pointer relative overflow-hidden" style="${typeStyle}">
+                                                            <div class="flex items-center justify-between mb-1.5">
+                                                                <div class="flex items-center gap-1">
+                                                                    <span class="w-1.5 h-1.5 rounded-full" style="${dotStyle}"></span>
+                                                                    <span class="text-[8px] font-black uppercase tracking-tighter opacity-60">${displayType}</span>
+                                                                </div>
+                                                                <span class="text-[8px] font-bold bg-black/5 px-1.5 py-0.5 rounded uppercase">${session.salle || '---'}</span>
+                                                            </div>
+                                                            <div class="text-[11px] font-black leading-tight mb-auto line-clamp-3">${matiereNom}</div>
+                                                            <div class="mt-2 pt-1.5 border-t border-black/5">
+                                                                <div class="flex items-center gap-1 text-[8px] font-bold italic opacity-70">
+                                                                    <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+                                                                    ${profNom}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                `;
+                            }).join('')}
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center text-[9px] text-text3 font-bold uppercase tracking-widest">
+                            <div>Généré le : ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR')}</div>
+                            <div>Source : Base de données GESTION_EXAMENS</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = htmlContent;
         }
 
         function renderRelations(container, filtered) {
@@ -1606,8 +2342,7 @@
             const fil = data.filieres.find(f => f.id === id);
             if (!fil) return;
 
-            const sem1 = fil.matieres.filter(m => m.semestre === 'SEMESTER1');
-            const sem2 = fil.matieres.filter(m => m.semestre === 'SEMESTER2');
+            const allMatieres = fil.matieres;
 
             document.getElementById('modal-title').textContent = `${fil.nom} [${fil.code || 'N/A'}] (${fil.annee})`;
             document.getElementById('modal-content').innerHTML = `
@@ -1615,12 +2350,12 @@
                     <div class="flex items-center gap-3 mb-6">
                         <div class="w-1.5 h-6 bg-navy rounded-full"></div>
                         <div>
-                            <h3 class="text-lg font-bold text-navy uppercase tracking-widest">Semestre 1</h3>
-                            <p class="text-[10px] text-text3 font-bold uppercase">${sem1.length} matières</p>
+                            <h3 class="text-lg font-bold text-navy uppercase tracking-widest">Matières de la filière</h3>
+                            <p class="text-[10px] text-text3 font-bold uppercase">${allMatieres.length} matières</p>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        ${sem1.length > 0 ? sem1.map(m => {
+                        ${allMatieres.length > 0 ? allMatieres.map(m => {
                 const hasEval = m.ds || m.examen;
                 return `
                                 <div class="subject-card border-l-4 ${m.examen ? 'border-navy' : (m.ds ? 'border-amber' : (hasEval ? 'border-border' : 'border-red'))} ${!hasEval ? 'opacity-90' : ''}">
@@ -1632,38 +2367,10 @@
                                             ${!hasEval ? '<span class="type-badge type-none">AUCUNE ÉVAL.</span>' : ''}
                                         </div>
                                     </div>
-                                    <div class="text-[10px] text-text3 font-medium uppercase tracking-tight">${m.professeur || 'Non assigné'}</div>
+                                    <div class="text-[10px] text-text3 font-medium uppercase tracking-tight">${m.prof_nom || 'Non assigné'}</div>
                                 </div>
                             `;
-            }).join('') : '<div class="col-span-2 py-6 text-center text-text3 italic text-xs">Aucune matière pour le S1</div>'}
-                    </div>
-                </div>
-
-                <div class="mb-10">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-1.5 h-6 bg-green rounded-full"></div>
-                        <div>
-                            <h3 class="text-lg font-bold text-navy uppercase tracking-widest">Semestre 2</h3>
-                            <p class="text-[10px] text-text3 font-bold uppercase">${sem2.length} matières</p>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        ${sem2.length > 0 ? sem2.map(m => {
-                const hasEval = m.ds || m.examen;
-                return `
-                                <div class="subject-card border-l-4 ${m.examen ? 'border-navy' : (m.ds ? 'border-amber' : (hasEval ? 'border-border' : 'border-red'))} ${!hasEval ? 'opacity-90' : ''}">
-                                    <div class="flex justify-between items-start mb-2 gap-2">
-                                        <div class="text-sm font-bold ${!hasEval ? 'text-red' : 'text-navy'} leading-tight">${m.nom}</div>
-                                        <div class="flex gap-1 flex-shrink-0">
-                                            ${m.ds ? '<span class="type-badge type-ds">DS</span>' : ''}
-                                            ${m.examen ? '<span class="type-badge type-examen">EXAMEN</span>' : ''}
-                                            ${!hasEval ? '<span class="type-badge type-none">AUCUNE ÉVAL.</span>' : ''}
-                                        </div>
-                                    </div>
-                                    <div class="text-[10px] text-text3 font-medium uppercase tracking-tight">${m.professeur || 'Non assigné'}</div>
-                                </div>
-                            `;
-            }).join('') : '<div class="col-span-2 py-6 text-center text-text3 italic text-xs">Aucune matière pour le S2</div>'}
+            }).join('') : '<div class="col-span-2 py-6 text-center text-text3 italic text-xs">Aucune matière</div>'}
                     </div>
                 </div>
 
@@ -1726,12 +2433,187 @@
             document.getElementById('modal').style.display = 'none';
         }
 
-        // Tabs
+        function renderSurveillance(container) {
+            if (selectedDay === 0) {
+                container.innerHTML = `
+                    <div class="flex flex-col items-center justify-center py-24 text-center">
+                        <div class="w-20 h-20 rounded-full bg-navy/5 flex items-center justify-center mb-6">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-navy">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                        </div>
+                        <h2 class="text-2xl font-serif text-navy mb-2">Sélectionnez un jour</h2>
+                        <p class="text-text3 text-sm max-w-sm">Le plan de surveillance doit être généré jour par jour. Veuillez cliquer sur un jour de la semaine dans la barre latérale.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const dayNames = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+            const currentDayLabel = dayNames[selectedDay - 1];
+            
+            // 1. Filter Rooms and Group by Block
+            const targetRooms = data.rooms.filter(r => 
+                r.Salle.startsWith('K') || r.Salle.startsWith('M') || r.Salle.startsWith('I')
+            ).sort((a, b) => a.Salle.localeCompare(b.Salle));
+
+            const blocks = ['K', 'M', 'I'];
+            const groupedRooms = {};
+            blocks.forEach(b => {
+                groupedRooms[b] = targetRooms.filter(r => r.Salle.startsWith(b));
+            });
+
+            // 2. Filter Timetable for current day and session
+            const matchesEval = (m) => selectedFilters.evaluation.length === 0 ||
+                (selectedFilters.evaluation.includes('DS') && m.ds) ||
+                (selectedFilters.evaluation.includes('Examen') && m.examen);
+            
+            const matchesTimeEval = (t) => selectedFilters.evaluation.length === 0 ||
+                (selectedFilters.evaluation.includes('DS') && t.type_session === 'DS') ||
+                (selectedFilters.evaluation.includes('Examen') && t.type_session === 'Examen');
+
+            const matchesFiliere = (m) => selectedFilters.filiere.length === 0 || selectedFilters.filiere.includes(m.filiere);
+
+            // Get day timetable
+            const currentTimetable = data.timetable.filter(t => 
+                String(t.jour) === String(selectedDay) && matchesTimeEval(t)
+            );
+
+            // Pool A: Professors already present today (assigned to a subject AND matching filters)
+            const profsToday = [...new Set(data.matieres
+                .filter(m => String(m.jour || m.jour_num) === String(selectedDay) && matchesEval(m) && matchesFiliere(m))
+                .map(m => m.prof_nom)
+                .filter(Boolean))];
+
+            // Pool B: Professors present tomorrow (matching filters)
+            const nextDay = (selectedDay % 6) + 1;
+            const profsTomorrow = [...new Set(data.matieres
+                .filter(m => String(m.jour || m.jour_num) === String(nextDay) && matchesEval(m) && matchesFiliere(m))
+                .map(m => m.prof_nom)
+                .filter(Boolean))].filter(p => !profsToday.includes(p));
+
+            let eligibleProfs = [...profsToday, ...profsTomorrow];
+            let profIndex = 0;
+
+            let html = `
+                <div class="mb-12">
+                    <div class="flex items-center justify-between gap-4 mb-8">
+                        <div>
+                            <h2 class="text-3xl font-serif text-navy">Plan de Surveillance par Blocs</h2>
+                            <div class="flex items-center gap-3 mt-1">
+                                <span class="badge badge-navy uppercase tracking-widest text-[9px]">${currentDayLabel}</span>
+                                <span class="text-text3 text-sm italic">Affichage segmenté par bâtiment (K, M, I)</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="stats-card bg-surface2 border border-border p-4 rounded-2xl text-center min-w-[140px]">
+                                <div class="text-[9px] font-black text-navy/40 uppercase tracking-widest mb-1">Total Requis</div>
+                                <div class="text-2xl font-serif text-navy">${targetRooms.length * 2}</div>
+                            </div>
+                            <div class="stats-card bg-emerald/5 border border-emerald/10 p-4 rounded-2xl text-center min-w-[140px]">
+                                <div class="text-[9px] font-black text-emerald/60 uppercase tracking-widest mb-1">Aujourd'hui</div>
+                                <div class="text-2xl font-serif text-emerald">${profsToday.length}</div>
+                            </div>
+                            <div class="stats-card bg-amber/5 border border-amber/10 p-4 rounded-2xl text-center min-w-[140px]">
+                                <div class="text-[9px] font-black text-amber/60 uppercase tracking-widest mb-1">Renfort Demain</div>
+                                <div class="text-2xl font-serif text-amber">${Math.max(0, (targetRooms.length * 2) - profsToday.length)}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            blocks.forEach(block => {
+                const roomsInBlock = groupedRooms[block];
+                if (roomsInBlock.length === 0) return;
+
+                html += `
+                    <div class="mb-12">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 rounded-2xl bg-navy text-white flex items-center justify-center font-black text-xl shadow-lg ring-4 ring-navy/5">
+                                ${block}
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-navy uppercase tracking-widest">Bâtiment ${block}</h3>
+                                <div class="text-[10px] text-text3 font-black uppercase tracking-tighter opacity-70">Salles : ${roomsInBlock.length}</div>
+                            </div>
+                            <div class="h-px bg-border flex-1 ml-4 opacity-30"></div>
+                        </div>
+
+                        <div class="card !p-0 overflow-hidden shadow-xl border-border/40 mb-8">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-surface2 border-b border-border text-[10px] font-black text-navy2 uppercase tracking-widest">
+                                        <th class="p-5 w-48 border-r border-border/10">Salle</th>
+                                        <th class="p-5 border-r border-border/10">Surveillant Principal (1)</th>
+                                        <th class="p-5">Surveillant Adjoint (2)</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-border/10">
+                                    ${roomsInBlock.map((room, idx) => {
+                                        const p1 = eligibleProfs[profIndex++] || '— Poste Vacant —';
+                                        const p2 = eligibleProfs[profIndex++] || '— Poste Vacant —';
+
+                                        return `
+                                            <tr class="hover:bg-navy/[0.02] transition-colors ${idx % 2 !== 0 ? 'bg-surface/20' : 'bg-white'}">
+                                                <td class="p-5 border-r border-border/10">
+                                                    <div class="font-black text-lg text-navy">${room.Salle}</div>
+                                                    <div class="text-[9px] text-text3 font-bold uppercase opacity-60">Capacité: ${room.CapacityTotal || room.CapaciteTotal}</div>
+                                                </td>
+                                                <td class="p-5 border-r border-border/10">
+                                                    <div class="flex items-center gap-2">
+                                                        ${p1 !== '— Poste Vacant —' ? `
+                                                            <div class="w-2.5 h-2.5 rounded-full ${profsToday.includes(p1) ? 'bg-emerald-500 shadow-[0_0_8px_#10b981]' : 'bg-amber-500 shadow-[0_0_8px_#f59e0b]'}"></div>
+                                                            <span class="text-sm font-bold text-text2">${p1}</span>
+                                                        ` : `<span class="text-xs font-bold text-red/40 italic uppercase tracking-tighter">${p1}</span>`}
+                                                    </div>
+                                                </td>
+                                                <td class="p-5">
+                                                    <div class="flex items-center gap-2">
+                                                        ${p2 !== '— Poste Vacant —' ? `
+                                                            <div class="w-2.5 h-2.5 rounded-full ${profsToday.includes(p2) ? 'bg-emerald-500 shadow-[0_0_8px_#10b981]' : 'bg-amber-500 shadow-[0_0_8px_#f59e0b]'}"></div>
+                                                            <span class="text-sm font-bold text-text2">${p2}</span>
+                                                        ` : `<span class="text-xs font-bold text-red/40 italic uppercase tracking-tighter">${p2}</span>`}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        `;
+                                    }).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `
+                <div class="mt-8 flex justify-center pb-20">
+                     <button onclick="window.print()" class="premium-btn premium-btn-active !px-12 !py-5 text-sm shadow-2xl">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                            <rect x="6" y="14" width="12" height="8"></rect>
+                        </svg>
+                        Imprimer le Plan Segmenté (PDF)
+                    </button>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
         document.querySelectorAll('.tab').forEach(t => {
             t.addEventListener('click', () => {
+                // Remove 'on' from all tabs in ALL containers
                 document.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
                 t.classList.add('on');
                 currentView = t.dataset.view;
+
+                // If it's a view that uses filters, refresh them
+                page = 1;
                 renderFilters();
                 renderView();
             });
