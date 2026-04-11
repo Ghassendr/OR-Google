@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription — ISSAT Sousse</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1E3A8A;
+            --navy-light: #3B82F6;
+            --amber: #D97706;
+            --bg: #F8F9FA;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            background-image:
+                radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(217, 119, 6, 0.05) 0px, transparent 50%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .register-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 460px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .logo-container {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 20px;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f1f5f9;
+        }
+
+        h1 {
+            font-family: 'DM Serif Display', serif;
+            color: var(--navy);
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        p.subtitle {
+            color: #64748B;
+            font-size: 14px;
+            margin-bottom: 32px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            text-align: left;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .form-group.full {
+            grid-column: span 2;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #475569;
+            margin-bottom: 8px;
+            margin-left: 4px;
+        }
+
+        input {
+            width: 100%;
+            background: #f1f5f9;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 14px;
+            color: var(--navy);
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        input:focus {
+            background: white;
+            border-color: var(--navy-light);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+
+        .btn-register {
+            width: 100%;
+            background: linear-gradient(135deg, var(--navy), var(--navy-light));
+            color: white;
+            font-weight: 700;
+            padding: 14px;
+            border-radius: 12px;
+            margin-top: 12px;
+            transition: all 0.3s;
+            box-shadow: 0 10px 15px -3px rgba(30, 58, 138, 0.2);
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 20px -3px rgba(30, 58, 138, 0.3);
+            filter: brightness(1.1);
+        }
+
+        .btn-register:active {
+            transform: translateY(0);
+        }
+
+        .btn-register:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .msg-box {
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            display: none;
+            font-weight: 600;
+        }
+
+        .msg-error {
+            background: #FEF2F2;
+            color: #DC2626;
+            border: 1px solid rgba(220, 38, 38, 0.1);
+        }
+
+        .msg-success {
+            background: #F0FDF4;
+            color: #16A34A;
+            border: 1px solid rgba(22, 163, 74, 0.1);
+        }
+
+        .footer-text {
+            margin-top: 28px;
+            font-size: 13px;
+            color: #94A3B8;
+        }
+
+        .footer-text a {
+            color: var(--navy);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .footer-text a:hover {
+            text-decoration: underline;
+        }
+        .mode-toggle {
+            display: flex;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 14px;
+            margin-bottom: 24px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            background: transparent;
+            color: #64748B;
+        }
+
+        .mode-btn.active {
+            background: white;
+            color: var(--navy);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        select {
+            width: 100%;
+            background: #f1f5f9;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 14px;
+            color: var(--navy);
+            transition: all 0.2s;
+            outline: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%231E3A8A'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+        }
+
+        select:focus {
+            background: white;
+            border-color: var(--navy-light);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="register-card">
+        <div class="logo-container">
+            <img src="/logo%20issat-small.jpg" alt="ISSAT Logo" class="h-14 w-auto rounded-lg">
+        </div>
+        <h1>Créer un compte</h1>
+        <p class="subtitle">Rejoignez le système de gestion des examens</p>
+
+        <div id="msg" class="msg-box"></div>
+
+        <div class="mode-toggle">
+            <button type="button" class="mode-btn active" onclick="setMode('nouveau')">Nouveau Professeur</button>
+            <button type="button" class="mode-btn" onclick="setMode('existant')">Professeur Existant</button>
+        </div>
+
+        <form id="regForm" onsubmit="handleRegister(event)">
+            <div id="new-prof-fields">
+                <div class="form-group">
+                    <label>Nom Complet</label>
+                    <input type="text" id="full_name" placeholder="Ex: Dr. Ahmed Ben Ali">
+                </div>
+                <div class="form-group">
+                    <label>Grade</label>
+                    <input type="text" id="grade" placeholder="Maître de Conférences">
+                </div>
+            </div>
+
+            <div id="existing-prof-fields" style="display: none;">
+                <div class="form-group">
+                    <label>Sélectionner le Professeur</label>
+                    <select id="prof_id">
+                        <option value="">Chargement des professeurs...</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Identifiant (Username)</label>
+                <input type="text" id="username" required placeholder="Choisissez un pseudo">
+            </div>
+            
+            <div class="form-group">
+                <label>Mot de passe</label>
+                <input type="password" id="password" required placeholder="••••••••">
+            </div>
+            <button type="submit" class="btn-register" id="submitBtn">Créer mon compte</button>
+        </form>
+
+        <div class="footer-text">
+            Déjà inscrit ? <a href="/login-page">Se connecter</a>
+        </div>
+        <div class="footer-text" style="margin-top:10px;">
+            © 2026 ISSAT Sousse
+        </div>
+    </div>
+
+    <script>
+        let registerMode = 'nouveau';
+
+        async function setMode(mode) {
+            registerMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (mode === 'nouveau') {
+                document.getElementById('new-prof-fields').style.display = 'block';
+                document.getElementById('existing-prof-fields').style.display = 'none';
+                document.getElementById('full_name').required = true;
+                document.getElementById('prof_id').required = false;
+            } else {
+                document.getElementById('new-prof-fields').style.display = 'none';
+                document.getElementById('existing-prof-fields').style.display = 'block';
+                document.getElementById('full_name').required = false;
+                document.getElementById('prof_id').required = true;
+                loadUnlinkedProfessors();
+            }
+        }
+
+        // Auto-set the required for initial state
+        document.getElementById('full_name').required = true;
+
+        async function loadUnlinkedProfessors() {
+            const select = document.getElementById('prof_id');
+            try {
+                const resp = await fetch('/api/professors/unlinked');
+                const data = await resp.json();
+                
+                if (data.length === 0) {
+                    select.innerHTML = '<option value="">Aucun professeur sans compte trouvé</option>';
+                    return;
+                }
+                
+                select.innerHTML = '<option value="">Choisir un professeur...</option>';
+                data.forEach(p => {
+                    const opt = document.createElement('option');
+                    opt.value = p.id;
+                    opt.textContent = `${p.name} (${p.grade})`;
+                    select.appendChild(opt);
+                });
+            } catch (err) {
+                select.innerHTML = '<option value="">Erreur de chargement</option>';
+            }
+        }
+
+        async function handleRegister(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const msg = document.getElementById('msg');
+
+            btn.disabled = true;
+            btn.textContent = 'Création en cours...';
+            msg.style.display = 'none';
+
+            const payload = {
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
+            };
+
+            if (registerMode === 'nouveau') {
+                payload.full_name = document.getElementById('full_name').value;
+                payload.grade = document.getElementById('grade').value;
+            } else {
+                payload.prof_id = document.getElementById('prof_id').value;
+            }
+
+            try {
+                const resp = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await resp.json();
+
+                if (resp.ok) {
+                    msg.textContent = '✓ Compte créé avec succès ! Redirection...';
+                    msg.className = 'msg-box msg-success';
+                    msg.style.display = 'block';
+                    setTimeout(() => { window.location.href = '/login-page'; }, 2000);
+                } else {
+                    msg.textContent = data.error || 'Une erreur est survenue.';
+                    msg.className = 'msg-box msg-error';
+                    msg.style.display = 'block';
+                    btn.disabled = false;
+                    btn.textContent = 'Créer mon compte';
+                }
+            } catch (err) {
+                msg.textContent = 'Impossible de contacter le serveur.';
+                msg.className = 'msg-box msg-error';
+                msg.style.display = 'block';
+                btn.disabled = false;
+                btn.textContent = 'Créer mon compte';
+            }
+        }
+    </script>
+</body>
+
+</html>

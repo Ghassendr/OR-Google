@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - ISSAT Sousse</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1E3A8A;
+            --navy-light: #3B82F6;
+            --amber: #D97706;
+            --bg: #F8F9FA;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            background-image:
+                radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(217, 119, 6, 0.05) 0px, transparent 50%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 420px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .logo-container {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 20px;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f1f5f9;
+        }
+
+        h1 {
+            font-family: 'DM Serif Display', serif;
+            color: var(--navy);
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        p.subtitle {
+            color: #64748B;
+            font-size: 14px;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #475569;
+            margin-bottom: 8px;
+            margin-left: 4px;
+        }
+
+        input {
+            width: 100%;
+            background: #f1f5f9;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 14px;
+            color: var(--navy);
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        input:focus {
+            background: white;
+            border-color: var(--navy-light);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+
+        .btn-login {
+            width: 100%;
+            background: linear-gradient(135deg, var(--navy), var(--navy-light));
+            color: white;
+            font-weight: 700;
+            padding: 14px;
+            border-radius: 12px;
+            margin-top: 12px;
+            transition: all 0.3s;
+            box-shadow: 0 10px 15px -3px rgba(30, 58, 138, 0.2);
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 20px -3px rgba(30, 58, 138, 0.3);
+            filter: brightness(1.1);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .error-msg {
+            background: #FEF2F2;
+            color: #DC2626;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            display: none;
+            border: 1px solid rgba(220, 38, 38, 0.1);
+        }
+
+        .footer-text {
+            margin-top: 28px;
+            font-size: 13px;
+            color: #94A3B8;
+        }
+
+        .footer-text a {
+            color: var(--navy);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .footer-text a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-card">
+        <div class="logo-container">
+            <img src="/logo issat-small.jpg" alt="ISSAT Logo" class="h-14 w-auto rounded-lg">
+        </div>
+        <h1>Bienvenue</h1>
+        <p class="subtitle">Connectez-vous pour gérer vos examens</p>
+
+        <div id="error" class="error-msg"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Nom d'utilisateur</label>
+                <input type="text" id="username" placeholder="admin" required autocomplete="username">
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+            </div>
+            <button type="submit" class="btn-login" id="loginBtn">Se connecter</button>
+        </form>
+
+        <div class="footer-text">
+            Pas encore de compte? <a href="/register-page">Créer un compte</a>
+        </div>
+        <div class="footer-text" style="margin-top:10px;">
+            © 2026 ISSAT Sousse
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('loginBtn');
+            const error = document.getElementById('error');
+
+            btn.disabled = true;
+            btn.textContent = 'Connexion...';
+            error.style.display = 'none';
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    window.location.href = '/prof';
+                } else {
+                    error.textContent = data.error || 'Erreur de connexion';
+                    error.style.display = 'block';
+                }
+            } catch (err) {
+                error.textContent = 'Impossible de contacter le serveur';
+                error.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Se connecter';
+            }
+        });
+    </script>
+</body>
+
+</html>

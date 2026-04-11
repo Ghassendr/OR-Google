@@ -1,5 +1,7 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory, session
 from flask_cors import CORS
+from werkzeug.security import generate_password_hash, check_password_hash
+import functools
 import os
 import subprocess
 import pandas as pd
@@ -15,7 +17,8 @@ except ImportError:
     Error = Exception
 
 app = Flask(__name__, static_folder='.', static_url_path='')
-CORS(app)
+app.secret_key = os.getenv('FLASK_SECRET_KEY', 'issat_sousse_2026_super_secret_key')
+CORS(app, supports_credentials=True)
 
 
 UPLOAD_FOLDER = 'uploads'
@@ -57,9 +60,259 @@ def get_db_connection():
     return mysql.connector.connect(**cfg)
 
 
+
+# --- Auth Decorators ---
+def login_required(f):
+    @functools.wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return jsonify({'error': 'Non authentifié'}), 401
+        return f(*args, **kwargs)
+    return decorated_function
+
+def admin_required(f):
+    @functools.wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session or session.get('role') != 'ADMIN':
+            return jsonify({'error': 'Accès administrateur requis'}), 403
+        return f(*args, **kwargs)
+    return decorated_function
+
 @app.route('/prof', methods=['GET'])
 def prof_page():
     return send_from_directory('.', 'prof.html')
+
+@app.route('/login-page', methods=['GET'])
+def login_page():
+    return send_from_directory('.', 'login.html')
+
+@app.route('/register-page', methods=['GET'])
+def register_page():
+    return send_from_directory('.', 'register.html')
+
+@app.route('/import-page', methods=['GET'])
+@admin_required
+def import_page():
+    return send_from_directory('.', 'import.html')
+
+# --- Auth Routes ---
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.json
+    username = data.get('username')
+    password = data.get('password')
+    
+    if not username or not password:
+        return jsonify({'error': 'Username et password requis'}), 400
+        
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT u.*, p.nom_prenom FROM user u LEFT JOIN professeur p ON u.prof_id = p.id_professeur WHERE u.username = %s", (username,))
+        user = cursor.fetchone()
+        cursor.close()
+        conn.close()
+        
+        if user and check_password_hash(user['password_hash'], password):
+            session.clear()
+            session['user_id'] = user['id']
+            session['username'] = user['username']
+            session['role'] = user['role']
+            session['prof_id'] = user['prof_id']
+            session['full_name'] = user['nom_prenom'] if user['nom_prenom'] else user['username']
+            
+            return jsonify({
+                'status': 'success',
+                'user': {
+                    'username': user['username'],
+                    'role': user['role'],
+                    'full_name': session['full_name']
+                }
+            })
+        
+        return jsonify({'error': 'Identifiants invalides'}), 401
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/professors/unlinked', methods=['GET'])
+def get_unlinked_professors():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        # Select professors who don't have a linked user account
+        cursor.execute("""
+            SELECT p.id_professeur AS id, p.nom_prenom AS name, p.grade 
+            FROM professeur p 
+            LEFT JOIN user u ON p.id_professeur = u.prof_id 
+            WHERE u.id IS NULL 
+            ORDER BY p.nom_prenom
+        """)
+        rows = cursor.fetchall()
+        cursor.close()
+        conn.close()
+        return jsonify(rows)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/register', methods=['POST'])
+def register():
+    data = request.json
+    username = data.get('username')
+    password = data.get('password')
+    full_name = data.get('full_name')
+    grade = data.get('grade')
+    
+    prof_id = data.get('prof_id')
+    
+    if not username or not password or (not full_name and not prof_id):
+        return jsonify({'error': 'Username, password et (nom complet ou professeur existant) sont requis'}), 400
+        
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        
+        # Check if user exists
+        cursor.execute("SELECT id FROM user WHERE username = %s", (username,))
+        if cursor.fetchone():
+            return jsonify({'error': 'Ce nom d\'utilisateur est déjà pris'}), 400
+            
+        # 1. Determine professor linkage
+        prof_id = data.get('prof_id')
+        
+        if prof_id:
+            # Check if this professor already has an account
+            cursor.execute("SELECT id FROM user WHERE prof_id = %s", (prof_id,))
+            if cursor.fetchone():
+                return jsonify({'error': 'Ce professeur a déjà un compte utilisateur'}), 400
+            # Ensure professor exists
+            cursor.execute("SELECT id_professeur FROM professeur WHERE id_professeur = %s", (prof_id,))
+            if not cursor.fetchone():
+                return jsonify({'error': 'Professeur introuvable'}), 404
+        else:
+            # Create new professor record
+            if not full_name:
+                return jsonify({'error': 'Le nom complet est requis pour un nouveau professeur'}), 400
+            cursor.execute(
+                "INSERT INTO professeur (nom_prenom, grade, charge_surv) VALUES (%s, %s, 0)",
+                (full_name, grade if grade else '')
+            )
+            prof_id = cursor.lastrowid
+        
+        # 2. Create user account
+        password_hash = generate_password_hash(password)
+        cursor.execute(
+            "INSERT INTO user (username, password_hash, role, prof_id) VALUES (%s, %s, 'PROFESSOR', %s)",
+            (username, password_hash, prof_id)
+        )
+        
+        conn.commit()
+        cursor.close()
+        conn.close()
+        
+        return jsonify({'status': 'success', 'message': 'Inscription réussie !'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    session.clear()
+    return jsonify({'status': 'success'})
+
+@app.route('/api/me', methods=['GET'])
+def get_me():
+    if 'user_id' in session:
+        return jsonify({
+            'logged_in': True,
+            'user': {
+                'id': session['user_id'],
+                'username': session['username'],
+                'role': session['role'],
+                'prof_id': session['prof_id'],
+                'full_name': session['full_name']
+            }
+        })
+    return jsonify({'logged_in': False}), 200
+
+# --- Update Routes ---
+@app.route('/api/professors/update', methods=['POST'])
+@login_required
+def update_professor():
+    data = request.json
+    prof_id = data.get('id')
+    
+    # Professors can only update themselves, Admins can update anyone
+    if session['role'] != 'ADMIN' and str(session['prof_id']) != str(prof_id):
+        return jsonify({'error': 'Permission refusée'}), 403
+        
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        if session['role'] == 'ADMIN':
+            # Admin can update everything
+            cursor.execute(
+                "UPDATE professeur SET nom_prenom = %s, grade = %s, charge_surv = %s WHERE id_professeur = %s",
+                (data.get('full_name'), data.get('grade'), data.get('charge'), prof_id)
+            )
+        else:
+            # Prof can only update name/grade maybe? Let's limit for now
+            cursor.execute(
+                "UPDATE professeur SET nom_prenom = %s, grade = %s WHERE id_professeur = %s",
+                (data.get('full_name'), data.get('grade'), prof_id)
+            )
+            
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return jsonify({'status': 'success'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/matieres/update', methods=['POST'])
+@login_required
+def update_matiere():
+    data = request.json
+    matiere_id = data.get('id')
+    has_ds = data.get('ds')
+    has_examen = data.get('examen')
+    
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        
+        # Check ownership if not admin
+        if session['role'] != 'ADMIN':
+            cursor.execute("SELECT id_professeur FROM matiere WHERE id_matiere = %s", (matiere_id,))
+            matiere = cursor.fetchone()
+            if not matiere or str(matiere['id_professeur']) != str(session['prof_id']):
+                return jsonify({'error': 'Ce n\'est pas votre matière'}), 403
+        
+        cursor.execute(
+            "UPDATE matiere SET has_ds = %s, has_examen = %s WHERE id_matiere = %s",
+            (1 if has_ds else 0, 1 if has_examen else 0, matiere_id)
+        )
+        
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return jsonify({'status': 'success'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/save-filiers', methods=['POST'])
+@admin_required
+def save_filiers():
+    data = request.json
+    filiers = data.get('filiers', [])
+    if not filiers:
+        return jsonify({'error': 'Aucune donnée fournie'}), 400
+    try:
+        with open('filier.json', 'w', encoding='utf-8') as f:
+            json.dump(filiers, f, indent=4, ensure_ascii=False)
+        return jsonify({'message': f'{len(filiers)} filières sauvegardées avec succès.'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 @app.route('/api/professors', methods=['GET'])
@@ -372,6 +625,7 @@ def upload_excel():
         return jsonify({'error': str(e)}), 500
 
 @app.route('/run-algorithm', methods=['POST'])
+@admin_required
 def run_algorithm():
     algo = request.json.get('algorithm', 'greedy') 
     script = 'exam_greedy.py' if algo == 'greedy' else 'exam_placement.py'
