@@ -92,33 +92,33 @@ window.SidebarComponent = {
 
                     ${(window.location.pathname === '/' || window.location.pathname.endsWith('report.html')) && role === 'ADMIN' ? `
                     <div class="nav-section-label">Bloc Actuel</div>
-                    <a class="nav-item ${currentBloc === 'matin' ? 'active' : ''}" id="btn-bloc-matin" onclick="SidebarComponent.updateURLState('bloc', 'matin')">
+                    <a class="nav-item ${currentBloc === 'matin' ? 'selected' : ''}" id="btn-bloc-matin" onclick="SidebarComponent.updateURLState('bloc', 'matin')">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 3v1m0 16v1m8.66-13l-.87.5M4.21 17.5l-.87.5M20.66 17.5l-.87-.5M4.21 6.5l-.87-.5M21 12h-1M4 12H3"/><circle cx="12" cy="12" r="4"/></svg>
                         <span class="nav-item-label">Bloc Matin</span>
                     </a>
-                    <a class="nav-item ${currentBloc === 'apmidi' ? 'active' : ''}" id="btn-bloc-apmidi" onclick="SidebarComponent.updateURLState('bloc', 'apmidi')">
+                    <a class="nav-item ${currentBloc === 'apmidi' ? 'selected' : ''}" id="btn-bloc-apmidi" onclick="SidebarComponent.updateURLState('bloc', 'apmidi')">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
                         <span class="nav-item-label">Bloc Après-midi</span>
                     </a>
 
                     <div class="nav-section-label">Vues de Distribution</div>
-                    <a class="nav-item ${currentView === 'salle' ? 'active' : ''}" id="btn-view-salle" onclick="SidebarComponent.updateURLState('view', 'salle')">
+                    <a class="nav-item ${currentView === 'salle' ? 'selected' : ''}" id="btn-view-salle" onclick="SidebarComponent.updateURLState('view', 'salle')">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
                         <span class="nav-item-label">Par Salle</span>
                     </a>
-                    <a class="nav-item ${currentView === 'filiere' ? 'active' : ''}" id="btn-view-filiere" onclick="SidebarComponent.updateURLState('view', 'filiere')">
+                    <a class="nav-item ${currentView === 'filiere' ? 'selected' : ''}" id="btn-view-filiere" onclick="SidebarComponent.updateURLState('view', 'filiere')">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
                         <span class="nav-item-label">Par Filière</span>
                     </a>
-                    <a class="nav-item ${currentView === 'db' ? 'active' : ''}" id="btn-view-db" onclick="SidebarComponent.updateURLState('view', 'db')">
+                    <a class="nav-item ${currentView === 'db' ? 'selected' : ''}" id="btn-view-db" onclick="SidebarComponent.updateURLState('view', 'db')">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 7v10c0 2 1.5 3 3.5 3h9c2 0 3.5-1 3.5-3V7M4 7c0-2 1.5-3 3.5-3h9C18.5 4 20 5 20 7M4 7h16M12 11v6"/></svg>
                         <span class="nav-item-label">Vue DB</span>
                     </a>
-                    <a class="nav-item ${currentView === 'calendrier' ? 'active' : ''}" id="btn-view-calendrier" onclick="SidebarComponent.updateURLState('view', 'calendrier')">
+                    <a class="nav-item ${currentView === 'calendrier' ? 'selected' : ''}" id="btn-view-calendrier" onclick="SidebarComponent.updateURLState('view', 'calendrier')">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                         <span class="nav-item-label">Calendrier</span>
                     </a>
-                    <a class="nav-item ${currentView === 'surveillance' ? 'active' : ''}" id="nav-surveillance" onclick="SidebarComponent.updateURLState('view', 'surveillance')">
+                    <a class="nav-item ${currentView === 'surveillance' ? 'selected' : ''}" id="nav-surveillance" onclick="SidebarComponent.updateURLState('view', 'surveillance')">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                         <span class="nav-item-label">Surveillance</span>
                     </a>
@@ -126,27 +126,27 @@ window.SidebarComponent = {
 
                     ${(window.location.pathname.includes('/prof') && role === 'ADMIN') ? `
                     <div class="nav-section-label">Vues Académiques</div>
-                    <a class="nav-item ${currentView === 'professeurs' ? 'active' : ''}" id="nav-professeurs" onclick="window.setView ? window.setView('professeurs') : null">
+                    <a class="nav-item ${currentView === 'professeurs' ? 'selected' : ''}" id="nav-professeurs" onclick="window.setView ? window.setView('professeurs') : null">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                         <span class="nav-item-label">Professeurs</span>
                     </a>
-                    <a class="nav-item ${currentView === 'matieres' ? 'active' : ''}" id="nav-matieres" onclick="window.setView ? window.setView('matieres') : null">
+                    <a class="nav-item ${currentView === 'matieres' ? 'selected' : ''}" id="nav-matieres" onclick="window.setView ? window.setView('matieres') : null">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                         <span class="nav-item-label">Matières</span>
                     </a>
-                    <a class="nav-item ${currentView === 'filieres' ? 'active' : ''}" id="nav-filieres" onclick="window.setView ? window.setView('filieres') : null">
+                    <a class="nav-item ${currentView === 'filieres' ? 'selected' : ''}" id="nav-filieres" onclick="window.setView ? window.setView('filieres') : null">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
                         <span class="nav-item-label">Filières</span>
                     </a>
-                    <a class="nav-item ${currentView === 'timetable' ? 'active' : ''}" id="nav-timetable" onclick="window.setView ? window.setView('timetable') : null">
+                    <a class="nav-item ${currentView === 'timetable' ? 'selected' : ''}" id="nav-timetable" onclick="window.setView ? window.setView('timetable') : null">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                         <span class="nav-item-label">Emplois du temps</span>
                     </a>
-                    <a class="nav-item ${currentView === 'relations' ? 'active' : ''}" id="nav-relations" onclick="window.setView ? window.setView('relations') : null">
+                    <a class="nav-item ${currentView === 'relations' ? 'selected' : ''}" id="nav-relations" onclick="window.setView ? window.setView('relations') : null">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
                         <span class="nav-item-label">Relations &amp; Analyse</span>
                     </a>
-                    <a class="nav-item ${currentView === 'surveillance' ? 'active' : ''}" id="nav-surveillance-prof" onclick="window.setView ? window.setView('surveillance') : null">
+                    <a class="nav-item ${currentView === 'surveillance' ? 'selected' : ''}" id="nav-surveillance-prof" onclick="window.setView ? window.setView('surveillance') : null">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                         <span class="nav-item-label">Surveillance</span>
                     </a>

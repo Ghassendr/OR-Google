@@ -54,47 +54,51 @@
         }
 
         :root {
-            --bg: #F8F9FA;
-            --surface: #FFFFFF;
-            --surface2: #F1F5F9;
-            --border: #E2E8F0;
-            --border2: #CBD5E1;
-            --navy: #1E40AF;
-            --navy2: #3B82F6;
-            --amber: #D97706;
-            --amber-lt: #FEF3C7;
-            --green: #059669;
-            --green-lt: #D1FAE5;
-            --red: #DC2626;
-            --red-lt: #FEE2E2;
-            --text: #0F172A;
-            --text2: #334155;
-            --text3: #64748B;
-            --sh: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-            --sh2: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --hdr-bg: #1E3A8A;
+            --bg:        #EEF2F7;
+            --surface:   #FFFFFF;
+            --surface2:  #F4F7FB;
+            --border:    #DDE3ED;
+            --border2:   #C5CFDF;
+            --navy:      #13213A;
+            --navy2:     #1A2D4F;
+            --accent:    #38BDBE;
+            --accent-lt: rgba(56, 189, 190, 0.1);
+            --amber:     #E8960A;
+            --amber-lt:  #FEF3C7;
+            --green:     #059669;
+            --green-lt:  #D1FAE5;
+            --red:       #DC2626;
+            --red-lt:    #FEE2E2;
+            --text:      #0F1A2E;
+            --text2:     #2D405A;
+            --text3:     #6B7E97;
+            --sh:        0 1px 4px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
+            --sh2:       0 4px 16px rgba(0,0,0,0.09), 0 2px 6px rgba(0,0,0,0.06);
+            --hdr-bg:    #13213A;
         }
 
         :root.dark-mode {
-            --bg: #0F172A;
-            --surface: #1E293B;
-            --surface2: #334155;
-            --border: #334155;
-            --border2: #475569;
-            --navy: #60A5FA;
-            --navy2: #93C5FD;
-            --amber: #FBBF24;
-            --amber-lt: rgba(251, 191, 36, 0.1);
-            --green: #34D399;
-            --green-lt: rgba(52, 211, 153, 0.1);
-            --red: #F87171;
-            --red-lt: rgba(248, 113, 113, 0.1);
-            --text: #F8FAFC;
-            --text2: #CBD5E1;
-            --text3: #94A3B8;
-            --sh: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-            --sh2: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
-            --hdr-bg: #111827;
+            --bg:        #0B1220;
+            --surface:   #131F35;
+            --surface2:  #1C2C46;
+            --border:    #243351;
+            --border2:   #2E4368;
+            --navy:      #38BDBE;
+            --navy2:     #6DD5D6;
+            --accent:    #38BDBE;
+            --accent-lt: rgba(56, 189, 190, 0.12);
+            --amber:     #FBBF24;
+            --amber-lt:  rgba(251, 191, 36, 0.1);
+            --green:     #34D399;
+            --green-lt:  rgba(52, 211, 153, 0.1);
+            --red:       #F87171;
+            --red-lt:    rgba(248, 113, 113, 0.1);
+            --text:      #E2EAF4;
+            --text2:     #A8BECE;
+            --text3:     #6B7E97;
+            --sh:        0 4px 16px rgba(0,0,0,0.35);
+            --sh2:       0 8px 32px rgba(0,0,0,0.45);
+            --hdr-bg:    #0B1220;
         }
 
         .dark-mode .hdr {
@@ -191,9 +195,9 @@
 
         /* Main wrapper shifts with sidebar */
         .main-wrapper {
-            margin-left: 260px;
+            margin-left: 256px;
             padding: 28px 32px;
-            transition: margin-left 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: margin-left 0.30s cubic-bezier(0.4, 0, 0.2, 1);
             min-height: 100vh;
         }
 
@@ -208,98 +212,99 @@
             }
         }
 
-        /* Stats banner */
+        /* ── Stats Banner (page header) ─────────────────── */
         .stats-banner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: linear-gradient(135deg, #1E40AF 0%, #1E3A8A 100%);
+            background: var(--surface);
+            border: 1px solid var(--border);
             border-radius: 14px;
-            padding: 18px 26px;
+            padding: 0;
             margin-bottom: 20px;
-            position: relative;
+            box-shadow: var(--sh);
             overflow: hidden;
-            gap: 16px;
-            flex-wrap: wrap;
-            box-shadow: 0 4px 20px rgba(30, 64, 175, 0.25);
         }
 
         .stats-banner::before {
             content: '';
-            position: absolute;
-            inset: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23fff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
-            pointer-events: none;
+            display: block;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent) 0%, #2A9494 50%, var(--navy) 100%);
+            border-radius: 14px 14px 0 0;
+        }
+
+        .stats-banner-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 22px;
+            gap: 16px;
+            flex-wrap: wrap;
         }
 
         .stats-banner-left {
-            position: relative;
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
         }
 
         .stats-banner-left img {
-            width: 44px;
-            height: 44px;
-            border-radius: 10px;
-            background: white;
-            padding: 3px;
+            width: 40px;
+            height: 40px;
+            border-radius: 9px;
+            object-fit: cover;
+            border: 1px solid var(--border);
         }
 
         .stats-banner-title .eyebrow {
-            font-size: 9px;
+            font-size: 9.5px;
             letter-spacing: 2px;
-            color: rgba(255, 255, 255, 0.45);
+            color: var(--accent);
             text-transform: uppercase;
+            font-weight: 700;
             margin-bottom: 2px;
         }
 
         .stats-banner-title h1 {
             font-family: 'DM Serif Display', serif;
             font-size: 20px;
-            color: white;
+            color: var(--navy);
             line-height: 1.2;
         }
 
         .stats-row {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
-            position: relative;
             align-items: center;
         }
 
         .sbox {
-            background: rgba(255, 255, 255, 0.09);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: var(--surface2);
+            border: 1px solid var(--border);
             border-radius: 9px;
             padding: 9px 14px;
             min-width: 85px;
+            transition: border-color 0.2s;
         }
+
+        .sbox:hover { border-color: var(--accent); }
 
         .slbl {
             font-size: 9px;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            color: #92AACF;
-            font-weight: 600;
+            color: var(--text3);
+            font-weight: 700;
             margin-bottom: 3px;
         }
 
         .sval {
             font-family: 'DM Serif Display', serif;
             font-size: 20px;
-            color: #fff;
+            color: var(--navy);
         }
 
-        .sval.a {
-            color: #FBBF24;
-        }
-
-        .sval.g {
-            color: #34D399;
-        }
+        .sval.a { color: var(--amber); }
+        .sval.g { color: var(--green); }
 
         /* Profile Edit Modal Styles */
         .prof-modal-overlay {
@@ -485,81 +490,115 @@
         }
 
         .hdr {
-            background: var(--navy);
-            border-radius: 16px;
-            padding: 28px 36px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 0;
             margin-bottom: 22px;
+            box-shadow: var(--sh);
+            overflow: hidden;
+        }
+
+        .hdr::before {
+            content: '';
+            display: block;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent) 0%, #2A9494 50%, var(--navy) 100%);
+            border-radius: 14px 14px 0 0;
+        }
+
+        .hdr-inner {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             align-items: center;
             justify-content: space-between;
-            box-shadow: var(--sh2);
-            position: relative;
-            overflow: hidden
-        }
-
-        .hdr::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23fff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat
+            padding: 18px 26px;
         }
 
         .hdr-title {
-            position: relative
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
 
         .eyebrow {
-            font-size: 10px;
-            letter-spacing: 3px;
-            color: #92AACF;
+            font-size: 9.5px;
+            letter-spacing: 2.5px;
+            color: var(--accent);
             text-transform: uppercase;
-            font-weight: 600;
-            margin-bottom: 6px
+            font-weight: 700;
+            margin-bottom: 2px;
         }
 
         .hdr h1 {
             font-family: 'DM Serif Display', serif;
-            font-size: 28px;
-            color: #fff;
+            font-size: 26px;
+            color: var(--navy);
             line-height: 1.1;
-            margin-bottom: 4px
+            margin-bottom: 4px;
         }
 
         .hdr-sub {
             font-size: 12px;
-            color: #6B8BBF
+            color: var(--text3);
         }
 
-        .stats-row {
+        /* Header Quick Actions */
+        .hdr-actions {
             display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            position: relative
+            gap: 8px;
+            align-items: center;
+            margin-left: 14px;
+            border-left: 1px solid var(--border);
+            padding-left: 14px;
         }
 
-        .sbox {
-            background: rgba(255, 255, 255, .09);
-            border: 1px solid rgba(255, 255, 255, .12);
-            border-radius: 10px;
-            padding: 12px 18px;
-            min-width: 110px
-        }
-
-        .slbl {
-            font-size: 10px;
-            letter-spacing: 1.5px;
+        .hdr-btn {
+            background: var(--navy);
+            border: 1px solid var(--navy);
+            color: #fff;
+            border-radius: 8px;
+            padding: 9px 16px;
+            font-size: 12px;
+            font-weight: 700;
             text-transform: uppercase;
-            color: #92AACF;
-            font-weight: 600;
-            margin-bottom: 4px
+            letter-spacing: 0.8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-family: 'DM Sans', sans-serif;
+            white-space: nowrap;
         }
 
-        .sval {
-            font-family: 'DM Serif Display', serif;
-            font-size: 24px;
-            color: #fff
+        .hdr-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(56, 189, 190, 0.25);
+        }
+
+        .hdr-icon-btn {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--text2);
+            border-radius: 8px;
+            width: 38px;
+            height: 38px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hdr-icon-btn:hover {
+            background: var(--accent-lt);
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-1px);
         }
 
         .ctrl {
@@ -669,8 +708,8 @@
             overflow: hidden;
         }
 
-        /* Hidden State - Desktop */
-        .sidebar-collapsed .filter-sidebar {
+        /* Hidden State - Desktop (independent from nav sidebar) */
+        .page-wrapper.filter-collapsed .filter-sidebar {
             width: 0;
             padding: 0;
             border: none;
@@ -1308,38 +1347,45 @@
 
     <div class="main-wrapper" id="main-wrapper">
         <div class="stats-banner">
-            <div class="stats-banner-left">
-                <img src="/logo%20issat-small.jpg" alt="Logo">
-                <div class="stats-banner-title">
-                    <div class="eyebrow">Répertoire Académique — ISSAT Sousse</div>
-                    <h1>Explorateur Académique</h1>
+            <div class="stats-banner-inner">
+                <div class="stats-banner-left">
+                    <img src="/logo%20issat-small.jpg" alt="Logo">
+                    <div class="stats-banner-title">
+                        <div class="flex items-center gap-3">
+                            <div class="eyebrow">Répertoire Académique — ISSAT Sousse</div>
+                            <div id="status-badge" class="hidden px-2 py-0.5 bg-green-100 text-green-700 text-[9px] font-black uppercase tracking-widest rounded-full border border-green-200">
+                                Officiel
+                            </div>
+                        </div>
+                        <h1>Explorateur Académique</h1>
+                    </div>
                 </div>
-            </div>
-            <div class="stats-row">
-                <div class="sbox">
-                    <div class="slbl">Professeurs</div>
-                    <div class="sval" id="stat-prof">—</div>
-                </div>
-                <div class="sbox">
-                    <div class="slbl">Matières</div>
-                    <div class="sval a" id="stat-mat">—</div>
-                </div>
-                <div class="sbox">
-                    <div class="slbl">Filières</div>
-                    <div class="sval g" id="stat-fil">—</div>
+                <div class="stats-row">
+                    <div class="sbox">
+                        <div class="slbl">Professeurs</div>
+                        <div class="sval" id="stat-prof">—</div>
+                    </div>
+                    <div class="sbox">
+                        <div class="slbl">Matières</div>
+                        <div class="sval a" id="stat-mat">—</div>
+                    </div>
+                    <div class="sbox">
+                        <div class="slbl">Filières</div>
+                        <div class="sval g" id="stat-fil">—</div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div
-            style="display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:12px 18px;margin-bottom:24px;box-shadow:var(--sh);">
-            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"
+            style="display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:11px 18px;margin-bottom:22px;box-shadow:var(--sh);">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"
                 style="color:var(--text3);flex-shrink:0;">
                 <circle cx="11" cy="11" r="8" />
                 <path d="m21 21-4.35-4.35" />
             </svg>
             <input type="text" id="search" class="srch" placeholder="Rechercher filière, enseignant, matière..."
-                style="border:none;background:transparent;outline:none;width:100%;font-size:15px;color:var(--text);font-weight:600;" />
+                style="border:none;background:transparent;outline:none;width:100%;font-size:14px;color:var(--text);font-weight:500;" />
             <div id="results-count"
                 style="font-size:10px; font-weight:800; color:var(--text3); text-transform:uppercase; letter-spacing:1px; white-space:nowrap; border-left:1px solid var(--border); padding-left:15px">
                 0 Résultats</div>
@@ -1436,7 +1482,9 @@
             if (window.innerWidth <= 1024) {
                 sidebar.classList.toggle('open');
             } else {
-                wrapper.classList.toggle('sidebar-collapsed');
+                // Use .filter-collapsed on the page-wrapper, NOT body.sidebar-collapsed
+                // so the nav sidebar toggle doesn't affect this
+                wrapper.classList.toggle('filter-collapsed');
             }
         }
 
@@ -1508,24 +1556,38 @@
             chargeUpdateTimer = setTimeout(async () => {
                 const prof = data.professors.find(p => p.id === profId);
                 if (!prof) return;
+
+                // Visual feedback: Start
+                const inputs = document.querySelectorAll(`input[onchange*="updateCharge(${profId}"]`);
+                inputs.forEach(inp => { inp.style.opacity = '0.5'; });
+
                 try {
                     const resp = await fetch('/api/professors/update', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             id: profId,
-                            full_name: prof.name || prof.full_name,
+                            full_name: prof.name || prof.full_name, // Prevent wipe by sending current name
                             grade: prof.grade || '',
                             charge: parseInt(newCharge) || 0
                         })
                     });
                     if (resp.ok) {
                         prof.charge = parseInt(newCharge) || 0;
-                        // Brief visual feedback
-                        const inputs = document.querySelectorAll(`input[onchange*="updateCharge(${profId}"]`);
-                        inputs.forEach(inp => { inp.style.borderColor = '#10B981'; setTimeout(() => inp.style.borderColor = '', 1500); });
+                        // Brief visual feedback: Success
+                        inputs.forEach(inp => {
+                            inp.style.opacity = '1';
+                            inp.style.borderColor = '#10B981';
+                            inp.style.boxShadow = '0 0 0 3px rgba(16, 185, 129, 0.1)';
+                            setTimeout(() => { inp.style.borderColor = ''; inp.style.boxShadow = ''; }, 1500);
+                        });
+                    } else {
+                        inputs.forEach(inp => { inp.style.opacity = '1'; inp.style.borderColor = 'var(--red)'; });
                     }
-                } catch (e) { console.warn('updateCharge error', e); }
+                } catch (e) {
+                    console.warn('updateCharge error', e);
+                    inputs.forEach(inp => { inp.style.opacity = '1'; });
+                }
             }, 600); // Debounce 600ms after typing stops
         }
 
@@ -1580,11 +1642,20 @@
                 data.rooms = roomResp.ok ? (await roomResp.json()) || [] : [];
                 const filieresData = filResp.ok ? (await filResp.json()).filieres || [] : [];
 
-                const storedDist = localStorage.getItem('or_google_selected_distribution');
-                if (storedDist) {
-                    data.distribution = JSON.parse(storedDist);
-                    showDistributionContext();
-                }
+                // Load ACTIVE distribution from Database
+                try {
+                    const activeResp = await fetch('/api/distribution/active');
+                    if (activeResp.ok) {
+                        const activeRes = await activeResp.json();
+                        data.distribution = activeRes.data;
+                        console.log("Active distribution loaded from DB:", data.distribution);
+                    } else {
+                        // Fallback to localStorage if available (for offline/preview)
+                        const storedDist = localStorage.getItem('or_google_selected_distribution');
+                        if (storedDist) data.distribution = JSON.parse(storedDist);
+                    }
+                    if (data.distribution) showDistributionContext();
+                } catch (e) { console.warn("Failed to load active distribution", e); }
 
                 data.filieres = filieresData.map(f => ({
                     ...f,
@@ -1919,7 +1990,9 @@
         }
 
         function showDistributionContext() {
+            const badge = document.getElementById('status-badge');
             const context = document.getElementById('distribution-context');
+            if (badge) badge.classList.remove('hidden');
             if (!context) return;
 
             const name = document.getElementById('active-dist-name');
@@ -1927,9 +2000,10 @@
 
             if (data.distribution) {
                 context.classList.remove('hidden');
-                if (name) name.textContent = `Bloc ${data.distribution.bloc === 'matin' ? 'Matin' : 'Après-midi'}`;
-                const date = new Date(data.distribution.timestamp).toLocaleString();
-                if (meta) meta.textContent = `Généré le ${date}`;
+                const bloc = (data.distribution.bloc || 'matin').toLowerCase().includes('matin') ? 'Matin' : 'Après-midi';
+                if (name) name.textContent = `Bloc ${bloc}`;
+                const date = data.distribution.timestamp ? new Date(data.distribution.timestamp).toLocaleString() : 'Date inconnue';
+                if (meta) meta.textContent = `Version officielle du ${date}`;
             }
         }
 
@@ -2541,31 +2615,34 @@
                 // Apply subject-level filters to the timetable slots
                 let slots = data.timetable.filter(t => String(t.filiere_id) === String(filiereObj.id));
 
-                // FALLBACK: Generate Synthetic Slots for DS/Examen if no timetable data
-                const hasFilters = selectedFilters.evaluation.length > 0;
-                if (slots.length === 0 && hasFilters) {
-                    const dayMap = { 1: 'Lundi', 2: 'Mardi', 3: 'Mercredi', 4: 'Jeudi', 5: 'Vendredi', 6: 'Samedi' };
-                    let dayCounts = {};
-                    filiereObj.matieres.forEach(m => {
-                        const dayName = dayMap[m.jour_num || m.jour];
-                        if (!dayName) return;
-                        const isDS = selectedFilters.evaluation.includes('DS') && m.ds;
-                        const isEx = selectedFilters.evaluation.includes('Examen') && m.examen;
-                        if (isDS || isEx) {
-                            const count = dayCounts[dayName] || 0;
-                            if (count < timeSlots.length) {
-                                slots.push({
-                                    id: 'v' + m.id,
-                                    filiere_id: filiereObj.id,
-                                    matiere_id: m.id,
-                                    prof_nom: m.prof_nom,
-                                    jour: dayName,
-                                    heure_debut: timeSlots[count].start,
-                                    heure_fin: timeSlots[count].end,
-                                    salle: 'A DEFINIR',
-                                    type_session: isEx ? 'EXAM' : 'TD'
-                                });
-                                dayCounts[dayName] = count + 1;
+                // 2. ENHANCED: Inject Room from Active Distribution
+                if (data.distribution) {
+                    const bloc = (data.distribution.bloc || 'matin').toLowerCase();
+                    const slotsMap = data.distribution[bloc] || {};
+                    
+                    // The distribution stores by Slot Name (e.g., "Slot 1")
+                    // We need to map Slot 1 -> 08:30, Slot 2 -> 10:15, etc.
+                    const dayLabels = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+                    
+                    slots.forEach(slot => {
+                        const slotIdx = timeSlots.findIndex(ts => ts.start === slot.heure_debut);
+                        if (slotIdx === -1) return;
+                        
+                        const slotKey = `Slot ${slotIdx + 1}`;
+                        const roomsInSlot = slotsMap[slotKey] || {};
+                        
+                        // Find if this filiere is in any room in this slot
+                        for (const roomName in roomsInSlot) {
+                            const distributedFils = roomsInSlot[roomName];
+                            // Check if filiere abbreviation or name matches
+                            const matches = distributedFils.some(f => 
+                                f.toLowerCase().includes(filiereObj.abreviation_filaire.toLowerCase()) || 
+                                f.toLowerCase().includes(filiereObj.nom.toLowerCase())
+                            );
+                            
+                            if (matches) {
+                                slot.salle = roomName;
+                                break;
                             }
                         }
                     });

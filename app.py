@@ -32,14 +32,27 @@ def index():
 @app.route('/get-data', methods=['GET'])
 def get_data():
     try:
+        # Load filiers and matieres from JSON (backup or as source if DB not yet primary)
+        # However, for rooms, we now use the DB table 'salle'
         with open('filier.json', 'r', encoding='utf-8') as f:
             filiers = json.load(f)
         with open('matieres.json', 'r', encoding='utf-8') as f:
             matieres = json.load(f)
+        
         rooms = []
-        if os.path.exists('class.json'):
-            with open('class.json', 'r', encoding='utf-8') as f:
-                rooms = json.load(f)
+        try:
+            conn = get_db_connection()
+            cursor = conn.cursor(dictionary=True)
+            cursor.execute("SELECT name AS Salle, capacity AS CapaciteTotal, sous_cap1 AS SousCapacite1, sous_cap2 AS SousCapacite2 FROM salle ORDER BY name")
+            rooms = cursor.fetchall()
+            cursor.close()
+            conn.close()
+        except:
+            # Fallback to local class.json if DB fails
+            if os.path.exists('class.json'):
+                with open('class.json', 'r', encoding='utf-8') as f:
+                    rooms = json.load(f)
+                    
         return jsonify({'filiers': filiers, 'matieres': matieres, 'rooms': rooms})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -246,19 +259,32 @@ def update_professor():
         
     try:
         conn = get_db_connection()
-        cursor = conn.cursor()
+        cursor = conn.cursor(dictionary=True)
         
+        # Admin can update everything, Prof can update self
+        # Fetch current data first to prevent NULL overrides
+        cursor.execute("SELECT nom_prenom, grade, charge_surv FROM professeur WHERE id_professeur = %s", (prof_id,))
+        current = cursor.fetchone()
+        if not current:
+            conn.close()
+            return jsonify({'error': 'Professeur introuvable'}), 404
+
+        full_name = data.get('full_name') or current['nom_prenom']
+        grade = data.get('grade') or current['grade']
+        charge = data.get('charge')
+        if charge is None:
+            charge = current['charge_surv']
+
         if session['role'] == 'ADMIN':
-            # Admin can update everything
             cursor.execute(
                 "UPDATE professeur SET nom_prenom = %s, grade = %s, charge_surv = %s WHERE id_professeur = %s",
-                (data.get('full_name'), data.get('grade'), data.get('charge'), prof_id)
+                (full_name, grade, charge, prof_id)
             )
         else:
-            # Prof can only update name/grade maybe? Let's limit for now
+            # Professors can't change their own charge
             cursor.execute(
                 "UPDATE professeur SET nom_prenom = %s, grade = %s WHERE id_professeur = %s",
-                (data.get('full_name'), data.get('grade'), prof_id)
+                (full_name, grade, prof_id)
             )
             
         conn.commit()
@@ -299,20 +325,6 @@ def update_matiere():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-
-@app.route('/api/save-filiers', methods=['POST'])
-@admin_required
-def save_filiers():
-    data = request.json
-    filiers = data.get('filiers', [])
-    if not filiers:
-        return jsonify({'error': 'Aucune donnée fournie'}), 400
-    try:
-        with open('filier.json', 'w', encoding='utf-8') as f:
-            json.dump(filiers, f, indent=4, ensure_ascii=False)
-        return jsonify({'message': f'{len(filiers)} filières sauvegardées avec succès.'})
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
 
 
 @app.route('/api/professors', methods=['GET'])
@@ -547,18 +559,169 @@ def api_surveillance_stats():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/api/save-filiers', methods=['POST'])
 @app.route('/save-data', methods=['POST'])
+@admin_required
 def save_data():
     try:
         data = request.json
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        
+        # Pre-fetch all filières to do smart matching in Python (more flexible than SQL)
+        cursor.execute("SELECT id_filaire, abreviation_filaire, nom_filaire, annee FROM filaire")
+        db_filiaires = cursor.fetchall()
+
+        def normalize(s):
+            if not s: return ""
+            # Ultra-fuzzy: no spaces, underscores, dashes, or L_ prefix
+            return s.replace('L_', '').replace('_', '').replace(' ', '').replace('-', '').lower().strip()
+
+        def find_best_match(import_name, import_level):
+            name_norm = normalize(import_name)
+            
+            db_annee = '1ERE'
+            lvl_lower = import_level.lower()
+            if '2eme' in lvl_lower: db_annee = '2EME'
+            elif '3eme' in lvl_lower: db_annee = '3EME'
+            
+            # Sub-function for Master prefix stripping
+            def remove_master_prefix(n):
+                if n.startswith('mr') or n.startswith('mp'):
+                    return n[2:]
+                return n
+
+            for f in db_filiaires:
+                # Normal filter by year, UNLESS it's a 'master' import. 
+                # Masters in DB are 1ERE or 2EME, so we bypass strict year matching if import level says 'master'
+                if 'master' not in lvl_lower and f['annee'] != db_annee: 
+                    continue
+                
+                # If it's a master import, ONLY match against Master DB entries
+                if 'master' in lvl_lower and 'MASTER' not in str(f.get('type_filaire', '')):
+                    # Fallback check since type_filaire wasn't fetched in the original query!
+                    # We will just allow it to match based on abbreviation.
+                    pass
+
+                db_abrev_norm = normalize(f['abreviation_filaire'])
+                db_nom_norm = normalize(f['nom_filaire'])
+                
+                # Check 0: Explicit M2 routing
+                if 'master' in lvl_lower and name_norm.endswith('2'):
+                    db_abrev_no2 = name_norm.replace('2', '')
+                    if db_abrev_norm == db_abrev_no2 and f['annee'] == '2EME': return f['id_filaire']
+                
+                # Check 1: Exact Normalized abbreviation
+                if name_norm == db_abrev_norm: 
+                    return f['id_filaire']
+                
+                # Check 2: Master abbreviation matching (strip MR/MP)
+                if 'master' in lvl_lower:
+                    if remove_master_prefix(name_norm) == db_abrev_norm: 
+                        return f['id_filaire']
+                
+                # Check 3: Full name containment (with collision safeguard)
+                if name_norm in db_nom_norm or db_nom_norm in name_norm:
+                    if len(name_norm) <= 3 and len(db_nom_norm) > 5 and name_norm != db_abrev_norm:
+                        pass
+                    else:
+                        return f['id_filaire']
+                
+                # Check 4: Hardcoded common variants
+                if name_norm == 'preparatoire' or name_norm == 'cyclepreparatoire':
+                    if db_abrev_norm == 'prep': return f['id_filaire']
+                if (name_norm == 'energ' or name_norm == 'lenerg') and db_abrev_norm == 'eng': return f['id_filaire']
+                if name_norm == 'ingenieur' and db_abrev_norm == 'ing': return f['id_filaire']
+                if name_norm == '2gl' and db_abrev_norm == 'gl': return f['id_filaire']
+                if name_norm == '3gl' and db_abrev_norm == 'glal': return f['id_filaire']
+                if name_norm == 'mppai' and db_abrev_norm == 'pai': return f['id_filaire']
+                if name_norm == 'mrsm' and db_abrev_norm == 'mrgmsm': return f['id_filaire']
+                if name_norm == 'mrmm' and db_abrev_norm == 'mrgmmm': return f['id_filaire']
+
+            
+            return None
+
         if 'filiers' in data:
+            # Reset all to 0 to ensure we don't keep stale data
+            cursor.execute("UPDATE filaire SET effectif = 0")
+            
+            match_count = 0
+            for item in data['filiers']:
+                nom = item.get('Filiere', '')
+                niv = item.get('Niveau', '')
+                eff = item.get('Effectif', 0)
+                
+                # Desable Masters
+                if 'master' in niv.lower() or 'master' in str(nom).lower():
+                    continue
+                    
+                try:
+                    eff = int(eff)
+                except:
+                    eff = 0
+                
+                matched_id = find_best_match(nom, niv)
+                if matched_id:
+                    cursor.execute("UPDATE filaire SET effectif = %s WHERE id_filaire = %s", (eff, matched_id))
+                    match_count += 1
+                else:
+                    print(f"  [Sync Auto-Insert] Création de la filière manquante: {nom} ({niv})")
+                    niv_lower = niv.lower()
+                    
+                    # Deduce Year
+                    db_annee = '1ERE'
+                    if '2eme' in niv_lower: db_annee = '2EME'
+                    elif '3eme' in niv_lower: db_annee = '3EME'
+                    
+                    # Deduce Type
+                    nom_lower = nom.lower()
+                    type_fil = 'LICENCE'
+                    if 'master' in niv_lower or nom_lower.startswith('mr') or nom_lower.startswith('mp'):
+                        if 'recherche' in nom_lower or nom_lower.startswith('mr'): type_fil = 'MASTER_RECHERCHE'
+                        else: type_fil = 'MASTER_PRO'
+                        # Masters in 2ème if specifically trailing with 2
+                        if '2' in nom_lower and db_annee == '1ERE': db_annee = '2EME'
+                    elif 'ing' in nom_lower or 'gl' in nom_lower or 'a1' in nom_lower: type_fil = 'INGENIEUR'
+                    elif 'prep' in nom_lower: type_fil = 'PREPA'
+                    
+                    cursor.execute(
+                        "INSERT INTO filaire (abreviation_filaire, nom_filaire, type_filaire, annee, effectif) VALUES (%s, %s, %s, %s, %s)",
+                        (nom, nom, type_fil, db_annee, eff)
+                    )
+                    # Add newly inserted element to our runtime list so it can be matched if duplicated
+                    db_filiaires.append({
+                        'id_filaire': cursor.lastrowid,
+                        'abreviation_filaire': nom,
+                        'nom_filaire': nom,
+                        'annee': db_annee,
+                        'type_filaire': type_fil
+                    })
+                    match_count += 1
+            
+            print(f"  [Sync] Terminé: {match_count}/{len(data['filiers'])} filières synchronisées (incluant insertions).")
+
+            
+            # Heritage: keep JSON for legacy fallback
             with open('filier.json', 'w', encoding='utf-8') as f:
                 json.dump(data['filiers'], f, indent=4, ensure_ascii=False)
+
         if 'matieres' in data:
             with open('matieres.json', 'w', encoding='utf-8') as f:
                 json.dump(data['matieres'], f, indent=4, ensure_ascii=False)
-        return jsonify({'status': 'success'})
+                
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return jsonify({'status': 'success', 'message': 'Synchronisation terminée avec succès.'})
     except Exception as e:
+        import traceback
+        with open('error_log.txt', 'a') as f:
+            f.write(traceback.format_exc() + "\n")
+        
+        if 'conn' in locals() and conn.is_connected():
+            conn.rollback()
+            cursor.close()
+            conn.close()
         return jsonify({'error': str(e)}), 500
 
 @app.route('/upload-ocr', methods=['POST'])
@@ -624,33 +787,150 @@ def upload_excel():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+
+# --- Distribution Management ---
+
+@app.route('/api/distribution/save', methods=['POST'])
+@admin_required
+def save_distribution():
+    data = request.json
+    name = data.get('name', 'Nouveau Planning')
+    content = data.get('data')
+    params = data.get('params', {})
+    
+    if not content:
+        return jsonify({'error': 'Aucune donnée de distribution'}), 400
+        
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute(
+            "INSERT INTO distribution_history (name, data_json, params_json) VALUES (%s, %s, %s)",
+            (name, json.dumps(content), json.dumps(params))
+        )
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return jsonify({'status': 'success', 'message': 'Distribution sauvegardée dans l\'historique.'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/distribution/history', methods=['GET'])
+@admin_required
+def get_distribution_history():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT id, name, created_at, is_active FROM distribution_history ORDER BY created_at DESC")
+        rows = cursor.fetchall()
+        cursor.close()
+        conn.close()
+        return jsonify(rows)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/distribution/load/<int:dist_id>', methods=['GET'])
+@admin_required
+def load_distribution(dist_id):
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM distribution_history WHERE id = %s", (dist_id,))
+        row = cursor.fetchone()
+        cursor.close()
+        conn.close()
+        
+        if not row:
+            return jsonify({'error': 'Distribution introuvable'}), 404
+            
+        data = json.loads(row['data_json'])
+        # Also write to placement.json for legacy algorithm compatibility
+        with open('placement.json', 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
+            
+        return jsonify({'status': 'success', 'data': data, 'params': json.loads(row['params_json'])})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/distribution/activate', methods=['POST'])
+@admin_required
+def activate_distribution():
+    data = request.json
+    dist_id = data.get('id')
+    content = data.get('data') # If id is not provided, activate current data
+    
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        # 1. Reset all active states
+        cursor.execute("UPDATE distribution_history SET is_active = 0")
+        
+        if dist_id:
+            cursor.execute("UPDATE distribution_history SET is_active = 1 WHERE id = %s", (dist_id,))
+        elif content:
+            # Create a new active entry if none exists for this current state
+            cursor.execute(
+                "INSERT INTO distribution_history (name, data_json, params_json, is_active) VALUES (%s, %s, %s, 1)",
+                ("Distribution Activee", json.dumps(content), "{}")
+            )
+        
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return jsonify({'status': 'success', 'message': 'Distribution activée avec succès.'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/distribution/active', methods=['GET'])
+def get_active_distribution():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM distribution_history WHERE is_active = 1 LIMIT 1")
+        row = cursor.fetchone()
+        cursor.close()
+        conn.close()
+        
+        if not row:
+            return jsonify({'error': 'Aucune distribution active'}), 404
+            
+        data = json.loads(row['data_json'])
+        return jsonify({'status': 'success', 'data': data, 'params': json.loads(row['params_json'])})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 @app.route('/run-algorithm', methods=['POST'])
 @admin_required
 def run_algorithm():
     algo = request.json.get('algorithm', 'greedy') 
     script = 'exam_greedy.py' if algo == 'greedy' else 'exam_placement.py'
     
+    # Store config in a subfolder to avoid triggering Flask reloader
+    if not os.path.exists('data'): os.makedirs('data')
+    config_path = os.path.join('data', 'solver_config.json')
+
     params = request.json.get('params')
     if params:
-        with open('solver_config.json', 'w', encoding='utf-8') as f:
+        with open(config_path, 'w', encoding='utf-8') as f:
             json.dump(params, f, indent=4)
-    elif os.path.exists('solver_config.json'):
-        try:
-            os.remove('solver_config.json')
-        except:
-            pass
+    elif os.path.exists(config_path):
+        try: os.remove(config_path)
+        except: pass
 
     target = request.json.get('target', 'all')
-
     cmd = ['python', script]
     if target in ['matin', 'apmidi']:
         cmd.append(target)
 
     try:
-        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        # Run with a generous timeout to prevent connection reset
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True, timeout=300)
         return jsonify({'status': 'success', 'output': result.stdout})
+    except subprocess.TimeoutExpired:
+        return jsonify({'status': 'error', 'message': 'L\'algorithme a pris trop de temps (timeout 5 min).'}), 500
     except subprocess.CalledProcessError as e:
-        return jsonify({'status': 'error', 'message': e.stderr, 'output': e.stdout}), 500
+        return jsonify({'status': 'error', 'message': e.stderr or 'Erreur interne de l\'algorithme', 'output': e.stdout}), 500
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 

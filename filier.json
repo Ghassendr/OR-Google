@@ -1,67 +1,207 @@
-{
-    "annee_universitaire": "2025/2026",
-    "nombre_total_etudiants": 2605,
-    "annees": {
-        "1ere_annee": {
-            "total_groupes": 893,
-            "filieres": {
-                "L_ISI": 90,
-                "L_GM": 88,
-                "L_GC": 78,
-                "L_EEA": 158,
-                "L_Energ": 73,
-                "L_EM": 80,
-                "L_SI": 84,
-                "Cycle_Preparatoire": 127,
-                "Ingenieur": 115
-            }
-        },
-        "2eme_annee": {
-            "total_groupes": 736,
-            "filieres": {
-                "ISI": 112,
-                "CPI": 81,
-                "Batiment": 31,
-                "SE": 159,
-                "Energ": 33,
-                "MA": 55,
-                "SI": 72,
-                "Cycle_Preparatoire": 88,
-                "2GL": 105
-            }
-        },
-        "3eme_annee": {
-            "total_groupes": 552,
-            "filieres": {
-                "ISI": 93,
-                "CPI": 50,
-                "Batiment": 37,
-                "SE": 131,
-                "Energ": 22,
-                "MA": 46,
-                "SI": 63,
-                "3GL": 110
-            }
-        },
-        "master": {
-            "programmes": {
-                "MR_SPI": 42,
-                "GM": 48,
-                "MR_GM": 27,
-                "MP_MERE": 51,
-                "MR_MSEE": 99,
-                "MP_GPPM": 22,
-                "MP_PAI": 26,
-                "MR_SPI_2": 25,
-                "MP_EEB": 31,
-                "MP_EEI": 17,
-                "MR_SEE": 25,
-                "MR_MSE": 15,
-                "MR_MDEP": 12,
-                "MR_SM": 12,
-                "MR_MM": 14
-            },
-            "total_master": 466
-        }
+[
+    {
+        "Niveau": "1ere_annee",
+        "Filiere": "L_ISI",
+        "Effectif": 90
+    },
+    {
+        "Niveau": "1ere_annee",
+        "Filiere": "L_GM",
+        "Effectif": 88
+    },
+    {
+        "Niveau": "1ere_annee",
+        "Filiere": "L_GC",
+        "Effectif": 78
+    },
+    {
+        "Niveau": "1ere_annee",
+        "Filiere": "L_EEA",
+        "Effectif": 158
+    },
+    {
+        "Niveau": "1ere_annee",
+        "Filiere": "L_Energ",
+        "Effectif": 73
+    },
+    {
+        "Niveau": "1ere_annee",
+        "Filiere": "L_EM",
+        "Effectif": 80
+    },
+    {
+        "Niveau": "1ere_annee",
+        "Filiere": "L_SI",
+        "Effectif": 84
+    },
+    {
+        "Niveau": "1ere_annee",
+        "Filiere": "Cycle_Preparatoire",
+        "Effectif": 127
+    },
+    {
+        "Niveau": "1ere_annee",
+        "Filiere": "Ingenieur",
+        "Effectif": 115
+    },
+    {
+        "Niveau": "2eme_annee",
+        "Filiere": "ISI",
+        "Effectif": 112
+    },
+    {
+        "Niveau": "2eme_annee",
+        "Filiere": "CPI",
+        "Effectif": 81
+    },
+    {
+        "Niveau": "2eme_annee",
+        "Filiere": "Batiment",
+        "Effectif": 31
+    },
+    {
+        "Niveau": "2eme_annee",
+        "Filiere": "SE",
+        "Effectif": 159
+    },
+    {
+        "Niveau": "2eme_annee",
+        "Filiere": "Energ",
+        "Effectif": 33
+    },
+    {
+        "Niveau": "2eme_annee",
+        "Filiere": "MA",
+        "Effectif": 55
+    },
+    {
+        "Niveau": "2eme_annee",
+        "Filiere": "SI",
+        "Effectif": 72
+    },
+    {
+        "Niveau": "2eme_annee",
+        "Filiere": "Cycle_Preparatoire",
+        "Effectif": 88
+    },
+    {
+        "Niveau": "2eme_annee",
+        "Filiere": "2GL",
+        "Effectif": 105
+    },
+    {
+        "Niveau": "3eme_annee",
+        "Filiere": "ISI",
+        "Effectif": 93
+    },
+    {
+        "Niveau": "3eme_annee",
+        "Filiere": "CPI",
+        "Effectif": 50
+    },
+    {
+        "Niveau": "3eme_annee",
+        "Filiere": "Batiment",
+        "Effectif": 37
+    },
+    {
+        "Niveau": "3eme_annee",
+        "Filiere": "SE",
+        "Effectif": 131
+    },
+    {
+        "Niveau": "3eme_annee",
+        "Filiere": "Energ",
+        "Effectif": 22
+    },
+    {
+        "Niveau": "3eme_annee",
+        "Filiere": "MA",
+        "Effectif": 46
+    },
+    {
+        "Niveau": "3eme_annee",
+        "Filiere": "SI",
+        "Effectif": 63
+    },
+    {
+        "Niveau": "3eme_annee",
+        "Filiere": "3GL",
+        "Effectif": 110
+    },
+    {
+        "Niveau": "master",
+        "Filiere": "MR_SPI",
+        "Effectif": 42
+    },
+    {
+        "Niveau": "master",
+        "Filiere": "GM",
+        "Effectif": 48
+    },
+    {
+        "Niveau": "master",
+        "Filiere": "MR_GM",
+        "Effectif": 27
+    },
+    {
+        "Niveau": "master",
+        "Filiere": "MP_MERE",
+        "Effectif": 51
+    },
+    {
+        "Niveau": "master",
+        "Filiere": "MR_MSEE",
+        "Effectif": 99
+    },
+    {
+        "Niveau": "master",
+        "Filiere": "MP_GPPM",
+        "Effectif": 22
+    },
+    {
+        "Niveau": "master",
+        "Filiere": "MP_PAI",
+        "Effectif": 26
+    },
+    {
+        "Niveau": "master",
+        "Filiere": "MR_SPI_2",
+        "Effectif": 25
+    },
+    {
+        "Niveau": "master",
+        "Filiere": "MP_EEB",
+        "Effectif": 31
+    },
+    {
+        "Niveau": "master",
+        "Filiere": "MP_EEI",
+        "Effectif": 17
+    },
+    {
+        "Niveau": "master",
+        "Filiere": "MR_SEE",
+        "Effectif": 25
+    },
+    {
+        "Niveau": "master",
+        "Filiere": "MR_MSE",
+        "Effectif": 15
+    },
+    {
+        "Niveau": "master",
+        "Filiere": "MR_MDEP",
+        "Effectif": 12
+    },
+    {
+        "Niveau": "master",
+        "Filiere": "MR_SM",
+        "Effectif": 12
+    },
+    {
+        "Niveau": "master",
+        "Filiere": "MR_MM",
+        "Effectif": 14
     }
-}
+]
