@@ -1,0 +1,325 @@
+:root {
+  --primary-color: #0f4c81; /* Classic Blue - Pantone 2020 */
+  --primary-light: #4175b0;
+  --primary-dark: #002654;
+  --bg-color: #f4f7f6;
+  --card-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --danger-color: #d32f2f;
+  --danger-light: #fce4e4;
+  --success-color: #2e7d32;
+  --border-color: #e0e0e0;
+  --focus-ring: rgba(15, 76, 129, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  color: var(--primary-dark);
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--primary-light);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Card layout */
+.card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  padding: 2.5rem;
+  margin-top: 2rem;
+}
+
+/* Inputs */
+.input-group {
+  margin-bottom: 1.5rem;
+}
+
+.input-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--primary-dark);
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  min-width: 120px;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.btn-outline:hover {
+  background-color: rgba(15, 76, 129, 0.05);
+}
+
+.btn-danger {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #b71c1c;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Auth Pages Specifics */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+  padding: 1rem;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  text-align: left;
+}
+
+.auth-logo {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--primary-color);
+}
+
+.auth-title {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.auth-subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+/* Alerts */
+.alert {
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.alert-success {
+  background-color: #e8f5e9;
+  color: var(--success-color);
+  border: 1px solid #c8e6c9;
+}
+
+.alert-error {
+  background-color: var(--danger-light);
+  color: var(--danger-color);
+  border: 1px solid #ffcdd2;
+}
+
+/* Schedule Grid */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.schedule-grid {
+  display: grid;
+  grid-template-columns: 110px repeat(6, 1fr);
+  gap: 1px;
+  background-color: var(--border-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.schedule-header, .schedule-time, .schedule-cell {
+  background-color: white;
+  padding: 1rem 0.5rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.schedule-header {
+  background-color: var(--primary-light);
+  color: white;
+  font-weight: 600;
+}
+
+.schedule-time {
+  background-color: #f8f9fa;
+  font-weight: 500;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.schedule-cell {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  min-height: 80px;
+  font-weight: 500;
+}
+
+.schedule-cell.available {
+  background-color: white;
+  color: var(--text-muted);
+}
+
+.schedule-cell.available:hover {
+  background-color: #f1f5f9;
+}
+
+.schedule-cell.unavailable {
+  background-color: var(--danger-light);
+  color: var(--danger-color);
+  box-shadow: inset 0 0 0 2px var(--danger-color);
+}
+
+/* Quick Actions */
+.quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.quick-actions h4 {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.action-chip {
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-chip:hover {
+  background: var(--primary-light);
+  color: white;
+  border-color: var(--primary-light);
+}
+
+.action-chip.clear {
+  background: white;
+  border-color: var(--danger-color);
+  color: var(--danger-color);
+}
+.action-chip.clear:hover {
+  background: var(--danger-color);
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .schedule-grid {
+    display: block; /* Make it responsive */
+  }
+  .schedule-header {
+    display: none;
+  }
+  .schedule-time {
+    background-color: var(--primary-light);
+    color: white;
+    font-weight: bold;
+    text-align: left;
+    padding-left: 1rem;
+  }
+  .schedule-cell {
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem;
+    justify-content: space-between;
+  }
+  .schedule-cell::before {
+    content: attr(data-day);
+    font-weight: 500;
+  }
+}
