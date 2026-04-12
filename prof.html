@@ -10,6 +10,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
         rel="stylesheet" />
+    <link rel="stylesheet" href="/sidebar-component.css">
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
         @media print {
@@ -53,47 +54,51 @@
         }
 
         :root {
-            --bg: #F8F9FA;
-            --surface: #FFFFFF;
-            --surface2: #F1F5F9;
-            --border: #E2E8F0;
-            --border2: #CBD5E1;
-            --navy: #1E40AF;
-            --navy2: #3B82F6;
-            --amber: #D97706;
-            --amber-lt: #FEF3C7;
-            --green: #059669;
-            --green-lt: #D1FAE5;
-            --red: #DC2626;
-            --red-lt: #FEE2E2;
-            --text: #0F172A;
-            --text2: #334155;
-            --text3: #64748B;
-            --sh: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-            --sh2: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --hdr-bg: #1E3A8A;
+            --bg:        #EEF2F7;
+            --surface:   #FFFFFF;
+            --surface2:  #F4F7FB;
+            --border:    #DDE3ED;
+            --border2:   #C5CFDF;
+            --navy:      #13213A;
+            --navy2:     #1A2D4F;
+            --accent:    #38BDBE;
+            --accent-lt: rgba(56, 189, 190, 0.1);
+            --amber:     #E8960A;
+            --amber-lt:  #FEF3C7;
+            --green:     #059669;
+            --green-lt:  #D1FAE5;
+            --red:       #DC2626;
+            --red-lt:    #FEE2E2;
+            --text:      #0F1A2E;
+            --text2:     #2D405A;
+            --text3:     #6B7E97;
+            --sh:        0 1px 4px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
+            --sh2:       0 4px 16px rgba(0,0,0,0.09), 0 2px 6px rgba(0,0,0,0.06);
+            --hdr-bg:    #13213A;
         }
 
         :root.dark-mode {
-            --bg: #0F172A;
-            --surface: #1E293B;
-            --surface2: #334155;
-            --border: #334155;
-            --border2: #475569;
-            --navy: #60A5FA;
-            --navy2: #93C5FD;
-            --amber: #FBBF24;
-            --amber-lt: rgba(251, 191, 36, 0.1);
-            --green: #34D399;
-            --green-lt: rgba(52, 211, 153, 0.1);
-            --red: #F87171;
-            --red-lt: rgba(248, 113, 113, 0.1);
-            --text: #F8FAFC;
-            --text2: #CBD5E1;
-            --text3: #94A3B8;
-            --sh: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-            --sh2: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
-            --hdr-bg: #111827;
+            --bg:        #0B1220;
+            --surface:   #131F35;
+            --surface2:  #1C2C46;
+            --border:    #243351;
+            --border2:   #2E4368;
+            --navy:      #38BDBE;
+            --navy2:     #6DD5D6;
+            --accent:    #38BDBE;
+            --accent-lt: rgba(56, 189, 190, 0.12);
+            --amber:     #FBBF24;
+            --amber-lt:  rgba(251, 191, 36, 0.1);
+            --green:     #34D399;
+            --green-lt:  rgba(52, 211, 153, 0.1);
+            --red:       #F87171;
+            --red-lt:    rgba(248, 113, 113, 0.1);
+            --text:      #E2EAF4;
+            --text2:     #A8BECE;
+            --text3:     #6B7E97;
+            --sh:        0 4px 16px rgba(0,0,0,0.35);
+            --sh2:       0 8px 32px rgba(0,0,0,0.45);
+            --hdr-bg:    #0B1220;
         }
 
         .dark-mode .hdr {
@@ -184,7 +189,298 @@
             color: var(--text);
             font-family: 'DM Sans', sans-serif;
             font-size: 14px;
-            line-height: 1.5
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* Main wrapper shifts with sidebar */
+        .main-wrapper {
+            margin-left: 256px;
+            padding: 28px 32px;
+            transition: margin-left 0.30s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 100vh;
+        }
+
+        body.sidebar-collapsed .main-wrapper {
+            margin-left: 64px;
+        }
+
+        @media (max-width: 900px) {
+            .main-wrapper {
+                margin-left: 0 !important;
+                padding: 16px;
+            }
+        }
+
+        /* ── Stats Banner (page header) ─────────────────── */
+        .stats-banner {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 0;
+            margin-bottom: 20px;
+            box-shadow: var(--sh);
+            overflow: hidden;
+        }
+
+        .stats-banner::before {
+            content: '';
+            display: block;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent) 0%, #2A9494 50%, var(--navy) 100%);
+            border-radius: 14px 14px 0 0;
+        }
+
+        .stats-banner-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 22px;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .stats-banner-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .stats-banner-left img {
+            width: 40px;
+            height: 40px;
+            border-radius: 9px;
+            object-fit: cover;
+            border: 1px solid var(--border);
+        }
+
+        .stats-banner-title .eyebrow {
+            font-size: 9.5px;
+            letter-spacing: 2px;
+            color: var(--accent);
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .stats-banner-title h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 20px;
+            color: var(--navy);
+            line-height: 1.2;
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .sbox {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            padding: 9px 14px;
+            min-width: 85px;
+            transition: border-color 0.2s;
+        }
+
+        .sbox:hover { border-color: var(--accent); }
+
+        .slbl {
+            font-size: 9px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text3);
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .sval {
+            font-family: 'DM Serif Display', serif;
+            font-size: 20px;
+            color: var(--navy);
+        }
+
+        .sval.a { color: var(--amber); }
+        .sval.g { color: var(--green); }
+
+        /* Profile Edit Modal Styles */
+        .prof-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(6px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .prof-modal-overlay.open {
+            display: flex;
+        }
+
+        .prof-modal {
+            background: var(--surface);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border);
+            animation: slideUp 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .prof-modal-hdr {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 28px 18px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .prof-modal-hdr h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 22px;
+            color: var(--navy);
+        }
+
+        .prof-modal-close {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            color: var(--text3);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .prof-modal-close:hover {
+            background: var(--red-lt);
+            color: var(--red);
+            border-color: rgba(220, 38, 38, 0.2);
+        }
+
+        .prof-modal-body {
+            padding: 24px 28px 28px;
+        }
+
+        .prof-field {
+            margin-bottom: 16px;
+        }
+
+        .prof-field label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text2);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 6px;
+        }
+
+        .prof-field input {
+            width: 100%;
+            border: 1.5px solid var(--border);
+            border-radius: 9px;
+            background: var(--surface2);
+            padding: 10px 14px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            color: var(--text);
+            outline: none;
+            transition: all 0.18s;
+        }
+
+        .prof-field input:focus {
+            border-color: var(--navy2);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .prof-submit-btn {
+            width: 100%;
+            background: var(--navy);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 8px;
+        }
+
+        .prof-submit-btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+        }
+
+        /* DS/Examen inline toggles */
+        .ds-toggle-wrap {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .ds-pill {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 20px;
+            border: 1.5px solid;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .ds-pill.ds-on {
+            background: var(--amber-lt);
+            color: var(--amber);
+            border-color: rgba(217, 119, 6, 0.3);
+        }
+
+        .ds-pill.ds-off {
+            background: var(--surface2);
+            color: var(--text3);
+            border-color: var(--border);
+        }
+
+        .ds-pill.ex-on {
+            background: var(--green-lt);
+            color: var(--green);
+            border-color: rgba(5, 150, 105, 0.3);
+        }
+
+        .ds-pill.ex-off {
+            background: var(--surface2);
+            color: var(--text3);
+            border-color: var(--border);
+        }
+
+        .ds-pill:hover {
+            opacity: 0.75;
         }
 
         .w {
@@ -194,81 +490,115 @@
         }
 
         .hdr {
-            background: var(--navy);
-            border-radius: 16px;
-            padding: 28px 36px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 0;
             margin-bottom: 22px;
+            box-shadow: var(--sh);
+            overflow: hidden;
+        }
+
+        .hdr::before {
+            content: '';
+            display: block;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent) 0%, #2A9494 50%, var(--navy) 100%);
+            border-radius: 14px 14px 0 0;
+        }
+
+        .hdr-inner {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             align-items: center;
             justify-content: space-between;
-            box-shadow: var(--sh2);
-            position: relative;
-            overflow: hidden
-        }
-
-        .hdr::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23fff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat
+            padding: 18px 26px;
         }
 
         .hdr-title {
-            position: relative
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
 
         .eyebrow {
-            font-size: 10px;
-            letter-spacing: 3px;
-            color: #92AACF;
+            font-size: 9.5px;
+            letter-spacing: 2.5px;
+            color: var(--accent);
             text-transform: uppercase;
-            font-weight: 600;
-            margin-bottom: 6px
+            font-weight: 700;
+            margin-bottom: 2px;
         }
 
         .hdr h1 {
             font-family: 'DM Serif Display', serif;
-            font-size: 28px;
-            color: #fff;
+            font-size: 26px;
+            color: var(--navy);
             line-height: 1.1;
-            margin-bottom: 4px
+            margin-bottom: 4px;
         }
 
         .hdr-sub {
             font-size: 12px;
-            color: #6B8BBF
+            color: var(--text3);
         }
 
-        .stats-row {
+        /* Header Quick Actions */
+        .hdr-actions {
             display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            position: relative
+            gap: 8px;
+            align-items: center;
+            margin-left: 14px;
+            border-left: 1px solid var(--border);
+            padding-left: 14px;
         }
 
-        .sbox {
-            background: rgba(255, 255, 255, .09);
-            border: 1px solid rgba(255, 255, 255, .12);
-            border-radius: 10px;
-            padding: 12px 18px;
-            min-width: 110px
-        }
-
-        .slbl {
-            font-size: 10px;
-            letter-spacing: 1.5px;
+        .hdr-btn {
+            background: var(--navy);
+            border: 1px solid var(--navy);
+            color: #fff;
+            border-radius: 8px;
+            padding: 9px 16px;
+            font-size: 12px;
+            font-weight: 700;
             text-transform: uppercase;
-            color: #92AACF;
-            font-weight: 600;
-            margin-bottom: 4px
+            letter-spacing: 0.8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-family: 'DM Sans', sans-serif;
+            white-space: nowrap;
         }
 
-        .sval {
-            font-family: 'DM Serif Display', serif;
-            font-size: 24px;
-            color: #fff
+        .hdr-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(56, 189, 190, 0.25);
+        }
+
+        .hdr-icon-btn {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--text2);
+            border-radius: 8px;
+            width: 38px;
+            height: 38px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hdr-icon-btn:hover {
+            background: var(--accent-lt);
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-1px);
         }
 
         .ctrl {
@@ -378,8 +708,8 @@
             overflow: hidden;
         }
 
-        /* Hidden State - Desktop */
-        .sidebar-collapsed .filter-sidebar {
+        /* Hidden State - Desktop (independent from nav sidebar) */
+        .page-wrapper.filter-collapsed .filter-sidebar {
             width: 0;
             padding: 0;
             border: none;
@@ -1012,109 +1342,67 @@
     </style>
 </head>
 
-<body class="font-sans">
-    <div class="w">
-        <!-- Header -->
-        <header class="hdr">
-            <div class="hdr-title flex items-center gap-6">
-                <div
-                    class="bg-white/10 p-2 rounded-xl backdrop-blur-sm border border-white/10 flex items-center justify-center">
-                    <img src="/logo%20issat-small.jpg" alt="ISSAT Logo" class="h-14 w-auto rounded-lg">
-                </div>
-                <div>
-                    <div class="eyebrow">Institut Supérieur des Sciences Appliquées et de Technologie de Sousse</div>
-                    <h1>Explorateur Académique</h1>
-                    <div class="text-[10px] text-white/50 font-bold uppercase tracking-widest mt-1">Répertoire des
-                        Enseignants & Filières</div>
-                </div>
-            </div>
+<body>
+    <div id="sidebar-container"></div>
 
-            <div class="stats-row">
-                <div class="sbox">
-                    <div class="slbl">Professeurs</div>
-                    <div class="sval" id="stat-prof">—</div>
+    <div class="main-wrapper" id="main-wrapper">
+        <div class="stats-banner">
+            <div class="stats-banner-inner">
+                <div class="stats-banner-left">
+                    <img src="/logo%20issat-small.jpg" alt="Logo">
+                    <div class="stats-banner-title">
+                        <div class="flex items-center gap-3">
+                            <div class="eyebrow">Répertoire Académique — ISSAT Sousse</div>
+                            <div id="status-badge" class="hidden px-2 py-0.5 bg-green-100 text-green-700 text-[9px] font-black uppercase tracking-widest rounded-full border border-green-200">
+                                Officiel
+                            </div>
+                        </div>
+                        <h1>Explorateur Académique</h1>
+                    </div>
                 </div>
-                <div class="sbox">
-                    <div class="slbl">Matières</div>
-                    <div class="sval a" id="stat-mat">—</div>
+                <div class="stats-row">
+                    <div class="sbox">
+                        <div class="slbl">Professeurs</div>
+                        <div class="sval" id="stat-prof">—</div>
+                    </div>
+                    <div class="sbox">
+                        <div class="slbl">Matières</div>
+                        <div class="sval a" id="stat-mat">—</div>
+                    </div>
+                    <div class="sbox">
+                        <div class="slbl">Filières</div>
+                        <div class="sval g" id="stat-fil">—</div>
+                    </div>
                 </div>
-                <div class="sbox">
-                    <div class="slbl">Filières</div>
-                    <div class="sval g" id="stat-fil">—</div>
-                </div>
-                <div class="flex items-center gap-2">
-                    <button class="btn-navy" onclick="window.location.href='/'" style="margin-top: 50px;">←
-                        Rapport</button>
-                </div>
-            </div>
-
-            <!-- Absolute Positioned Toggle -->
-            <button class="mode-toggle" id="theme-toggle" title="Changer de thème">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    class="sun-icon">
-                    <circle cx="12" cy="12" r="5"></circle>
-                    <line x1="12" y1="1" x2="12" y2="3"></line>
-                    <line x1="12" y1="21" x2="12" y2="23"></line>
-                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                    <line x1="1" y1="12" x2="3" y2="12"></line>
-                    <line x1="21" y1="12" x2="23" y2="12"></line>
-                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                </svg>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="moon-icon"
-                    style="display:none">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                </svg>
-            </button>
-        </header>
-
-        <!-- Search & Control -->
-        <div class="ctrl justify-between">
-            <div class="flex gap-4 items-center">
-                <div class="tg" id="view-tabs">
-                    <button class="tab on" data-view="filieres">Filières</button>
-                    <button class="tab" data-view="matieres">Matières</button>
-                    <button class="tab" data-view="professeurs">Professeurs</button>
-                    <button class="tab" data-view="timetable">Emploi du temps</button>
-                    <button class="tab" data-view="relations">Graphe</button>
-                    <button class="tab" data-view="analyse">Analyse Calendrier</button>
-                    <button class="tab" data-view="surveillance">Surveillance</button>
-                </div>
-                <div class="dvdr"></div>
-                <!-- Filter Toggle -->
-                <button class="btn-navy !bg-surface2 !text-navy border border-border" onclick="toggleSidebar()">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-                    </svg>
-                    Filtrer
-                </button>
-            </div>
-
-            <div class="flex items-center gap-3">
-                <div id="results-count" class="text-[10px] font-bold text-text3 uppercase tracking-widest mr-2">0
-                    Résultats</div>
-                <input type="text" id="search" class="srch" placeholder="Rechercher..." />
             </div>
         </div>
 
+        <div
+            style="display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:11px 18px;margin-bottom:22px;box-shadow:var(--sh);">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"
+                style="color:var(--text3);flex-shrink:0;">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" />
+            </svg>
+            <input type="text" id="search" class="srch" placeholder="Rechercher filière, enseignant, matière..."
+                style="border:none;background:transparent;outline:none;width:100%;font-size:14px;color:var(--text);font-weight:500;" />
+            <div id="results-count"
+                style="font-size:10px; font-weight:800; color:var(--text3); text-transform:uppercase; letter-spacing:1px; white-space:nowrap; border-left:1px solid var(--border); padding-left:15px">
+                0 Résultats</div>
+        </div>
+
         <div class="page-wrapper">
-            <!-- Sidebar -->
             <aside id="filter-sidebar" class="filter-sidebar">
                 <div class="flex justify-between items-center mb-8 lg:hidden">
                     <h2 class="font-bold text-navy">Filtres</h2>
-                    <button onclick="toggleSidebar()" class="text-text3">&times;</button>
+                    <button onclick="toggleFilterSidebar()" class="text-text3">&times;</button>
                 </div>
-
                 <div id="filter-groups-container">
-                    <!-- Categories will be injected here -->
                     <div class="text-center py-8 text-text3 italic text-xs">Chargement des filtres...</div>
                 </div>
-
                 <button class="w-full btn-navy mt-6 !justify-center" onclick="resetFilters()">Réinitialiser</button>
             </aside>
 
-            <!-- Content Area -->
             <main class="main-content">
                 <div id="loading" class="card py-12 text-center">
                     <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-navy mb-4"></div>
@@ -1130,17 +1418,197 @@
         <div class="modal-content">
             <div class="modal-header-sticky">
                 <h2 id="modal-title" class="modal-title-text">Détails</h2>
-                <button onclick="closeModal()" class="close-btn" title="Fermer">
-                    &times;
+                <button onclick="closeModal()" class="close-btn" title="Fermer">&times;</button>
+            </div>
+            <div id="modal-content" class="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Profile Edit Modal -->
+    <div class="prof-modal-overlay" id="profile-modal">
+        <div class="prof-modal">
+            <div class="prof-modal-hdr">
+                <h2>Mon Profil</h2>
+                <button class="prof-modal-close" onclick="closeProfileModal()">
+                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18 6L6 18M6 6l12 12" />
+                    </svg>
                 </button>
             </div>
-            <div id="modal-content" class="modal-body">
-                <!-- Dynamically populated -->
+            <div class="prof-modal-body">
+                <div id="profile-msg"
+                    style="display:none;margin-bottom:12px;padding:10px 14px;border-radius:9px;font-size:12px;font-weight:700;">
+                </div>
+                <form id="profile-form" onsubmit="saveProfile(event)">
+                    <div class="prof-field">
+                        <label>Nom Complet</label>
+                        <input type="text" id="prof-name-input" required placeholder="Ex: Dr. Ahmed Ben Ali">
+                    </div>
+                    <div class="prof-field">
+                        <label>Grade / Titre</label>
+                        <input type="text" id="prof-grade-input" placeholder="Ex: Maître de Conférences">
+                    </div>
+                    <div class="prof-field" id="admin-charge-field" style="display:none;">
+                        <label>Charge de Surveillance</label>
+                        <input type="number" id="prof-charge-input" placeholder="Ex: 4">
+                    </div>
+                    <button type="submit" class="prof-submit-btn" id="prof-save-btn">Sauvegarder</button>
+                </form>
             </div>
         </div>
     </div>
 
+    <script src="/sidebar-component.js"></script>
     <script>
+        // ========================
+        // SIDEBAR & AUTH
+        // ========================
+        let currentUser = null;
+
+        async function checkAuth() {
+            try {
+                const resp = await fetch('/api/me'); if (!resp.ok) return;
+                const d = await resp.json();
+                if (d.logged_in && d.user) {
+                    currentUser = d.user;
+                }
+            } catch (e) { console.warn('Auth check skipped', e); }
+        }
+
+        function toggleFilterSidebar() {
+            const wrapper = document.querySelector('.page-wrapper');
+            const sidebar = document.getElementById('filter-sidebar');
+            if (window.innerWidth <= 1024) {
+                sidebar.classList.toggle('open');
+            } else {
+                // Use .filter-collapsed on the page-wrapper, NOT body.sidebar-collapsed
+                // so the nav sidebar toggle doesn't affect this
+                wrapper.classList.toggle('filter-collapsed');
+            }
+        }
+
+        function setView(v) {
+            currentView = v;
+            document.querySelectorAll('.nav-item').forEach(a => a.classList.remove('active'));
+            const navEl = document.getElementById('nav-' + currentView);
+            if (navEl) navEl.classList.add('active');
+            page = 1;
+            renderView();
+            renderFilters();
+        }
+
+        // Profile Modal
+        function openProfileModal() {
+            if (!currentUser) return;
+            const prof = data.professors.find(p => String(p.id) === String(currentUser.prof_id));
+            document.getElementById('prof-name-input').value = currentUser.full_name || (prof ? prof.name : '') || '';
+            document.getElementById('prof-grade-input').value = prof ? (prof.grade || '') : '';
+            const chargeField = document.getElementById('admin-charge-field');
+            if (chargeField) chargeField.style.display = currentUser.role === 'ADMIN' ? 'block' : 'none';
+            if (currentUser.role === 'ADMIN' && prof) {
+                document.getElementById('prof-charge-input').value = prof.charge_surv || 0;
+            }
+            document.getElementById('profile-msg').style.display = 'none';
+            document.getElementById('profile-modal').classList.add('open');
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profile-modal').classList.remove('open');
+        }
+
+        async function saveProfile(e) {
+            e.preventDefault();
+            const btn = document.getElementById('prof-save-btn');
+            btn.disabled = true; btn.textContent = 'Enregistrement...';
+            const payload = {
+                id: currentUser.prof_id || currentUser.id,
+                full_name: document.getElementById('prof-name-input').value,
+                grade: document.getElementById('prof-grade-input').value,
+                charge: document.getElementById('prof-charge-input') ? document.getElementById('prof-charge-input').value : 0
+            };
+            try {
+                const resp = await fetch('/api/professors/update', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const msg = document.getElementById('profile-msg');
+                if (resp.ok) {
+                    msg.textContent = '✓ Profil mis à jour avec succès !';
+                    msg.style.display = 'block'; msg.style.background = 'var(--green-lt)'; msg.style.color = 'var(--green)';
+                    currentUser.full_name = payload.full_name;
+                    document.getElementById('user-display-name').textContent = payload.full_name;
+                    setTimeout(closeProfileModal, 1800);
+                } else {
+                    msg.textContent = '✖ Erreur lors de la mise à jour.';
+                    msg.style.display = 'block'; msg.style.background = 'var(--red-lt)'; msg.style.color = 'var(--red)';
+                }
+            } catch (err) {
+                const msg = document.getElementById('profile-msg');
+                msg.textContent = '✖ Erreur réseau.'; msg.style.display = 'block';
+            } finally { btn.disabled = false; btn.textContent = 'Sauvegarder'; }
+        }
+
+        // Admin: Update professor charge de surveillance directly
+        let chargeUpdateTimer = null;
+        async function updateCharge(profId, newCharge) {
+            clearTimeout(chargeUpdateTimer);
+            chargeUpdateTimer = setTimeout(async () => {
+                const prof = data.professors.find(p => p.id === profId);
+                if (!prof) return;
+
+                // Visual feedback: Start
+                const inputs = document.querySelectorAll(`input[onchange*="updateCharge(${profId}"]`);
+                inputs.forEach(inp => { inp.style.opacity = '0.5'; });
+
+                try {
+                    const resp = await fetch('/api/professors/update', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            id: profId,
+                            full_name: prof.name || prof.full_name, // Prevent wipe by sending current name
+                            grade: prof.grade || '',
+                            charge: parseInt(newCharge) || 0
+                        })
+                    });
+                    if (resp.ok) {
+                        prof.charge = parseInt(newCharge) || 0;
+                        // Brief visual feedback: Success
+                        inputs.forEach(inp => {
+                            inp.style.opacity = '1';
+                            inp.style.borderColor = '#10B981';
+                            inp.style.boxShadow = '0 0 0 3px rgba(16, 185, 129, 0.1)';
+                            setTimeout(() => { inp.style.borderColor = ''; inp.style.boxShadow = ''; }, 1500);
+                        });
+                    } else {
+                        inputs.forEach(inp => { inp.style.opacity = '1'; inp.style.borderColor = 'var(--red)'; });
+                    }
+                } catch (e) {
+                    console.warn('updateCharge error', e);
+                    inputs.forEach(inp => { inp.style.opacity = '1'; });
+                }
+            }, 600); // Debounce 600ms after typing stops
+        }
+
+        // DS/Examen Toggle
+        async function toggleMatiereStatus(id, type) {
+            const m = data.matieres.find(x => x.id === id);
+            if (!m) return;
+            const canEdit = !currentUser || currentUser.role === 'ADMIN' || String(m.id_professeur) === String(currentUser.prof_id);
+            if (!canEdit) return;
+            const newVal = !m[type];
+            const payload = { id, ds: type === 'ds' ? newVal : m.ds, examen: type === 'examen' ? newVal : m.examen };
+            try {
+                const resp = await fetch('/api/matieres/update', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (resp.ok) { m[type] = newVal; renderView(); }
+                else { const e = await resp.json(); alert(e.error || 'Erreur'); }
+            } catch (e) { alert('Erreur réseau'); }
+        }
+
         let data = { professors: [], matieres: [], filieres: [], timetable: [], distribution: null, rooms: [] };
         let currentView = 'filieres';
         let searchTerm = '';
@@ -1174,11 +1642,20 @@
                 data.rooms = roomResp.ok ? (await roomResp.json()) || [] : [];
                 const filieresData = filResp.ok ? (await filResp.json()).filieres || [] : [];
 
-                const storedDist = localStorage.getItem('or_google_selected_distribution');
-                if (storedDist) {
-                    data.distribution = JSON.parse(storedDist);
-                    showDistributionContext();
-                }
+                // Load ACTIVE distribution from Database
+                try {
+                    const activeResp = await fetch('/api/distribution/active');
+                    if (activeResp.ok) {
+                        const activeRes = await activeResp.json();
+                        data.distribution = activeRes.data;
+                        console.log("Active distribution loaded from DB:", data.distribution);
+                    } else {
+                        // Fallback to localStorage if available (for offline/preview)
+                        const storedDist = localStorage.getItem('or_google_selected_distribution');
+                        if (storedDist) data.distribution = JSON.parse(storedDist);
+                    }
+                    if (data.distribution) showDistributionContext();
+                } catch (e) { console.warn("Failed to load active distribution", e); }
 
                 data.filieres = filieresData.map(f => ({
                     ...f,
@@ -1200,24 +1677,42 @@
                 });
 
                 updateStats();
-                renderFilters();
-                renderView();
+
+                // === ROLE-BASED VIEW ===
+                // If a PROFESSOR is logged in, lock them to their own matières
+                if (currentUser && currentUser.role === 'PROFESSOR') {
+                    // Hide full navigation, show simplified personal view
+                    document.getElementById('filter-sidebar').style.display = 'none';
+                    document.getElementById('search').closest('div').style.display = 'none';
+
+                    // Filter matieres for this professor only
+                    data.matieres = data.matieres.filter(m => String(m.id_professeur) === String(currentUser.prof_id));
+
+                    // Update banner to personalized message
+                    const eyebrow = document.querySelector('.eyebrow');
+                    if (eyebrow) eyebrow.textContent = 'Mon Espace Professeur — ISSAT Sousse';
+                    const h1 = document.querySelector('.stats-banner-title h1');
+                    if (h1) h1.textContent = currentUser.full_name || 'Mon Tableau de Bord';
+
+                    // Show the stats for just this professor
+                    document.getElementById('stat-prof').textContent = '1';
+                    document.getElementById('stat-mat').textContent = data.matieres.length;
+                    const myFilieres = [...new Set(data.matieres.map(m => m.filiere_id))].length;
+                    document.getElementById('stat-fil').textContent = myFilieres;
+
+                    currentView = 'matieres';
+                    document.getElementById('loading').style.display = 'none';
+                    renderView();
+                } else {
+                    renderFilters();
+                    renderView();
+                }
             } catch (e) {
                 console.error('Erreur:', e);
                 document.getElementById('loading').innerHTML = '<p class="text-red-400">Erreur de chargement.</p>';
             }
         }
 
-        function toggleSidebar() {
-            const wrapper = document.querySelector('.page-wrapper');
-            const sidebar = document.getElementById('filter-sidebar');
-
-            if (window.innerWidth <= 1024) {
-                sidebar.classList.toggle('open');
-            } else {
-                wrapper.classList.toggle('sidebar-collapsed');
-            }
-        }
 
         function resetFilters() {
             selectedFilters = { annee: [], filiere: [], grade: [], status: [], evaluation: [] };
@@ -1495,7 +1990,9 @@
         }
 
         function showDistributionContext() {
+            const badge = document.getElementById('status-badge');
             const context = document.getElementById('distribution-context');
+            if (badge) badge.classList.remove('hidden');
             if (!context) return;
 
             const name = document.getElementById('active-dist-name');
@@ -1503,9 +2000,10 @@
 
             if (data.distribution) {
                 context.classList.remove('hidden');
-                if (name) name.textContent = `Bloc ${data.distribution.bloc === 'matin' ? 'Matin' : 'Après-midi'}`;
-                const date = new Date(data.distribution.timestamp).toLocaleString();
-                if (meta) meta.textContent = `Généré le ${date}`;
+                const bloc = (data.distribution.bloc || 'matin').toLowerCase().includes('matin') ? 'Matin' : 'Après-midi';
+                if (name) name.textContent = `Bloc ${bloc}`;
+                const date = data.distribution.timestamp ? new Date(data.distribution.timestamp).toLocaleString() : 'Date inconnue';
+                if (meta) meta.textContent = `Version officielle du ${date}`;
             }
         }
 
@@ -1553,7 +2051,9 @@
 
         function renderMatieres(container, filtered) {
             // Sort by filiere then name
-            filtered.sort((a, b) => a.filiere.localeCompare(b.filiere) || a.nom.localeCompare(b.nom));
+            filtered.sort((a, b) => (a.filiere || '').localeCompare(b.filiere || '') || (a.nom || '').localeCompare(b.nom || ''));
+
+            const isProfView = currentUser && currentUser.role === 'PROFESSOR';
 
             const totalRows = filtered.length;
             const totalPages = Math.max(1, Math.ceil(totalRows / pageSize));
@@ -1562,6 +2062,69 @@
             const end = start + pageSize;
             const pageRows = filtered.slice(start, end);
 
+            if (isProfView) {
+                // === PROFESSOR PERSONAL VIEW: clean, focused ===
+                container.innerHTML = `
+                    <div style="margin-bottom:24px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:14px;display:flex;align-items:center;gap:12px;">
+                        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="color:var(--navy);flex-shrink:0;"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <span style="font-size:13px;color:var(--text2);">Cliquez sur <strong>DS</strong> ou <strong>EXAM</strong> pour activer/désactiver l'évaluation pour chaque matière.</span>
+                    </div>
+                    <div class="card overflow-hidden !p-0">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-surface2 border-b border-border">
+                                    <th class="p-4">Matière</th>
+                                    <th class="p-4">Filière / Niveau</th>
+                                    <th class="p-4 text-center">DS</th>
+                                    <th class="p-4 text-center">Examen</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${pageRows.map(m => {
+                    const hasEval = m.ds || m.examen;
+                    return `
+                                    <tr class="hover:bg-surface2/50 transition-colors border-b border-border/10 last:border-0">
+                                        <td class="p-4">
+                                            <div class="font-bold text-navy">${m.nom}</div>
+                                            <div class="text-[10px] text-text3 uppercase font-bold tracking-tighter mt-1">${m.code || ''}</div>
+                                        </td>
+                                        <td class="p-4">
+                                            <div class="text-xs font-bold text-navy2 uppercase">${m.filiere_abrev || m.filiere || 'N/A'}</div>
+                                            <div class="text-[10px] text-text3 font-bold uppercase tracking-widest mt-1 opacity-70">${(m.filiere_annee || '').replace('_', ' ')}</div>
+                                        </td>
+                                        <td class="p-4 text-center">
+                                            <button onclick="toggleMatiereStatus(${m.id},'ds')"
+                                                style="padding:8px 18px;border-radius:8px;border:2px solid ${m.ds ? 'var(--navy)' : 'var(--border)'};background:${m.ds ? 'var(--navy)' : 'transparent'};color:${m.ds ? '#fff' : 'var(--text3)'};font-weight:700;font-size:13px;cursor:pointer;transition:all 0.2s;"
+                                                title="${m.ds ? 'Désactiver DS' : 'Activer DS'}">
+                                                ${m.ds ? '✓ DS' : '✗ DS'}
+                                            </button>
+                                        </td>
+                                        <td class="p-4 text-center">
+                                            <button onclick="toggleMatiereStatus(${m.id},'examen')"
+                                                style="padding:8px 18px;border-radius:8px;border:2px solid ${m.examen ? '#059669' : 'var(--border)'};background:${m.examen ? '#059669' : 'transparent'};color:${m.examen ? '#fff' : 'var(--text3)'};font-weight:700;font-size:13px;cursor:pointer;transition:all 0.2s;"
+                                                title="${m.examen ? 'Désactiver Examen' : 'Activer Examen'}">
+                                                ${m.examen ? '✓ EXAM' : '✗ EXAM'}
+                                            </button>
+                                        </td>
+                                    </tr>`;
+                }).join('')}
+                            </tbody>
+                        </table>
+                        <div class="p-4 bg-surface2 border-t border-border flex justify-between items-center">
+                            <div class="text-[10px] font-bold text-text3 uppercase tracking-widest">
+                                ${totalRows} matière(s) au total
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <button class="tab !py-1 !px-4 border border-border bg-surface" onclick="page--; renderView()" ${page <= 1 ? 'disabled' : ''}>Précédent</button>
+                                <div class="text-xs font-bold text-navy px-2">${page} / ${totalPages}</div>
+                                <button class="tab !py-1 !px-4 border border-border bg-surface" onclick="page++; renderView()" ${page >= totalPages ? 'disabled' : ''}>Suivant</button>
+                            </div>
+                        </div>
+                    </div>`;
+                return;
+            }
+
+            // === ADMIN FULL VIEW ===
             container.innerHTML = `
                 <div class="card overflow-hidden !p-0">
                     <table class="w-full text-left border-collapse">
@@ -1575,6 +2138,7 @@
                         </thead>
                         <tbody>
                             ${pageRows.map(m => {
+                const canEdit = !currentUser || currentUser.role === 'ADMIN' || String(m.id_professeur) === String(currentUser && currentUser.prof_id);
                 const hasEval = m.ds || m.examen;
                 return `
                                 <tr class="hover:bg-surface2/50 transition-colors border-b border-border/10 last:border-0">
@@ -1591,10 +2155,16 @@
                                     </td>
                                     <td class="p-4 text-xs font-semibold text-text2">${m.prof_nom || 'Non Assigné'}</td>
                                     <td class="p-4">
-                                        <div class="flex gap-2">
-                                            ${(m.ds && (selectedFilters.evaluation.length === 0 || selectedFilters.evaluation.includes('DS'))) ? '<span class="type-badge type-ds">DS</span>' : ''}
-                                            ${(m.examen && (selectedFilters.evaluation.length === 0 || selectedFilters.evaluation.includes('Examen'))) ? '<span class="type-badge type-examen">EXAMEN</span>' : ''}
-                                            ${(!hasEval && (selectedFilters.evaluation.length === 0 || selectedFilters.evaluation.includes('Aucune'))) ? '<span class="type-badge type-none border border-red text-red px-2 py-0.5 rounded text-[9px] font-black">AUCUNE EVALUATION</span>' : ''}
+                                        <div class="flex gap-2 items-center">
+                                            <span class="ds-pill ${m.ds ? 'ds-on' : 'ds-off'} ${canEdit ? '' : 'opacity-50 cursor-not-allowed'}"
+                                                onclick="${canEdit ? `toggleMatiereStatus(${m.id},'ds')` : ''}" title="${canEdit ? 'Cliquez pour ' + (m.ds ? 'désactiver' : 'activer') + ' DS' : 'Lecture seule'}">
+                                                DS ${m.ds ? '✓' : '✗'}
+                                            </span>
+                                            <span class="ds-pill ${m.examen ? 'ex-on' : 'ex-off'} ${canEdit ? '' : 'opacity-50 cursor-not-allowed'}"
+                                                onclick="${canEdit ? `toggleMatiereStatus(${m.id},'examen')` : ''}" title="${canEdit ? 'Cliquez pour ' + (m.examen ? 'désactiver' : 'activer') + ' Examen' : 'Lecture seule'}">
+                                                EXAM ${m.examen ? '✓' : '✗'}
+                                            </span>
+                                            ${!hasEval ? '<span style="font-size:9px;color:var(--text3);font-style:italic;">Aucune éval.</span>' : ''}
                                         </div>
                                     </td>
                                 </tr>
@@ -1718,10 +2288,20 @@
                                         </span>
                                     </td>
                                     <td>
+                                        ${currentUser && currentUser.role === 'ADMIN' ? `
+                                        <div class="flex items-center gap-1">
+                                            <input type="number" min="0" max="20" step="1" value="${r.charge || 0}"
+                                                style="width:56px;padding:3px 7px;border-radius:7px;background:var(--surface2);border:1px solid var(--border);color:var(--text);font-size:13px;font-weight:700;"
+                                                onchange="updateCharge(${r.id}, this.value)"
+                                                title="Modifier la charge de surveillance">
+                                            <span style="font-size:10px;color:var(--text3);">h</span>
+                                        </div>
+                                        ` : `
                                         <div class="flex flex-col">
                                             <span class="font-bold text-text">${r.charge || 0}h</span>
                                             <span class="text-[10px] text-text3 uppercase font-bold tracking-tighter">Hebdo.</span>
                                         </div>
+                                        `}
                                     </td>
                                     <td class="text-xs italic text-text2">${r.matiere}</td>
                                     <td class="text-xs font-bold text-navy2">${r.filiere_abrev || r.filiere}</td>
@@ -2035,31 +2615,34 @@
                 // Apply subject-level filters to the timetable slots
                 let slots = data.timetable.filter(t => String(t.filiere_id) === String(filiereObj.id));
 
-                // FALLBACK: Generate Synthetic Slots for DS/Examen if no timetable data
-                const hasFilters = selectedFilters.evaluation.length > 0;
-                if (slots.length === 0 && hasFilters) {
-                    const dayMap = { 1: 'Lundi', 2: 'Mardi', 3: 'Mercredi', 4: 'Jeudi', 5: 'Vendredi', 6: 'Samedi' };
-                    let dayCounts = {};
-                    filiereObj.matieres.forEach(m => {
-                        const dayName = dayMap[m.jour_num || m.jour];
-                        if (!dayName) return;
-                        const isDS = selectedFilters.evaluation.includes('DS') && m.ds;
-                        const isEx = selectedFilters.evaluation.includes('Examen') && m.examen;
-                        if (isDS || isEx) {
-                            const count = dayCounts[dayName] || 0;
-                            if (count < timeSlots.length) {
-                                slots.push({
-                                    id: 'v' + m.id,
-                                    filiere_id: filiereObj.id,
-                                    matiere_id: m.id,
-                                    prof_nom: m.prof_nom,
-                                    jour: dayName,
-                                    heure_debut: timeSlots[count].start,
-                                    heure_fin: timeSlots[count].end,
-                                    salle: 'A DEFINIR',
-                                    type_session: isEx ? 'EXAM' : 'TD'
-                                });
-                                dayCounts[dayName] = count + 1;
+                // 2. ENHANCED: Inject Room from Active Distribution
+                if (data.distribution) {
+                    const bloc = (data.distribution.bloc || 'matin').toLowerCase();
+                    const slotsMap = data.distribution[bloc] || {};
+                    
+                    // The distribution stores by Slot Name (e.g., "Slot 1")
+                    // We need to map Slot 1 -> 08:30, Slot 2 -> 10:15, etc.
+                    const dayLabels = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+                    
+                    slots.forEach(slot => {
+                        const slotIdx = timeSlots.findIndex(ts => ts.start === slot.heure_debut);
+                        if (slotIdx === -1) return;
+                        
+                        const slotKey = `Slot ${slotIdx + 1}`;
+                        const roomsInSlot = slotsMap[slotKey] || {};
+                        
+                        // Find if this filiere is in any room in this slot
+                        for (const roomName in roomsInSlot) {
+                            const distributedFils = roomsInSlot[roomName];
+                            // Check if filiere abbreviation or name matches
+                            const matches = distributedFils.some(f => 
+                                f.toLowerCase().includes(filiereObj.abreviation_filaire.toLowerCase()) || 
+                                f.toLowerCase().includes(filiereObj.nom.toLowerCase())
+                            );
+                            
+                            if (matches) {
+                                slot.salle = roomName;
+                                break;
                             }
                         }
                     });
@@ -2454,9 +3037,9 @@
 
             const dayNames = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
             const currentDayLabel = dayNames[selectedDay - 1];
-            
+
             // 1. Filter Rooms and Group by Block
-            const targetRooms = data.rooms.filter(r => 
+            const targetRooms = data.rooms.filter(r =>
                 r.Salle.startsWith('K') || r.Salle.startsWith('M') || r.Salle.startsWith('I')
             ).sort((a, b) => a.Salle.localeCompare(b.Salle));
 
@@ -2470,7 +3053,7 @@
             const matchesEval = (m) => selectedFilters.evaluation.length === 0 ||
                 (selectedFilters.evaluation.includes('DS') && m.ds) ||
                 (selectedFilters.evaluation.includes('Examen') && m.examen);
-            
+
             const matchesTimeEval = (t) => selectedFilters.evaluation.length === 0 ||
                 (selectedFilters.evaluation.includes('DS') && t.type_session === 'DS') ||
                 (selectedFilters.evaluation.includes('Examen') && t.type_session === 'Examen');
@@ -2478,7 +3061,7 @@
             const matchesFiliere = (m) => selectedFilters.filiere.length === 0 || selectedFilters.filiere.includes(m.filiere);
 
             // Get day timetable
-            const currentTimetable = data.timetable.filter(t => 
+            const currentTimetable = data.timetable.filter(t =>
                 String(t.jour) === String(selectedDay) && matchesTimeEval(t)
             );
 
@@ -2554,10 +3137,10 @@
                                 </thead>
                                 <tbody class="divide-y divide-border/10">
                                     ${roomsInBlock.map((room, idx) => {
-                                        const p1 = eligibleProfs[profIndex++] || '— Poste Vacant —';
-                                        const p2 = eligibleProfs[profIndex++] || '— Poste Vacant —';
+                    const p1 = eligibleProfs[profIndex++] || '— Poste Vacant —';
+                    const p2 = eligibleProfs[profIndex++] || '— Poste Vacant —';
 
-                                        return `
+                    return `
                                             <tr class="hover:bg-navy/[0.02] transition-colors ${idx % 2 !== 0 ? 'bg-surface/20' : 'bg-white'}">
                                                 <td class="p-5 border-r border-border/10">
                                                     <div class="font-black text-lg text-navy">${room.Salle}</div>
@@ -2581,7 +3164,7 @@
                                                 </td>
                                             </tr>
                                         `;
-                                    }).join('')}
+                }).join('')}
                                 </tbody>
                             </table>
                         </div>
@@ -2624,26 +3207,20 @@
             renderView();
         });
 
-        // Theme Management
         function initTheme() {
             const isDark = localStorage.getItem('theme') === 'dark';
             if (isDark) {
                 document.documentElement.classList.add('dark-mode');
-                document.querySelector('.sun-icon').style.display = 'none';
-                document.querySelector('.moon-icon').style.display = 'block';
+                document.querySelectorAll('.sun-icon').forEach(e => e.style.display = 'none');
+                document.querySelectorAll('.moon-icon').forEach(e => e.style.display = '');
+                const lbl = document.getElementById('theme-label');
+                if (lbl) lbl.textContent = 'Mode Clair';
             }
         }
 
-        document.getElementById('theme-toggle').addEventListener('click', () => {
-            const isDark = document.documentElement.classList.toggle('dark-mode');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            document.querySelector('.sun-icon').style.display = isDark ? 'none' : 'block';
-            document.querySelector('.moon-icon').style.display = isDark ? 'block' : 'none';
-        });
-
         // Init
         initTheme();
-        loadData();
+        checkAuth().then(() => loadData());
     </script>
 </body>
 

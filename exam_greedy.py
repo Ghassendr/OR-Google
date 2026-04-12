@@ -7,24 +7,63 @@ try:
 except ImportError:
     mysql = None
 
-# ============================================================
-# 1. CHARGEMENT
-# ============================================================
+# Database Config
+DB_CONFIG = {
+    'host': os.getenv('DB_HOST', '127.0.0.1'),
+    'user': os.getenv('DB_USER', 'root'),
+    'password': os.getenv('DB_PASSWORD', ''),
+    'database': os.getenv('DB_NAME', 'gestion_examens_s1')
+}
 
-with open('class.json',  'r', encoding='utf-8') as f:
-    rooms_data = json.load(f)
+filieres_raw = {"annees": {}}
 
-with open('filier.json', 'r', encoding='utf-8') as f:
-    try:
-        filieres_raw = json.load(f)
-        if not isinstance(filieres_raw, dict) or 'annees' not in filieres_raw:
-            # Handle list format or malformed data
-            if isinstance(filieres_raw, list) and len(filieres_raw) > 0:
-                 filieres_raw = {"annees": {"custom_import": {"filieres": {f.get('Filiere', f.get('filiere', '')): f.get('Effectif', f.get('effectif', 0)) for f in filieres_raw}}}}
-            else:
-                filieres_raw = {"annees": {}}
-    except:
-        filieres_raw = {"annees": {}}
+try:
+    conn = mysql.connector.connect(**DB_CONFIG)
+    cursor = conn.cursor(dictionary=True)
+    
+    # Load Rooms
+    cursor.execute("SELECT name AS Salle, capacity AS CapaciteTotal FROM salle ORDER BY name")
+    rooms_data = cursor.fetchall()
+    
+    # Load Filieres from DB and transform to JSON-like structure
+    cursor.execute("SELECT abreviation_filaire, annee, type_filaire, effectif FROM filaire WHERE effectif > 0")
+    db_fils = cursor.fetchall()
+    
+    if db_fils:
+        for f in db_fils:
+            # Map DB enums to JSON keys
+            annee_raw = f['annee']
+            type_raw = f['type_filaire']
+            
+            annee_key = '1ere_annee'
+            if annee_raw == '2EME': annee_key = '2eme_annee'
+            elif annee_raw == '3EME':
+                if type_raw in ['MASTER_PRO', 'MASTER_RECHERCHE']: annee_key = 'master'
+                else: annee_key = '3eme_annee'
+            
+            if annee_key not in filieres_raw["annees"]:
+                filieres_raw["annees"][annee_key] = {"filieres": {}, "programmes": {}}
+            
+            sub_key = "programmes" if annee_key == "master" else "filieres"
+            filieres_raw["annees"][annee_key][sub_key][f['abreviation_filaire']] = f['effectif']
+            
+        print(f"  [DB] {len(rooms_data)} salles et {len(db_fils)} filières chargées.")
+    else:
+        raise Exception("No filieres found in DB")
+
+    cursor.close()
+    conn.close()
+except Exception as e:
+    print(f"  [DB Info] Chargement depuis filier.json (Repli): {e}")
+    if os.path.exists('filier.json'):
+        with open('filier.json', 'r', encoding='utf-8') as f:
+            try:
+                raw = json.load(f)
+                if isinstance(raw, list):
+                    filieres_raw = {"annees": {"custom_import": {"filieres": {x.get('Filiere',''): x.get('Effectif',0) for x in raw}}}}
+                else:
+                    filieres_raw = raw
+            except: pass
 
 BUFFER = 4
 
@@ -64,14 +103,31 @@ for annee_key, annee_val in annees.items():
 EMPTY_MODE = (len(morning_fils) == 0 and len(afternoon_fils) == 0)
 
 # ============================================================
-# 3. ALGORITHME GLOUTON (GREEDY PAIRING)
+# 3. CONFIGURATION & PARAMETRES DYNAMIQUES
 # ============================================================
 
-MIN_OCCUPANCY = 0.70 # Taux de remplissage minimum souhaité
+# Valeurs par défaut
+MIN_OCCUPANCY = 0.70
+BALANCE_SLACK = 5
+BUFFER = 4
+EXACT_2_GROUPS = True
+BUILDING_BLOC = True
+OPTIMIZE_ROOMS = True
 
-# ============================================================
-# 3. ALGORITHME GLOUTON (GREEDY PAIRING)
-# ============================================================
+config_path = os.path.join('data', 'solver_config.json')
+if os.path.exists(config_path):
+    try:
+        with open(config_path, 'r', encoding='utf-8') as f:
+            cfg = json.load(f)
+            MIN_OCCUPANCY = cfg.get('min_occ', MIN_OCCUPANCY)
+            BALANCE_SLACK = cfg.get('balance_slack', BALANCE_SLACK)
+            BUFFER = cfg.get('buffer', BUFFER)
+            EXACT_2_GROUPS = cfg.get('exact_2', EXACT_2_GROUPS)
+            BUILDING_BLOC = cfg.get('building_bloc', BUILDING_BLOC)
+            OPTIMIZE_ROOMS = cfg.get('optimize_rooms', OPTIMIZE_ROOMS)
+            print(f"  [Config] Paramètres chargés: Occ={MIN_OCCUPANCY}, Buffer={BUFFER}")
+    except Exception as e:
+        print(f"  [Config Error] Erreur chargement config, utilisation défauts: {e}")
 
 def greedy_solve(bloc_name, filieres, rooms_data):
     """
