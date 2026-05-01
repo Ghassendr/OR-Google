@@ -26,6 +26,10 @@ if not os.path.exists(UPLOAD_FOLDER):
 def index():
     return send_from_directory('.', 'report.html')
 
+@app.route('/favicon.ico')
+def favicon():
+    return '', 204
+
 @app.route('/get-data', methods=['GET'])
 def get_data():
     try:
@@ -232,67 +236,188 @@ def api_calendrier(jour_num):
 @app.route('/api/surveillance-stats', methods=['GET'])
 def api_surveillance_stats():
     try:
+        # Check if the optimized cache exists - use it by default if available
+        # Pass ?force=1 to bypass cache and use the greedy fallback
+        force = request.args.get('force', '0') == '1'
+        if not force and os.path.exists('surveillance_cache.json'):
+            with open('surveillance_cache.json', 'r', encoding='utf-8') as f:
+                cached = json.load(f)
+                return jsonify({'data': cached['data'], 'source': 'ortools'})
+                
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
         
-        # 1. Get Room assignments
-        cursor.execute("SELECT salle_name, type_session, id_filiere1, id_filiere2 FROM salle_filieres")
-        rooms = cursor.fetchall()
+        cursor.execute("SELECT id_professeur as id, nom_prenom as full_name, grade, charge_surv FROM professeur")
+        profs_db = cursor.fetchall()
         
-        # 2. Get Exam counts per filiere and day
-        cursor.execute('''
-            SELECT id_filaire, jour_num, COUNT(*) as exam_count 
-            FROM matiere 
-            WHERE has_examen = 1 
-            GROUP BY id_filaire, jour_num
-        ''')
+        cursor.execute("SELECT id_matiere, nom_matiere, jour_num, id_professeur, has_examen FROM matiere WHERE has_examen=1 AND jour_num IS NOT NULL")
+        matieres = cursor.fetchall()
+        
+        cursor.execute("SELECT salle_name, type_session, id_filiere1, id_filiere2 FROM salle_filieres")
+        salle_filieres = cursor.fetchall()
+        
+        cursor.execute("SELECT id_filaire, jour_num, COUNT(*) as exam_count FROM matiere WHERE has_examen = 1 AND jour_num IS NOT NULL GROUP BY id_filaire, jour_num")
         exam_data = cursor.fetchall()
         
-        # Organize exam counts: {filiere_id: {jour_num: count}}
+        cursor.close()
+        conn.close()
+
         filiere_counts = {}
         for row in exam_data:
             fid = row['id_filaire']
             jno = row['jour_num']
             if fid not in filiere_counts: filiere_counts[fid] = {}
             filiere_counts[fid][jno] = row['exam_count']
-            
-        # 3. Calculate per room
-        results = []
-        for r in rooms:
-            room_name = r['salle_name']
-            id1 = r['id_filiere1']
-            id2 = r['id_filiere2']
-            
-            daily_stats = {}
-            total_profs = 0
-            
-            for day in range(1, 7): # Lundi to Samedi
-                c1 = filiere_counts.get(id1, {}).get(day, 0) if id1 else 0
-                c2 = filiere_counts.get(id2, {}).get(day, 0) if id2 else 0
-                
-                # Max slots used in the room that day
-                slots = max(c1, c2)
-                profs_needed = slots * 2
-                
-                day_name = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'][day-1]
-                daily_stats[day_name] = profs_needed
-                total_profs += profs_needed
-                
-            results.append({
-                'salle': room_name,
-                'session': r['type_session'],
-                'total_profs': total_profs,
-                'daily': daily_stats,
-                'building': room_name[0]
-            })
-            
-        cursor.close()
-        conn.close()
+
+        prof_state = {}
+        for p in profs_db:
+            if p['charge_surv'] is None: p['charge_surv'] = 0
+            prof_state[p['id']] = {
+                'full_name': p['full_name'],
+                'grade': p['grade'],
+                'total_charges': p['charge_surv'],
+                'reste_charges': p['charge_surv'],
+                'jours_obligatoires': set()
+            }
+
+        for m in matieres:
+            pid = m['id_professeur']
+            if pid in prof_state and m['jour_num']:
+                prof_state[pid]['jours_obligatoires'].add(m['jour_num'])
+
+        # ── TRI GLOBAL PAR CHARGE DESC ──────────────────────────────────────
+        # Les profs avec plus de charge_surv sont traités en priorité.
+        # Cela évite que des profs à faible charge (ex: 6) soient sur-utilisés
+        # pendant que des profs à forte charge (ex: 10) restent sous-utilisés.
+        def sort_by_charge_desc(pid_list):
+            return sorted(pid_list, key=lambda pid: -prof_state[pid]['total_charges'])
+
+        available_pool = []
+        global_pool = sort_by_charge_desc([p['id'] for p in profs_db if prof_state[p['id']]['total_charges'] > 0])
         
-        results.sort(key=lambda x: (x['building'], x['salle']))
-        return jsonify({'data': results})
+        all_rooms = list(set(r['salle_name'] for r in salle_filieres))
+        results_by_room = {room: {'salle': room, 'total_profs_set': set(), 'daily': {}, 'building': room[0]} for room in all_rooms}
+
+        for day in range(1, 7):
+            day_name = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'][day-1]
+            
+            room_configs = {}
+            for r in salle_filieres:
+                s_name = r['salle_name']
+                t_ses = r['type_session']
+                if s_name not in room_configs:
+                    room_configs[s_name] = {'matin_slots': 0, 'apmidi_slots': 0}
+                
+                c1 = filiere_counts.get(r['id_filiere1'], {}).get(day, 0) if r['id_filiere1'] else 0
+                c2 = filiere_counts.get(r['id_filiere2'], {}).get(day, 0) if r['id_filiere2'] else 0
+                max_exams = max(c1, c2)
+                
+                if t_ses == 'matin':
+                    room_configs[s_name]['matin_slots'] = max(room_configs[s_name]['matin_slots'], min(max_exams, 2))
+                else:
+                    room_configs[s_name]['apmidi_slots'] = max(room_configs[s_name]['apmidi_slots'], min(max_exams, 2))
+                    
+            active_rooms = {s: v for s, v in room_configs.items() if v['matin_slots'] > 0 or v['apmidi_slots'] > 0}
+
+            # Profs obligatoires ce jour, triés par charge DESC
+            profs_of_day = sort_by_charge_desc([
+                pid for pid in prof_state
+                if day in prof_state[pid]['jours_obligatoires']
+                and prof_state[pid]['reste_charges'] > 0
+            ])
+            
+            for room, slots in active_rooms.items():
+                matin_s = slots['matin_slots']
+                apmidi_s = slots['apmidi_slots']
+                total_s = matin_s + apmidi_s
+                
+                sessions_needed = total_s * 2 # 2 profs per session
+                max_slots_per_prof_here = total_s
+                room_assigned_profs = {}
+                
+                while sessions_needed > 0:
+                    assigned_prof = None
+                    
+                    # 1. D'abord: profs déjà dans cette salle avec charge restante (stabilité)
+                    for pid in sort_by_charge_desc(list(room_assigned_profs.keys())):
+                        if prof_state[pid]['reste_charges'] > 0 and room_assigned_profs[pid] < max_slots_per_prof_here:
+                            assigned_prof = pid
+                            break
+                    
+                    # 2. Ensuite: profs obligatoires du jour, triés par charge DESC
+                    if not assigned_prof:
+                        for pid in profs_of_day:
+                            if prof_state[pid]['reste_charges'] > 0 and room_assigned_profs.get(pid, 0) < max_slots_per_prof_here:
+                                assigned_prof = pid
+                                break
+                                
+                    # 3. Ensuite: pool disponible, trié par charge DESC
+                    if not assigned_prof:
+                        for pid in sort_by_charge_desc(available_pool):
+                            if prof_state[pid]['reste_charges'] > 0 and room_assigned_profs.get(pid, 0) < max_slots_per_prof_here:
+                                assigned_prof = pid
+                                break
+                                
+                    # 4. Enfin: pool global (tous les profs), trié par charge DESC
+                    if not assigned_prof:
+                        for pid in global_pool:
+                            if prof_state[pid]['reste_charges'] > 0 and pid not in available_pool and room_assigned_profs.get(pid, 0) < max_slots_per_prof_here:
+                                assigned_prof = pid
+                                available_pool.append(pid)
+                                break
+                    
+                    if assigned_prof:
+                        prof_state[assigned_prof]['reste_charges'] -= 1
+                        sessions_needed -= 1
+                        room_assigned_profs[assigned_prof] = room_assigned_profs.get(assigned_prof, 0) + 1
+                        results_by_room[room]['total_profs_set'].add(assigned_prof)
+                    else:
+                        break
+                        
+                results_by_room[room]['daily'][day_name] = {
+                   'matin_sessions': matin_s,
+                   'apmidi_sessions': apmidi_s,
+                   'profs_needed': sum(room_assigned_profs.values()),
+                   'profs': [
+                       {
+                           'full_name': prof_state[pid]['full_name'],
+                           'grade': prof_state[pid]['grade'],
+                           'charge': f"{count} sess. (Rest: {prof_state[pid]['reste_charges']})"
+                       }
+                       for pid, count in room_assigned_profs.items()
+                   ]
+                }
+
+            for pid in profs_of_day:
+                if prof_state[pid]['reste_charges'] > 0 and pid not in available_pool:
+                    available_pool.append(pid)
+
+        final_results = []
+        for room, data in results_by_room.items():
+            data['total_profs'] = len(data['total_profs_set'])
+            del data['total_profs_set']
+            if len(data['daily']) > 0:
+                final_results.append(data)
+                
+        final_results.sort(key=lambda x: (x['building'], x['salle']))
+        return jsonify({'data': final_results})
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         return jsonify({'error': str(e)}), 500
+
+@app.route('/api/generate-surveillance', methods=['POST'])
+def generate_surveillance():
+    import subprocess
+    try:
+        # Run the solver script. This may take ~60 seconds.
+        result = subprocess.run(['python', 'generate_surv_ortools.py'], capture_output=True, text=True)
+        if result.returncode == 0:
+            return jsonify({'status': 'success', 'message': 'Planning Parfait généré avec succès !'})
+        else:
+            return jsonify({'status': 'error', 'message': f'Erreur: {result.stderr}'}), 500
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
 
 @app.route('/save-data', methods=['POST'])
 def save_data():
@@ -401,4 +526,6 @@ def run_algorithm():
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    # use_reloader=False prevents the server from restarting when a file is written (like surveillance_cache.json)
+    # which causes ERR_CONNECTION_RESET on Windows
+    app.run(debug=True, port=5000, use_reloader=False)
