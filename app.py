@@ -68,10 +68,10 @@ def get_db_connection():
 
     cfg = {
         'host': os.getenv('DB_HOST', '127.0.0.1'),
-        'port': int(os.getenv('DB_PORT', '3306')),
-        'user': os.getenv('DB_USER', 'root'),
-        'password': os.getenv('DB_PASSWORD', ''),
-        'database': os.getenv('DB_NAME', 'gestion_examens_s1'),
+        'port': int(os.getenv('DB_PORT', '3307')),
+        'user': os.getenv('DB_USER', 'exam_user'),
+        'password': os.getenv('DB_PASSWORD', 'exam_password'),
+        'database': os.getenv('DB_NAME', 'OR_google_database'),
         'charset': 'utf8mb4'
     }
     return mysql.connector.connect(**cfg)
@@ -216,7 +216,7 @@ def register():
             prof_id = cursor.lastrowid
         
         # 2. Create user account
-        password_hash = generate_password_hash(password)
+        password_hash = generate_password_hash(password, method='pbkdf2:sha256')
         cursor.execute(
             "INSERT INTO user (username, password_hash, role, prof_id) VALUES (%s, %s, 'PROFESSOR', %s)",
             (username, password_hash, prof_id)
@@ -336,7 +336,7 @@ def api_professors():
     try:
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT id_professeur AS id, nom_prenom AS full_name, grade, charge_surv AS charge, 1 AS status FROM professeur ORDER BY nom_prenom LIMIT 1000")
+        cursor.execute("SELECT id_professeur AS id, nom_prenom AS full_name, grade, charge_surv AS charge, COALESCE(status, 1) AS status, email FROM professeur ORDER BY nom_prenom LIMIT 1000")
         rows = cursor.fetchall()
         cursor.close()
         conn.close()
@@ -693,7 +693,7 @@ def save_data():
         cursor = conn.cursor(dictionary=True)
         
         # Pre-fetch all filières to do smart matching in Python (more flexible than SQL)
-        cursor.execute("SELECT id_filaire, abreviation_filaire, nom_filaire, annee FROM filaire")
+        cursor.execute("SELECT id_filaire, abreviation_filaire, nom_filaire, annee, type_filaire FROM filaire")
         db_filiaires = cursor.fetchall()
 
         def normalize(s):
