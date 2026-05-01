@@ -54,51 +54,51 @@
         }
 
         :root {
-            --bg:        #EEF2F7;
-            --surface:   #FFFFFF;
-            --surface2:  #F4F7FB;
-            --border:    #DDE3ED;
-            --border2:   #C5CFDF;
-            --navy:      #13213A;
-            --navy2:     #1A2D4F;
-            --accent:    #38BDBE;
+            --bg: #EEF2F7;
+            --surface: #FFFFFF;
+            --surface2: #F4F7FB;
+            --border: #DDE3ED;
+            --border2: #C5CFDF;
+            --navy: #13213A;
+            --navy2: #1A2D4F;
+            --accent: #38BDBE;
             --accent-lt: rgba(56, 189, 190, 0.1);
-            --amber:     #E8960A;
-            --amber-lt:  #FEF3C7;
-            --green:     #059669;
-            --green-lt:  #D1FAE5;
-            --red:       #DC2626;
-            --red-lt:    #FEE2E2;
-            --text:      #0F1A2E;
-            --text2:     #2D405A;
-            --text3:     #6B7E97;
-            --sh:        0 1px 4px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
-            --sh2:       0 4px 16px rgba(0,0,0,0.09), 0 2px 6px rgba(0,0,0,0.06);
-            --hdr-bg:    #13213A;
+            --amber: #E8960A;
+            --amber-lt: #FEF3C7;
+            --green: #059669;
+            --green-lt: #D1FAE5;
+            --red: #DC2626;
+            --red-lt: #FEE2E2;
+            --text: #0F1A2E;
+            --text2: #2D405A;
+            --text3: #6B7E97;
+            --sh: 0 1px 4px rgba(0, 0, 0, 0.07), 0 1px 2px rgba(0, 0, 0, 0.05);
+            --sh2: 0 4px 16px rgba(0, 0, 0, 0.09), 0 2px 6px rgba(0, 0, 0, 0.06);
+            --hdr-bg: #13213A;
         }
 
         :root.dark-mode {
-            --bg:        #0B1220;
-            --surface:   #131F35;
-            --surface2:  #1C2C46;
-            --border:    #243351;
-            --border2:   #2E4368;
-            --navy:      #38BDBE;
-            --navy2:     #6DD5D6;
-            --accent:    #38BDBE;
+            --bg: #0B1220;
+            --surface: #131F35;
+            --surface2: #1C2C46;
+            --border: #243351;
+            --border2: #2E4368;
+            --navy: #38BDBE;
+            --navy2: #6DD5D6;
+            --accent: #38BDBE;
             --accent-lt: rgba(56, 189, 190, 0.12);
-            --amber:     #FBBF24;
-            --amber-lt:  rgba(251, 191, 36, 0.1);
-            --green:     #34D399;
-            --green-lt:  rgba(52, 211, 153, 0.1);
-            --red:       #F87171;
-            --red-lt:    rgba(248, 113, 113, 0.1);
-            --text:      #E2EAF4;
-            --text2:     #A8BECE;
-            --text3:     #6B7E97;
-            --sh:        0 4px 16px rgba(0,0,0,0.35);
-            --sh2:       0 8px 32px rgba(0,0,0,0.45);
-            --hdr-bg:    #0B1220;
+            --amber: #FBBF24;
+            --amber-lt: rgba(251, 191, 36, 0.1);
+            --green: #34D399;
+            --green-lt: rgba(52, 211, 153, 0.1);
+            --red: #F87171;
+            --red-lt: rgba(248, 113, 113, 0.1);
+            --text: #E2EAF4;
+            --text2: #A8BECE;
+            --text3: #6B7E97;
+            --sh: 0 4px 16px rgba(0, 0, 0, 0.35);
+            --sh2: 0 8px 32px rgba(0, 0, 0, 0.45);
+            --hdr-bg: #0B1220;
         }
 
         .dark-mode .hdr {
@@ -286,7 +286,9 @@
             transition: border-color 0.2s;
         }
 
-        .sbox:hover { border-color: var(--accent); }
+        .sbox:hover {
+            border-color: var(--accent);
+        }
 
         .slbl {
             font-size: 9px;
@@ -303,8 +305,13 @@
             color: var(--navy);
         }
 
-        .sval.a { color: var(--amber); }
-        .sval.g { color: var(--green); }
+        .sval.a {
+            color: var(--amber);
+        }
+
+        .sval.g {
+            color: var(--green);
+        }
 
         /* Profile Edit Modal Styles */
         .prof-modal-overlay {
@@ -1283,50 +1290,50 @@
 
         /* Legend dots for row status */
         .dot-ok {
-            background-color: #059669;
-            box-shadow: 0 0 6px rgba(5, 150, 105, 0.6);
+            background-color: #10B981;
+            box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
         }
 
         .dot-warn {
-            background-color: #DC2626;
-            box-shadow: 0 0 6px rgba(220, 38, 38, 0.6);
+            background-color: #3B82F6;
+            box-shadow: 0 0 6px rgba(59, 130, 246, 0.6);
         }
 
         /* Analysis Row Colors – professional & high-contrast */
         .analyse-row-ok {
-            background-color: #ECFDF5 !important;
-            border-left: 4px solid #059669 !important;
+            background-color: #F0FDF4 !important;
+            border-left: 4px solid #10B981 !important;
         }
 
         .analyse-row-ok td {
-            color: #064E3B !important;
+            color: #047857 !important;
             font-weight: 600 !important;
         }
 
         .analyse-row-ok .font-black {
-            color: #064E3B !important;
+            color: #047857 !important;
         }
 
         .analyse-row-ok:hover {
-            background-color: #D1FAE5 !important;
+            background-color: #DCFCE7 !important;
         }
 
         .analyse-row-warn {
-            background-color: #FFF5F5 !important;
-            border-left: 4px solid #DC2626 !important;
+            background-color: #EFF6FF !important;
+            border-left: 4px solid #3B82F6 !important;
         }
 
         .analyse-row-warn td {
-            color: #7F1D1D !important;
+            color: #1E40AF !important;
             font-weight: 600 !important;
         }
 
         .analyse-row-warn .font-black {
-            color: #7F1D1D !important;
+            color: #1E40AF !important;
         }
 
         .analyse-row-warn:hover {
-            background-color: #FEE2E2 !important;
+            background-color: #DBEAFE !important;
         }
 
         /* Override navy text inside coloured rows */
@@ -1337,7 +1344,7 @@
 
         .analyse-row-warn .text-navy,
         .analyse-row-warn .text-navy2 {
-            color: #991B1B !important;
+            color: #1E3A8A !important;
         }
     </style>
 </head>
@@ -1353,7 +1360,8 @@
                     <div class="stats-banner-title">
                         <div class="flex items-center gap-3">
                             <div class="eyebrow">Répertoire Académique — ISSAT Sousse</div>
-                            <div id="status-badge" class="hidden px-2 py-0.5 bg-green-100 text-green-700 text-[9px] font-black uppercase tracking-widest rounded-full border border-green-200">
+                            <div id="status-badge"
+                                class="hidden px-2 py-0.5 bg-green-100 text-green-700 text-[9px] font-black uppercase tracking-widest rounded-full border border-green-200">
                                 Officiel
                             </div>
                         </div>
@@ -1953,7 +1961,7 @@
 
                 let optionsHtml = validOptions.map(opt => `
                     <div class="filter-option ${isSelected(opt.value) ? 'active' : ''} ${opt.count === 0 ? 'opacity-40 grayscale pointer-events-none' : ''}" 
-                         onclick="${group.id === 'day' ? `selectedDay=${opt.value}; renderView();` : `toggleFilter('${group.id}', '${opt.value}')`}">
+                         onclick="${group.id === 'day' ? `selectedDay=${opt.value}; renderFilters(); renderView();` : `toggleFilter('${group.id}', '${opt.value}')`}">
                         <div class="cb-container"><div class="cb-mark"></div></div>
                         <span>${opt.label}</span>
                         <span class="count-pill">(${opt.count})</span>
@@ -2478,7 +2486,7 @@
                 const surcharge = Math.max(0, p.charge - 4);
                 const isSurcharge = p.charge > 4;
                 return `
-                                        <tr class="${isSurcharge ? 'analyse-row-warn' : 'analyse-row-ok'} transition-all cursor-default">
+                                        <tr class="${isAnalyseMode ? (isSurcharge ? 'analyse-row-warn' : 'analyse-row-ok') : 'hover:bg-navy/[0.02] bg-white border-b border-border/10'} transition-all cursor-default">
                                             <td class="p-4 text-center text-text3 font-black opacity-30">${idx + 1}</td>
                                             <td class="p-4">
                                                 <div class="font-black text-navy uppercase tracking-tight">${p.name}</div>
@@ -2487,11 +2495,11 @@
                                             <td class="p-4">
                                                 <span class="badge-grade ${getGradeBadgeClass(p.grade)}">${p.grade || 'N/A'}</span>
                                             </td>
-                                            ${isAnalyseMode || true ? `
+                                            ${isAnalyseMode ? `
                                                 <td class="p-4 text-center font-black">${p.charge || 0}</td>
-                                                <td class="p-4 text-center font-black text-red">4</td>
+                                                <td class="p-4 text-center font-black" style="color: #3B82F6;">4</td>
                                                 <td class="p-4 text-center">
-                                                    <span class="px-4 py-1 rounded-full font-black text-xs ${surcharge > 0 ? 'bg-red text-white shadow-lg shadow-red/20' : 'bg-green text-white shadow-lg shadow-green/20'}">
+                                                    <span class="px-4 py-1 rounded-full font-black text-xs ${surcharge > 0 ? 'text-white shadow-lg' : 'bg-green text-white shadow-lg shadow-green/20'}" style="${surcharge > 0 ? 'background-color: #3B82F6; box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);' : ''}">
                                                         ${surcharge > 0 ? '+' : ''}${surcharge}
                                                     </span>
                                                 </td>
@@ -2619,27 +2627,27 @@
                 if (data.distribution) {
                     const bloc = (data.distribution.bloc || 'matin').toLowerCase();
                     const slotsMap = data.distribution[bloc] || {};
-                    
+
                     // The distribution stores by Slot Name (e.g., "Slot 1")
                     // We need to map Slot 1 -> 08:30, Slot 2 -> 10:15, etc.
                     const dayLabels = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
-                    
+
                     slots.forEach(slot => {
                         const slotIdx = timeSlots.findIndex(ts => ts.start === slot.heure_debut);
                         if (slotIdx === -1) return;
-                        
+
                         const slotKey = `Slot ${slotIdx + 1}`;
                         const roomsInSlot = slotsMap[slotKey] || {};
-                        
+
                         // Find if this filiere is in any room in this slot
                         for (const roomName in roomsInSlot) {
                             const distributedFils = roomsInSlot[roomName];
                             // Check if filiere abbreviation or name matches
-                            const matches = distributedFils.some(f => 
-                                f.toLowerCase().includes(filiereObj.abreviation_filaire.toLowerCase()) || 
+                            const matches = distributedFils.some(f =>
+                                f.toLowerCase().includes(filiereObj.abreviation_filaire.toLowerCase()) ||
                                 f.toLowerCase().includes(filiereObj.nom.toLowerCase())
                             );
-                            
+
                             if (matches) {
                                 slot.salle = roomName;
                                 break;
@@ -2845,7 +2853,7 @@
                         if (m.id_professeur) {
                             const profId = 'p' + m.id_professeur;
                             if (!nodeMap.has(profId)) {
-                                nodes.push({ id: profId, name: m.professeur, type: 'prof' });
+                                nodes.push({ id: profId, name: m.prof_nom || 'Inconnu', type: 'prof' });
                                 nodeMap.set(profId, true);
                             }
                             links.push({ source: matId, target: profId });
@@ -3038,15 +3046,24 @@
             const dayNames = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
             const currentDayLabel = dayNames[selectedDay - 1];
 
-            // 1. Filter Rooms and Group by Block
-            const targetRooms = data.rooms.filter(r =>
-                r.Salle.startsWith('K') || r.Salle.startsWith('M') || r.Salle.startsWith('I')
-            ).sort((a, b) => a.Salle.localeCompare(b.Salle));
+            // 1. Filter Rooms and Group by Block Dynamically
+            const allRooms = data.rooms || [];
+            const blockSet = new Set();
+            allRooms.forEach(r => {
+                if (r.Salle && r.Salle.length > 0) {
+                    const firstChar = r.Salle.charAt(0).toUpperCase();
+                    if (/[A-Z]/.test(firstChar)) {
+                        blockSet.add(firstChar);
+                    }
+                }
+            });
+            const blocks = Array.from(blockSet).sort();
 
-            const blocks = ['K', 'M', 'I'];
             const groupedRooms = {};
+            let targetRoomsCount = 0;
             blocks.forEach(b => {
-                groupedRooms[b] = targetRooms.filter(r => r.Salle.startsWith(b));
+                groupedRooms[b] = allRooms.filter(r => r.Salle && r.Salle.toUpperCase().startsWith(b)).sort((a, b) => a.Salle.localeCompare(b.Salle));
+                targetRoomsCount += groupedRooms[b].length;
             });
 
             // 2. Filter Timetable for current day and session
@@ -3094,7 +3111,7 @@
                         <div class="flex items-center gap-4">
                             <div class="stats-card bg-surface2 border border-border p-4 rounded-2xl text-center min-w-[140px]">
                                 <div class="text-[9px] font-black text-navy/40 uppercase tracking-widest mb-1">Total Requis</div>
-                                <div class="text-2xl font-serif text-navy">${targetRooms.length * 2}</div>
+                                <div class="text-2xl font-serif text-navy">${targetRoomsCount * 2}</div>
                             </div>
                             <div class="stats-card bg-emerald/5 border border-emerald/10 p-4 rounded-2xl text-center min-w-[140px]">
                                 <div class="text-[9px] font-black text-emerald/60 uppercase tracking-widest mb-1">Aujourd'hui</div>
@@ -3102,7 +3119,7 @@
                             </div>
                             <div class="stats-card bg-amber/5 border border-amber/10 p-4 rounded-2xl text-center min-w-[140px]">
                                 <div class="text-[9px] font-black text-amber/60 uppercase tracking-widest mb-1">Renfort Demain</div>
-                                <div class="text-2xl font-serif text-amber">${Math.max(0, (targetRooms.length * 2) - profsToday.length)}</div>
+                                <div class="text-2xl font-serif text-amber">${Math.max(0, (targetRoomsCount * 2) - profsToday.length)}</div>
                             </div>
                         </div>
                     </div>
@@ -3116,8 +3133,20 @@
                 html += `
                     <div class="mb-12">
                         <div class="flex items-center gap-4 mb-6">
-                            <div class="w-12 h-12 rounded-2xl bg-navy text-white flex items-center justify-center font-black text-xl shadow-lg ring-4 ring-navy/5">
-                                ${block}
+                            <div class="w-12 h-12 rounded-xl bg-navy/10 text-navy flex items-center justify-center shadow-sm border border-navy/20">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+                                    <path d="M9 22v-4h6v4"></path>
+                                    <path d="M8 6h.01"></path>
+                                    <path d="M16 6h.01"></path>
+                                    <path d="M12 6h.01"></path>
+                                    <path d="M12 10h.01"></path>
+                                    <path d="M12 14h.01"></path>
+                                    <path d="M16 10h.01"></path>
+                                    <path d="M16 14h.01"></path>
+                                    <path d="M8 10h.01"></path>
+                                    <path d="M8 14h.01"></path>
+                                </svg>
                             </div>
                             <div>
                                 <h3 class="text-xl font-bold text-navy uppercase tracking-widest">Bâtiment ${block}</h3>
@@ -3126,8 +3155,8 @@
                             <div class="h-px bg-border flex-1 ml-4 opacity-30"></div>
                         </div>
 
-                        <div class="card !p-0 overflow-hidden shadow-xl border-border/40 mb-8">
-                            <table class="w-full text-left border-collapse">
+                        <div class="card !p-0 overflow-x-auto shadow-xl border-border/40 mb-8">
+                            <table class="w-full text-left border-collapse min-w-[600px]">
                                 <thead>
                                     <tr class="bg-surface2 border-b border-border text-[10px] font-black text-navy2 uppercase tracking-widest">
                                         <th class="p-5 w-48 border-r border-border/10">Salle</th>
