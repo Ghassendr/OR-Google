@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Indisponibilités — ISSAT Sousse</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/sidebar-component.css">
+    <style>
+        :root {
+            --primary: #38BDBE;
+            --primary-dark: #13213A;
+            --bg: #EEF2F7;
+            --surface: #FFFFFF;
+            --text: #0F1A2E;
+            --text-muted: #6B7E97;
+            --border: #DDE3ED;
+            --red: #DC2626;
+            --green: #059669;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 0; /* Adjusted by body class in JS */
+            transition: margin-left 0.3s;
+        }
+
+        body.sidebar-collapsed .main-content {
+            margin-left: 0;
+        }
+        
+        @media (min-width: 1025px) {
+            .main-content {
+                margin-left: 280px;
+            }
+            body.sidebar-collapsed .main-content {
+                margin-left: 80px;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            background: var(--surface);
+            padding: 20px 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .user-info h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+        }
+
+        .user-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        .card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: 100px repeat(6, 1fr);
+            gap: 8px;
+            min-width: 700px;
+        }
+
+        .grid-header {
+            background: var(--primary-dark);
+            color: white;
+            padding: 12px;
+            text-align: center;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .grid-time {
+            background: #F8FAFC;
+            color: var(--primary-dark);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            font-weight: 700;
+            border: 1px solid var(--border);
+        }
+
+        .grid-cell {
+            background: white;
+            border: 1.5px solid var(--border);
+            border-radius: 6px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .grid-cell:hover {
+            border-color: var(--primary);
+            background: #F0FDFA;
+        }
+
+        .grid-cell.selected {
+            background: #FEE2E2;
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .grid-cell.selected::after {
+            content: '✕ Absent';
+        }
+
+        .grid-cell:not(.selected)::after {
+            content: '—';
+            opacity: 0.3;
+        }
+
+        .all-btn {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: white;
+            cursor: pointer;
+        }
+
+        .all-btn-dark {
+            background: white;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            display: none;
+        }
+
+        .alert-success { background: #D1FAE5; color: #065F46; }
+        .alert-error { background: #FEE2E2; color: #991B1B; }
+
+        @media (max-width: 768px) {
+            .container { padding: 10px; }
+            .header { flex-direction: column; gap: 16px; text-align: center; }
+            .card { overflow-x: auto; }
+        }
+    </style>
+<body>
+    <div id="sidebar-container"></div>
+
+    <div class="main-content">
+        <div class="container">
+            <div id="loading" style="text-align: center; padding: 50px;">Chargement...</div>
+
+        <div id="content" style="display: none;">
+            <div class="header">
+                <div class="user-info">
+                    <h1 id="user-name">Chargement...</h1>
+                    <p id="user-grade">Chargement...</p>
+                </div>
+                <button class="btn btn-outline" onclick="logout()">Déconnexion</button>
+            </div>
+
+            <div id="alert" class="alert"></div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 style="font-size: 1.1rem; color: var(--primary-dark)">Mes Matières & Devoirs</h2>
+                    <p style="font-size: 0.8rem; color: var(--text-muted)">Cochez les matières nécessitant un DS (Devoir Surveillé)</p>
+                </div>
+                <div id="matieres-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px;">
+                    <!-- Filled by JS -->
+                </div>
+                <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+                    <button class="btn btn-primary" style="background: var(--primary-dark);" id="save-mat-btn" onclick="saveMatieres()">Enregistrer mes matières</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 style="font-size: 1.1rem; color: var(--primary-dark)">Indiquez vos séances d'indisponibilité</h2>
+                    <button class="btn btn-outline" style="padding: 5px 12px; font-size: 0.8rem;" onclick="clearAll()">Effacer tout</button>
+                </div>
+
+                <div class="card" style="padding: 0; border: none; box-shadow: none;">
+                    <div class="schedule-grid" id="schedule-grid">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; margin-top: 24px;">
+                    <button class="btn btn-primary" id="save-btn" onclick="save()">Enregistrer mes choix</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const DAYS = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+        const SLOTS = ['S1', 'S2', 'S3', 'S4'];
+        let selections = new Set();
+        let matieres = [];
+        let userData = null;
+
+        async function init() {
+            try {
+                const res = await fetch('/api/auth/me-prof');
+                if (!res.ok) throw new Error('Non autorisé');
+                
+                const data = await res.json();
+                userData = data.user;
+                matieres = data.matieres || [];
+                
+                document.getElementById('user-name').textContent = userData.nom_prenom;
+                document.getElementById('user-grade').textContent = `${userData.grade} | Charge : ${userData.rest_charger}`;
+                
+                if (data.declarations) {
+                    data.declarations.forEach(d => {
+                        selections.add(`${d.jour}|${d.seance}`);
+                    });
+                }
+                
+                renderGrid();
+                renderMatieres();
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+            } catch (err) {
+                window.location.href = '/login-page';
+            }
+        }
+
+        function renderMatieres() {
+            const list = document.getElementById('matieres-list');
+            if (!matieres.length) {
+                list.innerHTML = '<p style="grid-column: 1/-1; color: var(--text-muted); font-style: italic;">Aucune matière assignée pour le moment.</p>';
+                return;
+            }
+            
+            list.innerHTML = matieres.map(m => `
+                <div style="border: 1.5px solid var(--border); border-radius: 10px; padding: 12px; display: flex; align-items: center; justify-content: space-between; background: #fdfdfd;">
+                    <div>
+                        <div style="font-weight: 600; font-size: 0.9rem;">${m.nom_matiere}</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted)">ID: ${m.id_matiere}</div>
+                    </div>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none;">
+                        <span style="font-size: 0.75rem; font-weight: 600; color: ${m.has_ds ? 'var(--primary)' : 'var(--text-muted)'}">${m.has_ds ? 'DS' : '—'}</span>
+                        <input type="checkbox" ${m.has_ds ? 'checked' : ''} onchange="updateMatLocal(${m.id_matiere}, this.checked)" style="accent-color: var(--primary); width: 18px; height: 18px;">
+                    </label>
+                </div>
+            `).join('');
+        }
+
+        function updateMatLocal(id, checked) {
+            const mat = matieres.find(m => m.id_matiere === id);
+            if (mat) mat.has_ds = checked ? 1 : 0;
+            renderMatieres();
+        }
+
+        async function saveMatieres() {
+            const btn = document.getElementById('save-mat-btn');
+            btn.disabled = true;
+            btn.textContent = 'Enregistrement...';
+
+            try {
+                const res = await fetch('/api/prof/matieres', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ matieres: matieres })
+                });
+                if (!res.ok) throw new Error('Erreur');
+                showAlert('Matières mises à jour !', 'success');
+            } catch (err) {
+                showAlert('Erreur lors de la sauvegarde', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Enregistrer mes matières';
+            }
+        }
+
+        function renderGrid() {
+            const grid = document.getElementById('schedule-grid');
+            grid.innerHTML = '';
+
+            // Header corner
+            const corner = document.createElement('div');
+            corner.className = 'grid-header';
+            corner.innerHTML = '<span>Séances</span><span>↓ Jours →</span>';
+            grid.appendChild(corner);
+
+            // Day headers
+            DAYS.forEach(day => {
+                const h = document.createElement('div');
+                h.className = 'grid-header';
+                h.innerHTML = `<span>${day}</span><button class="all-btn" onclick="selectDayAll('${day}')">Tous</button>`;
+                grid.appendChild(h);
+            });
+
+            // Rows
+            SLOTS.forEach(slot => {
+                const timeLabel = document.createElement('div');
+                timeLabel.className = 'grid-time';
+                timeLabel.innerHTML = `<span>${slot}</span><button class="all-btn all-btn-dark" onclick="selectSlotAll('${slot}')">Tous</button>`;
+                grid.appendChild(timeLabel);
+
+                DAYS.forEach(day => {
+                    const cell = document.createElement('div');
+                    const key = `${day}|${slot}`;
+                    cell.className = 'grid-cell' + (selections.has(key) ? ' selected' : '');
+                    cell.onclick = () => toggleCell(day, slot);
+                    grid.appendChild(cell);
+                });
+            });
+        }
+
+        function toggleCell(day, slot) {
+            const key = `${day}|${slot}`;
+            if (selections.has(key)) selections.delete(key);
+            else selections.add(key);
+            renderGrid();
+        }
+
+        function selectDayAll(day) {
+            const allSelected = SLOTS.every(s => selections.has(`${day}|${s}`));
+            if (allSelected) SLOTS.forEach(s => selections.delete(`${day}|${s}`));
+            else SLOTS.forEach(s => selections.add(`${day}|${s}`));
+            renderGrid();
+        }
+
+        function selectSlotAll(slot) {
+            const allSelected = DAYS.every(d => selections.has(`${d}|${slot}`));
+            if (allSelected) DAYS.forEach(d => selections.delete(`${d}|${slot}`));
+            else DAYS.forEach(d => selections.add(`${d}|${slot}`));
+            renderGrid();
+        }
+
+        function clearAll() {
+            selections.clear();
+            renderGrid();
+        }
+
+        async function save() {
+            const btn = document.getElementById('save-btn');
+            btn.disabled = true;
+            btn.textContent = 'Enregistrement...';
+            
+            const formatted = Array.from(selections).map(s => {
+                const [jour, slot_name] = s.split('|');
+                return { jour, slot_name };
+            });
+
+            try {
+                const res = await fetch('/api/declarations', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ selections: formatted })
+                });
+                if (!res.ok) throw new Error('Erreur');
+                showAlert('Indisponibilités enregistrées avec succès', 'success');
+            } catch (err) {
+                showAlert('Erreur lors de la sauvegarde', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Enregistrer mes choix';
+            }
+        }
+
+        function showAlert(msg, type) {
+            const alert = document.getElementById('alert');
+            alert.textContent = msg;
+            alert.className = `alert alert-${type}`;
+            alert.style.display = 'block';
+            setTimeout(() => { alert.style.display = 'none'; }, 5000);
+        }
+
+        function logout() {
+            if (window.SidebarComponent) {
+                SidebarComponent.handleLogout();
+            } else {
+                document.cookie = "prof_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                window.location.href = '/login-page';
+            }
+        }
+
+        init();
+    </script>
+    <script src="/sidebar-component.js"></script>
+</body>
+</html>

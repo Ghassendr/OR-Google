@@ -100,10 +100,10 @@ def get_db_connection():
 
     cfg = {
         'host': os.getenv('DB_HOST', '127.0.0.1'),
-        'port': int(os.getenv('DB_PORT', '3307')),
-        'user': os.getenv('DB_USER', 'exam_user'),
-        'password': os.getenv('DB_PASSWORD', 'exam_password'),
-        'database': os.getenv('DB_NAME', 'OR_google_database'),
+        'port': int(os.getenv('DB_PORT', '3306')),
+        'user': os.getenv('DB_USER', 'root'),
+        'password': os.getenv('DB_PASSWORD', ''),
+        'database': os.getenv('DB_NAME', 'gestion_examens_s1'),
         'charset': 'utf8mb4'
     }
     return mysql.connector.connect(**cfg)
@@ -179,7 +179,7 @@ def login():
             if user['role'] == 'PROFESSOR':
                 redirect_url = '/absence-page'
                 
-            return jsonify({
+            resp = jsonify({
                 'status': 'success',
                 'redirect': redirect_url,
                 'user': {
@@ -188,6 +188,8 @@ def login():
                     'full_name': session['full_name']
                 }
             })
+            resp.delete_cookie('prof_token')
+            return resp
         
         return jsonify({'error': 'Identifiants invalides'}), 401
     except Exception as e:
@@ -275,10 +277,31 @@ def register():
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
     session.clear()
-    return jsonify({'status': 'success'})
+    resp = jsonify({'status': 'success'})
+    resp.delete_cookie('prof_token')
+    return resp
 
 @app.route('/api/me', methods=['GET'])
 def get_me():
+    # 1. Check Magic Link Cookie (Priority for Professors)
+    token = request.cookies.get('prof_token')
+    if token:
+        try:
+            data = jwt.decode(token, JWT_SECRET, algorithms=['HS256'])
+            return jsonify({
+                'logged_in': True,
+                'user': {
+                    'id': data.get('id'),
+                    'username': data.get('email'),
+                    'role': 'PROFESSOR',
+                    'prof_id': data.get('id'),
+                    'full_name': data.get('full_name', 'Enseignant')
+                }
+            })
+        except:
+            pass
+
+    # 2. Check Standard Session
     if 'user_id' in session:
         return jsonify({
             'logged_in': True,
@@ -290,6 +313,7 @@ def get_me():
                 'full_name': session.get('full_name', session.get('username', 'Utilisateur'))
             }
         })
+            
     return jsonify({'logged_in': False}), 200
 
 # --- Update Routes ---
@@ -812,6 +836,7 @@ def verify_token_page():
         prof = cursor.fetchone()
         
         conn.commit()
+        session.clear() # Fix identity conflict
 
         # Issue JWT
         jwt_token = jwt.encode({
@@ -887,10 +912,13 @@ def get_prof_me():
 @app.route('/api/declarations', methods=['POST'])
 @prof_required
 def save_declarations():
-    selections = request.json.get('selections', [])
-    prof_id = request.prof_user['id']
-    
     try:
+        data = request.get_json()
+        selections = data.get('selections', [])
+        prof_id = request.prof_user['id']
+        
+        print(f"DEBUG: Saving declarations for prof_id={prof_id}, count={len(selections)}")
+        
         conn = get_db_connection()
         cursor = conn.cursor()
         
@@ -905,19 +933,24 @@ def save_declarations():
             )
         
         conn.commit()
+        print("DEBUG: Declarations saved successfully")
         return jsonify({'message': 'Indisponibilités enregistrées avec succès'})
     except Exception as e:
+        print(f"ERROR in save_declarations: {str(e)}")
         return jsonify({'error': str(e)}), 500
     finally:
-        if conn: conn.close()
+        if 'conn' in locals() and conn: conn.close()
 
 @app.route('/api/prof/matieres', methods=['POST'])
 @prof_required
 def save_prof_matieres():
-    matieres = request.json.get('matieres', [])
-    prof_id = request.prof_user['id']
-    
     try:
+        data = request.get_json()
+        matieres = data.get('matieres', [])
+        prof_id = request.prof_user['id']
+        
+        print(f"DEBUG: Saving matieres for prof_id={prof_id}, count={len(matieres)}")
+        
         conn = get_db_connection()
         cursor = conn.cursor()
         
@@ -928,11 +961,13 @@ def save_prof_matieres():
             )
         
         conn.commit()
+        print("DEBUG: Matieres saved successfully")
         return jsonify({'message': 'Matières mises à jour avec succès'})
     except Exception as e:
+        print(f"ERROR in save_prof_matieres: {str(e)}")
         return jsonify({'error': str(e)}), 500
     finally:
-        if conn: conn.close()
+        if 'conn' in locals() and conn: conn.close()
 
 @app.route('/absence-page')
 def absence_page():

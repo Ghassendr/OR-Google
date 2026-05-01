@@ -1070,7 +1070,7 @@
             showToast('Sauvegarde en cours…', 'loading');
 
             try {
-                const resp   = await fetch('/api/save-filiers', {
+                const resp   = await fetch('/save-data', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ filiers: extractedData })
